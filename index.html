@@ -543,6 +543,99 @@ BjYgP62KvhIvW8BbkGUelYMetA
       </section>
     </section>
 
+    <section id="production">
+      <h2>Production</h2>
+
+      <p>
+        This section describes how to produce a VC-JWT encoded
+        <code>VerifiableCredential</code> from a <code>Credential</code>.
+      </p>
+
+      <p class="advisment">
+        There are currently 2 competing solutions to this problem. It is a goal
+        of the v2 work to define a breaking change to the specification that
+        reduces production rules to a single, simple, set of instructions that
+        any implementer can easily meet if they posses a software library
+        supporting [[RFC7515]] or [[RFC7519]].
+      </p>
+
+      <section>
+        <h3>In addition to...</h3>
+
+        <p>
+          There are several members (claims) of the
+          <code>Credential</code> which will need to be translated to their JOSE
+          form, and included next to the <code>vc</code> or
+          <code>vp</code> member in the <code>payload</code>.
+        </p>
+
+        <p>
+          If a member is not present in the <code>Credential</code> it MUST NOT
+          be present in the <code>VerifiableCredential</code> as either a claim
+          in the payload or a claim in the <code>vc</code> attribute of the
+          payload.
+        </p>
+
+        <p>
+          We start with an empty header, and payload objects, and we add members
+          to the header and the payload based on the content in the
+          <code>Credential</code>.
+        </p>
+
+        <section>
+          <h4>issuer -> iss</h4>
+
+          <p>
+            This member MUST be present in the
+            <code>payload.vc.issuer</code> attribute as either a string or an
+            <code>object</code> with and <code>id</code>.
+          </p>
+
+          <p>This member MUST be present <code>payload.iss</code>.</p>
+
+          <p>
+            In the case that <code>payload.vc.issuer</code> is an object,
+            <code>payload.iss</code> MUST be <code>payload.vc.issuer.id</code>.
+          </p>
+
+          <p>
+            In the case that
+            <code>payload.vc.issuer</code> is a string,
+            <code>payload.iss</code> must be
+            <code>payload.vc.issuer</code>
+          </p>
+        </section>
+
+        <section>
+          <h4>issuanceDate -> nbf</h4>
+
+          <p>
+            This member MUST be present in the
+            <code>payload.vc.issuanceDate</code> attribute as an XMLDateTime
+            String.
+          </p>
+
+          <p>
+            This member MUST be present <code>payload.nbf</code> as a unix
+            timestamp.
+          </p>
+
+          <p>
+            In the case that the <code>issuanceDate</code> includes leap
+            seconds, it is not possible to detect them when the date time is
+            represented in <code>nbf</code>
+          </p>
+        </section>
+
+        <p class="issue">This section needs to be defined.</p>
+      </section>
+
+      <section>
+        <h3>Instead of...</h3>
+        <p class="issue">This section needs to be defined.</p>
+      </section>
+    </section>
+
     <section>
       <h2>Privacy Considerations</h2>
     </section>
