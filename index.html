@@ -99,14 +99,14 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
       <h4>JSON Web Token</h4>
 
       <p>
-        JSON Web Token (JWT) [[!RFC7519]] is a widely used means to
-        express
+        JSON Web Token (JWT) [[!RFC7519]] is a widely-used means of
+        expressing
         <a>claims</a> to be transferred between two parties. Providing a
         representation of the Verifiable Credentials Data Model for JWT allows
         existing systems and libraries to participate in the ecosystem described
         in Section <a href="#ecosystem-overview"></a>. A JWT encodes a set of
         <a>claims</a> as a JSON object that is contained in a JSON Web Signature
-        (JWS) [[!RFC7515]] or JWE [[?RFC7516]]. For this specification, the use
+        (JWS) [[!RFC7515]] and/or JSON Web Encryption (JWE) [[?RFC7516]]. For this specification, the use
         of JWE is out of scope.
       </p>
 
@@ -115,7 +115,7 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
 
         <p>
           This specification defines encoding rules of the Verifiable Credential
-          Data Model onto JWT and JWS. It further defines processing rules how
+          Data Model onto JWT and JWS. It further defines processing rules for how
           and when to make use of specific JWT-registered <a>claim</a> names and
           specific JWS-registered header parameter names to allow systems based
           on JWT to comply with this specification. If these specific
@@ -170,7 +170,7 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
 
           <p>
             If no explicit rule is specified, <a>properties</a> are encoded in
-            the same way as with a standard <a>credential</a>, and are added to
+            the same way as with a standard <a>credential</a>, and the encoded <a>properties</a> are then added to
             the <code>vc</code> <a>claim</a> of the JWT. As with all JWTs, the
             JWS-based signature of a <a>verifiable credential</a> represented in
             the JWT syntax is calculated against the literal JWT string value as
@@ -297,7 +297,7 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
             might support multiple subjects in the future and implementers are
             advised to refer to the
             <a href="https://www.iana.org/assignments/jwt/">
-              JSON Web Token Claim Registry</a
+              JSON Web Token Claims Registry</a
             >
             for multi-subject JWT claim names or the
             <a
@@ -324,7 +324,7 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
               <a>claim</a> to the new JSON object.
             </li>
             <li>
-              Transform the remaining JWT specific headers and <a>claims</a>,
+              Transform the remaining JWT specific headers and <a>claims</a>
               and add the results to the new <a>credential</a> or
               <a>presentation</a> JSON object.
             </li>
