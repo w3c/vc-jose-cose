@@ -129,7 +129,7 @@
           which contain those parts of the standard
           <a>verifiable credentials</a> and
           <a>verifiable presentations</a> where no explicit encoding rules for
-          JWT exist. These objects are enclosed in the JWT payload as follows:
+          JWT exist. These objects are enclosed in the JWT Claims Set as follows:
         </p>
 
         <ul>
@@ -180,7 +180,7 @@
             <a>issuer</a> of the <a>verifiable credential</a>, or in the case of
             a <a>verifiable presentation</a>, to the <a>holder</a> of the
             <a>verifiable credential</a>. The JWS proves that the
-            <code>iss</code> of the JWT signed the contained JWT payload and
+            <code>iss</code> of the JWT signed the contained JWT Claims Set and
             therefore, the <code>proof</code> <a>property</a> can be omitted.
           </p>
 
@@ -391,7 +391,7 @@
 
           <pre
             class="example nohighlight"
-            title="JWT payload of a JWT-based verifiable credential using JWS as a proof (non-normative)"
+            title="JWT Claims Set of a JWT-based verifiable credential using JWS as a proof (non-normative)"
           >
 {
 "sub": "did:example:ebfeb1f712ebc6f1c276e12ec21",
@@ -469,7 +469,7 @@ txJy6M1-lD7a5HTzanYTWBPAUHDZGyGKXdJw-W_x0IWChBzI8t3kpG253fg6V3tPgHeKXE94fz_QpYfg
 
           <pre
             class="example nohighlight"
-            title="JWT payload of a JWT based verifiable presentation (non-normative)"
+            title="JWT Claims Set of a JWT based verifiable presentation (non-normative)"
           >
 {
 "iss": "did:example:ebfeb1f712ebc6f1c276e12ec21",
@@ -566,7 +566,8 @@ BjYgP62KvhIvW8BbkGUelYMetA
           There are several members (claims) of the
           <code>Credential</code> which will need to be translated to their JOSE
           form, and included next to the <code>vc</code> or
-          <code>vp</code> member in the <code>payload</code>.
+          <code>vp</code> member in the JWT Claims Set. 
+          We refere to the JWT Claims Set as <code>payload</code> in this section.
         </p>
 
         <p>
