@@ -121,7 +121,7 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
           which contain those parts of the standard
           <a>verifiable credentials</a> and
           <a>verifiable presentations</a> where no explicit encoding rules for
-          JWT exist. These objects are enclosed in the JWT payload as follows:
+          JWT exist. These objects are enclosed in the JWT Claims Set as follows:
         </p>
 
         <ul>
@@ -172,7 +172,7 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
             <a>issuer</a> of the <a>verifiable credential</a>, or in the case of
             a <a>verifiable presentation</a>, to the <a>holder</a> of the
             <a>verifiable credential</a>. The JWS proves that the
-            <code>iss</code> of the JWT signed the contained JWT payload and
+            <code>iss</code> of the JWT signed the contained JWT Claims Set and
             therefore, the <code>proof</code> <a>property</a> can be omitted.
           </p>
 
@@ -368,7 +368,7 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
 
           <pre
             class="example nohighlight"
-            title="JWT payload of a JWT-based verifiable credential using JWS as a proof (non-normative)"
+            title="JWT Claims Set of a JWT-based verifiable credential using JWS as a proof (non-normative)"
           >
 {
 "sub": "did:example:ebfeb1f712ebc6f1c276e12ec21",
@@ -445,7 +445,7 @@ txJy6M1-lD7a5HTzanYTWBPAUHDZGyGKXdJw-W_x0IWChBzI8t3kpG253fg6V3tPgHeKXE94fz_QpYfg
 
           <pre
             class="example nohighlight"
-            title="JWT payload of a JWT based verifiable presentation (non-normative)"
+            title="JWT Claims Set of a JWT based verifiable presentation (non-normative)"
           >
 {
 "iss": "did:example:ebfeb1f712ebc6f1c276e12ec21",
@@ -516,6 +516,112 @@ kA5AoMbf5KtFueWnMcSbQkMRdWcGC1VssC0tB0JffVjq7ZV6OTyV4kl1-UVgiPLXUTpupFfLRhf9QpqM
 BjYgP62KvhIvW8BbkGUelYMetA
           </pre>
         </section>
+      </section>
+    </section>
+
+    <section id="production">
+      <h2>Production</h2>
+
+      <p>
+        This section describes how to produce a VC-JWT encoded
+        <code>VerifiableCredential</code> from a <code>Credential</code>.
+      </p>
+
+      <p class="advisment">
+        There are currently 2 competing solutions to this problem described below. It is a goal
+        of the v2 work to resolve them and
+        reduce production rules to a single, simple, set of instructions that
+        any implementer can easily meet if they possess a software library
+        supporting [[RFC7515]] or [[RFC7519]].
+      </p>
+
+      <section>
+        <h3>In addition to...</h3>
+
+        <p>
+          There are several members (claims) of the
+          <code>Credential</code> which will need to be translated to their JOSE
+          form, and included next to the <code>vc</code> or
+          <code>vp</code> member in the JWT Claims Set. 
+          We refer to the JWT Claims Set as <code>payload</code> in this section.
+        </p>
+
+        <p>
+          If a member is not present in the <code>Credential</code> it MUST NOT
+          be present in the <code>VerifiableCredential</code> as either a claim
+          in the payload or a claim in the <code>vc</code> attribute of the
+          payload.
+        </p>
+
+        <p>
+          We start with an empty header, and payload objects, and we add members
+          to the header and the payload based on the content in the
+          <code>Credential</code>.
+        </p>
+
+        <section>
+          <h4>issuer -> iss</h4>
+
+          <p>
+            This member MUST be present in the
+            <code>payload.vc.issuer</code> attribute as either a string or an
+            <code>object</code> with and <code>id</code>.
+          </p>
+
+          <p>This member MUST be present <code>payload.iss</code>.</p>
+
+          <p>
+            In the case that <code>payload.vc.issuer</code> is an object,
+            <code>payload.iss</code> MUST be <code>payload.vc.issuer.id</code>.
+          </p>
+
+          <p>
+            In the case that
+            <code>payload.vc.issuer</code> is a string,
+            <code>payload.iss</code> must be
+            <code>payload.vc.issuer</code>
+          </p>
+        </section>
+
+        <section>
+          <h4>issuanceDate -> nbf</h4>
+
+          <p>
+            This member MUST be present in the
+            <code>payload.vc.issuanceDate</code> attribute as an XMLDateTime
+            String.
+          </p>
+
+          <p>
+            This member MUST be present <code>payload.nbf</code> as a unix
+            timestamp.
+          </p>
+
+          <p>
+            In the case that the <code>issuanceDate</code> includes leap
+            seconds, it is not possible to detect them when the date time is
+            represented in <code>nbf</code>
+          </p>
+        </section>
+
+        <p class="issue">This section needs to be defined.</p>
+
+        <section>
+          <h4>issuance</h4>
+
+          <p>
+            The header and payload converted into a JWT, in accorance with the
+            RFC:
+            <a href="https://www.rfc-editor.org/rfc/rfc7519#section-7.1"
+              >RFC7519 Section 7.1</a
+            >
+          </p>
+        </section>
+      </section>
+
+      <section>
+        <h3>Instead of...</h3>
+        <p class="issue">This section needs to be defined.</p>
       </section>
     </section>
 
