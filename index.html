@@ -519,12 +519,14 @@ BjYgP62KvhIvW8BbkGUelYMetA
       </section>
     </section>
 
+    <section id="version-1.1">
+      <h2>Version 1.1</h2>
     <section id="production">
       <h2>Production</h2>
 
       <p>
         This section describes how to produce a VC-JWT encoded
-        <code>VerifiableCredential</code> from a <code>Credential</code>.
+        <code>VerifiableCredential</code> from an object of media type <code>application/credential+ld+json</code>.
       </p>
 
       <p class="advisment">
@@ -540,14 +542,14 @@ BjYgP62KvhIvW8BbkGUelYMetA
 
         <p>
           There are several members (claims) of the
-          <code>Credential</code> which will need to be translated to their JOSE
+          <code>application/credential+ld+json</code> which will need to be translated to their JOSE
           form, and included next to the <code>vc</code> or
           <code>vp</code> member in the JWT Claims Set. 
           We refer to the JWT Claims Set as <code>payload</code> in this section.
         </p>
 
         <p>
-          If a member is not present in the <code>Credential</code> it MUST NOT
+          If a member is not present in the <code>application/credential+ld+json</code> it MUST NOT
           be present in the <code>VerifiableCredential</code> as either a claim
           in the payload or a claim in the <code>vc</code> attribute of the
           payload.
@@ -556,7 +558,7 @@ BjYgP62KvhIvW8BbkGUelYMetA
         <p>
           We start with an empty header, and payload objects, and we add members
           to the header and the payload based on the content in the
-          <code>Credential</code>.
+          <code>application/credential+ld+json</code>.
         </p>
 
         <section>
@@ -621,10 +623,30 @@ BjYgP62KvhIvW8BbkGUelYMetA
 
       <section>
         <h3>Instead of...</h3>
-        <p class="issue">This section needs to be defined.</p>
+        <p>
+          The following steps are one way to obtain this representation:
+        </p>
+        <ol>
+          <li>
+            Complete the mapping for <a href="#in-addition-to">In Addition To...</a>.
+          </li>
+          <li>
+            Remove any properties from the <code>application/credential+ld+json</code> that were mapped.
+          </li>
+          <li>
+            Set the resulting object to be the <code>vc</code> member of the claim set.
+          </li>
+        </ol>
+
+        <p class="note">
+          The object value for the <code>vc</code> property, 
+          when <a href="#instead-of">Instead of...</a> production rules have been applied, 
+          is not of media type <code>application/credential+ld+json</code>.
+        </p>
+
       </section>
     </section>
-
+    </section>
     <section>
       <h2>Privacy Considerations</h2>
     </section>
