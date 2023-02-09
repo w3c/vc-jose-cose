@@ -648,6 +648,51 @@ BjYgP62KvhIvW8BbkGUelYMetA
     </section>
     </section>
     <section>
+      <h2>Version 2</h2>
+      <p class="note">
+        This representation relies on claims registered in the
+        <a href="https://www.iana.org/assignments/jwt/jwt.xhtml#claims">IANA JSON Web Token Claims Registry</a> whenever possible.
+      </p>
+      <p class="note">
+        Production of this representation does not use <code>credential+ld+json</code> as an input.
+      </p>
+      <section>
+        <h2>Credential Metadata</h2>
+        <p><a data-cite="rfc7519#section-5.1">typ</a> MUST use the content type <code>verifiable-credential+jwt</code>.</p>
+        <p class="issue" data-number="45"></p>
+        <p>If present, <a data-cite="rfc7519#section-5.2">cty</a> SHOULD use the content type <code>credential-claims-set+json</code>.</p>
+        <aside
+          class="example"
+          title="credential metadata (decoded JWT header)"
+        >
+          <pre data-include="./examples/vc-2.0/credential-metadata.json" data-include-format="json"></pre>
+        </aside>
+      </section>
+      <section>
+        <h2>Credential</h2>
+        <aside
+          class="example"
+          title="credential (decoded JWT payload)"
+        >
+          <pre data-include="./examples/vc-2.0/credential.json" data-include-format="json"></pre>
+        </aside>
+        <p class="note">
+          The <code>vc</code> and <code>vp</code> claims MUST NOT be present when using the content type <code>credential-claims-set+json</code>.
+        </p>
+      </section>
+      <section>
+        <h2>Verifiable Credential</h2>
+        <aside
+          class="example"
+          title="verifiable credential"
+        >
+          <p>An encoded verifiable credential (using external proof).</p>
+          <pre data-include="./examples/vc-2.0/verifiable-credential.jwt" data-include-format="text"></pre>
+        </aside>
+      </section>
+    </section>
+    
+    <section>
       <h2>Privacy Considerations</h2>
     </section>
     <section>
