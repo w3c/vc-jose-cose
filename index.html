@@ -521,8 +521,8 @@ BjYgP62KvhIvW8BbkGUelYMetA
 
     <section id="version-1.1">
       <h2>Version 1.1</h2>
-    <section id="production">
-      <h2>Production</h2>
+    <section id="vc-jwt-1.1">
+      <h2>VerifiableCredential as JWT</h2>
 
       <p>
         This section describes how to produce a VC-JWT encoded
@@ -646,6 +646,79 @@ BjYgP62KvhIvW8BbkGUelYMetA
 
       </section>
     </section>
+    <section id="vp-jwt-1.1">
+      <h2>VerifiablePresentation as JWT</h2>
+      <p>
+        This section describes how to produce a VP-JWT encoded
+        <code>VerifiablePresentation</code> from an object of media type <code>application/presentation+ld+json</code>.
+      </p>
+      <p>
+        There are several members (claims) of the
+        <code>application/presentation+ld+json</code> which will need to be translated to their JOSE
+        form, and included next to the <code>vp</code> member in the JWT Claims Set. 
+        We refer to the JWT Claims Set as <code>payload</code> in this section.
+      </p>
+      <p>
+        If a member is not present in the <code>application/presentation+ld+json</code> it MUST NOT
+        be present in the <code>VerifiablePresentation</code> as either a claim
+        in the payload or a claim in the <code>vp</code> attribute of the
+        payload.
+      </p>
+      <p>
+        We start with an empty header, and payload objects, and we add members
+        to the header and the payload based on the content in the
+        <code>application/presentation+ld+json</code>.
+      </p>
+      <section>
+        <h4>holder -> iss</h4>
+        <p>
+          This member MAY be present in the
+          <code>payload.vp.holder</code> attribute as either a string or an
+          <code>object</code> with and <code>id</code>.
+        </p>
+        <p>This member MAY be present <code>payload.iss</code>.</p>
+        <p>
+          In the case that <code>payload.vp.holder</code> is an object,
+          <code>payload.iss</code> MUST be <code>payload.vp.holder.id</code>.
+        </p>
+        <p>
+          In the case that
+          <code>payload.vp.holder</code> is a string,
+          <code>payload.iss</code> must be
+          <code>payload.vp.holder</code>
+        </p>
+      </section>
+      <section>
+        <h4>id -> jti</h4>
+        <p>
+          In the case that
+          <code>payload.vp.id</code> is a string,
+          <code>payload.jti</code> must be
+          <code>payload.vp.id</code>
+        </p>
+      </section>
+      <section>
+        <h4>nonce</h4>
+        <p>
+          <code>payload.nonce</code> MUST be present.
+        </p>
+      </section>
+      <section>
+        <h4>verifiableCredential</h4>
+        <p>
+          <code>payload.vp.verifiableCredential</code> contains a string array of verifiable credentials using JWT compact serialization.
+        </p>
+      </section>
+      <section>
+        <h4>issuance</h4>
+        <p>
+          The header and payload converted into a JWT, in accorance with the
+          RFC:
+          <a href="https://www.rfc-editor.org/rfc/rfc7519#section-7.1"
+            >RFC7519 Section 7.1</a
+          >
+        </p>
+      </section>
     </section>
     <section>
       <h2>Version 2</h2>
