@@ -658,7 +658,7 @@ BjYgP62KvhIvW8BbkGUelYMetA
       </p>
       <section>
         <h2>Credential Metadata</h2>
-        <p><a data-cite="rfc7519#section-5.1">typ</a> MUST use the content type <code>verifiable-credential+jwt</code>.</p>
+        <p><a data-cite="rfc7519#section-5.1">typ</a> MUST use the content type <code>vc+jwt</code>.</p>
         <p class="issue" data-number="45"></p>
         <p>If present, <a data-cite="rfc7519#section-5.2">cty</a> SHOULD use the content type <code>credential-claims-set+json</code>.</p>
         <aside
@@ -701,7 +701,48 @@ BjYgP62KvhIvW8BbkGUelYMetA
 
     <section class="appendix informative">
 <h2>IANA Considerations</h2>
-<section id="media-type">
+<section id="vc-jwt-media-type">
+  <h2>The <code>application/vc+jwt</code> Media Type</h2>
+  <p>
+    This specification registers the <code>application/vc+jwt</code> MIME Media Type specifically for
+    identifying a <a data-cite="rfc7519#section-3">JWT</a> conforming to the Verifiable Credentials JWT format in the `typ` header.
+  </p>
+  <table>
+    <tr>
+      <td>Type name: </td>
+      <td>application</td>
+    </tr>
+    <tr>
+      <td>Subtype name: </td>
+      <td>application/vc+jwt</td>
+    </tr>
+    <tr>
+      <td>Required parameters: </td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>Encoding considerations: </td>
+      <td>
+        <code>application/vc+jwt</code> values are encoded
+        as a series of base64url encoded values (some of which may be the
+        empty string) each separated from the next by a single period
+        ('.') character.
+      </td>
+    </tr>
+    <tr>
+      <td>Security considerations: </td>
+      <td>As defined in this specification.</td>
+    </tr>
+    <tr>
+      <td>Contact: </td>
+      <td>
+        W3C Verifiable Credentials Working Group <a href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+      </td>
+    </tr>
+  </table>
+</section>
+
+<section id="credential-claims-set-1.1-media-type">
   <h2>The <code>application/credential-claims-set-1.1+json</code> Media Type</h2>
   <p>
     This specification registers the <code>application/credential-claims-set-1.1+json</code> MIME Media Type specifically for
