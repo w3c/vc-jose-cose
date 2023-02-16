@@ -1,0 +1,20 @@
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    {
+      "vc": "http://www.w3.org/2018/credentials#",
+      "jwt": "http://example.com/jwt#"
+    }
+  ],
+  "@type": "JwtVerifiableCredential",
+  "vc:credentialSubject": {
+    "@type": "JwtCredentialSubject",
+    "jwt:iss": {"@id": "vc:issuer"},
+    "jwt:sub": {"@id": "vc:credentialSubject.id"},
+    "jwt:aud": {"@id": "vc:credentialSubject.audience"},
+    "jwt:exp": {"@id": "vc:expirationDate", "@type": "xsd:dateTime"},
+    "jwt:nbf": {"@id": "vc:notBefore", "@type": "xsd:dateTime"},
+    "jwt:iat": {"@id": "vc:issued", "@type": "xsd:dateTime"},
+    "jwt:jti": {"@id": "vc:id"}
+  }
+}
