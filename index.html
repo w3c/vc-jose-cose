@@ -659,6 +659,18 @@ BjYgP62KvhIvW8BbkGUelYMetA
       <section>
         <h2>Credential Metadata</h2>
         <p><a data-cite="rfc7519#section-5.1">typ</a> MUST use the content type <code>verifiable-credential+jwt</code>.</p>
+        <p>
+          The content type <code>vc+jwt</code> implies the use of an `@context` that defines the registered claims present 
+          in a JWT to provide semantic interoperabilite when using a `vc-jwt` in an RDF capacity.  
+          This provides the ability to always transform or interpert a `vc-jwt` as a conforming verifiable credential 
+          according to the [[vc-data-model]].
+        </p>
+        <aside
+          class="example"
+          title="JSON-LD context for vc-jwt"
+        >
+          <pre data-include="./examples/vc-2.0/vc-jwt.jsonld" data-include-format="json"></pre>
+        </aside>
         <p class="issue" data-number="45"></p>
         <p>If present, <a data-cite="rfc7519#section-5.2">cty</a> SHOULD use the content type <code>credential-claims-set+json</code>.</p>
         <aside
