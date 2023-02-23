@@ -884,7 +884,30 @@ BjYgP62KvhIvW8BbkGUelYMetA
   </table>
   <div class="issue" data-number="42"></div>
 </section>
+</section>
 
+<section id="appendix">
+  <h2>Appendix</h2>
+  <section>
+    <h3>Example VC Data Model Mapping</h3>
+    <p>This is one possible unidirectional mapping between 2.0 VC-JWTs and the VC Data Model; other such mappings are possible.</p>
+    <pre class="example">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    {
+        "iss": {"@id": "https://www.w3.org/2018/credentials#issuer"},
+        "sub": {"@id": "https://www.w3.org/2018/credentials#credentialSubject"},
+        "nbf": {"@id": "https://www.w3.org/2018/credentials#issuanceDate"}
+    }
+  ],
+  "iss": "did:example:123",
+  "sub": "did:example:456",
+  "nbf": 1516239022
+}
+    </pre>
+  </section>
+</section>
 
     </section>
   </body>
