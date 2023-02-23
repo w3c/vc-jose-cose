@@ -71,6 +71,7 @@
         inlineCSS: true,
 
         license: "w3c-software-doc",
+        xref: true, 
       };
     </script>
   </head>
@@ -87,14 +88,14 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
     <section id="introduction">
       <h2>Introduction</h2>
       <p>
-        JSON Web Token (JWT) [[!RFC7519]] is a widely-used means of
+        JSON Web Token (JWT) [[RFC7519]] is a widely-used means of
         expressing
-        <a>claims</a> to be transferred between two parties. Providing a
+        <a data-cite="VC-DATA-MODEL#claims">claims</a> to be transferred between two parties. Providing a
         representation of the Verifiable Credentials Data Model for JWT allows
         existing systems and libraries to participate in the ecosystem described
-        in Section <a href="#ecosystem-overview"></a>. A JWT encodes a set of
-        <a>claims</a> as a JSON object that is contained in a JSON Web Signature
-        (JWS) [[!RFC7515]] and/or JSON Web Encryption (JWE) [[?RFC7516]]. For this specification, the use
+        in Section <a data-cite="VC-DATA-MODEL#ecosystem-overview">ecosystem overview</a>. A JWT encodes a set of
+        <a data-cite="VC-DATA-MODEL#claims">claims</a> as a JSON object that is contained in a JSON Web Signature
+        (JWS) [[RFC7515]] and/or JSON Web Encryption (JWE) [[?RFC7516]]. For this specification, the use
         of JWE is out of scope.
       </p>
 
@@ -104,36 +105,42 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
         <p>
           This specification defines encoding rules of the Verifiable Credential
           Data Model onto JWT and JWS. It further defines processing rules for how
-          and when to make use of specific JWT-registered <a>claim</a> names and
+          and when to make use of specific JWT-registered <a data-cite="rfc7519#section-4">claim</a> names and
           specific JWS-registered header parameter names to allow systems based
           on JWT to comply with this specification. If these specific
-          <a>claim</a> names and header parameters are present, their respective
-          counterpart in the standard <a>verifiable credential</a> and
-          <a>verifiable presentation</a> MAY be omitted to avoid duplication.
+          <a data-cite="rfc7519#section-4">claim</a> names and header parameters are present, their respective
+          counterpart in the standard <a data-cite="VC-DATA-MODEL#credentials">verifiable credential</a> and
+          <a data-cite="VC-DATA-MODEL#presentations">verifiable presentation</a> MAY be omitted to avoid duplication.
         </p>
       </section>
+
+      
+    </section>
+
+    <section id="version-1.1">
+      <h2>Version 1.1</h2>
 
       <section>
         <h5>JSON Web Token Extensions</h5>
 
         <p>
-          This specification introduces two new registered <a>claim</a> names,
+          This specification introduces two new registered <a data-cite="rfc7519#section-4">claim</a> names,
           which contain those parts of the standard
-          <a>verifiable credentials</a> and
-          <a>verifiable presentations</a> where no explicit encoding rules for
+          <a data-cite="VC-DATA-MODEL#credentials">verifiable credentials</a> and
+          <a data-cite="VC-DATA-MODEL#presentations">verifiable presentations</a> where no explicit encoding rules for
           JWT exist. These objects are enclosed in the JWT Claims Set as follows:
         </p>
 
         <ul>
           <li>
             <code>vc</code>: JSON object, which MUST be present in a JWT
-            <a>verifiable credential</a>. The object contains the
-            <a>credential</a> according to this specification.
+            <a data-cite="VC-DATA-MODEL#dfn-credential">verifiable credential</a>. The object contains the
+            <a data-cite="VC-DATA-MODEL#dfn-credential">credential</a> according to this specification.
           </li>
           <li>
             <code>vp</code>: JSON object, which MUST be present in a JWT
-            <a>verifiable presentation</a>. The object contains the
-            <a>presentation</a> according to this specification.
+            <a data-cite="VC-DATA-MODEL#dfn-presentations" >verifiable presentation</a>. The object contains the
+            <a data-cite="VC-DATA-MODEL#dfn-presentations">presentation</a> according to this specification.
           </li>
         </ul>
       </section>
@@ -145,22 +152,22 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
           <h6>JWT Encoding</h6>
 
           <p>
-            To encode a <a>verifiable credential</a> as a JWT, specific
-            <a>properties</a>
+            To encode a <a data-cite="VC-DATA-MODEL#dfn-credential">verifiable credential</a> as a JWT, specific
+            <a data-cite="VC-DATA-MODEL#dfn-property">properties</a>
             introduced by this specification MUST be either:
           </p>
 
           <ul>
             <li>Encoded as standard JOSE header parameters, or</li>
-            <li>Encoded as registered JWT <a>claim</a> names, or</li>
+            <li>Encoded as registered JWT <a data-cite="rfc7519#section-4">claim</a> names, or</li>
             <li>Contained in the JWS signature part.</li>
           </ul>
 
           <p>
-            If no explicit rule is specified, <a>properties</a> are encoded in
-            the same way as with a standard <a>credential</a>, and the encoded <a>properties</a> are then added to
-            the <code>vc</code> <a>claim</a> of the JWT. As with all JWTs, the
-            JWS-based signature of a <a>verifiable credential</a> represented in
+            If no explicit rule is specified, <a data-cite="VC-DATA-MODEL#dfn-property">properties</a> are encoded in
+            the same way as with a standard <a data-cite="VC-DATA-MODEL#dfn-credential">credential</a>, and the encoded <a data-cite="VC-DATA-MODEL#dfn-property">properties</a> are then added to
+            the <code>vc</code> <a data-cite="rfc7519#section-4">claim</a> of the JWT. As with all JWTs, the
+            JWS-based signature of a <a data-cite="VC-DATA-MODEL#dfn-credential">verifiable credential</a> represented in
             the JWT syntax is calculated against the literal JWT string value as
             presented across the wire, before any decoding or transformation
             rules are applied. The following paragraphs describe these encoding
@@ -169,20 +176,20 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
 
           <p>
             If a JWS is present, the digital signature refers either to the
-            <a>issuer</a> of the <a>verifiable credential</a>, or in the case of
-            a <a>verifiable presentation</a>, to the <a>holder</a> of the
-            <a>verifiable credential</a>. The JWS proves that the
+            <a data-cite="VC-DATA-MODEL#issuer">issuer</a> of the <a data-cite="VC-DATA-MODEL#dfn-credential">verifiable credential</a>, or in the case of
+            a <a data-cite="VC-DATA-MODEL#dfn-presentations">verifiable presentation</a>, to the <a data-cite="VC-DATA-MODEL#dfn-holders">holder</a> of the
+            <a data-cite="VC-DATA-MODEL#dfn-credential">verifiable credential</a>. The JWS proves that the
             <code>iss</code> of the JWT signed the contained JWT Claims Set and
-            therefore, the <code>proof</code> <a>property</a> can be omitted.
+            therefore, the <code>proof</code> <a data-cite="VC-DATA-MODEL#dfn-property">property</a> can be omitted.
           </p>
 
           <p>
-            If no JWS is present, a <code>proof</code> <a>property</a> MUST be
-            provided. The <code>proof</code> <a>property</a> can be used to
+            If no JWS is present, a <code>proof</code> <a data-cite="VC-DATA-MODEL#dfn-property">property</a> MUST be
+            provided. The <code>proof</code> <a data-cite="VC-DATA-MODEL#dfn-property">property</a> can be used to
             represent a more complex proof, as may be necessary if the creator
-            is different from the <a>issuer</a>, or a proof not based on digital
-            signatures, such as Proof of Work. The <a>issuer</a> MAY include
-            both a JWS and a <code>proof</code> <a>property</a>. For backward
+            is different from the <a data-cite="VC-DATA-MODEL#issuer">issuer</a>, or a proof not based on digital
+            signatures, such as Proof of Work. The <a data-cite="VC-DATA-MODEL#issuer">issuer</a> MAY include
+            both a JWS and a <code>proof</code> <a data-cite="VC-DATA-MODEL#dfn-property">property</a>. For backward
             compatibility reasons, the issuer MUST use JWS to represent proofs
             based on a digital signature.
           </p>
@@ -195,16 +202,16 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
           <ul>
             <li>
               <code>alg</code> MUST be set for digital signatures. If only the
-              <code>proof</code> <a>property</a> is needed for the chosen
+              <code>proof</code> <a data-cite="VC-DATA-MODEL#dfn-property">property</a> is needed for the chosen
               signature method (that is, if there is no choice of algorithm
               within that method), the <code>alg</code> header MUST be set to
               <code>none</code>.
             </li>
             <li>
               <code>kid</code> MAY be used if there are multiple keys associated
-              with the <a>issuer</a> of the JWT. The key discovery is out of the
+              with the <a data-cite="VC-DATA-MODEL#issuer">issuer</a> of the JWT. The key discovery is out of the
               scope of this specification. For example, the <code>kid</code> can
-              refer to a key in a <a>DID document</a>, or can be the identifier
+              refer to a key in a <a data-cite="DID-CORE#dfn-did-documents">DID document</a>, or can be the identifier
               of a key inside a JWKS.
             </li>
           </ul>
@@ -213,19 +220,19 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
             For backward compatibility with JWT processors, the following
             registered JWT claim names MUST be used, instead of or in addition
             to, their respective standard
-            <a>verifiable credential</a> counterparts:
+            <a data-cite="VC-DATA-MODEL#dfn-credential">verifiable credential</a> counterparts:
           </p>
 
           <ul>
             <li>
               <code>exp</code> MUST represent the <code>expirationDate</code>
-              <a>property</a>, encoded as a UNIX timestamp
+              <a data-cite="VC-DATA-MODEL#dfn-property">property</a>, encoded as a UNIX timestamp
               (<code>NumericDate</code>).
             </li>
             <li>
               <code>iss</code> MUST represent the <code>issuer</code>
-              <a>property</a> of a verifiable credential or the
-              <code>holder</code> <a>property</a> of a verifiable presentation.
+              <a data-cite="VC-DATA-MODEL#dfn-property">property</a> of a verifiable credential or the
+              <code>holder</code> <a data-cite="VC-DATA-MODEL#dfn-property">property</a> of a verifiable presentation.
             </li>
             <li>
               <code>nbf</code> MUST represent <code>issuanceDate</code>, encoded
@@ -233,12 +240,12 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
             </li>
             <li>
               <code>jti</code> MUST represent the <code>id</code>
-              <a>property</a> of the <a>verifiable credential</a> or
-              <a>verifiable presentation</a>.
+              <a data-cite="VC-DATA-MODEL#dfn-property">property</a> of the <a data-cite="VC-DATA-MODEL#dfn-credential">verifiable credential</a> or
+              <a data-cite="VC-DATA-MODEL#dfn-presentations">verifiable presentation</a>.
             </li>
             <li>
               <code>sub</code> MUST represent the <code>id</code>
-              <a>property</a> contained in the <code>credentialSubject</code>.
+              <a data-cite="VC-DATA-MODEL#dfn-property">property</a> contained in the <code>credentialSubject</code>.
               <p class="note">
                 In <code>bearer credentials</code> and
                 <code>presentations</code>, <code>sub</code> will not be
@@ -247,9 +254,9 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
             </li>
             <li>
               <code>aud</code> MUST represent (i.e., identify) the intended
-              audience of the <a>verifiable presentation</a> (i.e., the
-              <a>verifier</a> intended by the presenting <a>holder</a> to
-              receive and verify the <a>verifiable presentation</a>).
+              audience of the <a data-cite="VC-DATA-MODEL#dfn-presentations">verifiable presentation</a> (i.e., the
+              <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> intended by the presenting <a data-cite="VC-DATA-MODEL#dfn-holders">holder</a> to
+              receive and verify the <a data-cite="VC-DATA-MODEL#dfn-presentations">verifiable presentation</a>).
             </li>
           </ul>
 
@@ -257,7 +264,7 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
             Other JOSE header parameters and JWT claim names not specified
             herein can be used if their use is not explicitly discouraged.
             Additional
-            <a>verifiable credential</a> <a>claims</a> MUST be added to the
+            <a data-cite="VC-DATA-MODEL#dfn-credential">verifiable credential</a> <a data-cite="VC-DATA-MODEL#claims">claims</a> MUST be added to the
             <code>credentialSubject</code> property of the JWT.
           </p>
 
@@ -270,16 +277,16 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
           <p>
             This version of the specification defines no JWT-specific encoding
             rules for the concepts outlined in Section
-            <a href="#advanced-concepts">Advanced Concepts</a> (for example,
+            <a data-cite="VC-DATA-MODEL#advanced-concepts">Advanced Concepts</a> (for example,
             <code>refreshService</code>, <code>termsOfUse</code>, and
             <code>evidence</code>). These concepts can be encoded as they are
             without any transformation, and can be added to the
-            <code>vc</code> JWT <a>claim</a>.
+            <code>vc</code> JWT <a data-cite="VC-DATA-MODEL#claims">claim</a>.
           </p>
 
           <p class="note">
-	    At the time of this writing, JWTs do not have a representation for multiple <a>subjects</a>
-	    and are thus not capable of encoding a <a>verifiable credential</a> with more than one <a>subject</a>.
+	    At the time of this writing, JWTs do not have a representation for multiple <a data-cite="VC-DATA-MODEL#dfn-subjects">subjects</a>
+	    and are thus not capable of encoding a <a data-cite="VC-DATA-MODEL#dfn-credential">verifiable credential</a> with more than one <a data-cite="VC-DATA-MODEL#dfn-subjects">subjects</a>.
 	    The Working Group may decide to create a new JWT claim for
 	    this purpose, and, if so, may register it in the
             <a href="https://www.iana.org/assignments/jwt/">JSON Web Token Claims Registry</a>.
@@ -290,25 +297,25 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
           <h6>JWT Decoding</h6>
 
           <p>
-            To decode a JWT to a standard <a>credential</a> or
-            <a>presentation</a>, the following transformation MUST be performed:
+            To decode a JWT to a standard <a data-cite="VC-DATA-MODEL#dfn-credential">credential</a> or
+            <a data-cite="VC-DATA-MODEL#dfn-presentations">presentation</a>, the following transformation MUST be performed:
           </p>
 
           <ol>
             <li>Create a JSON object.</li>
             <li>
               Add the content from the <code>vc</code> or <code>vp</code>
-              <a>claim</a> to the new JSON object.
+              <a data-cite="VC-DATA-MODEL#claims">claim</a> to the new JSON object.
             </li>
             <li>
-              Transform the remaining JWT specific headers and <a>claims</a>
-              and add the results to the new <a>credential</a> or
-              <a>presentation</a> JSON object.
+              Transform the remaining JWT specific headers and <a data-cite="VC-DATA-MODEL#claims">claims</a>
+              and add the results to the new <a data-cite="VC-DATA-MODEL#dfn-credential">credential</a> or
+              <a data-cite="VC-DATA-MODEL#dfn-presentations">presentation</a> JSON object.
             </li>
           </ol>
 
           <p>
-            To transform the JWT specific headers and <a>claims</a>, the
+            To transform the JWT specific headers and <a data-cite="VC-DATA-MODEL#claims">claims</a>, the
             following MUST be done:
           </p>
 
@@ -318,32 +325,32 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
               converted to an [<a data-cite="XMLSCHEMA11-2#dateTime"
                 >XMLSCHEMA11-2</a
               >] <code>date-time</code>, and MUST be used to set the value of
-              the <code>expirationDate</code> <a>property</a> of
+              the <code>expirationDate</code> <a data-cite="VC-DATA-MODEL#dfn-property">property</a> of
               <code>credentialSubject</code> of the new JSON object.
             </li>
             <li>
               If <code>iss</code> is present, the value MUST be used to set the
-              <code>issuer</code> <a>property</a> of the new
-              <a>credential</a> JSON object or the <code>holder</code>
-              <a>property</a> of the new <a>presentation</a> JSON object.
+              <code>issuer</code> <a data-cite="VC-DATA-MODEL#dfn-property">property</a> of the new
+              <a data-cite="VC-DATA-MODEL#dfn-credential">credential</a> JSON object or the <code>holder</code>
+              <a data-cite="VC-DATA-MODEL#dfn-property">property</a> of the new <a data-cite="VC-DATA-MODEL#dfn-presentations">presentation</a> JSON object.
             </li>
             <li>
               If <code>nbf</code> is present, the UNIX timestamp MUST be
               converted to an [<a data-cite="XMLSCHEMA11-2#dateTime"
                 >XMLSCHEMA11-2</a
               >] <code>date-time</code>, and MUST be used to set the value of
-              the <code>issuanceDate</code> <a>property</a> of the new JSON
+              the <code>issuanceDate</code> <a data-cite="VC-DATA-MODEL#dfn-property">property</a> of the new JSON
               object.
             </li>
             <li>
               If <code>sub</code> is present, the value MUST be used to set the
-              value of the <code>id</code> <a>property</a> of
-              <code>credentialSubject</code> of the new <a>credential</a>
+              value of the <code>id</code> <a data-cite="VC-DATA-MODEL#dfn-property">property</a> of
+              <code>credentialSubject</code> of the new <a data-cite="VC-DATA-MODEL#dfn-credential">credential</a>
               JSON object.
             </li>
             <li>
               If <code>jti</code> is present, the value MUST be used to set the
-              value of the <code>id</code> <a>property</a> of the new JSON
+              value of the <code>id</code> <a data-cite="VC-DATA-MODEL#dfn-property">property</a> of the new JSON
               object.
             </li>
           </ul>
@@ -353,15 +360,15 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
             title="JWT header of a JWT-based verifiable credential using JWS as a proof (non-normative)"
           >
 {
-"alg": "RS256",
-"kid": "did:example:abfe13f712120431c276e12ecab#keys-1"
+  "alg": "RS256",
+  "kid": "did:example:abfe13f712120431c276e12ecab#keys-1"
 }
           </pre>
 
           <p>
-            In the example above, the <a>verifiable credential</a> uses a
+            In the example above, the <a data-cite="VC-DATA-MODEL#dfn-credential">verifiable credential</a> uses a
             <code>proof</code> based on <code>JWS</code> digital signatures, and
-            the corresponding <a>verification</a> key can be obtained using the
+            the corresponding <a data-cite="VC-DATA-MODEL#dfn-verify">verificatio</a> key can be obtained using the
             <code>kid</code>
             header parameter.
           </p>
@@ -371,35 +378,35 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
             title="JWT Claims Set of a JWT-based verifiable credential using JWS as a proof (non-normative)"
           >
 {
-"sub": "did:example:ebfeb1f712ebc6f1c276e12ec21",
-"jti": "http://example.edu/credentials/3732",
-"iss": "https://example.com/keys/foo.jwk",
-"nbf": 1541493724,
-"iat": 1541493724,
-"exp": 1573029723,
-"nonce": "660!6345FSer",
-"vc": {
-"@context": [
-  "https://www.w3.org/2018/credentials/v1",
-  "https://www.w3.org/2018/credentials/examples/v1"
-],
-"type": ["VerifiableCredential", "UniversityDegreeCredential"],
-"credentialSubject": {
-  "degree": {
-    "type": "BachelorDegree",
-    "name": "Bachelor of Science and Arts"
+  "sub": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+  "jti": "http://example.edu/credentials/3732",
+  "iss": "https://example.com/keys/foo.jwk",
+  "nbf": 1541493724,
+  "iat": 1541493724,
+  "exp": 1573029723,
+  "nonce": "660!6345FSer",
+  "vc": {
+    "@context": [
+      "https://www.w3.org/2018/credentials/v1",
+      "https://www.w3.org/2018/credentials/examples/v1"
+    ],
+    "type": ["VerifiableCredential", "UniversityDegreeCredential"],
+    "credentialSubject": {
+      "degree": {
+        "type": "BachelorDegree",
+        "name": "Bachelor of Science and Arts"
+      }
+    }
   }
-}
-}
 }
           </pre>
 
           <p>
             In the example above, <code>vc</code> does not contain the
-            <code>id</code> <a>property</a> because the JWT encoding uses the
+            <code>id</code> <a data-cite="VC-DATA-MODEL#dfn-property">property</a> because the JWT encoding uses the
             <code>jti</code> attribute to represent a unique identifier. The
             <code>sub</code> attribute encodes the information represented by
-            the <code>id</code> <a>property</a> of
+            the <code>id</code> <a data-cite="VC-DATA-MODEL#dfn-property">property</a> of
             <code>credentialSubject</code>. The <code>nonce</code> has been
             added to stop a replay attack.
           </p>
@@ -430,15 +437,15 @@ txJy6M1-lD7a5HTzanYTWBPAUHDZGyGKXdJw-W_x0IWChBzI8t3kpG253fg6V3tPgHeKXE94fz_QpYfg
             title="JWT header of a JWT based verifiable presentation (non-normative)"
           >
 {
-"alg": "RS256",
-"kid": "did:example:ebfeb1f712ebc6f1c276e12ec21#keys-1"
+  "alg": "RS256",
+  "kid": "did:example:ebfeb1f712ebc6f1c276e12ec21#keys-1"
 }
           </pre>
 
           <p>
-            In the example above, the <a>verifiable presentation</a> uses a
+            In the example above, the <a data-cite="VC-DATA-MODEL#dfn-presentations">verifiable presentation</a> uses a
             <code>proof</code> based on <code>JWS</code> digital signatures, and
-            the corresponding <a>verification</a> key can be obtained using the
+            the corresponding <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> key can be obtained using the
             <code>kid</code>
             header parameter.
           </p>
@@ -448,31 +455,31 @@ txJy6M1-lD7a5HTzanYTWBPAUHDZGyGKXdJw-W_x0IWChBzI8t3kpG253fg6V3tPgHeKXE94fz_QpYfg
             title="JWT Claims Set of a JWT based verifiable presentation (non-normative)"
           >
 {
-"iss": "did:example:ebfeb1f712ebc6f1c276e12ec21",
-"jti": "urn:uuid:3978344f-8596-4c3a-a978-8fcaba3903c5",
-"aud": "did:example:4a57546973436f6f6c4a4a57573",
-"nbf": 1541493724,
-"iat": 1541493724,
-"exp": 1573029723,
-"nonce": "343s$FSFDa-",
-"vp": {
-"@context": [
-  "https://www.w3.org/2018/credentials/v1",
-  "https://www.w3.org/2018/credentials/examples/v1"
-],
-"type": ["VerifiablePresentation"],
-<span class="comment">// base64url-encoded JWT as string</span>
-"verifiableCredential": ["<span class="comment">...</span>"]
-}
+  "iss": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+  "jti": "urn:uuid:3978344f-8596-4c3a-a978-8fcaba3903c5",
+  "aud": "did:example:4a57546973436f6f6c4a4a57573",
+  "nbf": 1541493724,
+  "iat": 1541493724,
+  "exp": 1573029723,
+  "nonce": "343s$FSFDa-",
+  "vp": {
+    "@context": [
+      "https://www.w3.org/2018/credentials/v1",
+      "https://www.w3.org/2018/credentials/examples/v1"
+    ],
+    "type": ["VerifiablePresentation"],
+    <span class="comment">// base64url-encoded JWT as string</span>
+    "verifiableCredential": ["<span class="comment">...</span>"]
+  }
 }
           </pre>
 
           <p>
             In the example above, <code>vp</code> does not contain the
-            <code>id</code> <a>property</a> because the JWT encoding uses the
+            <code>id</code> <a data-cite="VC-DATA-MODEL#dfn-property">property</a> because the JWT encoding uses the
             <code>jti</code> attribute to represent a unique identifier.
             <code>verifiableCredential</code> contains a string array of
-            <a>verifiable credentials</a> using <code>JWT</code> compact
+            <a data-cite="VC-DATA-MODEL#dfn-credential">verifiable credentials</a> using <code>JWT</code> compact
             serialization. The <code>nonce</code> has been added to stop a
             replay attack.
           </p>
@@ -517,10 +524,7 @@ BjYgP62KvhIvW8BbkGUelYMetA
           </pre>
         </section>
       </section>
-    </section>
-
-    <section id="version-1.1">
-      <h2>Version 1.1</h2>
+      
     <section id="vc-jwt-1.1">
       <h2>VerifiableCredential as JWT</h2>
 
@@ -720,6 +724,7 @@ BjYgP62KvhIvW8BbkGUelYMetA
         </p>
       </section>
     </section>
+  </section>
     <section>
       <h2>Version 2</h2>
       <p class="note">
@@ -835,6 +840,8 @@ BjYgP62KvhIvW8BbkGUelYMetA
   </table>
 </section>
 
+<section id="conformance"></section>
+
 <section id="credential-claims-set-1.1-media-type">
   <h2>The <code>application/credential-claims-set-1.1+json</code> Media Type</h2>
   <p>
@@ -861,7 +868,7 @@ BjYgP62KvhIvW8BbkGUelYMetA
         Media Type are required to conform to all of the requirements
         for the "<code>application/json</code>" Media Type and are
         therefore subject to the same encoding considerations specified
-        in Section 11 of [[!RFC7159]].
+        in Section 11 of [[RFC7159]].
       </td>
     </tr>
     <tr>
