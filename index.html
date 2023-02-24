@@ -778,6 +778,22 @@ BjYgP62KvhIvW8BbkGUelYMetA
         <p><code>typ</code> MUST be <code>vc+ld+jwt</code></p>
         <p><code>cty</code> MUST be <code>credential+ld+json</code></p>
         <p>See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header Parameters</a> for additional details.</p>
+        
+        <aside
+          class="example"
+          title="A credential for a University Degree"
+        >
+          <p>An <code>application/credential+ld+json</code> example that will have an external proof.</p>
+          <pre data-include="./examples/vc-2.0/ld-credential.json" data-include-format="json"></pre>
+        </aside>
+
+        <aside
+          class="example"
+          title="A verifiable credential for a University Degree with an external proof"
+        >
+          <p>This verifiable credential is encoded, decode it with <a href="https://jwt.io/">jwt.io</a>.</p>
+          <pre data-include="./examples/vc-2.0/ld-verifiable-credential.jws" data-include-format="text"></pre>
+        </aside>
       </section>
       <section>
         <h2>Securing <code>application/credential+ld+json</code> with COSE</h2>
@@ -786,6 +802,13 @@ BjYgP62KvhIvW8BbkGUelYMetA
         <p><code>content type (3)</code> MUST be <code>application/credential+ld+json</code></p>
         <p>See <a data-cite="rfc9052#section-3.1">Common COSE Header Parameters</a> for additional details.</p>
         <p>See <a href="https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml">Concise Binary Object Representation (CBOR) Tags</a> for additional details.</p>
+        <aside
+          class="example"
+          title="A verifiable credential for a University Degree with an external proof"
+        >
+          <p>This verifiable credential is represented in test vector format used by COSE WG</p>
+          <pre data-include="./examples/vc-2.0/ld-verifiable-credential.cose.json" data-include-format="json"></pre>
+        </aside>
       </section>
     </section>
     
