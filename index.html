@@ -806,8 +806,8 @@ and the value of <code>iss</code>.
             </ul>
             </li>
             <li>
-If <code>iat</code> is present, set the value of <code>id</code> as the
-concatenation of "urn:" and the value of <code>iat</code>.
+If <code>jti</code> is present, set the value of <code>id</code> as the
+concatenation of "urn:vc:" and the value of <code>iat</code>.
             </li>
             <li>
 If <code>nbf</code> is present, set the value of <code>validFrom</code> as the
@@ -827,7 +827,7 @@ the following properties:
             <ul>
               <li>
 If <code>sub</code> is present, set the value of the <code>id</code> property as
-the concatenation of "urn:" and the value of <code>sub</code>.
+the concatenation of "urn:vc:" and the value of <code>sub</code>.
               </li>
               <li>
 Add all of the subject claims.
