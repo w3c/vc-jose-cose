@@ -768,6 +768,87 @@ BjYgP62KvhIvW8BbkGUelYMetA
           <pre data-include="./examples/vc-2.0/verifiable-credential.jwt" data-include-format="text"></pre>
         </aside>
       </section>
+
+    <section>
+      <h2>Mapping to the Verifiable Credentials Data Model</h2>
+      <p>
+We define the following mapping from <code>vc+jwt</code> to
+<code>credential+ld+json</code>:
+      </p>
+      <ul>
+        <li>
+Extract <code>iss</code>, <code>sub</code>, <code>iat</code>, <code>nbf</code>,
+<code>exp</code>, <code>jti</code>, and <code>aud</code> as registered claims.
+        </li>
+        <li>
+Set aside all other claims as subject claims.
+        </li>
+        <li>
+To construct the VCDM-complaint JSON:
+          <ul>
+            <li>
+Set the value of <code>@context</code> to be
+<code>"https://www.w3.org/ns/credentials/v2"</code>.
+            </li>
+            <li>
+Set the value of <code>type</code> to be <code>["VerifiableCredential"]</code>.
+            </li>
+            <li>
+Set the value of the issuer property to one of the following:
+            <ul>
+              <li>
+If the value of <code>iss</code> is a URL, use the value of <code>iss</code>.
+              </li>
+              <li>
+If the value of <code>iss</code> is not a URL, use the concatenation of "urn:"
+and the value of <code>iss</code>.
+              </li>
+            </ul>
+            </li>
+            <li>
+If <code>iat</code> is present, set the value of <code>id</code> as the
+concatenation of "urn:" and the value of <code>iat</code>.
+            </li>
+            <li>
+If <code>nbf</code> is present, set the value of <code>validFrom</code> as the
+<code>dateTime</code> obtained by converting the value of<code>nbf</code> from
+the <code>NumericDate</code> described in RFC 7519 to a <code>dateTime</code> as
+described in XMLSCHEMA11-2.
+            </li>
+            <li>
+If <code>exp</code> is present, set the value of <code>validUntil</code> as the
+<code>dateTime</code> obtained by converting the value of<code>exp</code> from
+the <code>NumericDate</code> described in RFC 7519 to a <code>dateTime</code> as
+described in XMLSCHEMA11-2.
+            </li>
+            <li>
+Set the value of <code>credentialSubject</code> to be an object that contains
+the following properties:
+            <ul>
+              <li>
+If <code>sub</code> is present, set the value of the <code>id</code> property as
+the concatenation of "urn:" and the value of <code>sub</code>.
+              </li>
+              <li>
+Add all of the subject claims.
+              </li>
+            </ul>
+
+
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <aside
+              class="example"
+              title="vc+jwt mapped to credential+ld+json"
+        >
+        <p>A VC encoded as vc+jwt:</p>
+          <pre data-include="./examples/vc-2.0/verifiable-credential-jwt.json" data-include-format="json"></pre>
+        <p>The credential+ld+json after applying the mapping:</p>
+          <pre data-include="./examples/vc-2.0/verifiable-credential.json" data-include-format="json"></pre>
+        </aside>
+    </section>
     </section>
 
     <section>
@@ -788,7 +869,6 @@ BjYgP62KvhIvW8BbkGUelYMetA
         <p>See <a href="https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml">Concise Binary Object Representation (CBOR) Tags</a> for additional details.</p>
       </section>
     </section>
-    
     
     <section>
       <h2>Privacy Considerations</h2>
