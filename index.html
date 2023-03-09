@@ -800,14 +800,14 @@ Set the value of the issuer property to one of the following:
 If the value of <code>iss</code> is a URL, use the value of <code>iss</code>.
               </li>
               <li>
-If the value of <code>iss</code> is not a URL, use the concatenation of "urn:"
+If the value of <code>iss</code> is not a URL, use the concatenation of "urn:vc:"
 and the value of <code>iss</code>.
               </li>
             </ul>
             </li>
             <li>
 If <code>jti</code> is present, set the value of <code>id</code> as the
-concatenation of "urn:vc:" and the value of <code>iat</code>.
+concatenation of "urn:vc:" and the value of <code>jti</code>.
             </li>
             <li>
 If <code>nbf</code> is present, set the value of <code>validFrom</code> as the
