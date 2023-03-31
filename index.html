@@ -61,6 +61,11 @@
             companyURL: "https://www.microsoft.com",
             w3cid: 38745,
           },
+	  {
+            name: "Michael Prorock",
+            company: "Mesur.io", companyURL: "https://mesur.io/",
+            w3cid: 130636
+          }
         ],
         // authors, add as many as you like.
         // This is optional, uncomment if you have authors as well as editors.
@@ -100,108 +105,21 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
       </p>
 
       <section>
-        <h5>Relation to the Verifiable Credentials Data Model</h5>
-
+        <h5>Verifiable Credentials Data Model</h5>
         <p>
-          This specification defines encoding rules of the Verifiable Credential
-          Data Model onto JWT and JWS. It further defines processing rules for how
-          and when to make use of specific JWT-registered <a data-cite="rfc7519#section-4">claim</a> names and
-          specific JWS-registered header parameter names to allow systems based
-          on JWT to comply with this specification. If these specific
-          <a data-cite="rfc7519#section-4">claim</a> names and header parameters are present, their respective
-          counterpart in the standard <a data-cite="VC-DATA-MODEL#credentials">verifiable credential</a> and
-          <a data-cite="VC-DATA-MODEL#presentations">verifiable presentation</a> MAY be omitted to avoid duplication.
+          This specification describes how to secure media types 
+          for expressing Verifiable Credentials and Verifiable Presentations 
+          as described in [[VC-DATA-MODEL]].
+        </p>
+        <p class="note">
+          The <code>vc+jwt</code> media type described in this specification defines
+          an example unidirectional mapping to JSON-LD in order to demonstrate 
+          conformance with the [[VC-DATA-MODEL]], see <a href="#example-mapping">Appendix A.4.1</a>.
         </p>
       </section>
     </section>
 
-  <section>
-    <h2>Securing JSON-LD</h2>
-    <section>
-      <h2>With JOSE</h2>
-      <section>
-        <h2>Securing <code>application/vc+ld+json</code> with JOSE</h2>
-        <p>[[rfc7515]] MAY be used to secure this media type.</p>
-        <p><code>typ</code> MUST be <code>vc+ld+jwt</code></p>
-        <p><code>cty</code> MUST be <code>vc+ld+json</code></p>
-        <p>See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header Parameters</a> for additional details.</p>
-        <section>
-          <h2>Credential Header</h2>
-          <aside
-            class="example"
-            title="verifiable credential header (decoded JWT header)"
-          >
-            <pre data-include="./examples/vc-2.0/templates/vc+ld+jwt/header.json" data-include-format="json"></pre>
-          </aside>
-        </section>
-        <section>
-          <h2>Credential</h2>
-          <aside
-            class="example"
-            title="verifiable credential (decoded JWT claimset)"
-          >
-            <pre data-include="./examples/vc-2.0/templates/vc+ld+jwt/claimset.json" data-include-format="json"></pre>
-          </aside>
-        </section>
-        <section>
-          <h2>Verifiable Credential</h2>
-          <aside
-            class="example"
-            title="verifiable credential (encoded as JWT)"
-          >
-            <pre data-include="./examples/vc-2.0/vc+ld+jwt.jose" data-include-format="json"></pre>
-          </aside>
-        </section>
-      </section>
-      <section>
-        <h2>Securing <code>application/vp+ld+json</code> with JOSE</h2>
-        <p>[[rfc7515]] MAY be used to secure this media type.</p>
-        <p><code>typ</code> MUST be <code>vp+ld+jwt</code></p>
-        <p><code>cty</code> MUST be <code>vp+ld+json</code></p>
-        <p>See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header Parameters</a> for additional details.</p>
-        <section>
-          <h2>Presentation Header</h2>
-          <aside
-            class="example"
-            title="verifiable presentation header (decoded JWT header)"
-          >
-            <pre data-include="./examples/vc-2.0/templates/vp+ld+jwt/header.json" data-include-format="json"></pre>
-          </aside>
-        </section>
-        <section>
-          <h2>Presentation</h2>
-          <aside
-            class="example"
-            title="verifiable presentation (decoded JWT claimset)"
-          >
-            <pre data-include="./examples/vc-2.0/templates/vp+ld+jwt/claimset.json" data-include-format="json"></pre>
-          </aside>
-        </section>
-        <section>
-          <h2>Verifiable Presentation</h2>
-          <aside
-            class="example"
-            title="verifiable presentation"
-          >
-            <p>An encoded verifiable presentation (using external proof).</p>
-            <pre data-include="./examples/vc-2.0/vp+ld+jwt.jose" data-include-format="text"></pre>
-          </aside>
-        </section>
-      </section>
-    </section>
-    <section>
-      <h2>With COSE</h2>
-      <section>
-        <h2>Securing <code>application/vc+ld+json</code> with COSE</h2>
-        <p>[[rfc8152]] MAY be used to secure this media type.</p>
-        <p><code>type (TBD)</code> MUST be <code>vc+ld+cwt</code></p>
-        <p><code>content type (3)</code> MUST be <code>application/vc+ld+json</code></p>
-        <p>See <a data-cite="rfc9052#section-3.1">Common COSE Header Parameters</a> for additional details.</p>
-        <p>See <a href="https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml">Concise Binary Object Representation (CBOR) Tags</a> for additional details.</p>
-      </section>
-      <p class="issue" data-number="67"></p>
-    </section>
-  </section>
+
 
     <section>
       <h2>Securing JSON</h2>
@@ -210,13 +128,11 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
         <a href="https://www.iana.org/assignments/jwt/jwt.xhtml#claims">IANA JSON Web Token Claims Registry</a> whenever possible.
       </p>
       <p class="note">
-        Production of this representation does not use <code>credential+ld+json</code> as an input.
+        Production of this representation does not use <code>vc+ld+json</code> as an input.
       </p>
       <section>
         <h2>Credential Header</h2>
-        <p><a data-cite="rfc7519#section-5.1">typ</a> MUST use the content type <code>verifiable-credential+jwt</code>.</p>
-        <p class="issue" data-number="45"></p>
-        <p>If present, <a data-cite="rfc7519#section-5.2">cty</a> SHOULD use the content type <code>credential-claims-set+json</code>.</p>
+        <p><a data-cite="rfc7519#section-5.1">typ</a> MUST use the content type <code>vc+jwt</code>.</p>
         <aside
           class="example"
           title="credential metadata (decoded JWT header)"
@@ -246,16 +162,105 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
           <pre data-include="./examples/vc-2.0/vc+jwt.jose" data-include-format="text"></pre>
         </aside>
       </section>
+
+    </section>
+
+    <section>
+      <h2>Securing JSON-LD</h2>
+      <section>
+        <h2>With JOSE</h2>
+        <section>
+          <h2>Securing <code>application/vc+ld+json</code> with JOSE</h2>
+          <p>[[rfc7515]] MAY be used to secure this media type.</p>
+          <p><code>typ</code> MUST be <code>vc+ld+jwt</code></p>
+          <p><code>cty</code> MUST be <code>vc+ld+json</code></p>
+          <p>See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header Parameters</a> for additional details.</p>
+          <section>
+            <h2>Credential Header</h2>
+            <aside
+              class="example"
+              title="verifiable credential header (decoded JWT header)"
+            >
+              <pre data-include="./examples/vc-2.0/templates/vc+ld+jwt/header.json" data-include-format="json"></pre>
+            </aside>
+          </section>
+          <section>
+            <h2>Credential</h2>
+            <aside
+              class="example"
+              title="verifiable credential (decoded JWT claimset)"
+            >
+              <pre data-include="./examples/vc-2.0/templates/vc+ld+jwt/claimset.json" data-include-format="json"></pre>
+            </aside>
+          </section>
+          <section>
+            <h2>Verifiable Credential</h2>
+            <aside
+              class="example"
+              title="verifiable credential (encoded as JWT)"
+            >
+              <pre data-include="./examples/vc-2.0/vc+ld+jwt.jose" data-include-format="json"></pre>
+            </aside>
+          </section>
+        </section>
+        <section>
+          <h2>Securing <code>application/vp+ld+json</code> with JOSE</h2>
+          <p>[[rfc7515]] MAY be used to secure this media type.</p>
+          <p><code>typ</code> MUST be <code>vp+ld+jwt</code></p>
+          <p><code>cty</code> MUST be <code>vp+ld+json</code></p>
+          <p>See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header Parameters</a> for additional details.</p>
+          <section>
+            <h2>Presentation Header</h2>
+            <aside
+              class="example"
+              title="verifiable presentation header (decoded JWT header)"
+            >
+              <pre data-include="./examples/vc-2.0/templates/vp+ld+jwt/header.json" data-include-format="json"></pre>
+            </aside>
+          </section>
+          <section>
+            <h2>Presentation</h2>
+            <aside
+              class="example"
+              title="verifiable presentation (decoded JWT claimset)"
+            >
+              <pre data-include="./examples/vc-2.0/templates/vp+ld+jwt/claimset.json" data-include-format="json"></pre>
+            </aside>
+          </section>
+          <section>
+            <h2>Verifiable Presentation</h2>
+            <aside
+              class="example"
+              title="verifiable presentation"
+            >
+              <p>An encoded verifiable presentation (using external proof).</p>
+              <pre data-include="./examples/vc-2.0/vp+ld+jwt.jose" data-include-format="text"></pre>
+            </aside>
+          </section>
+        </section>
+      </section>
+      <section>
+        <h2>With COSE</h2>
+        <section>
+          <h2>Securing <code>application/vc+ld+json</code> with COSE</h2>
+          <p>[[rfc8152]] MAY be used to secure this media type.</p>
+          <p><code>type (TBD)</code> MUST be <code>vc+ld+cwt</code></p>
+          <p><code>content type (3)</code> MUST be <code>application/vc+ld+json</code></p>
+          <p>See <a data-cite="rfc9052#section-3.1">Common COSE Header Parameters</a> for additional details.</p>
+          <p>See <a href="https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml">Concise Binary Object Representation (CBOR) Tags</a> for additional details.</p>
+        </section>
+        <p class="issue" data-number="67"></p>
+      </section>
     </section>
 
     <section id="version-1.1">
-      <h2>Version 1.1</h2>
+      <h2>Securing Version 1.1</h2>
 
       <section>
         <h5>JSON Web Token Extensions</h5>
 
         <p>
-          This specification introduces two new registered <a data-cite="rfc7519#section-4">claim</a> names,
+          The [[VC-DATA-MODEL]] version 1.1 introduced two new registered <a data-cite="rfc7519#section-4">claim</a> names,
           which contain those parts of the standard
           <a data-cite="VC-DATA-MODEL#credentials">verifiable credentials</a> and
           <a data-cite="VC-DATA-MODEL#presentations">verifiable presentations</a> where no explicit encoding rules for
@@ -264,12 +269,12 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
 
         <ul>
           <li>
-            <code>vc</code>: JSON object, which MUST be present in a JWT
+            <code>vc</code>: JSON object, which MUST be present in a VC-JWT conforming to the version 1.1 specification.
             <a data-cite="VC-DATA-MODEL#dfn-credential">verifiable credential</a>. The object contains the
             <a data-cite="VC-DATA-MODEL#dfn-credential">credential</a> according to this specification.
           </li>
           <li>
-            <code>vp</code>: JSON object, which MUST be present in a JWT
+            <code>vp</code>: JSON object, which MUST be present in a VP-JWT conforming to the version 1.1 specification.
             <a data-cite="VC-DATA-MODEL#dfn-presentations" >verifiable presentation</a>. The object contains the
             <a data-cite="VC-DATA-MODEL#dfn-presentations">presentation</a> according to this specification.
           </li>
@@ -657,11 +662,11 @@ BjYgP62KvhIvW8BbkGUelYMetA
       </section>
       
     <section id="vc-jwt-1.1">
-      <h2>VerifiableCredential as JWT</h2>
+      <h2>Verifiable Credential as Registered Claim</h2>
 
       <p>
         This section describes how to produce a VC-JWT encoded
-        <code>VerifiableCredential</code> from an object of media type <code>application/credential+ld+json</code>.
+        <code>VerifiableCredential</code> from an object of media type <code>application/vc+ld+json</code>.
       </p>
 
       <p class="advisment">
@@ -677,14 +682,14 @@ BjYgP62KvhIvW8BbkGUelYMetA
 
         <p>
           There are several members (claims) of the
-          <code>application/credential+ld+json</code> which will need to be translated to their JOSE
+          <code>application/vc+ld+json</code> which will need to be translated to their JOSE
           form, and included next to the <code>vc</code> or
           <code>vp</code> member in the JWT Claims Set. 
           We refer to the JWT Claims Set as <code>payload</code> in this section.
         </p>
 
         <p>
-          If a member is not present in the <code>application/credential+ld+json</code> it MUST NOT
+          If a member is not present in the <code>application/vc+ld+json</code> it MUST NOT
           be present in the <code>VerifiableCredential</code> as either a claim
           in the payload or a claim in the <code>vc</code> attribute of the
           payload.
@@ -693,7 +698,7 @@ BjYgP62KvhIvW8BbkGUelYMetA
         <p>
           We start with an empty header, and payload objects, and we add members
           to the header and the payload based on the content in the
-          <code>application/credential+ld+json</code>.
+          <code>application/vc+ld+json</code>.
         </p>
 
         <section>
@@ -766,7 +771,7 @@ BjYgP62KvhIvW8BbkGUelYMetA
             Complete the mapping for <a href="#in-addition-to">In Addition To...</a>.
           </li>
           <li>
-            Remove any properties from the <code>application/credential+ld+json</code> that were mapped.
+            Remove any properties from the <code>application/vc+ld+json</code> that were mapped.
           </li>
           <li>
             Set the resulting object to be the <code>vc</code> member of the claim set.
@@ -776,13 +781,13 @@ BjYgP62KvhIvW8BbkGUelYMetA
         <p class="note">
           The object value for the <code>vc</code> property, 
           when <a href="#instead-of">Instead of...</a> production rules have been applied, 
-          is not of media type <code>application/credential+ld+json</code>.
+          is not of media type <code>application/vc+ld+json</code>.
         </p>
 
       </section>
     </section>
     <section id="vp-jwt-1.1">
-      <h2>VerifiablePresentation as JWT</h2>
+      <h2>Verifiable Presentation as Registered Claim</h2>
       <p>
         This section describes how to produce a VP-JWT encoded
         <code>VerifiablePresentation</code> from an object of media type <code>application/presentation+ld+json</code>.
@@ -856,22 +861,22 @@ BjYgP62KvhIvW8BbkGUelYMetA
       </section>
     </section>
   </section>
-    
-    
-    
-    <section>
-      <h2>Privacy Considerations</h2>
-    </section>
-    <section>
-      <h2>Security Considerations</h2>
-    </section>
+
+<section id="conformance"></section>
+
+<section>
+<h2>Privacy Considerations</h2>
+</section>
+<section>
+<h2>Security Considerations</h2>
+</section>
 
     <section class="appendix informative">
 <h2>IANA Considerations</h2>
 <section id="vc-jwt-media-type">
-  <h2>The <code>application/verifiable-credential+jwt</code> Media Type</h2>
+  <h2><code>application/vc+jwt</code></h2>
   <p>
-    This specification registers the <code>application/verifiable-credential+jwt</code> MIME Media Type specifically for
+    This specification registers the <code>application/vc+jwt</code> Media Type specifically for
     identifying a <a data-cite="rfc7519#section-3">JWT</a> conforming to the Verifiable Credentials JWT format in the `typ` header.
   </p>
   <table>
@@ -881,7 +886,7 @@ BjYgP62KvhIvW8BbkGUelYMetA
     </tr>
     <tr>
       <td>Subtype name: </td>
-      <td>application/verifiable-credential+jwt</td>
+      <td>application/vc+jwt</td>
     </tr>
     <tr>
       <td>Required parameters: </td>
@@ -890,7 +895,7 @@ BjYgP62KvhIvW8BbkGUelYMetA
     <tr>
       <td>Encoding considerations: </td>
       <td>
-        <code>application/verifiable-credential+jwt</code> values are encoded
+        <code>application/vc+jwt</code> values are encoded
         as a series of base64url encoded values (some of which may be the
         empty string) each separated from the next by a single period
         ('.') character.
@@ -909,10 +914,50 @@ BjYgP62KvhIvW8BbkGUelYMetA
   </table>
 </section>
 
-<section id="conformance"></section>
+<section id="vc-ld-jwt-media-type">
+  <h2><code>application/vc+ld+jwt</code></h2>
+  <p>
+    This specification registers the <code>application/vc+ld+jwt</code> Media Type specifically for
+    identifying a <a data-cite="rfc7519#section-3">JWT</a> conforming to the Verifiable Credentials JWT format in the `typ` header.
+  </p>
+  <table>
+    <tr>
+      <td>Type name: </td>
+      <td>application</td>
+    </tr>
+    <tr>
+      <td>Subtype name: </td>
+      <td>application/vc+ld+jwt</td>
+    </tr>
+    <tr>
+      <td>Required parameters: </td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>Encoding considerations: </td>
+      <td>
+        <code>application/vc+ld+jwt</code> values are encoded
+        as a series of base64url encoded values (some of which may be the
+        empty string) each separated from the next by a single period
+        ('.') character.
+      </td>
+    </tr>
+    <tr>
+      <td>Security considerations: </td>
+      <td>As defined in this specification.</td>
+    </tr>
+    <tr>
+      <td>Contact: </td>
+      <td>
+        W3C Verifiable Credentials Working Group <a href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+      </td>
+    </tr>
+  </table>
+</section>
+
 
 <section id="credential-claims-set-1.1-media-type">
-  <h2>The <code>application/credential-claims-set-1.1+json</code> Media Type</h2>
+  <h2><code>application/credential-claims-set-1.1+json</code></h2>
   <p>
     This specification registers the <code>application/credential-claims-set-1.1+json</code> MIME Media Type specifically for
     identifying a <a href="https://www.rfc-editor.org/rfc/rfc7519#section-4">JWT Claims Set</a> conforming to the Verifiable Credentials 1.1 JWT format in the `cty` header.
@@ -952,6 +997,91 @@ BjYgP62KvhIvW8BbkGUelYMetA
     </tr>
   </table>
   <div class="issue" data-number="42"></div>
+</section>
+
+<section>
+  <h2>Appendix</h2>
+  <section>
+    <h2>Example Mapping</h2>
+    <p>
+The following describes a mapping from <code>application/vc+jwt</code> to
+<code>application/vc+ld+json</code>. This is one possible unidirectional mapping
+between 2.0 VC-JWTs and the VC Data Model; other such mappings are possible.
+    </p>
+    <ul>
+      <li>
+Extract <code>iss</code>, <code>sub</code>, <code>iat</code>, <code>nbf</code>,
+<code>exp</code>, <code>jti</code>, and <code>aud</code> as registered claims.
+      </li>
+      <li>
+Set aside all other claims as subject claims.
+      </li>
+      <li>
+To construct the VCDM-compliant JSON:
+        <ul>
+          <li>
+Set the value of <code>@context</code> to
+<code>"https://www.w3.org/ns/credentials/v2"</code>.
+          </li>
+          <li>
+Set the value of <code>type</code> to <code>["VerifiableCredential"]</code>.
+          </li>
+          <li>
+Set the value of the <code>issuer</code> property to one of the following:
+          <ul>
+            <li>
+If the value of <code>iss</code> is a URL, use the value of <code>iss</code>.
+            </li>
+            <li>
+If the value of <code>iss</code> is not a URL, use the concatenation of "<code>urn:vc:</code>"
+and the value of <code>iss</code>.
+            </li>
+          </ul>
+          </li>
+          <li>
+If <code>jti</code> is present, set the value of <code>id</code> to the
+concatenation of "<code>urn:vc:</code>" and the value of <code>jti</code>.
+          </li>
+          <li>
+If <code>nbf</code> is present, set the value of <code>validFrom</code> to the
+<code>dateTime</code> obtained by converting the value of <code>nbf</code> from
+the <code>NumericDate</code> described in RFC 7519 to a <code>dateTime</code> as
+described in XMLSCHEMA11-2.
+          </li>
+          <li>
+If <code>exp</code> is present, set the value of <code>validUntil</code> to the
+<code>dateTime</code> obtained by converting the value of <code>exp</code> from
+the <code>NumericDate</code> described in RFC 7519 to a <code>dateTime</code> as
+described in XMLSCHEMA11-2.
+          </li>
+          <li>
+Set the value of <code>credentialSubject</code> to an object that contains
+the following properties:
+          <ul>
+            <li>
+If <code>sub</code> is present, set the value of the <code>id</code> property to
+the concatenation of "urn:vc:" and the value of <code>sub</code>.
+            </li>
+            <li>
+Add all of the subject claims.
+            </li>
+          </ul>
+
+
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <aside
+            class="example"
+            title="application/vc+jwt mapped to application/vc+ld+json"
+      >
+      <p>A Verifiable Credential of type application/vc+jwt:</p>
+        <pre data-include="./examples/vc-2.0/templates/vc+jwt/claimset.json" data-include-format="json"></pre>
+      <p>The application/vc+ld+json after applying the mapping:</p>
+        <pre data-include="./examples/vc-2.0/templates/vc+jwt/claimset.mapped.json" data-include-format="json"></pre>
+      </aside>
+  </section>
 </section>
 
 
