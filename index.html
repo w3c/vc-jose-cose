@@ -132,7 +132,7 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
       </p>
       <section>
         <h2>Credential Header</h2>
-        <p><a data-cite="rfc7519#section-5.1">typ</a> MUST use the content type <code>vc+jwt</code>.</p>
+        <p><a data-cite="rfc7519#section-5.1">typ</a> MUST use the media type <code>vc+jwt</code>.</p>
         <aside
           class="example"
           title="credential metadata (decoded JWT header)"
@@ -149,7 +149,7 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
           <pre data-include="./examples/vc-2.0/templates/vc+jwt/claimset.json" data-include-format="json"></pre>
         </aside>
         <p class="note">
-          The <code>vc</code> and <code>vp</code> claims MUST NOT be present when using the content type <code>credential-claims-set+json</code>.
+          The <code>vc</code> and <code>vp</code> claims MUST NOT be present when the content type header parameter is set to <code>credential-claims-set+json</code>.
         </p>
       </section>
       <section>
@@ -290,7 +290,7 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
           <p>
             To encode a <a data-cite="VC-DATA-MODEL#dfn-credential">verifiable credential</a> as a JWT, specific
             <a data-cite="VC-DATA-MODEL#dfn-property">properties</a>
-            introduced MUST be either:
+            MUST be either:
           </p>
 
           <ul>
@@ -689,14 +689,14 @@ BjYgP62KvhIvW8BbkGUelYMetA
         </p>
 
         <p>
-          If a member is not present in the <code>application/vc+ld+json</code> it MUST NOT
+          If a member is not present in the <code>application/vc+ld+json</code>, it MUST NOT
           be present in the <code>VerifiableCredential</code> as either a claim
           in the payload or a claim in the <code>vc</code> attribute of the
           payload.
         </p>
 
         <p>
-          We start with an empty header, and payload objects, and we add members
+          We start with payload objects and an empty header, and we add members
           to the header and the payload based on the content in the
           <code>application/vc+ld+json</code>.
         </p>
@@ -771,7 +771,7 @@ BjYgP62KvhIvW8BbkGUelYMetA
             Complete the mapping for <a href="#in-addition-to">In Addition To...</a>.
           </li>
           <li>
-            Remove any properties from the <code>application/vc+ld+json</code> that were mapped.
+            Remove any properties from the <code>application/vc+ld+json</code> that were mapped in the previous steps.
           </li>
           <li>
             Set the resulting object to be the <code>vc</code> member of the claim set.
