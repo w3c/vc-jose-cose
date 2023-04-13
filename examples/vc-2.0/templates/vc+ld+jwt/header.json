@@ -1,6 +1,6 @@
 {
   "kid": "urn:example:issuer#key-0",
   "alg": "ES256",
-  "typ": "vc+jwt",
-  "cty": "credential-claims-set+json"
+  "typ": "vc+ld+jwt",
+  "cty": "vc+ld+json"
 }

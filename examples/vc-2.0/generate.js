@@ -1,6 +1,7 @@
 
 const jose = require('jose');
 const fs = require('fs');
+
 const privateKeyJwk = {
   "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:GNcrpR6vVHCzTe7W-9ntbJx_5hHfhiVCHWHEUaC4E_c",
   "kty": "EC",
@@ -11,19 +12,33 @@ const privateKeyJwk = {
   "d": "bAv9YrE443mH36LnzixS3Kv5ThM5m9mH7Ab_BiU3JZc"
 };
 
-const credentialMetadata = require('./credential-metadata.json');
-const credential = require('./credential.json');
+const examples = {
+  'vc+jwt': {
+    header: require('./templates/vc+jwt/header.json'),
+    claimset: require('./templates/vc+jwt/claimset.json')
+  },
+  'vc+ld+jwt': {
+    header: require('./templates/vc+ld+jwt/header.json'),
+    claimset: require('./templates/vc+ld+jwt/claimset.json')
+  },
+  'vp+ld+jwt': {
+    header: require('./templates/vp+ld+jwt/header.json'),
+    claimset: require('./templates/vp+ld+jwt/claimset.json')
+  },
+};
+
+const issue = async (header, claimset) => {
+  const privateKey = await jose.importJWK(privateKeyJwk);
+  const jwt = await new jose.CompactSign(Buffer.from(JSON.stringify(claimset)))
+    .setProtectedHeader(header)
+    .sign(privateKey)
+  return jwt;
+}
 
 (async ()=>{
-  const privateKey = await jose.importJWK(privateKeyJwk);
-  const issuer = `urn:example:issuer`
-  const audience = `urn:example:audience`
-  const jwt = await new jose.SignJWT(credential)
-    .setProtectedHeader(credentialMetadata)
-    .setIssuedAt()
-    .setIssuer(issuer)
-    .setAudience(audience)
-    .setExpirationTime('2h')
-    .sign(privateKey)
-  fs.writeFileSync('./verifiable-credential.jwt', jwt);
+  for (const typ in examples){
+    const {header, claimset} = examples[typ];
+    const jwt = await issue(header, claimset)
+    fs.writeFileSync(`./${typ}.jose`, jwt);
+  }
 })()
