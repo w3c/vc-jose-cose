@@ -19,7 +19,7 @@
         shortName: "vc-jwt",
 
         // if you wish the publication date to be other than today, set this
-        // publishDate: "2022-03-03",
+        publishDate: "2023-04-27",
 
         // implementationReportURI: "https://w3c.github.io/vc-test-suite/implementations/",
         // errata: "https://w3c.github.io/vc-data-model/errata.html",
@@ -52,7 +52,7 @@
           {
             name: "Orie Steele",
             company: "Transmute",
-            companyURL: "https://www.transmute.industries/",
+            companyURL: "https://transmute.industries",
             w3cid: 109171,
           },
           {
@@ -114,7 +114,7 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
         <p class="note">
           The <code>application/vc+jwt</code> media type described in this specification defines
           an example of a unidirectional mapping to a base media type defined in 
-          the [[VC-DATA-MODEL]]; see <a href="#example-mapping">Appendix A.4.1</a>.
+          the [[VC-DATA-MODEL]]; see <a data-cite="#example-mapping">Appendix A.4.1</a>.
         </p>
       </section>
     </section>
@@ -768,7 +768,7 @@ BjYgP62KvhIvW8BbkGUelYMetA
         </p>
         <ol>
           <li>
-            Complete the mapping for <a href="#in-addition-to">In Addition To...</a>.
+            Complete the mapping for <a data-cite="#in-addition-to">In Addition To...</a>.
           </li>
           <li>
             Remove any properties from the <code>application/vc+ld+json</code> that were mapped in the previous steps.
@@ -780,7 +780,7 @@ BjYgP62KvhIvW8BbkGUelYMetA
 
         <p class="note">
           The object value for the <code>vc</code> property, 
-          when <a href="#instead-of">Instead of...</a> production rules have been applied, 
+          when <a data-cite="#instead-of">Instead of...</a> production rules have been applied, 
           is not of media type <code>application/vc+ld+json</code>.
         </p>
 
@@ -1052,13 +1052,13 @@ concatenation of "<code>urn:vc:</code>" and the value of <code>jti</code>.
 If <code>nbf</code> is present, set the value of <code>validFrom</code> to the
 <code>dateTime</code> obtained by converting the value of <code>nbf</code> from
 the <code>NumericDate</code> described in [[!RFC7519]] to a <code>dateTime</code> as
-described in [[!XMLSCHEMA11-2]].
+described in [[XMLSCHEMA11-2]].
           </li>
           <li>
 If <code>exp</code> is present, set the value of <code>validUntil</code> to the
 <code>dateTime</code> obtained by converting the value of <code>exp</code> from
 the <code>NumericDate</code> described in [[!RFC7519]] to a <code>dateTime</code> as
-described in [[!XMLSCHEMA11-2]].
+described in [[XMLSCHEMA11-2]].
           </li>
           <li>
 Set the value of <code>credentialSubject</code> to an object that contains
