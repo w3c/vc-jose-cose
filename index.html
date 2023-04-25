@@ -237,38 +237,48 @@ and JWS.
         </section>
       </section>
         <section>
-          <h2>Securing <code>application/vp+ld+json</code> with JOSE</h2>
+          <h2>Securing JSON-LD VPs with JOSE</h2>
+          <p>
+            This section defails how to secure verifiable presentations with the type 
+            <code>application/vp+ld+json</code> with JOSE.
+          </p>
           <p>[[rfc7515]] MAY be used to secure this media type.</p>
-          <p><code>typ</code> MUST be <code>vp+ld+jwt</code></p>
-          <p><code>cty</code> MUST be <code>vp+ld+json</code></p>
-          <p>See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header Parameters</a> for additional details.</p>
+          <p>When using this approach, the <code>typ</code> MUST be <code>vp+ld+jwt</code></p>
+          <p>When using this approach, the <code>cty</code> MUST be <code>vp+ld+json</code></p>
+          <p>
+            See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header Parameters</a> 
+            for additional details regarding usage of <code>typ</code> and <code>cty</code>.
+          </p>
           <section>
-            <h2>Presentation Header</h2>
-            <aside
-              class="example"
-              title="verifiable presentation header (decoded JWT header)"
-            >
-              <pre data-include="./examples/vc-2.0/templates/vp+ld+jwt/header.json" data-include-format="json"></pre>
-            </aside>
-          </section>
-          <section>
-            <h2>Presentation</h2>
-            <aside
-              class="example"
-              title="verifiable presentation (decoded JWT claimset)"
-            >
-              <pre data-include="./examples/vc-2.0/templates/vp+ld+jwt/claimset.json" data-include-format="json"></pre>
-            </aside>
-          </section>
-          <section>
-            <h2>Verifiable Presentation</h2>
-            <aside
-              class="example"
-              title="verifiable presentation"
-            >
-              <p>An encoded verifiable presentation (using external proof).</p>
-              <pre data-include="./examples/vc-2.0/vp+ld+jwt.jose" data-include-format="text"></pre>
-            </aside>
+            <h2>Examples</h2>
+            <section>
+              <h2>Presentation Header</h2>
+              <aside
+                class="example"
+                title="verifiable presentation header (decoded JWT header)"
+              >
+                <pre data-include="./examples/vc-2.0/templates/vp+ld+jwt/header.json" data-include-format="json"></pre>
+              </aside>
+            </section>
+            <section>
+              <h2>Presentation</h2>
+              <aside
+                class="example"
+                title="verifiable presentation (decoded JWT claimset)"
+              >
+                <pre data-include="./examples/vc-2.0/templates/vp+ld+jwt/claimset.json" data-include-format="json"></pre>
+              </aside>
+            </section>
+            <section>
+              <h2>Verifiable Presentation</h2>
+              <aside
+                class="example"
+                title="verifiable presentation"
+              >
+                <p>An encoded verifiable presentation (using external proof).</p>
+                <pre data-include="./examples/vc-2.0/vp+ld+jwt.jose" data-include-format="text"></pre>
+              </aside>
+            </section>
           </section>
         </section>
       </section>
