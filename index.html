@@ -239,7 +239,7 @@ and JWS.
         <section>
           <h2>Securing JSON-LD VPs with JOSE</h2>
           <p>
-            This section defails how to secure verifiable presentations with the type 
+            This section details how to secure verifiable presentations with the type 
             <code>application/vp+ld+json</code> with JOSE.
           </p>
           <p>[[rfc7515]] MAY be used to secure this media type.</p>
@@ -283,13 +283,24 @@ and JWS.
         </section>
       </section>
       <section>
-        <h2>With COSE</h2>
+        <h2>Securing VCs With COSE</h2>
+        <p>
+          COSE [[rfc8152]] is a common approach to encoding and securing information
+          using CBOR [[rfc8949]]. Verifiable credentials MAY be secured using COSE [[rfc8152]] 
+          and MUST be identified through use of content types as outlined in this section.
+        </p>
         <section>
-          <h2>Securing <code>application/vc+ld+json</code> with COSE</h2>
+          <h2>Securing JSON-LD VCs with COSE</h2>
+          <p>
+            This section defails how to secure data with the type <code>application/vc+ld+json</code> 
+            with COSE.
+          </p>
           <p>[[rfc8152]] MAY be used to secure this media type.</p>
-          <p><code>type (TBD)</code> MUST be <code>vc+ld+cwt</code></p>
-          <p><code>content type (3)</code> MUST be <code>application/vc+ld+json</code></p>
-          <p>See <a data-cite="rfc9052#section-3.1">Common COSE Header Parameters</a> for additional details.</p>
+          <p>When using this approach, the <code>type (TBD)</code> MUST be <code>vc+ld+cwt</code></p>
+          <p>When using this approach, the <code>content type (3)</code> MUST be <code>application/vc+ld+json</code></p>
+          <p>
+            See <a data-cite="rfc9052#section-3.1">Common COSE Header Parameters</a> for additional details.
+          </p>
           <p>See <a href="https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml">Concise Binary Object Representation (CBOR) Tags</a> for additional details.</p>
         </section>
         <p class="issue" data-number="67"></p>
