@@ -190,39 +190,52 @@ and JWS.
       <section>
         <h2>With JOSE</h2>
         <section>
-          <h2>Securing <code>application/vc+ld+json</code> with JOSE</h2>
+          <h2>Securing JSON-LD VCs with JOSE</h2>
+          <p>
+            This section defails how to secure data with the type <code>application/vc+ld+json</code> 
+            with JOSE.
+          </p>
           <p>[[rfc7515]] MAY be used to secure this media type.</p>
-          <p><code>typ</code> MUST be <code>vc+ld+jwt</code></p>
-          <p><code>cty</code> MUST be <code>vc+ld+json</code></p>
-          <p>See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header Parameters</a> for additional details.</p>
+          <p>
+            When using this approach, the <code>typ</code> MUST be <code>vc+ld+jwt</code>
+          </p>
+          <p>When using this approach, the <code>cty</code> MUST be <code>vc+ld+json</code>
+          </p>
+          <p>
+            See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header Parameters</a> 
+            for additional details regarding usage of <code>typ</code> and <code>cty</code>.
+          </p>
           <section>
-            <h2>Credential Header</h2>
-            <aside
-              class="example"
-              title="verifiable credential header (decoded JWT header)"
-            >
-              <pre data-include="./examples/vc-2.0/templates/vc+ld+jwt/header.json" data-include-format="json"></pre>
-            </aside>
-          </section>
-          <section>
-            <h2>Credential</h2>
-            <aside
-              class="example"
-              title="verifiable credential (decoded JWT claimset)"
-            >
-              <pre data-include="./examples/vc-2.0/templates/vc+ld+jwt/claimset.json" data-include-format="json"></pre>
-            </aside>
-          </section>
-          <section>
-            <h2>Verifiable Credential</h2>
-            <aside
-              class="example"
-              title="verifiable credential (encoded as JWT)"
-            >
-              <pre data-include="./examples/vc-2.0/vc+ld+jwt.jose" data-include-format="json"></pre>
-            </aside>
-          </section>
+            <h2>Examples</h2>
+            <section>
+              <h2>Credential Header</h2>
+              <aside
+                class="example"
+                title="verifiable credential header (decoded JWT header)"
+              >
+                <pre data-include="./examples/vc-2.0/templates/vc+ld+jwt/header.json" data-include-format="json"></pre>
+              </aside>
+            </section>
+            <section>
+              <h2>Credential</h2>
+              <aside
+                class="example"
+                title="verifiable credential (decoded JWT claimset)"
+              >
+                <pre data-include="./examples/vc-2.0/templates/vc+ld+jwt/claimset.json" data-include-format="json"></pre>
+              </aside>
+            </section>
+            <section>
+              <h2>Verifiable Credential</h2>
+              <aside
+                class="example"
+                title="verifiable credential (encoded as JWT)"
+              >
+                <pre data-include="./examples/vc-2.0/vc+ld+jwt.jose" data-include-format="json"></pre>
+              </aside>
+            </section>
         </section>
+      </section>
         <section>
           <h2>Securing <code>application/vp+ld+json</code> with JOSE</h2>
           <p>[[rfc7515]] MAY be used to secure this media type.</p>
