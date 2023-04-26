@@ -1,5 +1,5 @@
 
-# Verifiable Credentials JSON Web Token specification 
+# Securing Verifiable Credentials using JSON Web Tokens 
 
 We encourage contributions meeting the [Contribution
 Guidelines](CONTRIBUTING.md).  While we prefer the creation of issues
@@ -8,8 +8,8 @@ on the
 [public-vc-wg](http://lists.w3.org/Archives/Public/public-vc-wg/)
 mailing list as well.
 
-## JSON Web Token (this document) editor's draft:
-* [Verifiable Credentials JSON Web Token](https://w3c.github.io/vc-jwt/)
+## Editor's draft:
+* [Securing Verifiable Credentials using JSON Web Tokens](https://w3c.github.io/vc-jwt/)
 
 ## Verifiable Credentials Working Group
 * Group page: [https://www.w3.org/2017/vc/WG/](https://www.w3.org/2017/vc/WG/)
