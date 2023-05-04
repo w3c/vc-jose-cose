@@ -127,7 +127,7 @@ Web Tokens (JWT) [RFC7519], which builds on JSON Web Signatures (JWS)
         This section
         provides guidance on how to use JSON [[RFC7159]] claimsets with JWT registered claims to construct
         a JWT that can be mapped to a verifiable credential.  This section also describes
-        describes how to use content types, and token types to distinguish different representations of verifiable credentials.
+        how to use content types, and token types to distinguish different representations of verifiable credentials.
       </p>
       <p class="note">
         This representation relies on claims registered in the
@@ -178,6 +178,8 @@ Web Tokens (JWT) [RFC7519], which builds on JSON Web Signatures (JWS)
         data in the form of JSON-LD. While JSON-LD provides a flexible and extensible format for 
         describing data, it is important to note that it also provides a linkage between the data structure
         and semantic meaning of data.
+        </p>
+        <p>
         This section outlines how JSON-LD encoded claimset can be secured using either JOSE or COSE.
       </p>
       <p>
@@ -920,42 +922,44 @@ BjYgP62KvhIvW8BbkGUelYMetA
   <p>
     Verifiable Credentials often contain sensitive information that should be protected 
     to ensure the privacy and security of organizations and individuals. This section outlines some privacy 
-    considerations that implementers and users of this specification should be aware of.
+    considerations relevant to implementers and users.
   </p>
   <p>
-    Implementers SHOULD note and abide by all privacy considerations called out in the [[VC-DATA-MODEL]].
+    Implementers are advised to note and abide by all privacy considerations called out in the [[VC-DATA-MODEL]].
   </p>
   <p>
-    Implementers SHOULD additionally reference the <a href="https://www.rfc-editor.org/rfc/rfc7519#section-12">Privacy Consideration</a> section of the JWT specification for privacy guidance.
+Implementers are additionally advised to reference the
+<a href="https://www.rfc-editor.org/rfc/rfc7519#section-12">Privacy Consideration</a>
+section of the JWT specification for privacy guidance.
   </p>
   <p>
-    In addition to privacy recommendations noted in the [[VC-DATA-MODEL]] the following 
-    considerations should be observed:
+    In addition to the privacy recommendations in the [[VC-DATA-MODEL]], the following
+    considerations are given:
     <ul>
       <li>
         <p>
-          Minimization of data: Verifiable Credentials should only contain the minimum amount 
-          of data necessary to achieve their intended purpose. This can help to limit the amount 
+          Minimization of data: It is considered best practice for Verifiable Credentials to only contain the minimum amount 
+          of data necessary to achieve their intended purpose. This helps to limit the amount 
           of sensitive information that is shared or stored unnecessarily.
         </p>
       </li>
       <li>
         <p>
-          Informed consent: Individuals should be fully informed about how their data will be 
-          used and should have the ability to consent to or decline the use of their data. 
-          This can help to ensure that individuals maintain control over their own personal information.
+          Informed consent: It is considered best practice that individuals be fully informed about how their data will be 
+          used and provide the ability to consent to or decline the use of their data. 
+          This helps to ensure that individuals maintain control over their own personal information.
         </p>
       </li>
       <li>
         <p>
-          Data protection: Verifiable Credentials should be protected using strong encryption and other 
+          Data protection: It is considered best practice to protect Verifiable Credentials using strong encryption and other
           security measures to prevent unauthorized access, modification, or disclosure. 
         </p>
       </li>
     </ul>
   </p>
   <p>
-    These considerations are not exhaustive, and implementers and users should consult additional privacy 
+    These considerations are not exhaustive, and implementers and users are advised to consult additional privacy 
     resources and best practices to ensure the privacy and security of Verifiable Credentials implemented
     using VC-JWT.
   </p>
@@ -963,8 +967,8 @@ BjYgP62KvhIvW8BbkGUelYMetA
 <section>
   <h2>Security Considerations</h2>
   <p>
-    This section outlines the security considerations that implementers and 
-    users of this specification should be aware of. 
+    This section outlines security considerations for implementers and 
+    users of this specification.
     It is important to carefully consider these factors to ensure the security 
     and integrity of Verifiable Credentials when implemented using JWTs.
   </p>
@@ -977,26 +981,25 @@ BjYgP62KvhIvW8BbkGUelYMetA
     access, modification, or disclosure of sensitive information. 
   </p>
   <p>
-    Implementers should follow best practices and established cryptographic standards to ensure 
+    Implementers are advised to follow best practices and established cryptographic standards to ensure 
     the secure handling of keys and other sensitive data. 
-    Additionally, regular security assessments and audits should be conducted to identify and 
+    Additionally, conduct regular security assessments and audits to identify and 
     address any vulnerabilities or threats.
   </p>
   <p>
-    All security considerations outlines in [[rfc7515]] and [[rfc7519]] SHOULD
-    be followed.
+    Follow all security considerations outlined in [[rfc7515]] and [[rfc7519]].
   </p>
   <p>
-    When utilizing JSON-LD special care should be taken around remote retrieval of contexts.
-    Additional security considerations noted in [[json-ld11]] should be followed in these cases.
+    When utilizing JSON-LD, take special care around remote retrieval of contexts and follow the
+    additional security considerations noted in [[json-ld11]].
   </p>
   <p>
     As noted in [[rfc7515]] when utilizing JSON [[rfc7159]], strict validation is a security
     requirement. If malformed JSON is received, it may be impossible to reliably interpret the 
     producer's intent, potentially leading to ambiguous or exploitable situations.
     To prevent these risks, it is essential to use a JSON parser that strictly validates the syntax 
-    of all input data. Any JSON inputs that do not conform to the JSON-text syntax defined in [[rfc7159]]
-    MUST be rejected in their entirety by JSON parsers. Failure to reject invalid input could compromise 
+    of all input data. It is essential that any JSON inputs that do not conform to the JSON-text syntax defined in [[rfc7159]]
+    be rejected in their entirety by JSON parsers. Failure to reject invalid input could compromise 
     the security and integrity of Verifiable Credentials.
   </p>
 </section>
