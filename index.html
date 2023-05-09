@@ -84,7 +84,7 @@
     <section id="abstract">
       <p>
 This specification defines how to secure Verifiable Credentials with JSON
-Web Tokens (JWT) [RFC7519], which builds on JSON Web Signatures (JWS)
+Web Tokens (JWT) [RFC7519], which build on JSON Web Signatures (JWS)
 [RFC7515]. This enables Verifiable Credentials to be easily integrated into ecosystems that already support JSON Web Tokens.
       </p>
     </section>
@@ -127,7 +127,7 @@ Web Tokens (JWT) [RFC7519], which builds on JSON Web Signatures (JWS)
         This section
         provides guidance on how to use JSON [[RFC7159]] claimsets with JWT registered claims to construct
         a JWT that can be mapped to a verifiable credential.  This section also describes
-        how to use content types, and token types to distinguish different representations of verifiable credentials.
+        how to use content types and token types to distinguish different representations of verifiable credentials.
       </p>
       <p class="note">
         This representation relies on claims registered in the
@@ -183,7 +183,7 @@ Web Tokens (JWT) [RFC7519], which builds on JSON Web Signatures (JWS)
         This section outlines how JSON-LD encoded claimset can be secured using either JOSE or COSE.
       </p>
       <p>
-        A benefit to this approach is that claimsets can be used that conform directly to the [[VC-DATA-MODEL]]
+                A benefit to this approach is that payloads can be made to conform directly to the [[VC-DATA-MODEL]]
         without any mapping or transformation.
       </p>
       <section>
@@ -282,7 +282,7 @@ Web Tokens (JWT) [RFC7519], which builds on JSON Web Signatures (JWS)
         </section>
       </section>
       <section>
-        <h2>Securing VCs With COSE</h2>
+        <h2>With COSE</h2>
         <p>
           COSE [[rfc8152]] is a common approach to encoding and securing information
           using CBOR [[rfc8949]]. Verifiable credentials MAY be secured using COSE [[rfc8152]] 
