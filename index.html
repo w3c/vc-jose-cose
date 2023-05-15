@@ -83,9 +83,9 @@
   <body>
     <section id="abstract">
       <p>
-This specification defines how Verifiable Credentials can be represented as JSON
-Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
-[RFC7515].
+This specification defines how to secure Verifiable Credentials with JSON
+Web Tokens (JWT) [RFC7519], which build on JSON Web Signatures (JWS)
+[RFC7515]. This enables Verifiable Credentials to be easily integrated into ecosystems that already support JSON Web Tokens.
       </p>
     </section>
     <section id="sotd"></section>
@@ -109,7 +109,7 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
         <p>
           This specification describes how to secure media types 
           expressing Verifiable Credentials and Verifiable Presentations 
-          as described in [[VC-DATA-MODEL]], using JWTs [[RFC7519]].
+          as described in the [[VC-DATA-MODEL]], using JWTs [[RFC7519]].
         </p>
         <p class="note">
           The <code>application/vc+jwt</code> media type described in this specification defines
@@ -123,6 +123,12 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
 
     <section>
       <h2>Securing JSON</h2>
+      <p>
+        This section
+        provides guidance on how to use JSON [[RFC7159]] claimsets with JWT registered claims to construct
+        a JWT that can be mapped to a verifiable credential.  This section also describes
+        how to use content types and token types to distinguish different representations of verifiable credentials.
+      </p>
       <p class="note">
         This representation relies on claims registered in the
         <a href="https://www.iana.org/assignments/jwt/jwt.xhtml#claims">IANA JSON Web Token Claims Registry</a> whenever possible.
@@ -167,86 +173,133 @@ Web Tokens (JWT) [RFC7519] and secured using JSON Web Signatures (JWS)
 
     <section>
       <h2>Securing JSON-LD</h2>
+      <p>
+        The use of Verifiable Credentials often involves the representation and exchange of structured 
+        data in the form of JSON-LD. While JSON-LD provides a flexible and extensible format for 
+        describing data, it is important to note that it also provides a linkage between the data structure
+        and semantic meaning of data.
+        </p>
+        <p>
+        This section outlines how JSON-LD encoded claimset can be secured using either JOSE or COSE.
+      </p>
+      <p>
+                A benefit to this approach is that payloads can be made to conform directly to the [[VC-DATA-MODEL]]
+        without any mapping or transformation.
+      </p>
       <section>
         <h2>With JOSE</h2>
         <section>
-          <h2>Securing <code>application/vc+ld+json</code> with JOSE</h2>
+          <h2>Securing JSON-LD VCs with JOSE</h2>
+          <p>
+            This section details how to secure data payloads with the type <code>application/vc+ld+json</code> 
+            with JOSE.
+          </p>
           <p>[[rfc7515]] MAY be used to secure this media type.</p>
-          <p><code>typ</code> MUST be <code>vc+ld+jwt</code></p>
-          <p><code>cty</code> MUST be <code>vc+ld+json</code></p>
-          <p>See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header Parameters</a> for additional details.</p>
+          <p>
+            When using this approach, the <code>typ</code> MUST be <code>vc+ld+jwt</code>
+          </p>
+          <p>When using this approach, the <code>cty</code> MUST be <code>vc+ld+json</code>
+          </p>
+          <p>
+            See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header Parameters</a> 
+            for additional details regarding usage of <code>typ</code> and <code>cty</code>.
+          </p>
           <section>
-            <h2>Credential Header</h2>
-            <aside
-              class="example"
-              title="verifiable credential header (decoded JWT header)"
-            >
-              <pre data-include="./examples/vc-2.0/templates/vc+ld+jwt/header.json" data-include-format="json"></pre>
-            </aside>
-          </section>
-          <section>
-            <h2>Credential</h2>
-            <aside
-              class="example"
-              title="verifiable credential (decoded JWT claimset)"
-            >
-              <pre data-include="./examples/vc-2.0/templates/vc+ld+jwt/claimset.json" data-include-format="json"></pre>
-            </aside>
-          </section>
-          <section>
-            <h2>Verifiable Credential</h2>
-            <aside
-              class="example"
-              title="verifiable credential (encoded as JWT)"
-            >
-              <pre data-include="./examples/vc-2.0/vc+ld+jwt.jose" data-include-format="json"></pre>
-            </aside>
-          </section>
+            <h2>Examples</h2>
+            <section>
+              <h2>Credential Header</h2>
+              <aside
+                class="example"
+                title="verifiable credential header (decoded JWT header)"
+              >
+                <pre data-include="./examples/vc-2.0/templates/vc+ld+jwt/header.json" data-include-format="json"></pre>
+              </aside>
+            </section>
+            <section>
+              <h2>Credential</h2>
+              <aside
+                class="example"
+                title="verifiable credential (decoded JWT claimset)"
+              >
+                <pre data-include="./examples/vc-2.0/templates/vc+ld+jwt/claimset.json" data-include-format="json"></pre>
+              </aside>
+            </section>
+            <section>
+              <h2>Verifiable Credential</h2>
+              <aside
+                class="example"
+                title="verifiable credential (encoded as JWT)"
+              >
+                <pre data-include="./examples/vc-2.0/vc+ld+jwt.jose" data-include-format="json"></pre>
+              </aside>
+            </section>
         </section>
+      </section>
         <section>
-          <h2>Securing <code>application/vp+ld+json</code> with JOSE</h2>
+          <h2>Securing JSON-LD VPs with JOSE</h2>
+          <p>
+            This section details how to secure verifiable presentations with the type 
+            <code>application/vp+ld+json</code> with JOSE.
+          </p>
           <p>[[rfc7515]] MAY be used to secure this media type.</p>
-          <p><code>typ</code> MUST be <code>vp+ld+jwt</code></p>
-          <p><code>cty</code> MUST be <code>vp+ld+json</code></p>
-          <p>See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header Parameters</a> for additional details.</p>
+          <p>When using this approach, the <code>typ</code> MUST be <code>vp+ld+jwt</code></p>
+          <p>When using this approach, the <code>cty</code> MUST be <code>vp+ld+json</code></p>
+          <p>
+            See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header Parameters</a> 
+            for additional details regarding usage of <code>typ</code> and <code>cty</code>.
+          </p>
           <section>
-            <h2>Presentation Header</h2>
-            <aside
-              class="example"
-              title="verifiable presentation header (decoded JWT header)"
-            >
-              <pre data-include="./examples/vc-2.0/templates/vp+ld+jwt/header.json" data-include-format="json"></pre>
-            </aside>
-          </section>
-          <section>
-            <h2>Presentation</h2>
-            <aside
-              class="example"
-              title="verifiable presentation (decoded JWT claimset)"
-            >
-              <pre data-include="./examples/vc-2.0/templates/vp+ld+jwt/claimset.json" data-include-format="json"></pre>
-            </aside>
-          </section>
-          <section>
-            <h2>Verifiable Presentation</h2>
-            <aside
-              class="example"
-              title="verifiable presentation"
-            >
-              <p>An encoded verifiable presentation (using external proof).</p>
-              <pre data-include="./examples/vc-2.0/vp+ld+jwt.jose" data-include-format="text"></pre>
-            </aside>
+            <h2>Examples</h2>
+            <section>
+              <h2>Presentation Header</h2>
+              <aside
+                class="example"
+                title="verifiable presentation header (decoded JWT header)"
+              >
+                <pre data-include="./examples/vc-2.0/templates/vp+ld+jwt/header.json" data-include-format="json"></pre>
+              </aside>
+            </section>
+            <section>
+              <h2>Presentation</h2>
+              <aside
+                class="example"
+                title="verifiable presentation (decoded JWT claimset)"
+              >
+                <pre data-include="./examples/vc-2.0/templates/vp+ld+jwt/claimset.json" data-include-format="json"></pre>
+              </aside>
+            </section>
+            <section>
+              <h2>Verifiable Presentation</h2>
+              <aside
+                class="example"
+                title="verifiable presentation"
+              >
+                <p>An encoded verifiable presentation (using external proof).</p>
+                <pre data-include="./examples/vc-2.0/vp+ld+jwt.jose" data-include-format="text"></pre>
+              </aside>
+            </section>
           </section>
         </section>
       </section>
       <section>
         <h2>With COSE</h2>
+        <p>
+          COSE [[rfc8152]] is a common approach to encoding and securing information
+          using CBOR [[rfc8949]]. Verifiable credentials MAY be secured using COSE [[rfc8152]] 
+          and MUST be identified through use of content types as outlined in this section.
+        </p>
         <section>
-          <h2>Securing <code>application/vc+ld+json</code> with COSE</h2>
+          <h2>Securing JSON-LD VCs with COSE</h2>
+          <p>
+            This section details how to secure data with the type <code>application/vc+ld+json</code> 
+            with COSE.
+          </p>
           <p>[[rfc8152]] MAY be used to secure this media type.</p>
-          <p><code>type (TBD)</code> MUST be <code>vc+ld+cwt</code></p>
-          <p><code>content type (3)</code> MUST be <code>application/vc+ld+json</code></p>
-          <p>See <a data-cite="rfc9052#section-3.1">Common COSE Header Parameters</a> for additional details.</p>
+          <p>When using this approach, the <code>type (TBD)</code> MUST be <code>vc+ld+cwt</code></p>
+          <p>When using this approach, the <code>content type (3)</code> MUST be <code>application/vc+ld+json</code></p>
+          <p>
+            See <a data-cite="rfc9052#section-3.1">Common COSE Header Parameters</a> for additional details.
+          </p>
           <p>See <a href="https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml">Concise Binary Object Representation (CBOR) Tags</a> for additional details.</p>
         </section>
         <p class="issue" data-number="67"></p>
@@ -865,10 +918,90 @@ BjYgP62KvhIvW8BbkGUelYMetA
 <section id="conformance"></section>
 
 <section>
-<h2>Privacy Considerations</h2>
+  <h2>Privacy Considerations</h2>
+  <p>
+    Verifiable Credentials often contain sensitive information that needs to be protected 
+    to ensure the privacy and security of organizations and individuals. This section outlines some privacy 
+    considerations relevant to implementers and users.
+  </p>
+  <p>
+    Implementers are advised to note and abide by all privacy considerations called out in the [[VC-DATA-MODEL]].
+  </p>
+  <p>
+Implementers are additionally advised to reference the
+<a href="https://www.rfc-editor.org/rfc/rfc7519#section-12">Privacy Consideration</a>
+section of the JWT specification for privacy guidance.
+  </p>
+  <p>
+    In addition to the privacy recommendations in the [[VC-DATA-MODEL]], the following
+    considerations are given:
+    <ul>
+      <li>
+        <p>
+          Minimization of data: It is considered best practice for Verifiable Credentials to only contain the minimum amount 
+          of data necessary to achieve their intended purpose. This helps to limit the amount 
+          of sensitive information that is shared or stored unnecessarily.
+        </p>
+      </li>
+      <li>
+        <p>
+          Informed consent: It is considered best practice that individuals be fully informed about how their data will be 
+          used and provide the ability to consent to or decline the use of their data. 
+          This helps to ensure that individuals maintain control over their own personal information.
+        </p>
+      </li>
+      <li>
+        <p>
+          Data protection: It is considered best practice to protect Verifiable Credentials using strong encryption and other
+          security measures to prevent unauthorized access, modification, or disclosure. 
+        </p>
+      </li>
+    </ul>
+  </p>
+  <p>
+    These considerations are not exhaustive, and implementers and users are advised to consult additional privacy 
+    resources and best practices to ensure the privacy and security of Verifiable Credentials implemented
+    using VC-JWT.
+  </p>
 </section>
 <section>
-<h2>Security Considerations</h2>
+  <h2>Security Considerations</h2>
+  <p>
+    This section outlines security considerations for implementers and 
+    users of this specification.
+    It is important to carefully consider these factors to ensure the security 
+    and integrity of Verifiable Credentials when implemented using JWTs.
+  </p>
+  <p>
+    When implementing VC-JWTs, it is essential to address all security issues relevant 
+    to broad cryptographic applications. This especially includes protecting the user's
+    asymmetric private and symmetric secret keys, as well as employing countermeasures 
+    against various attacks. Failure to adequately address these issues could compromise 
+    the security and integrity of Verifiable Credentials, potentially leading to unauthorized 
+    access, modification, or disclosure of sensitive information. 
+  </p>
+  <p>
+    Implementers are advised to follow best practices and established cryptographic standards to ensure 
+    the secure handling of keys and other sensitive data. 
+    Additionally, conduct regular security assessments and audits to identify and 
+    address any vulnerabilities or threats.
+  </p>
+  <p>
+    Follow all security considerations outlined in [[rfc7515]] and [[rfc7519]].
+  </p>
+  <p>
+    When utilizing JSON-LD, take special care around remote retrieval of contexts and follow the
+    additional security considerations noted in [[json-ld11]].
+  </p>
+  <p>
+    As noted in [[rfc7515]] when utilizing JSON [[rfc7159]], strict validation is a security
+    requirement. If malformed JSON is received, it may be impossible to reliably interpret the 
+    producer's intent, potentially leading to ambiguous or exploitable situations.
+    To prevent these risks, it is essential to use a JSON parser that strictly validates the syntax 
+    of all input data. It is essential that any JSON inputs that do not conform to the JSON-text syntax defined in [[rfc7159]]
+    be rejected in their entirety by JSON parsers. Failure to reject invalid input could compromise 
+    the security and integrity of Verifiable Credentials.
+  </p>
 </section>
 
     <section class="appendix informative">
