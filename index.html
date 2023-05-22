@@ -119,58 +119,6 @@ Web Tokens (JWT) [RFC7519], which build on JSON Web Signatures (JWS)
       </section>
     </section>
 
-
-
-    <section>
-      <h2>Securing JSON</h2>
-      <p>
-        This section
-        provides guidance on how to use JSON [[RFC7159]] claimsets with JWT registered claims to construct
-        a JWT that can be mapped to a verifiable credential.  This section also describes
-        how to use content types and token types to distinguish different representations of verifiable credentials.
-      </p>
-      <p class="note">
-        This representation relies on claims registered in the
-        <a href="https://www.iana.org/assignments/jwt/jwt.xhtml#claims">IANA JSON Web Token Claims Registry</a> whenever possible.
-      </p>
-      <p class="note">
-        Production of this representation does not use <code>vc+ld+json</code> as an input.
-      </p>
-      <section>
-        <h2>Credential Header</h2>
-        <p><a data-cite="rfc7519#section-5.1">typ</a> MUST use the media type <code>vc+jwt</code>.</p>
-        <aside
-          class="example"
-          title="credential metadata (decoded JWT header)"
-        >
-          <pre data-include="./examples/vc-2.0/templates/vc+jwt/header.json" data-include-format="json"></pre>
-        </aside>
-      </section>
-      <section>
-        <h2>Credential</h2>
-        <aside
-          class="example"
-          title="credential (decoded JWT payload)"
-        >
-          <pre data-include="./examples/vc-2.0/templates/vc+jwt/claimset.json" data-include-format="json"></pre>
-        </aside>
-        <p class="note">
-          The <code>vc</code> and <code>vp</code> claims MUST NOT be present when the content type header parameter is set to <code>credential-claims-set+json</code>.
-        </p>
-      </section>
-      <section>
-        <h2>Verifiable Credential</h2>
-        <aside
-          class="example"
-          title="verifiable credential"
-        >
-          <p>An encoded verifiable credential (using external proof).</p>
-          <pre data-include="./examples/vc-2.0/vc+jwt.jose" data-include-format="text"></pre>
-        </aside>
-      </section>
-
-    </section>
-
     <section>
       <h2>Securing JSON-LD</h2>
       <p>
