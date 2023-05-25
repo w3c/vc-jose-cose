@@ -1229,7 +1229,7 @@ Add all of the subject claims.
 
     <section>
       <h3>Examples</h3>
-      <pre class="example nohighlight vc-jwt" title="A revocable credential with multiple subjects"
+      <pre class="example vc-jwt" title="A revocable credential with multiple subjects"
         data-vc-kid='#urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs'>
 {
   "@context": [
@@ -1242,21 +1242,44 @@ Add all of the subject claims.
   "issuer": {
     "id": "https://contoso.example"
   },
-  "validFrom": "2021-04-05T14:27:42Z",
-  <span class="highlight">"credentialStatus": {
-    "id": "https://contoso.example/credentials/status/3#94567",
+  "validFrom": "2015-04-16T05:11:32.432Z",
+  "credentialStatus": {
+    "id": "https://contoso.example/credentials/status/4#273762",
     "type": "StatusList2021Entry",
     "statusPurpose": "revocation",
-    "statusListIndex": "94567",
-    "statusListCredential": "https://contoso.example/credentials/status/3"
-  }</span>,
+    "statusListIndex": "273762",
+    "statusListCredential": "https://contoso.example/credentials/status/4"
+  },
   "credentialSubject": [{
-    "id": "did:example:2222",
+    "id": "did:example:1312387641",
     "type": "Person"
   },{
-    "id": "did:example:3333",
+    "id": "did:example:63888231",
     "type": "Dog"
   }]
+}
+      </pre>
+
+      <pre class="example vc-jwt" title="A credential with a schema"
+        data-vc-kid='#key-42'>
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "id": "https://contoso.example/credentials/35327255",
+  "type": ["VerifiableCredential", "KYCExample"],
+  "issuer": "did:web:contoso.example",
+  "validFrom": "2019-05-25T03:10:16.992Z",
+  "validUntil": "2027-05-25T03:10:16.992Z",
+  "credentialSchema": {
+    "id": "https://contoso.example/bafybeigdyr...lqabf3oclgtqy55fbzdi",
+    "type": "JsonSchema"
+  },
+  "credentialSubject": {
+    "id": "did:example:1231588",
+    "type": "Person"
+  }
 }
       </pre>
     </section>
