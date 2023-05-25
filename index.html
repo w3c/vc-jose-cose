@@ -7,6 +7,7 @@
       src="https://www.w3.org/Tools/respec/respec-w3c"
       class="remove"
     ></script>
+    <script class="remove" src="https://cdn.jsdelivr.net/gh/transmute-industries/respec-vc-jwt@0.0.5/dist/main.js"></script>
     <script class="remove">
       // See https://github.com/w3c/respec/wiki/ for how to configure ReSpec
       var respecConfig = {
@@ -61,7 +62,7 @@
             company: "independent",
             w3cid: 38745,
           },
-	  {
+	        {
             name: "Michael Prorock",
             company: "Mesur.io", companyURL: "https://mesur.io/",
             w3cid: 130636
@@ -74,7 +75,7 @@
 
         maxTocLevel: 2,
         inlineCSS: true,
-
+        postProcess: [window.respecVc.createVcExamples],
         license: "w3c-software-doc",
         xref: true, 
       };
@@ -1224,6 +1225,38 @@ Add all of the subject claims.
 </section>
 
 
+    </section>
+
+    <section>
+      <h3>Examples</h3>
+      <pre class="example nohighlight vc-jwt" title="A revocable credential with multiple subjects"
+        data-vc-kid='https://example.edu/issuers/565049/keys/1'>
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2",
+    "https://w3id.org/vc/status-list/2021/v1"
+  ],
+  "id": "https://example.com/credentials/23894672394",
+  "type": ["VerifiableCredential", "K9UnitCredential"],
+  "issuer": "did:example:1111",
+  "validFrom": "2021-04-05T14:27:42Z",
+  <span class="highlight">"credentialStatus": {
+    "id": "https://example.com/credentials/status/3#94567",
+    "type": "StatusList2021Entry",
+    "statusPurpose": "revocation",
+    "statusListIndex": "94567",
+    "statusListCredential": "https://example.com/credentials/status/3"
+  }</span>,
+  "credentialSubject": [{
+    "id": "did:example:2222",
+    "type": "Person"
+  },{
+    "id": "did:example:3333",
+    "type": "Dog"
+  }]
+}
+      </pre>
     </section>
   </body>
 </html>
