@@ -1282,6 +1282,85 @@ Add all of the subject claims.
   }
 }
       </pre>
+
+      <pre class="example" title="A verifiable credential controller document">
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    { "@vocab": "https://vendor.example#" }
+  ],
+  "id": "did:web:vendor.example",
+  "alsoKnownAs": [
+    "https://vendor.example",
+    "did:jwk:eyJraWQiOiJ1cm46aWV0ZjpwYXJhbXM6b2F1dGg6andrLXRodW1icHJpbnQ6c2hhLTI1NjpGZk1iek9qTW1RNGVmVDZrdndUSUpqZWxUcWpsMHhqRUlXUTJxb2JzUk1NIiwia3R5IjoiT0tQIiwiY3J2IjoiRWQyNTUxOSIsImFsZyI6IkVkRFNBIiwieCI6IkFOUmpIX3p4Y0tCeHNqUlBVdHpSYnA3RlNWTEtKWFE5QVBYOU1QMWo3azQifQ"
+  ],
+  "verificationMethod": [
+    {
+      "id": "#urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs",
+      "type": "JsonWebKey",
+      "controller": "did:web:vendor.example",
+      "publicKeyJwk": {
+        "kty": "EC",
+        "crv": "P-521",
+        "alg": "ES512",
+        "x": "AFTyMw-fIYJNg6fBVJvOPOsLxmnNj8HgqMChyRL0swLaefVAc7wrWZ8okQJqMmvv03JRUp277meQZM3JcvXFkH1v",
+        "y": "ALn96CrD88b4TClmkl1sk0xk2FgAIda97ZF8TUOjbeWSzbKnN2KB6pqlpbuJ2xIRXvsn5BWQVlAT2JGpGwDNMyV1"
+      }
+    },
+    {
+      "id": "#z6MkhEdpG12jyQegrr62ACRmNY8gc531W2j9Xo39cHphuCEH",
+      "type": "JsonWebKey2020",
+      "controller": "https://vendor.example",
+      "publicKeyJwk": {
+        "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:FfMbzOjMmQ4efT6kvwTIJjelTqjl0xjEIWQ2qobsRMM",
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "alg": "EdDSA",
+        "x": "ANRjH_zxcKBxsjRPUtzRbp7FSVLKJXQ9APX9MP1j7k4"
+      }
+    }
+    {
+      "id": "#subject-authenticaton",
+      "type": "JsonWebKey",
+      "controller": "did:web:vendor.example",
+      "publicKeyJwk": {
+        "kty": "EC",
+        "crv": "P-384",
+        "alg": "ES384",
+        "x": "PxgAmVYOQvSNcMYL2tOzoLwSWn4Ta3tIMPEUKR8pxeb-gmR11-DyKHBoIiY-2LhM",
+        "y": "BZEBTkImVdpwvxR9THIRw16eblnj5-tZa7m-ww5uVd4kyPJNRoWUn2aT9ZuarAe-"
+      }
+    },
+    {
+      "id": "#credential-issuance",
+      "type": "JsonWebKey",
+      "controller": "did:web:vendor.example",
+      "publicKeyJwk": {
+        "kty": "EC",
+        "crv": "P-256",
+        "alg": "ES256",
+        "x": "MYvnaI87pfrn3FpTqW-yNiFcF1K7fedJiqapm20_q7c",
+        "y": "9YEbT6Tyuc7xp9yRvhOUVKK_NIHkn5HpK9ZMgvK5pVw"
+      }
+    },
+    {
+      "id": "#key-agreement",
+      "type": "JsonWebKey",
+      "controller": "did:web:vendor.example",
+      "publicKeyJwk": {
+        "kty": "OKP",
+        "crv": "X25519",
+        "alg": "ECDH-ES+A128KW",
+        "x": "qLZkSTbstvMWPTivmiQglEFWG2Ff7gNDVoVisdZTr1I"
+      }
+    }
+  ],
+  "authentication": ["#subject-authenticaton"],
+  "assertionMethod": ["#credential-issuance"],
+  "keyAgreement": ["#key-agreement"]
+}
+            
+      </pre>
     </section>
   </body>
 </html>
