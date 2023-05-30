@@ -363,36 +363,83 @@ section of the JWT specification for privacy guidance.
     It is important to carefully consider these factors to ensure the security 
     and integrity of Verifiable Credentials when implemented using JWTs.
   </p>
-  <p>
-    When implementing VC-JWTs, it is essential to address all security issues relevant 
-    to broad cryptographic applications. This especially includes protecting the user's
-    asymmetric private and symmetric secret keys, as well as employing countermeasures 
-    against various attacks. Failure to adequately address these issues could compromise 
-    the security and integrity of Verifiable Credentials, potentially leading to unauthorized 
-    access, modification, or disclosure of sensitive information. 
-  </p>
-  <p>
-    Implementers are advised to follow best practices and established cryptographic standards to ensure 
-    the secure handling of keys and other sensitive data. 
-    Additionally, conduct regular security assessments and audits to identify and 
-    address any vulnerabilities or threats.
-  </p>
-  <p>
-    Follow all security considerations outlined in [[rfc7515]] and [[rfc7519]].
-  </p>
-  <p>
-    When utilizing JSON-LD, take special care around remote retrieval of contexts and follow the
-    additional security considerations noted in [[json-ld11]].
-  </p>
-  <p>
-    As noted in [[rfc7515]] when utilizing JSON [[rfc7159]], strict validation is a security
-    requirement. If malformed JSON is received, it may be impossible to reliably interpret the 
-    producer's intent, potentially leading to ambiguous or exploitable situations.
-    To prevent these risks, it is essential to use a JSON parser that strictly validates the syntax 
-    of all input data. It is essential that any JSON inputs that do not conform to the JSON-text syntax defined in [[rfc7159]]
-    be rejected in their entirety by JSON parsers. Failure to reject invalid input could compromise 
-    the security and integrity of Verifiable Credentials.
-  </p>
+  <section>
+    <h2>General Considerations</h2>
+    <p>
+      When implementing VC-JWTs, it is essential to address all security issues relevant 
+      to broad cryptographic applications. This especially includes protecting the user's
+      asymmetric private and symmetric secret keys, as well as employing countermeasures 
+      against various attacks. Failure to adequately address these issues could compromise 
+      the security and integrity of Verifiable Credentials, potentially leading to unauthorized 
+      access, modification, or disclosure of sensitive information. 
+    </p>
+    <p>
+      Implementers are advised to follow best practices and established cryptographic standards to ensure 
+      the secure handling of keys and other sensitive data. 
+      Additionally, conduct regular security assessments and audits to identify and 
+      address any vulnerabilities or threats.
+    </p>
+    <p>
+      Follow all security considerations outlined in [[rfc7515]] and [[rfc7519]].
+    </p>
+    <p>
+      When utilizing JSON-LD, take special care around remote retrieval of contexts and follow the
+      additional security considerations noted in [[json-ld11]].
+    </p>
+    <p>
+      As noted in [[rfc7515]] when utilizing JSON [[rfc7159]], strict validation is a security
+      requirement. If malformed JSON is received, it may be impossible to reliably interpret the 
+      producer's intent, potentially leading to ambiguous or exploitable situations.
+      To prevent these risks, it is essential to use a JSON parser that strictly validates the syntax 
+      of all input data. It is essential that any JSON inputs that do not conform to the JSON-text syntax defined in [[rfc7159]]
+      be rejected in their entirety by JSON parsers. Failure to reject invalid input could compromise 
+      the security and integrity of Verifiable Credentials.
+    </p>
+  </section>
+  <section>
+    <h2>Context Integrity</h2>
+    <p>
+      In some cases is is desireable to know that the version of the
+      context(s) utilized in the verifiable credential is the same as
+      used by both the issuer and verifier.  
+    </p>
+    <p>
+      To validate that a context included in a Verifiable Credential is
+      the same at verification time as at issuing time an implementer
+      MAY include a property named <code>contextIntegrity</code> that
+      stores an array of objects that describe additional integrity
+      metadata about the context. Each object in the
+      <code>contextIntegrity</code> array MUST contain the following:
+      the URL to the context named <code>context</code>, a
+      <code>timestamp</code>
+      that indicates when the context was retrieved and hashed, the
+      <code>hash</code>
+      of the context, and the <code>method</code> which indicates what
+      hashing algorithm was used as listed as the 'Hash Name String'
+      property from the <a
+      href="https://www.iana.org/assignments/named-information/named-information.xhtml">IANA
+      Named Information Hash Algorithm Registry</a>.  
+      The <code>timestamp</code> property MUST be a string value of an
+      [[XMLSCHEMA11-2]] combined date-time string. An implementer may
+      include other fields in each object.
+    </p>
+    <p>
+      <aside
+        class="example"
+        title="context integrity"
+      >
+        <p>An example of a context integrity object</p>
+        <pre>
+          "contextIntegrity": [{
+            "context":"https://example.org/v1/context", 
+            "timestamp": "1971/01/01 00:00:00", 
+            "hash": "0c63a75b845e4f7d01107d852e4c2485c51a50aaaa94fc61995e71bbee983a2ac3713831264adb47fb6bd1e058d5f004", 
+            "method": "sha3-384"  
+          }]
+        </pre>
+      </aside>
+    </p>
+  </section>
 </section>
 
     <section class="appendix informative">
