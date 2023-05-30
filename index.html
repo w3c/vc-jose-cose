@@ -399,7 +399,7 @@ section of the JWT specification for privacy guidance.
   <section>
     <h2>Context Integrity</h2>
     <p>
-      In some cases is is desireable to know that the version of the
+      In some cases is is desireable to know that the contents of the
       context(s) utilized in the verifiable credential is the same as
       used by both the issuer and verifier.  
     </p>
@@ -408,11 +408,17 @@ section of the JWT specification for privacy guidance.
       the same at verification time as at issuing time an implementer
       MAY include a property named <code>contextIntegrity</code> that
       stores an array of objects that describe additional integrity
-      metadata about the context. Each object in the
+      metadata about each context used by the VC. If
+      <code>contextIntegrity</code>
+      is present there MUST be an object in the array for each remote
+      context.
+    </p>
+    <p>
+      Each object in the
       <code>contextIntegrity</code> array MUST contain the following:
       the URL to the context named <code>context</code>, a
       <code>timestamp</code>
-      that indicates when the context was retrieved and hashed, the
+      that indicates the time at which the hash was computed, the
       <code>hash</code>
       of the context, and the <code>method</code> which indicates what
       hashing algorithm was used as listed as the 'Hash Name String'
@@ -422,6 +428,23 @@ section of the JWT specification for privacy guidance.
       The <code>timestamp</code> property MUST be a string value of an
       [[XMLSCHEMA11-2]] combined date-time string. An implementer may
       include other fields in each object.
+    </p>
+    <p>
+      Implementers should consult appropriate sources, such as the <a
+      href="https://www.iana.org/assignments/named-information/named-information.xhtml">IANA
+      Named Information Hash Algorithm Registry</a> to ensure that they
+      are chosing a current and reliable hash algorithm.  At the time of
+      this writing `sha-256` should be considered the minimum strength
+      hash algorithm for use by implemnters.
+    </p>
+    <p class="note">
+      If at a later date subresource integrity as defined in [[SRI]] is
+      adopted into the [[JSON-LD]] specification as noted in that
+      specifications <a
+      href="https://www.w3.org/TR/json-ld11/#security">current security
+      considerations</a> of that specification, this hash in the VC can
+      serve as an additional check towards ensuring that a cached
+      context used when issuing the VC matches the remote resource.
     </p>
     <p>
       <aside
