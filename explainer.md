@@ -10,8 +10,9 @@ information. Verifiable Credentials are designed to enhance trust,
 privacy, and control in digital interactions by allowing the owner of
 the credentials to control how their information is shared and verified.
 
-Verifiable Credentials (VCs) permit several forms of providing security around
-the data model. [JWTs](https://www.rfc-editor.org/rfc/rfc7519) provide a
+Multiple different methods can be used to cryptographically secure 
+content encoded using the Verifiable Credentials (VCs) data model. 
+[JWTs](https://www.rfc-editor.org/rfc/rfc7519) provide a
 widely deployed approach to signing information. This specification
 provides the details necessary to utilize JWTs as a securing mechanism
 for verifiable credentials.
