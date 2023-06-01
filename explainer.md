@@ -18,7 +18,7 @@ for verifiable credentials.
 
 ## Authors
 
-* Michael Jones
+* Michael B. Jones
 * Orie Steele
 * Michael Prorock
 
