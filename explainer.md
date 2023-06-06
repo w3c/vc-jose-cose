@@ -4,14 +4,14 @@
 working draft that corresponds to this work item) provide a JSON-LD data
 model that enables the issuance, sharing, and verification of digital
 credentials in a secure and interoperable manner. These credentials
-provide a way for individuals, organizations, or entities to digitally
+provide a way for individuals, organizations, and other entities to digitally
 represent and share their qualifications, attributes, or other relevant
 information. Verifiable Credentials are designed to enhance trust,
 privacy, and control in digital interactions by allowing the owner of
 the credentials to control how their information is shared and verified.
 
 Multiple different methods can be used to cryptographically secure 
-content encoded using the Verifiable Credentials (VCs) data model. 
+content encoded using the Verifiable Credentials (VC) data model. 
 [JWTs](https://www.rfc-editor.org/rfc/rfc7519) provide a
 widely deployed approach to signing information. This specification
 provides the details necessary to utilize JWTs as a securing mechanism
@@ -71,8 +71,8 @@ types described in the specification:
 }
 ```
 
-making sure that `kid` is pointing at the appropriate public key
-material.  n.b. this is often a did url.
+Make sure that `kid` points to the appropriate public key
+material.  <i><b>Note:</b> This is often a DID URL.</i>
 
 Then you create the JWT per the JWT specification:
 
@@ -80,10 +80,10 @@ Then you create the JWT per the JWT specification:
 eyJraWQiOiJ1cm46ZXhhbXBsZTppc3N1ZXIja2V5LTAiLCJhbGciOiJFUzI1NiIsInR5cCI6InZjK2xkK2p3dCIsImN0eSI6InZjK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwiaWQiOiJodHRwOi8vZXhhbXBsZS5lZHUvY3JlZGVudGlhbHMvMzczMiIsInR5cGUiOlsiVmVyaWZpYWJsZUNyZWRlbnRpYWwiLCJVbml2ZXJzaXR5RGVncmVlQ3JlZGVudGlhbCJdLCJpc3N1ZXIiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQiLCJpc3N1YW5jZURhdGUiOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTdWJqZWN0Ijp7ImlkIjoiZGlkOmV4YW1wbGU6MTIzIiwiZGVncmVlIjp7InR5cGUiOiJCYWNoZWxvckRlZ3JlZSIsIm5hbWUiOiJCYWNoZWxvciBvZiBTY2llbmNlIGFuZCBBcnRzIn19fQ.pfbhgWlTUZA8WmoFbi8WEIUFyC_lSQaAswoW87D1YeimdWZLq4MiJ3o-CmTkvkEQFhffvRiCzmkhxjS_R_RdOw
 ```
 
-and can exchange this with other parties as desired, and know that the
+Now you can exchange this with other parties as desired, and know that the
 data in the VC has not been tampered with, who it was issued by, etc.
 
 ## Conclusions
 
 This document is just a quick high level summary of VC-JWTs, and we hope
-that the reader will dive into the specification to learn more
+that the reader will dive into the specification to learn more.
