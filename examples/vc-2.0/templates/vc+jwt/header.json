@@ -1,5 +1,0 @@
-{
-  "kid": "https://example.edu/issuers/14#key-0",
-  "alg": "ES256",
-  "typ": "vc+jwt"
-}
