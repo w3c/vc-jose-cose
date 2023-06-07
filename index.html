@@ -7,7 +7,7 @@
       src="https://www.w3.org/Tools/respec/respec-w3c"
       class="remove"
     ></script>
-    <script class="remove" src="https://cdn.jsdelivr.net/gh/transmute-industries/respec-vc-jwt@0.0.7/dist/main.js"></script>
+    <script class="remove" src="https://cdn.jsdelivr.net/gh/transmute-industries/respec-vc-jwt@0.0.8/dist/main.js"></script>
     <script class="remove">
       // See https://github.com/w3c/respec/wiki/ for how to configure ReSpec
       var respecConfig = {
@@ -205,49 +205,27 @@ without any mapping or transformation.
       <section>
         <h2>With JOSE</h2>
         <section>
-          <h2>Securing JSON-LD VCs with JOSE</h2>
+          <h2>Securing JSON-LD Verifiable Credentials with JOSE</h2>
           <p>
             This section details how to secure data payloads with the type <code>application/vc+ld+json</code> 
             with JOSE.
           </p>
           <p>[[rfc7515]] MAY be used to secure this media type.</p>
           <p>
-            When using this approach, the <code>typ</code> MUST be <code>vc+ld+jwt</code>
+            The <code>typ</code> parameter MUST be <code>vc+ld+jwt</code>
           </p>
-          <p>When using this approach, the <code>cty</code> MUST be <code>vc+ld+json</code>
+          <p>
+            When present, the <code>cty</code> MUST be <code>vc+ld+json</code>
           </p>
           <p>
             See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header Parameters</a> 
             for additional details regarding usage of <code>typ</code> and <code>cty</code>.
           </p>
-          <section>
-            <h2>Examples</h2>
-            <section>
-              <h2>Credential Header</h2>
-              <aside
-                class="example"
-                title="verifiable credential header (decoded JWT header)"
-              >
-                <pre class="example">
-{
-  "kid": "urn:example:issuer#key-0",
-  "alg": "ES256",
-  "typ": "vc+ld+jwt",
-  "cty": "vc+ld+json"
-}
-                </pre>
-              </aside>
-            </section>
-            <section>
-              <h2>Credential</h2>
-              <aside
-                class="example"
-                title="verifiable credential (decoded JWT claimset)"
-              >
-                <pre class="json">
+          <pre class="example vc-jwt" data-vc-kid="#key-0">
 {
   "@context": [
-    "https://www.w3.org/ns/credentials/v2"
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
   ],
   "id": "http://example.edu/credentials/3732",
   "type": ["VerifiableCredential", "UniversityDegreeCredential"],
@@ -261,88 +239,61 @@ without any mapping or transformation.
     }
   }
 }
-                </pre>
-              </aside>
-            </section>
-            <section>
-              <h2>Verifiable Credential</h2>
-              <aside
-                class="example"
-                title="verifiable credential (encoded as JWT)"
-              >
-                <pre>
-eyJraWQiOiJ1cm46ZXhhbXBsZTppc3N1ZXIja2V5LTAiLCJhbGciOiJFUzI1NiIsInR5cCI6InZjK2xkK2p3dCIsImN0eSI6InZjK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwiaWQiOiJodHRwOi8vZXhhbXBsZS5lZHUvY3JlZGVudGlhbHMvMzczMiIsInR5cGUiOlsiVmVyaWZpYWJsZUNyZWRlbnRpYWwiLCJVbml2ZXJzaXR5RGVncmVlQ3JlZGVudGlhbCJdLCJpc3N1ZXIiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQiLCJpc3N1YW5jZURhdGUiOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTdWJqZWN0Ijp7ImlkIjoiZGlkOmV4YW1wbGU6MTIzIiwiZGVncmVlIjp7InR5cGUiOiJCYWNoZWxvckRlZ3JlZSIsIm5hbWUiOiJCYWNoZWxvciBvZiBTY2llbmNlIGFuZCBBcnRzIn19fQ.pfbhgWlTUZA8WmoFbi8WEIUFyC_lSQaAswoW87D1YeimdWZLq4MiJ3o-CmTkvkEQFhffvRiCzmkhxjS_R_RdOw
-                </pre>
-              </aside>
-            </section>
-        </section>
+          </pre>
       </section>
         <section>
-          <h2>Securing JSON-LD VPs with JOSE</h2>
+          <h2>Securing JSON-LD Verifiable Presentations with JOSE</h2>
           <p>
             This section details how to secure verifiable presentations with the type 
             <code>application/vp+ld+json</code> with JOSE.
           </p>
           <p>[[rfc7515]] MAY be used to secure this media type.</p>
-          <p>When using this approach, the <code>typ</code> MUST be <code>vp+ld+jwt</code></p>
-          <p>When using this approach, the <code>cty</code> MUST be <code>vp+ld+json</code></p>
+          <p>The <code>typ</code> parameter MUST be <code>vp+ld+jwt</code></p>
+          <p>When present, the <code>cty</code> parameter MUST be <code>vp+ld+json</code></p>
           <p>
             See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header Parameters</a> 
             for additional details regarding usage of <code>typ</code> and <code>cty</code>.
           </p>
-          <section>
-            <h2>Examples</h2>
-            <section>
-              <h2>Presentation Header</h2>
-              <aside
-                class="example"
-                title="verifiable presentation header (decoded JWT header)"
-              >
-                <pre class="example">
-{
-  "kid": "urn:example:holder#key-0",
-  "alg": "ES256",
-  "typ": "vp+ld+jwt",
-  "cty": "vp+ld+json"
-}
-                </pre>
-              </aside>
-            </section>
-            <section>
-              <h2>Presentation</h2>
-              <aside
-                class="example"
-                title="verifiable presentation (decoded JWT claimset)"
-              >
-                <pre class="example">
+          <pre class="example vc-jwt" data-vp-alg="none" title="The minimal unsecured verifiable presentation">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2"
   ],
-  "id": "urn:uuid:3978344f-8596-4c3a-a978-8fcaba3903c5",
-  "type": ["VerifiablePresentation"],
-  "verifiableCredential": [
-    "eyJraWQiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQja2V5LTAiLCJhbGciOiJFUzI1NiIsInR5cCI6InZjK2p3dCJ9.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQiLCJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ1cm46ZXhhbXBsZTpjbGFpbSI6dHJ1ZX0.H3v8sm9_sOClSA65h_MK_ZsoBiuJ0z2pPNS-yfqXdUIWl0n5VlZlfANsMYaTycF-Fdkdqjts6H-q4LO27vxFnA"
-  ]
+  "type": ["VerifiablePresentation"]
 }
+          </pre>
+          <pre class="example vc-jwt" title="The minimal secured verifiable presentation">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2"
+  ],
+  "type": ["VerifiablePresentation"]
+}
+          </pre>
 
-                </pre>
-              </aside>
-              <p class="issue">presentation.verifiableCredential[0] is not a valid IRI.</p>
-            </section>
-            <section>
-              <h2>Verifiable Presentation</h2>
-              <aside
-                class="example"
-                title="verifiable presentation"
-              >
-                <p>An encoded verifiable presentation (using external proof).</p>
-                <pre>
-eyJraWQiOiJ1cm46ZXhhbXBsZTpob2xkZXIja2V5LTAiLCJhbGciOiJFUzI1NiIsInR5cCI6InZwK2xkK2p3dCIsImN0eSI6InZwK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwiaWQiOiJ1cm46dXVpZDozOTc4MzQ0Zi04NTk2LTRjM2EtYTk3OC04ZmNhYmEzOTAzYzUiLCJ0eXBlIjpbIlZlcmlmaWFibGVQcmVzZW50YXRpb24iXSwidmVyaWZpYWJsZUNyZWRlbnRpYWwiOlsiZXlKcmFXUWlPaUpvZEhSd2N6b3ZMMlY0WVcxd2JHVXVaV1IxTDJsemMzVmxjbk12TVRRamEyVjVMVEFpTENKaGJHY2lPaUpGVXpJMU5pSXNJblI1Y0NJNkluWmpLMnAzZENKOS5leUpwYzNNaU9pSm9kSFJ3Y3pvdkwyVjRZVzF3YkdVdVpXUjFMMmx6YzNWbGNuTXZNVFFpTENKemRXSWlPaUl4TWpNME5UWTNPRGt3SWl3aWJtRnRaU0k2SWtwdmFHNGdSRzlsSWl3aWFXRjBJam94TlRFMk1qTTVNREl5TENKMWNtNDZaWGhoYlhCc1pUcGpiR0ZwYlNJNmRISjFaWDAuSDN2OHNtOV9zT0NsU0E2NWhfTUtfWnNvQml1SjB6MnBQTlMteWZxWGRVSVdsMG41VmxabGZBTnNNWWFUeWNGLUZka2RxanRzNkgtcTRMTzI3dnhGbkEiXX0.XIiemybajGhLwxE6dTsBioYCpb8vxT4x5we_lig2iMRlU2q4oXbvqAi02HpXmzd6LuTy8sOUi4OKjRaOIMb7_w
-                </pre>
-              </aside>
-            </section>
-          </section>
+          <pre class="example vc-jwt" title="A secured verifiable presentation with a holder identifier">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "type": ["VerifiablePresentation"]
+  "holder": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs"
+}
+          </pre>
+          <pre class="example vc-jwt" title="A secured verifiable presentation with a holder graph node">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2"
+  ],
+  "type": ["VerifiablePresentation"],
+  "holder": {
+    "id": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs",
+    "type": "Organization",
+    "name": "Contoso"
+  }
+}
+          </pre>
         </section>
       </section>
       <section>
@@ -602,8 +553,7 @@ eyJraWQiOiJ1cm46ZXhhbXBsZTpob2xkZXIja2V5LTAiLCJhbGciOiJFUzI1NiIsInR5cCI6InZwK2xk
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
-    "https://www.w3.org/ns/credentials/examples/v2",
-    "https://w3id.org/vc/status-list/2021/v1"
+    "https://www.w3.org/ns/credentials/examples/v2"
   ],
   "id": "https://contoso.example/credentials/23894672394",
   "type": ["VerifiableCredential", "K9UnitCredential"],
