@@ -1,6 +1,0 @@
-{
-  "kid": "urn:example:holder#key-0",
-  "alg": "ES256",
-  "typ": "vp+ld+jwt",
-  "cty": "vp+ld+json"
-}
