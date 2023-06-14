@@ -461,6 +461,57 @@ eyJraWQiOiJ1cm46ZXhhbXBsZTpob2xkZXIja2V5LTAiLCJhbGciOiJFUzI1NiIsInR5cCI6InZwK2xk
       </tr>
     </table>
   </section>
+  <section id="vp-ld-jwt-media-type">
+    <h2><code>application/vp+ld+jwt</code></h2>
+    <p>
+      This specification registers the <code>application/vp+ld+jwt</code> Media Type specifically for
+      identifying a <a data-cite="rfc7519#section-3">JWT</a> conforming to the Verifiable Credentials JWT format in the `typ` header.
+    </p>
+    <table>
+      <tr>
+        <td>Type name: </td>
+        <td>application</td>
+      </tr>
+      <tr>
+        <td>Subtype name: </td>
+        <td>vp+ld+jwt</td>
+      </tr>
+      <tr>
+        <td>Required parameters: </td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td>Encoding considerations: </td>
+        <td>
+          <code>application/vp+ld+jwt</code> values are encoded
+          as a series of base64url encoded values (some of which may be the
+          empty string) each separated from the next by a single period
+          ('.') character.
+        </td>
+      </tr>
+      <tr>
+        <td>Security considerations: </td>
+        <td>
+          <p>As defined in this specification. See also the security considerations in [[RFC7519]].</p>
+        </td>
+        <td>
+          <p>
+            Be advised, per the [[VC-DATA-MODEL]], 
+            verifiable presentations are not required to be secured.
+          </p>
+          <p>
+            This "typ" value might be paired with "alg: none", in headers.
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>Contact: </td>
+        <td>
+          W3C Verifiable Credentials Working Group <a href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+        </td>
+      </tr>
+    </table>
+  </section>
 </section>
 <section>
   <h3>Other Considerations</h3>
