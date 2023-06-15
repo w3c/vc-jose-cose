@@ -7,7 +7,7 @@
       src="https://www.w3.org/Tools/respec/respec-w3c"
       class="remove"
     ></script>
-    <script class="remove" src="https://cdn.jsdelivr.net/gh/transmute-industries/respec-vc-jwt@0.0.7/dist/main.js"></script>
+    <script class="remove" src="https://cdn.jsdelivr.net/gh/transmute-industries/respec-vc-jwt@0.0.9/dist/main.js"></script>
     <script class="remove">
       // See https://github.com/w3c/respec/wiki/ for how to configure ReSpec
       var respecConfig = {
@@ -205,49 +205,27 @@ without any mapping or transformation.
       <section>
         <h2>With JOSE</h2>
         <section>
-          <h2>Securing JSON-LD VCs with JOSE</h2>
+          <h2>Securing JSON-LD Verifiable Credentials with JOSE</h2>
           <p>
             This section details how to secure data payloads with the type <code>application/vc+ld+json</code> 
             with JOSE.
           </p>
           <p>[[rfc7515]] MAY be used to secure this media type.</p>
           <p>
-            When using this approach, the <code>typ</code> MUST be <code>vc+ld+jwt</code>
+            The <code>typ</code> parameter MUST be <code>vc+ld+jwt</code>
           </p>
-          <p>When using this approach, the <code>cty</code> MUST be <code>vc+ld+json</code>
+          <p>
+            When present, the <code>cty</code> MUST be <code>vc+ld+json</code>
           </p>
           <p>
             See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header Parameters</a> 
             for additional details regarding usage of <code>typ</code> and <code>cty</code>.
           </p>
-          <section>
-            <h2>Examples</h2>
-            <section>
-              <h2>Credential Header</h2>
-              <aside
-                class="example"
-                title="verifiable credential header (decoded JWT header)"
-              >
-                <pre class="example">
-{
-  "kid": "urn:example:issuer#key-0",
-  "alg": "ES256",
-  "typ": "vc+ld+jwt",
-  "cty": "vc+ld+json"
-}
-                </pre>
-              </aside>
-            </section>
-            <section>
-              <h2>Credential</h2>
-              <aside
-                class="example"
-                title="verifiable credential (decoded JWT claimset)"
-              >
-                <pre class="json">
+          <pre class="example vc-jwt" data-vc-kid="#key-0">
 {
   "@context": [
-    "https://www.w3.org/ns/credentials/v2"
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
   ],
   "id": "http://example.edu/credentials/3732",
   "type": ["VerifiableCredential", "UniversityDegreeCredential"],
@@ -261,88 +239,61 @@ without any mapping or transformation.
     }
   }
 }
-                </pre>
-              </aside>
-            </section>
-            <section>
-              <h2>Verifiable Credential</h2>
-              <aside
-                class="example"
-                title="verifiable credential (encoded as JWT)"
-              >
-                <pre>
-eyJraWQiOiJ1cm46ZXhhbXBsZTppc3N1ZXIja2V5LTAiLCJhbGciOiJFUzI1NiIsInR5cCI6InZjK2xkK2p3dCIsImN0eSI6InZjK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwiaWQiOiJodHRwOi8vZXhhbXBsZS5lZHUvY3JlZGVudGlhbHMvMzczMiIsInR5cGUiOlsiVmVyaWZpYWJsZUNyZWRlbnRpYWwiLCJVbml2ZXJzaXR5RGVncmVlQ3JlZGVudGlhbCJdLCJpc3N1ZXIiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQiLCJpc3N1YW5jZURhdGUiOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTdWJqZWN0Ijp7ImlkIjoiZGlkOmV4YW1wbGU6MTIzIiwiZGVncmVlIjp7InR5cGUiOiJCYWNoZWxvckRlZ3JlZSIsIm5hbWUiOiJCYWNoZWxvciBvZiBTY2llbmNlIGFuZCBBcnRzIn19fQ.pfbhgWlTUZA8WmoFbi8WEIUFyC_lSQaAswoW87D1YeimdWZLq4MiJ3o-CmTkvkEQFhffvRiCzmkhxjS_R_RdOw
-                </pre>
-              </aside>
-            </section>
-        </section>
+          </pre>
       </section>
         <section>
-          <h2>Securing JSON-LD VPs with JOSE</h2>
+          <h2>Securing JSON-LD Verifiable Presentations with JOSE</h2>
           <p>
             This section details how to secure verifiable presentations with the type 
             <code>application/vp+ld+json</code> with JOSE.
           </p>
           <p>[[rfc7515]] MAY be used to secure this media type.</p>
-          <p>When using this approach, the <code>typ</code> MUST be <code>vp+ld+jwt</code></p>
-          <p>When using this approach, the <code>cty</code> MUST be <code>vp+ld+json</code></p>
+          <p>The <code>typ</code> parameter MUST be <code>vp+ld+jwt</code></p>
+          <p>When present, the <code>cty</code> parameter MUST be <code>vp+ld+json</code></p>
           <p>
             See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header Parameters</a> 
             for additional details regarding usage of <code>typ</code> and <code>cty</code>.
           </p>
-          <section>
-            <h2>Examples</h2>
-            <section>
-              <h2>Presentation Header</h2>
-              <aside
-                class="example"
-                title="verifiable presentation header (decoded JWT header)"
-              >
-                <pre class="example">
-{
-  "kid": "urn:example:holder#key-0",
-  "alg": "ES256",
-  "typ": "vp+ld+jwt",
-  "cty": "vp+ld+json"
-}
-                </pre>
-              </aside>
-            </section>
-            <section>
-              <h2>Presentation</h2>
-              <aside
-                class="example"
-                title="verifiable presentation (decoded JWT claimset)"
-              >
-                <pre class="example">
+          <pre class="example vc-jwt" data-vp-alg="none" title="The minimal unsecured verifiable presentation">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2"
   ],
-  "id": "urn:uuid:3978344f-8596-4c3a-a978-8fcaba3903c5",
-  "type": ["VerifiablePresentation"],
-  "verifiableCredential": [
-    "eyJraWQiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQja2V5LTAiLCJhbGciOiJFUzI1NiIsInR5cCI6InZjK2p3dCJ9.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQiLCJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ1cm46ZXhhbXBsZTpjbGFpbSI6dHJ1ZX0.H3v8sm9_sOClSA65h_MK_ZsoBiuJ0z2pPNS-yfqXdUIWl0n5VlZlfANsMYaTycF-Fdkdqjts6H-q4LO27vxFnA"
-  ]
+  "type": ["VerifiablePresentation"]
 }
+          </pre>
+          <pre class="example vc-jwt" title="The minimal secured verifiable presentation">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2"
+  ],
+  "type": ["VerifiablePresentation"]
+}
+          </pre>
 
-                </pre>
-              </aside>
-              <p class="issue">presentation.verifiableCredential[0] is not a valid IRI.</p>
-            </section>
-            <section>
-              <h2>Verifiable Presentation</h2>
-              <aside
-                class="example"
-                title="verifiable presentation"
-              >
-                <p>An encoded verifiable presentation (using external proof).</p>
-                <pre>
-eyJraWQiOiJ1cm46ZXhhbXBsZTpob2xkZXIja2V5LTAiLCJhbGciOiJFUzI1NiIsInR5cCI6InZwK2xkK2p3dCIsImN0eSI6InZwK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwiaWQiOiJ1cm46dXVpZDozOTc4MzQ0Zi04NTk2LTRjM2EtYTk3OC04ZmNhYmEzOTAzYzUiLCJ0eXBlIjpbIlZlcmlmaWFibGVQcmVzZW50YXRpb24iXSwidmVyaWZpYWJsZUNyZWRlbnRpYWwiOlsiZXlKcmFXUWlPaUpvZEhSd2N6b3ZMMlY0WVcxd2JHVXVaV1IxTDJsemMzVmxjbk12TVRRamEyVjVMVEFpTENKaGJHY2lPaUpGVXpJMU5pSXNJblI1Y0NJNkluWmpLMnAzZENKOS5leUpwYzNNaU9pSm9kSFJ3Y3pvdkwyVjRZVzF3YkdVdVpXUjFMMmx6YzNWbGNuTXZNVFFpTENKemRXSWlPaUl4TWpNME5UWTNPRGt3SWl3aWJtRnRaU0k2SWtwdmFHNGdSRzlsSWl3aWFXRjBJam94TlRFMk1qTTVNREl5TENKMWNtNDZaWGhoYlhCc1pUcGpiR0ZwYlNJNmRISjFaWDAuSDN2OHNtOV9zT0NsU0E2NWhfTUtfWnNvQml1SjB6MnBQTlMteWZxWGRVSVdsMG41VmxabGZBTnNNWWFUeWNGLUZka2RxanRzNkgtcTRMTzI3dnhGbkEiXX0.XIiemybajGhLwxE6dTsBioYCpb8vxT4x5we_lig2iMRlU2q4oXbvqAi02HpXmzd6LuTy8sOUi4OKjRaOIMb7_w
-                </pre>
-              </aside>
-            </section>
-          </section>
+          <pre class="example vc-jwt" title="A secured verifiable presentation with a holder identifier">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "type": ["VerifiablePresentation"]
+  "holder": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs"
+}
+          </pre>
+          <pre class="example vc-jwt" title="A secured verifiable presentation with a holder graph node">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2"
+  ],
+  "type": ["VerifiablePresentation"],
+  "holder": {
+    "id": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs",
+    "type": "Organization",
+    "name": "Contoso"
+  }
+}
+          </pre>
         </section>
       </section>
       <section>
@@ -707,14 +658,95 @@ eyJraWQiOiJ1cm46ZXhhbXBsZTpob2xkZXIja2V5LTAiLCJhbGciOiJFUzI1NiIsInR5cCI6InZwK2xk
 <section>
   <h3>Appendix</h3>
   <section>
-      <h3>JSON Examples</h3>
+    <h2>Controllers</h2>
+        <pre class="example" title="A verifiable credential controller document">
+  {
+    "@context": [
+      "https://www.w3.org/ns/did/v1",
+      { "@vocab": "https://vendor.example#" }
+    ],
+    "id": "did:web:vendor.example",
+    "alsoKnownAs": [
+      "https://vendor.example",
+      "did:jwk:eyJraWQiOiJ1cm46aWV0ZjpwYXJhbXM6b2F1dGg6andrLXRodW1icHJpbnQ6c2hhLTI1NjpGZk1iek9qTW1RNGVmVDZrdndUSUpqZWxUcWpsMHhqRUlXUTJxb2JzUk1NIiwia3R5IjoiT0tQIiwiY3J2IjoiRWQyNTUxOSIsImFsZyI6IkVkRFNBIiwieCI6IkFOUmpIX3p4Y0tCeHNqUlBVdHpSYnA3RlNWTEtKWFE5QVBYOU1QMWo3azQifQ"
+    ],
+    "verificationMethod": [
+      {
+        "id": "#urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs",
+        "type": "JsonWebKey",
+        "controller": "did:web:vendor.example",
+        "publicKeyJwk": {
+          "kty": "EC",
+          "crv": "P-521",
+          "alg": "ES512",
+          "x": "AFTyMw-fIYJNg6fBVJvOPOsLxmnNj8HgqMChyRL0swLaefVAc7wrWZ8okQJqMmvv03JRUp277meQZM3JcvXFkH1v",
+          "y": "ALn96CrD88b4TClmkl1sk0xk2FgAIda97ZF8TUOjbeWSzbKnN2KB6pqlpbuJ2xIRXvsn5BWQVlAT2JGpGwDNMyV1"
+        }
+      },
+      {
+        "id": "#z6MkhEdpG12jyQegrr62ACRmNY8gc531W2j9Xo39cHphuCEH",
+        "type": "JsonWebKey2020",
+        "controller": "https://vendor.example",
+        "publicKeyJwk": {
+          "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:FfMbzOjMmQ4efT6kvwTIJjelTqjl0xjEIWQ2qobsRMM",
+          "kty": "OKP",
+          "crv": "Ed25519",
+          "alg": "EdDSA",
+          "x": "ANRjH_zxcKBxsjRPUtzRbp7FSVLKJXQ9APX9MP1j7k4"
+        }
+      }
+      {
+        "id": "#subject-authenticaton",
+        "type": "JsonWebKey",
+        "controller": "did:web:vendor.example",
+        "publicKeyJwk": {
+          "kty": "EC",
+          "crv": "P-384",
+          "alg": "ES384",
+          "x": "PxgAmVYOQvSNcMYL2tOzoLwSWn4Ta3tIMPEUKR8pxeb-gmR11-DyKHBoIiY-2LhM",
+          "y": "BZEBTkImVdpwvxR9THIRw16eblnj5-tZa7m-ww5uVd4kyPJNRoWUn2aT9ZuarAe-"
+        }
+      },
+      {
+        "id": "#credential-issuance",
+        "type": "JsonWebKey",
+        "controller": "did:web:vendor.example",
+        "publicKeyJwk": {
+          "kty": "EC",
+          "crv": "P-256",
+          "alg": "ES256",
+          "x": "MYvnaI87pfrn3FpTqW-yNiFcF1K7fedJiqapm20_q7c",
+          "y": "9YEbT6Tyuc7xp9yRvhOUVKK_NIHkn5HpK9ZMgvK5pVw"
+        }
+      },
+      {
+        "id": "#key-agreement",
+        "type": "JsonWebKey",
+        "controller": "did:web:vendor.example",
+        "publicKeyJwk": {
+          "kty": "OKP",
+          "crv": "X25519",
+          "alg": "ECDH-ES+A128KW",
+          "x": "qLZkSTbstvMWPTivmiQglEFWG2Ff7gNDVoVisdZTr1I"
+        }
+      }
+    ],
+    "authentication": ["#subject-authenticaton"],
+    "assertionMethod": ["#credential-issuance"],
+    "keyAgreement": ["#key-agreement"]
+  }
+              
+        </pre>
+       
+      </section>
+  <section>
+      <h3>Credentials</h3>
       <pre class="example vc-jwt" title="A revocable credential with multiple subjects"
         data-vc-kid='#urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs'>
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
-    "https://www.w3.org/ns/credentials/examples/v2",
-    "https://w3id.org/vc/status-list/2021/v1"
+    "https://www.w3.org/ns/credentials/examples/v2"
   ],
   "id": "https://contoso.example/credentials/23894672394",
   "type": ["VerifiableCredential", "K9UnitCredential"],
@@ -761,87 +793,117 @@ eyJraWQiOiJ1cm46ZXhhbXBsZTpob2xkZXIja2V5LTAiLCJhbGciOiJFUzI1NiIsInR5cCI6InZwK2xk
   }
 }
       </pre>
+</section>
 
-      <pre class="example" title="A verifiable credential controller document">
+<section>
+  <h2>
+    Presentations
+  </h2>
+  
+<pre class="example" title="Credential">
 {
-  "@context": [
-    "https://www.w3.org/ns/did/v1",
-    { "@vocab": "https://vendor.example#" }
-  ],
-  "id": "did:web:vendor.example",
-  "alsoKnownAs": [
-    "https://vendor.example",
-    "did:jwk:eyJraWQiOiJ1cm46aWV0ZjpwYXJhbXM6b2F1dGg6andrLXRodW1icHJpbnQ6c2hhLTI1NjpGZk1iek9qTW1RNGVmVDZrdndUSUpqZWxUcWpsMHhqRUlXUTJxb2JzUk1NIiwia3R5IjoiT0tQIiwiY3J2IjoiRWQyNTUxOSIsImFsZyI6IkVkRFNBIiwieCI6IkFOUmpIX3p4Y0tCeHNqUlBVdHpSYnA3RlNWTEtKWFE5QVBYOU1QMWo3azQifQ"
-  ],
-  "verificationMethod": [
+  "@context": ["https://www.w3.org/ns/credentials/v2"],
+  "type": ["VerifiablePresentation"],
+  "holder": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:_Fpfe27AuGmEljZE9s2lw2UH-qrZLRFNrWbJrWIe4SI",
+  "verifiableCredential": [
     {
-      "id": "#urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs",
-      "type": "JsonWebKey",
-      "controller": "did:web:vendor.example",
-      "publicKeyJwk": {
-        "kty": "EC",
-        "crv": "P-521",
-        "alg": "ES512",
-        "x": "AFTyMw-fIYJNg6fBVJvOPOsLxmnNj8HgqMChyRL0swLaefVAc7wrWZ8okQJqMmvv03JRUp277meQZM3JcvXFkH1v",
-        "y": "ALn96CrD88b4TClmkl1sk0xk2FgAIda97ZF8TUOjbeWSzbKnN2KB6pqlpbuJ2xIRXvsn5BWQVlAT2JGpGwDNMyV1"
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2"
+      ],
+      "type": [
+        "VerifiableCredential"
+      ],
+      "issuer": "https://issuer.example/issuers/68",
+      "validFrom": "2023-06-07T21:14:14.148Z",
+      "credentialSubject": {
+        "id": "https://subject.vendor.example"
       }
     },
-    {
-      "id": "#z6MkhEdpG12jyQegrr62ACRmNY8gc531W2j9Xo39cHphuCEH",
-      "type": "JsonWebKey2020",
-      "controller": "https://vendor.example",
-      "publicKeyJwk": {
-        "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:FfMbzOjMmQ4efT6kvwTIJjelTqjl0xjEIWQ2qobsRMM",
-        "kty": "OKP",
-        "crv": "Ed25519",
-        "alg": "EdDSA",
-        "x": "ANRjH_zxcKBxsjRPUtzRbp7FSVLKJXQ9APX9MP1j7k4"
-      }
-    }
-    {
-      "id": "#subject-authenticaton",
-      "type": "JsonWebKey",
-      "controller": "did:web:vendor.example",
-      "publicKeyJwk": {
-        "kty": "EC",
-        "crv": "P-384",
-        "alg": "ES384",
-        "x": "PxgAmVYOQvSNcMYL2tOzoLwSWn4Ta3tIMPEUKR8pxeb-gmR11-DyKHBoIiY-2LhM",
-        "y": "BZEBTkImVdpwvxR9THIRw16eblnj5-tZa7m-ww5uVd4kyPJNRoWUn2aT9ZuarAe-"
-      }
-    },
-    {
-      "id": "#credential-issuance",
-      "type": "JsonWebKey",
-      "controller": "did:web:vendor.example",
-      "publicKeyJwk": {
-        "kty": "EC",
-        "crv": "P-256",
-        "alg": "ES256",
-        "x": "MYvnaI87pfrn3FpTqW-yNiFcF1K7fedJiqapm20_q7c",
-        "y": "9YEbT6Tyuc7xp9yRvhOUVKK_NIHkn5HpK9ZMgvK5pVw"
-      }
-    },
-    {
-      "id": "#key-agreement",
-      "type": "JsonWebKey",
-      "controller": "did:web:vendor.example",
-      "publicKeyJwk": {
-        "kty": "OKP",
-        "crv": "X25519",
-        "alg": "ECDH-ES+A128KW",
-        "x": "qLZkSTbstvMWPTivmiQglEFWG2Ff7gNDVoVisdZTr1I"
-      }
-    }
-  ],
-  "authentication": ["#subject-authenticaton"],
-  "assertionMethod": ["#credential-issuance"],
-  "keyAgreement": ["#key-agreement"]
-}
-            
-      </pre>
-     
+    "https://vendor.example/credentials/42",
+    "did:example:123",
+    "urn:uuid:01ec9426-c175-4e39-a006-d30050e28214",
+    "urn:ietf:params:oauth:jwk-thumbprint:sha-256:_Fpfe27AuGmEljZE9s2lw2UH-qrZLRFNrWbJrWIe4SI",
+    "data:application/vc+ld+json;base64,eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlQ3JlZGVudGlhbCJdLCJpc3N1ZXIiOiJkaWQ6andrOmV5SnJhV1FpT2lKMWNtNDZhV1YwWmpwd1lYSmhiWE02YjJGMWRHZzZhbmRyTFhSb2RXMWljSEpwYm5RNmMyaGhMVEkxTmpwdlFtUm1kbVpET1hoNk1GOUJVWFpSTjNZMU1YbERXbDl6ZUdwNU56VkNUSEpJZWsxT1Jqa3lPV1U0SWl3aWEzUjVJam9pVDB0UUlpd2lZM0oySWpvaVJXUXlOVFV4T1NJc0ltRnNaeUk2SWtWa1JGTkJJaXdpZUNJNklqTmljbU5zYjBJNGFEUk5XbFZJYms5UVVHbGtTbXd0U2pkdVVsRkpXSFJUYUZwM1oyNW1jbHAxVDI4aWZRIiwidmFsaWRGcm9tIjoiMjAyMy0wNi0wN1QyMToxNDoxNC4xNDhaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJodHRwczovL3N1YmplY3QudmVuZG9yLmV4YW1wbGUifX0=",
+    "data:application/vc+ld+jwt;base64,ZXlKaGJHY2lPaUpGWkVSVFFTSXNJbWx6Y3lJNkltUnBaRHBxZDJzNlpYbEtjbUZYVVdsUGFVb3hZMjAwTm1GWFZqQmFhbkIzV1ZoS2FHSllUVFppTWtZeFpFZG5ObUZ1WkhKTVdGSnZaRmN4YVdOSVNuQmlibEUyWXpKb2FFeFVTVEZPYW5CMlVXMVNiV1J0V2tSUFdHZzJUVVk1UWxWWVdsSk9NMWt4VFZoc1JGZHNPWHBsUjNBMVRucFdRMVJJU2tsbGF6RlBVbXByZVU5WFZUUkphWGRwWVROU05VbHFiMmxVTUhSUlNXbDNhVmt6U2pKSmFtOXBVbGRSZVU1VVZYaFBVMGx6U1cxR2MxcDVTVFpKYTFaclVrWk9Ra2xwZDJsbFEwazJTV3BPYVdOdFRuTmlNRWswWVVSU1RsZHNWa2xpYXpsUlZVZHNhMU50ZDNSVGFtUjFWV3hHU2xkSVVsUmhSbkF6V2pJMWJXTnNjREZVTWpocFpsRWlMQ0pyYVdRaU9pSWpNQ0lzSW5SNWNDSTZJblpqSzJ4a0sycDNkQ0lzSW1saGRDSTZNVFk0TmpJMU1UVTNOSDAuZXlKQVkyOXVkR1Y0ZENJNld5Sm9kSFJ3Y3pvdkwzZDNkeTUzTXk1dmNtY3Zibk12WTNKbFpHVnVkR2xoYkhNdmRqSWlYU3dpZEhsd1pTSTZXeUpXWlhKcFptbGhZbXhsUTNKbFpHVnVkR2xoYkNKZExDSnBjM04xWlhJaU9pSmthV1E2YW5kck9tVjVTbkpoVjFGcFQybEtNV050TkRaaFYxWXdXbXB3ZDFsWVNtaGlXRTAyWWpKR01XUkhaelpoYm1SeVRGaFNiMlJYTVdsalNFcHdZbTVSTm1NeWFHaE1WRWt4VG1wd2RsRnRVbTFrYlZwRVQxaG9OazFHT1VKVldGcFNUak5aTVUxWWJFUlhiRGw2WlVkd05VNTZWa05VU0VwSlpXc3hUMUpxYTNsUFYxVTBTV2wzYVdFelVqVkphbTlwVkRCMFVVbHBkMmxaTTBveVNXcHZhVkpYVVhsT1ZGVjRUMU5KYzBsdFJuTmFlVWsyU1d0V2ExSkdUa0pKYVhkcFpVTkpOa2xxVG1samJVNXpZakJKTkdGRVVrNVhiRlpKWW1zNVVWVkhiR3RUYlhkMFUycGtkVlZzUmtwWFNGSlVZVVp3TTFveU5XMWpiSEF4VkRJNGFXWlJJaXdpZG1Gc2FXUkdjbTl0SWpvaU1qQXlNeTB3Tmkwd04xUXlNVG94TkRveE5DNHhORGhhSWl3aVkzSmxaR1Z1ZEdsaGJGTjFZbXBsWTNRaU9uc2lhV1FpT2lKb2RIUndjem92TDNOMVltcGxZM1F1ZG1WdVpHOXlMbVY0WVcxd2JHVWlmWDAubmczZlpDQXJyNUYwb1hOS1J1UlFNUXYtdnh4YlozUWJKVkJpcU1QUlVnSEFiSDVkMXptYjhLeUNkNnlVS3IxbmlsZmZiZ2pGUmRpRjFsWUdNRGNhQ0E="
+  ]
+}  
+</pre>
+    
+</section>
+
+
+    <section>
+      <h3>Data URIs</h3>
+<pre class="example" title="JSON-LD Credential">
+data:application/vc+ld+json;base64,eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlQ3JlZGVudGlhbCJdLCJpc3N1ZXIiOiJkaWQ6andrOmV5SnJhV1FpT2lKMWNtNDZhV1YwWmpwd1lYSmhiWE02YjJGMWRHZzZhbmRyTFhSb2RXMWljSEpwYm5RNmMyaGhMVEkxTmpwdlFtUm1kbVpET1hoNk1GOUJVWFpSTjNZMU1YbERXbDl6ZUdwNU56VkNUSEpJZWsxT1Jqa3lPV1U0SWl3aWEzUjVJam9pVDB0UUlpd2lZM0oySWpvaVJXUXlOVFV4T1NJc0ltRnNaeUk2SWtWa1JGTkJJaXdpZUNJNklqTmljbU5zYjBJNGFEUk5XbFZJYms5UVVHbGtTbXd0U2pkdVVsRkpXSFJUYUZwM1oyNW1jbHAxVDI4aWZRIiwidmFsaWRGcm9tIjoiMjAyMy0wNi0wN1QyMToxNDoxNC4xNDhaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJodHRwczovL3N1YmplY3QudmVuZG9yLmV4YW1wbGUifX0=
+</pre>
+
+<pre class="example" title="JWT Credential">
+data:application/vc+ld+jwt;base64,ZXlKaGJHY2lPaUpGWkVSVFFTSXNJbWx6Y3lJNkltUnBaRHBxZDJzNlpYbEtjbUZYVVdsUGFVb3hZMjAwTm1GWFZqQmFhbkIzV1ZoS2FHSllUVFppTWtZeFpFZG5ObUZ1WkhKTVdGSnZaRmN4YVdOSVNuQmlibEUyWXpKb2FFeFVTVEZPYW5CMlVXMVNiV1J0V2tSUFdHZzJUVVk1UWxWWVdsSk9NMWt4VFZoc1JGZHNPWHBsUjNBMVRucFdRMVJJU2tsbGF6RlBVbXByZVU5WFZUUkphWGRwWVROU05VbHFiMmxVTUhSUlNXbDNhVmt6U2pKSmFtOXBVbGRSZVU1VVZYaFBVMGx6U1cxR2MxcDVTVFpKYTFaclVrWk9Ra2xwZDJsbFEwazJTV3BPYVdOdFRuTmlNRWswWVVSU1RsZHNWa2xpYXpsUlZVZHNhMU50ZDNSVGFtUjFWV3hHU2xkSVVsUmhSbkF6V2pJMWJXTnNjREZVTWpocFpsRWlMQ0pyYVdRaU9pSWpNQ0lzSW5SNWNDSTZJblpqSzJ4a0sycDNkQ0lzSW1saGRDSTZNVFk0TmpJMU1UVTNOSDAuZXlKQVkyOXVkR1Y0ZENJNld5Sm9kSFJ3Y3pvdkwzZDNkeTUzTXk1dmNtY3Zibk12WTNKbFpHVnVkR2xoYkhNdmRqSWlYU3dpZEhsd1pTSTZXeUpXWlhKcFptbGhZbXhsUTNKbFpHVnVkR2xoYkNKZExDSnBjM04xWlhJaU9pSmthV1E2YW5kck9tVjVTbkpoVjFGcFQybEtNV050TkRaaFYxWXdXbXB3ZDFsWVNtaGlXRTAyWWpKR01XUkhaelpoYm1SeVRGaFNiMlJYTVdsalNFcHdZbTVSTm1NeWFHaE1WRWt4VG1wd2RsRnRVbTFrYlZwRVQxaG9OazFHT1VKVldGcFNUak5aTVUxWWJFUlhiRGw2WlVkd05VNTZWa05VU0VwSlpXc3hUMUpxYTNsUFYxVTBTV2wzYVdFelVqVkphbTlwVkRCMFVVbHBkMmxaTTBveVNXcHZhVkpYVVhsT1ZGVjRUMU5KYzBsdFJuTmFlVWsyU1d0V2ExSkdUa0pKYVhkcFpVTkpOa2xxVG1samJVNXpZakJKTkdGRVVrNVhiRlpKWW1zNVVWVkhiR3RUYlhkMFUycGtkVlZzUmtwWFNGSlVZVVp3TTFveU5XMWpiSEF4VkRJNGFXWlJJaXdpZG1Gc2FXUkdjbTl0SWpvaU1qQXlNeTB3Tmkwd04xUXlNVG94TkRveE5DNHhORGhhSWl3aVkzSmxaR1Z1ZEdsaGJGTjFZbXBsWTNRaU9uc2lhV1FpT2lKb2RIUndjem92TDNOMVltcGxZM1F1ZG1WdVpHOXlMbVY0WVcxd2JHVWlmWDAubmczZlpDQXJyNUYwb1hOS1J1UlFNUXYtdnh4YlozUWJKVkJpcU1QUlVnSEFiSDVkMXptYjhLeUNkNnlVS3IxbmlsZmZiZ2pGUmRpRjFsWUdNRGNhQ0E=
+</pre>
+
+<pre class="example" title="JSON-LD Verifiable Presentation">
+data:application/vp+ld+json;base64,eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlQ3JlZGVudGlhbCJdLCJpc3N1ZXIiOiJkaWQ6andrOmV5SnJhV1FpT2lKMWNtNDZhV1YwWmpwd1lYSmhiWE02YjJGMWRHZzZhbmRyTFhSb2RXMWljSEpwYm5RNmMyaGhMVEkxTmpwdlFtUm1kbVpET1hoNk1GOUJVWFpSTjNZMU1YbERXbDl6ZUdwNU56VkNUSEpJZWsxT1Jqa3lPV1U0SWl3aWEzUjVJam9pVDB0UUlpd2lZM0oySWpvaVJXUXlOVFV4T1NJc0ltRnNaeUk2SWtWa1JGTkJJaXdpZUNJNklqTmljbU5zYjBJNGFEUk5XbFZJYms5UVVHbGtTbXd0U2pkdVVsRkpXSFJUYUZwM1oyNW1jbHAxVDI4aWZRIiwidmFsaWRGcm9tIjoiMjAyMy0wNi0wN1QyMToxNDoxNC4xNDhaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJodHRwczovL3N1YmplY3QudmVuZG9yLmV4YW1wbGUifX0=
+</pre>
+
+<pre class="example" title="JWT Presentation">
+data:application/vp+ld+jwt;base64,ZXlKaGJHY2lPaUpGWkVSVFFTSXNJbWx6Y3lJNkltUnBaRHBxZDJzNlpYbEtjbUZYVVdsUGFVb3hZMjAwTm1GWFZqQmFhbkIzV1ZoS2FHSllUVFppTWtZeFpFZG5ObUZ1WkhKTVdGSnZaRmN4YVdOSVNuQmlibEUyWXpKb2FFeFVTVEZPYW5CMlVXMVNiV1J0V2tSUFdHZzJUVVk1UWxWWVdsSk9NMWt4VFZoc1JGZHNPWHBsUjNBMVRucFdRMVJJU2tsbGF6RlBVbXByZVU5WFZUUkphWGRwWVROU05VbHFiMmxVTUhSUlNXbDNhVmt6U2pKSmFtOXBVbGRSZVU1VVZYaFBVMGx6U1cxR2MxcDVTVFpKYTFaclVrWk9Ra2xwZDJsbFEwazJTV3BPYVdOdFRuTmlNRWswWVVSU1RsZHNWa2xpYXpsUlZVZHNhMU50ZDNSVGFtUjFWV3hHU2xkSVVsUmhSbkF6V2pJMWJXTnNjREZVTWpocFpsRWlMQ0pyYVdRaU9pSWpNQ0lzSW5SNWNDSTZJblpqSzJ4a0sycDNkQ0lzSW1saGRDSTZNVFk0TmpJMU1UVTNOSDAuZXlKQVkyOXVkR1Y0ZENJNld5Sm9kSFJ3Y3pvdkwzZDNkeTUzTXk1dmNtY3Zibk12WTNKbFpHVnVkR2xoYkhNdmRqSWlYU3dpZEhsd1pTSTZXeUpXWlhKcFptbGhZbXhsUTNKbFpHVnVkR2xoYkNKZExDSnBjM04xWlhJaU9pSmthV1E2YW5kck9tVjVTbkpoVjFGcFQybEtNV050TkRaaFYxWXdXbXB3ZDFsWVNtaGlXRTAyWWpKR01XUkhaelpoYm1SeVRGaFNiMlJYTVdsalNFcHdZbTVSTm1NeWFHaE1WRWt4VG1wd2RsRnRVbTFrYlZwRVQxaG9OazFHT1VKVldGcFNUak5aTVUxWWJFUlhiRGw2WlVkd05VNTZWa05VU0VwSlpXc3hUMUpxYTNsUFYxVTBTV2wzYVdFelVqVkphbTlwVkRCMFVVbHBkMmxaTTBveVNXcHZhVkpYVVhsT1ZGVjRUMU5KYzBsdFJuTmFlVWsyU1d0V2ExSkdUa0pKYVhkcFpVTkpOa2xxVG1samJVNXpZakJKTkdGRVVrNVhiRlpKWW1zNVVWVkhiR3RUYlhkMFUycGtkVlZzUmtwWFNGSlVZVVp3TTFveU5XMWpiSEF4VkRJNGFXWlJJaXdpZG1Gc2FXUkdjbTl0SWpvaU1qQXlNeTB3Tmkwd04xUXlNVG94TkRveE5DNHhORGhhSWl3aVkzSmxaR1Z1ZEdsaGJGTjFZbXBsWTNRaU9uc2lhV1FpT2lKb2RIUndjem92TDNOMVltcGxZM1F1ZG1WdVpHOXlMbVY0WVcxd2JHVWlmWDAubmczZlpDQXJyNUYwb1hOS1J1UlFNUXYtdnh4YlozUWJKVkJpcU1QUlVnSEFiSDVkMXptYjhLeUNkNnlVS3IxbmlsZmZiZ2pGUmRpRjFsWUdNRGNhQ0E=
+</pre>
+
+<pre class="example" title="Nested Unsecured JSON-LD Verifiable Presentation">
+data:application/vp+ld+json;base64,eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlUHJlc2VudGF0aW9uIl0sInZlcmlmaWFibGVDcmVkZW50aWFsIjpbImRhdGE6YXBwbGljYXRpb24vdmMrbGQranNvbjtiYXNlNjQsZXlKQVkyOXVkR1Y0ZENJNld5Sm9kSFJ3Y3pvdkwzZDNkeTUzTXk1dmNtY3Zibk12WTNKbFpHVnVkR2xoYkhNdmRqSWlYU3dpZEhsd1pTSTZXeUpXWlhKcFptbGhZbXhsUTNKbFpHVnVkR2xoYkNKZExDSnBjM04xWlhJaU9pSm9kSFJ3Y3pvdkwybHpjM1ZsY2k1MlpXNWtiM0l1WlhoaGJYQnNaU0lzSW5aaGJHbGtSbkp2YlNJNklqSXdNak10TURZdE1EZFVNakU2TVRRNk1UUXVNVFE0V2lJc0ltTnlaV1JsYm5ScFlXeFRkV0pxWldOMElqcDdJbWxrSWpvaWFIUjBjSE02THk5emRXSnFaV04wTG5abGJtUnZjaTVsZUdGdGNHeGxJbjE5Il19
+</pre>
+
+<pre class="example" title="Nested Unsecured JWT">
+data:application/vp+ld+jwt;base64,ZXlKaGJHY2lPaUp1YjI1bElpd2lkSGx3SWpvaWRuQXJiR1FyYW5kMEluMC5leUpBWTI5dWRHVjRkQ0k2V3lKb2RIUndjem92TDNkM2R5NTNNeTV2Y21jdmJuTXZZM0psWkdWdWRHbGhiSE12ZGpJaVhTd2lkSGx3WlNJNld5SldaWEpwWm1saFlteGxVSEpsYzJWdWRHRjBhVzl1SWwwc0luWmxjbWxtYVdGaWJHVkRjbVZrWlc1MGFXRnNJanBiSW1SaGRHRTZZWEJ3YkdsallYUnBiMjR2ZG1NcmJHUXJhbmQwTzJKaGMyVTJOQ3hhV0d4TFlVZEtTRmt5YkZCaFZYQXhXV3BKTVdKRmJIQmtNbXhyVTBkNE0xTlhjSFpoVjFKMFZGaEthVkl4Um5sWlZ6VnJUVVZzZFUxRE5XeGxWWEJDVjFSSk5XUlhVa2hXYWxKclVUQnJNbFl6YkV0aU1sSkpWVzVrYW1WdE9USlVSRTVyVFRKU05VNVVUazVsVkZZeVdUSXhhbVJ0U25WVVdGcGFUVEJ3YzFkclpGZGtWMUpJWWtkb2FWTkZNVEphUjNCS1lWWm9WR1F5Ykd0VFIzZ3pWMnhPU2s1c1pEVlRiR1JoVjBWd2QxZHRNWE5oUm14MFpVZDRVazB3Y0hOWGEyUlhaRmRTU0dKSGFHbFJNSEJyVkVWT1MyTkhUWHBVYWtaaFYwVnNjRlF5YkV0aU1sSkpWVzVrYW1WdE9USlVSRXB6WlcxTmVsWnRlR3BoVkZWNVYyeGpNV0V5U1hwVFdGWmhWMGRvYjFsc2FFTmpNWEJVVTFoT1NtSnNjRzlaYTJSellURktkVk51V21sVk1Hc3lVMWR3U21Rd01YRlVXRkpPVWtac01GUlZVbXRXVlRGeFVsUmFUbFpHUlRKVVZsSlNaRlV4VlZWVVVsaGhWV3g2VTFjeFQyVldjRmhWYlhocFlteEtkMWRXWkRSV1IxSllVMjVHWVZZd05IZFRWM0IzVGpCc2RHSkhkRXBoYlRsd1dWVm9VMDFIVGtsVVZGcE5aVlJzTmxwR1pFdGpWbkJZVkdwQ1RXSnNjSE5aYlRGVFpHMU9jRTVYZUd4U01Gb3dXVEJrTkdKRmJIVk5WR3QxSWwxOS4=
+</pre>
     </section>
+
+    <section>
+<h2>
+  Detached Proofs
+</h2>
+
+<pre class="example" title="Verifiable Credential">
+  {
+    "@context": [
+      "https://www.w3.org/ns/credentials/v2"
+    ],
+    "type": [
+      "VerifiableCredential"
+    ],
+    "issuer": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:_Fpfe27AuGmEljZE9s2lw2UH-qrZLRFNrWbJrWIe4SI",
+    "validFrom": "2023-06-07T21:14:14.148Z",
+    "credentialSubject": {
+      "id": "https://subject.vendor.example"
+    }
+  }
+  </pre>
+  
+  <pre class="example" title="Detached Verifiable Credential Proof">
+  eyJhbGciOiJFUzM4NCIsInR5cCI6InZjK2xkK2p3dCIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..Z-s5JgWQK91e1bzk-87ofJcRqGrw7wGehepSYH3U18u9-BNi9QOcgHWMFAN72HGNNhmn9xyT7UF59om7Wbb_IQTPAlzjMdPbzfq3bRffutP-Swg_Sz2R1VwpufVJ5Ult
+  </pre>
+  
+  <pre class="example" title="Verifiable Presentation">
+  {
+    "@context": [
+      "https://www.w3.org/ns/credentials/v2"
+    ],
+    "type": [
+      "VerifiablePresentation"
+    ],
+    "holder": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:_Fpfe27AuGmEljZE9s2lw2UH-qrZLRFNrWbJrWIe4SI"
+  }
+  </pre>
+  
+  <pre class="example" title="Detached Presentation Proof">
+  eyJhbGciOiJFUzM4NCIsInR5cCI6InZwK2xkK2p3dCIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..TsKRjY56LWTPPXWKLYfDs-NKmZZHIcrZ2pndwEDtO5DaGiDW3OtABr-esL9y6CdZTxwshoqZCs_RnPRx17-uO8k_SBugAQwnzN8bnulkSN4gXaST0kxk23X4bVmw6sBD
+  </pre>
+
+<p class="issue">TODO add COSE Sign1 detached payload examples</p>
+  
+</section>
+
 
     <section>
       <h3>Example Mapping</h3>
