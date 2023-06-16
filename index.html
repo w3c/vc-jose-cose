@@ -323,6 +323,42 @@ without any mapping or transformation.
 
 <section id="conformance">
 <section class="normative">
+  <h2>JSON Web Token Header Parameters</h2>
+  <p>
+The normative statements in <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a> 
+apply to securing credentials and presentations.
+   </p>
+  <p>
+The normative statements in <a data-cite="RFC7519#section-5">JOSE Header</a> 
+apply to securing credentials and presentations.
+  </p>
+  <p>
+The data model for the protected header is JSON (application/json), not JSON-LD (application/ld+json).
+  </p>
+  <p>
+The normative statements in <a data-cite="RFC7519#section-5.3">Replicating Claims as Header Parameters</a>
+apply to securing claims about a credential subject.
+  </p>
+  <p>
+When replicating claims from the claimset to the header, it is RECOMMENDED to use
+[[RFC7519]], <a href="https://www.iana.org/assignments/jose/jose.xhtml">IANA Assignments for Header Parameters</a>,
+and <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">IANA Assignments for JSON Web Token (JWT)</a>
+to identify any reserved claims that might be confused with members of the [[VC-DATA-MODEL]. 
+This includes but is not limited to: <code>iss</code>, <code>kid</code>, <code>alg</code>, <code>iat</code>, <code>exp</code> and <code>cnf</code>.
+  </p>
+  <p>
+The registered claim names <code>vc</code> and <code>vp</code> MUST NOT be present as header parameters. 
+  </p>
+  <p>
+When present, members of the header are understood in the context of 
+<a href="https://www.iana.org/assignments/jwt/jwt.xhtml">IANA Assignments for JSON Web Token (JWT)</a> and 
+<a href="https://www.iana.org/assignments/jose/jose.xhtml">IANA Assignments for JSON Object Signing and Encryption (JOSE)</a>.
+  </p>
+  <p>
+Additional members may be present, if they are not understood, they MUST be ignored.
+  </p>
+</section>
+<section class="normative">
   <h2>Securing Verifiable Credentials</h2>
   <p>The [[VC-DATA-MODEL]] describes the approach taken by JSON Web Tokens to securing claimsets as applying an <code>external proof</code>.</p>
   <p>The normative statements in <a data-cite="VC-DATA-MODEL#securing-verifiable-credentials">Securing Verifiable Credentials</a> apply to 
