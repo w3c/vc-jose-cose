@@ -319,49 +319,6 @@ without any mapping or transformation.
 
 <section class="normative">
   <h2>IANA Considerations</h2>
-  <section id="vc-jwt-media-type">
-    <h2><code>application/vc+jwt</code></h2>
-    <p>
-      This specification registers the <code>application/vc+jwt</code> Media Type specifically for
-      identifying a <a data-cite="rfc7519#section-3">JWT</a> conforming to the Verifiable Credentials JWT format in the `typ` header.
-    </p>
-    <table>
-      <tr>
-        <td>Type name: </td>
-        <td>application</td>
-      </tr>
-      <tr>
-        <td>Subtype name: </td>
-        <td>application/vc+jwt</td>
-      </tr>
-      <tr>
-        <td>Required parameters: </td>
-        <td>None</td>
-      </tr>
-      <tr>
-        <td>Encoding considerations: </td>
-        <td>
-          <code>application/vc+jwt</code> values are encoded
-          as a series of base64url encoded values (some of which may be the
-          empty string) each separated from the next by a single period
-          ('.') character.
-        </td>
-      </tr>
-      <tr>
-        <td>Security considerations: </td>
-        <td>
-          <p>As defined in this specification. See also the security considerations in [[RFC7519]].</p>
-        </td>
-      </tr>
-      <tr>
-        <td>Contact: </td>
-        <td>
-          W3C Verifiable Credentials Working Group <a href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-        </td>
-      </tr>
-    </table>
-  </section>
-  
   <section id="vc-ld-jwt-media-type">
     <h2><code>application/vc+ld+jwt</code></h2>
     <p>
