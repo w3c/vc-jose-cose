@@ -126,7 +126,7 @@ Web Tokens (JWT) [RFC7519], which build on JSON Web Signatures (JWS)
       <h2>Securing JSON</h2>
       <p>
         This section
-        provides guidance on how to use JSON [[RFC7159]] claimsets with JWT registered claims to construct
+        provides guidance on how to use JSON [[RFC7159]] claimsets with JWT <a href="#registered-claim-names">registered claims</a> to construct
         a JWT that can be mapped to a verifiable credential.  This section also describes
         how to use content types and token types to distinguish different representations of verifiable credentials.
       </p>
@@ -321,6 +321,97 @@ without any mapping or transformation.
       </section>
     </section>
 
+
+
+<section class="normative">
+  <h2>Key Discovery</h2>
+  <p>
+In order to complete the <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process, 
+a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> needs to obtain the cryptographic keys used to secure the 
+<a data-cite="VC-DATA-MODEL#dfn-credential">credential</a>.
+  </p>
+  <p>
+There are several different ways to discover the <a data-cite="VC-DATA-MODEL#dfn-issuers">issuers</a> 
+and <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a>
+verification keys.
+  </p>
+
+  <section>
+    <h2>Registered Claim Names</h2>
+    <p>
+      When present in the <a data-cite="RFC7515#section-4.1">Protected Header</a>, or 
+      the <a data-cite="RFC7519#section-4.1.1">Protected Claimset</a> members present in
+      <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">IANA Assignments for JSON Web Token (JWT)</a> and 
+      <a href="https://www.iana.org/assignments/jose/jose.xhtml">IANA Assignments for JSON Object Signing and Encryption (JOSE)</a>
+      are to be interpreted according to the associcated specifications referenced by IANA.
+    </p>
+    <p>
+<a href="#registered-claim-names">Registered claims</a> that are present in either the <a data-cite="RFC7515#section-4.1">Protected Header</a>, 
+or the <a data-cite="RFC7519#section-4.1.1">Claimset</a> can be used to help
+<a data-cite="VC-DATA-MODEL#dfn-verifier">verifiers</a> discover verification keys.
+    </p>
+    <section>
+      <h2>kid</h2>
+      <p>
+If <code>kid</code> is present in the <a data-cite="RFC7515#section-4.1">Protected Header</a>,
+a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
+to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the 
+<a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
+      </p>
+    </section>
+    <section>
+      <h2>iss</h2>
+      <p>
+If <code>iss</code> is present in the <a data-cite="RFC7515#section-4.1">Protected Header</a>,
+a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
+to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the 
+<a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
+      </p>
+      <p>
+      <p>
+If <code>iss</code> is present in the <a data-cite="RFC7519#section-4.1.1">JWT Claims </a>,
+a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
+to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the 
+<a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
+      </p>
+If <code>kid</code> is also present, it is expected to be useful to distinguish the specific key used.
+      </p>
+    </section>
+
+    <section>
+      <h2>cnf</h2>
+      <p>
+If <code>cnf</code> is present in the <a data-cite="RFC7515#section-4.1">Protected Header</a>,
+a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
+to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the 
+<a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
+      </p>
+      <p>
+      <p>
+If <code>cnf</code> is present in the <a data-cite="RFC7519#section-4.1.1">JWT Claims </a>,
+a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
+to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the 
+<a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
+      </p>
+If <code>kid</code> is also present, it is expected to be useful to distinguish the specific key used.
+      </p>
+    </section>
+  </section>
+  
+  <section>
+    <h2>Well Known URIs</h2>
+    <p class="issue">
+The working group is currently exploring how 
+<a data-cite="RFC5785#section-3">Defining Well-Known Uniform Resource Identifiers (URIs)</a>
+could be leveraged to assist a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifiers</a> in discoverying verification keys for 
+<a data-cite="VC-DATA-MODEL#dfn-issuers">issuers</a> 
+and <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a>.
+    </p>
+  </section>
+
+  
+</section>
+
 <section id="conformance">
 <section class="normative">
   <h2>JSON Web Token Header Parameters</h2>
@@ -347,7 +438,7 @@ to identify any reserved claims that might be confused with members of the [[VC-
 This includes but is not limited to: <code>iss</code>, <code>kid</code>, <code>alg</code>, <code>iat</code>, <code>exp</code> and <code>cnf</code>.
   </p>
   <p>
-The registered claim names <code>vc</code> and <code>vp</code> MUST NOT be present as header parameters. 
+The <a href="#registered-claim-names">registered claims</a> names <code>vc</code> and <code>vp</code> MUST NOT be present as header parameters. 
   </p>
   <p>
 When present, members of the header are to be interpreted and processed according to 
@@ -360,7 +451,7 @@ Additional members may be present, if they are not understood, they MUST be igno
 </section>
 <section class="normative">
   <h2>Securing Verifiable Credentials</h2>
-  <p>The [[VC-DATA-MODEL]] describes the approach taken by JSON Web Tokens to securing claimsets as applying an <code>external proof</code>.</p>
+  <p>The <a data-cite="VC-DATA-MODEL#proof-formats"></a> describes the approach taken by JSON Web Tokens to securing claimsets as applying an <code>external proof</code>.</p>
   <p>The normative statements in <a data-cite="VC-DATA-MODEL#securing-verifiable-credentials">Securing Verifiable Credentials</a> apply to 
     securing <code>application/vc+ld+json</code> and <code>application/vp+ld+json</code> 
     as <code>application/vc+ld+jwt</code> and <code>application/vp+ld+jwt</code>.
@@ -419,6 +510,7 @@ Additional members may be present, if they are not understood, they MUST be igno
   </p>
   <p>Issuers, Holders and Verifiers MUST ignore all claimsets that have no integrity protection.</p>
 </section>
+
 </section>
 
 <section class="normative">
@@ -951,7 +1043,7 @@ data:application/vp+ld+jwt;base64,ZXlKaGJHY2lPaUp1YjI1bElpd2lkSGx3SWpvaWRuQXJiR1
       <ul>
         <li>
   Extract <code>iss</code>, <code>sub</code>, <code>iat</code>, <code>nbf</code>,
-  <code>exp</code>, <code>jti</code>, and <code>aud</code> as registered claims.
+  <code>exp</code>, <code>jti</code>, and <code>aud</code> as <a href="#registered-claim-names">Registered claims</a>.
         </li>
         <li>
   Set aside all other claims as subject claims.
