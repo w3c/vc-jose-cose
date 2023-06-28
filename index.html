@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Securing Verifiable Credentials using JSON Web Tokens</title>
+  <title>Securing Verifiable Credentials using JOSE and COSE</title>
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"></script>
   <script class="remove"
     src="https://cdn.jsdelivr.net/gh/transmute-industries/respec-vc-jwt@0.0.9/dist/main.js"></script>
@@ -19,7 +19,7 @@
 
       // the specification's short name, as in
       // http://www.w3.org/TR/short-name/
-      shortName: "vc-jwt",
+      shortName: "vc-jose-cose",
 
       // if you wish the publication date to be other than today, set
       // this publishDate: "2023-04-27",
@@ -845,7 +845,6 @@ eyJraWQiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQja2V5LTAiLCJhbGciOiJFUzI1NiIs
   "qLZkSTbstvMWPTivmiQglEFWG2Ff7gNDVoVisdZTr1I" } } ], "authentication":
   ["#subject-authenticaton"], "assertionMethod":
   ["#credential-issuance"], "keyAgreement": ["#key-agreement"] }
-              
         </pre>
 
     </section>
@@ -854,32 +853,33 @@ eyJraWQiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQja2V5LTAiLCJhbGciOiJFUzI1NiIs
       <pre class="example vc-jwt" title="A revocable credential with
       multiple subjects"
       data-vc-kid='#urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs'>
-      { "@context": [ "https://www.w3.org/ns/credentials/v2",
-      "https://www.w3.org/ns/credentials/examples/v2" ], "id":
-      "https://contoso.example/credentials/23894672394", "type":
-      ["VerifiableCredential", "K9UnitCredential"], "issuer": { "id":
-      "https://contoso.example" }, "validFrom":
-      "2015-04-16T05:11:32.432Z", "credentialStatus": { "id":
-      "https://contoso.example/credentials/status/4#273762", "type":
-      "StatusList2021Entry", "statusPurpose": "revocation",
-      "statusListIndex": "273762", "statusListCredential":
-      "https://contoso.example/credentials/status/4" },
-      "credentialSubject": [{ "id": "did:example:1312387641", "type":
-      "Person" },{ "id": "did:example:63888231", "type": "Dog" }] }
+{ "@context": [ "https://www.w3.org/ns/credentials/v2",
+"https://www.w3.org/ns/credentials/examples/v2" ], "id":
+"https://contoso.example/credentials/23894672394", "type":
+["VerifiableCredential", "K9UnitCredential"], "issuer": { "id":
+"https://contoso.example" }, "validFrom":
+"2015-04-16T05:11:32.432Z", "credentialStatus": { "id":
+"https://contoso.example/credentials/status/4#273762", "type":
+"StatusList2021Entry", "statusPurpose": "revocation",
+"statusListIndex": "273762", "statusListCredential":
+"https://contoso.example/credentials/status/4" },
+"credentialSubject": [{ "id": "did:example:1312387641", "type":
+"Person" },{ "id": "did:example:63888231", "type": "Dog" }] }
       </pre>
 
       <pre class="example vc-jwt" title="A credential with a schema"
-      data-vc-kid='#key-42'> { "@context": [
-      "https://www.w3.org/ns/credentials/v2",
-      "https://www.w3.org/ns/credentials/examples/v2" ], "id":
-      "https://contoso.example/credentials/35327255", "type":
-      ["VerifiableCredential", "KYCExample"], "issuer":
-      "did:web:contoso.example", "validFrom":
-      "2019-05-25T03:10:16.992Z", "validUntil":
-      "2027-05-25T03:10:16.992Z", "credentialSchema": { "id":
-      "https://contoso.example/bafybeigdyr...lqabf3oclgtqy55fbzdi",
-      "type": "JsonSchema" }, "credentialSubject": { "id":
-      "did:example:1231588", "type": "Person" } }
+      data-vc-kid='#key-42'> 
+{ "@context": [
+"https://www.w3.org/ns/credentials/v2",
+"https://www.w3.org/ns/credentials/examples/v2" ], "id":
+"https://contoso.example/credentials/35327255", "type":
+["VerifiableCredential", "KYCExample"], "issuer":
+"did:web:contoso.example", "validFrom":
+"2019-05-25T03:10:16.992Z", "validUntil":
+"2027-05-25T03:10:16.992Z", "credentialSchema": { "id":
+"https://contoso.example/bafybeigdyr...lqabf3oclgtqy55fbzdi",
+"type": "JsonSchema" }, "credentialSubject": { "id":
+"did:example:1231588", "type": "Person" } }
       </pre>
     </section>
 
