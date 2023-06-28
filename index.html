@@ -90,8 +90,8 @@
       and with CBOR Object Signing and Encryption (COSE) [[RFC8152]].
 
       This enables the Verifiable Credential data model
-      [[VC-DATA-MODEL]]to be easily utilized with existing approaches
-      to signing and encryption that are widely adopted.
+      [[VC-DATA-MODEL]]to be implemented with standards
+      for signing and encryption that are widely adopted.
     </p>
   </section>
   <section id="sotd"></section>
@@ -114,23 +114,23 @@
       to ensure the integrity, authenticity, and non-repudiation of
       the information contained in a JSON object. JWS enables secure
       communication and trust between parties by adding a
-      cryptographic signature to the JSON payload. This signature is
+      cryptographic signature to a payload. This signature is
       generated using a private key and can be verified using the
-      corresponding public key. JWS ensures the tamper-proof nature of
-      the data, protecting it from unauthorized modifications. The
+      corresponding public key. JWS enables content integrity, authentication and non repudiation, 
+      protecting data from unauthorized modifications. The
       versatility and wide adoption of JWS make it an essential
       component for verifying the authenticity and integrity of
-      JSON-based messages in various applications, including
+      data in various applications, including
       authentication, authorization, and secure data exchange. These
       properties make JWS especially well suited to securing the
-      [[VC-DATA-MODEL]] and through this to provide a means of
+      JSON-LD [[VC-DATA-MODEL]] and through this to provide a means of
       supporting the three party model (issuer, verifier, holder) for
       exchange of credentials enabled in verifiable credenials.
     </p>
     <p>
       JSON Web Token (JWT) [[RFC7519]] is a widely-used means of
       expressing
-      <a data-cite="VC-DATA-MODEL#claims">claims</a> to be transferred
+      <a data-cite="VC-DATA-MODEL#claims">claims</a>, represented in JSON, to be transferred
       between two parties. Providing a representation of the
       Verifiable Credentials Data Model for JWT allows existing
       systems and libraries to participate in the ecosystem described
@@ -141,6 +141,10 @@
       that is contained in a JSON Web Signature (JWS) [[RFC7515]]
       and/or JSON Web Encryption (JWE) [[?RFC7516]]. For this
       specification, the use of JWE is out of scope.
+      <p class="issue">
+      The working group is discussing how we might comment on recent work, that does make
+      use of encryption in <a href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html#section-3.2">OpenID for Verifiable Presentations</a>.
+      </p> 
     </p>
     <p>
       CBOR Object Signing and Encryption (COSE) [[RFC8152]] is a
@@ -154,28 +158,26 @@
 
       COSE supports two main operations: signing and encryption. For
       signing, COSE allows the creation of digital signatures over
-      CBOR data using various algorithms such as HMAC, ECDSA, or
+      CBOR data using various algorithms such as HMAC, RSA, ECDSA, or
       EdDSA. These signatures provide assurance of data integrity and
       authenticity. COSE also supports encryption, enabling the
       confidentiality of CBOR data by encrypting it with symmetric or
-      asymmetric encryption algorithms. Our use case here, with
-      verifiable credentials is focused on signing, primarily through
-      use of COSE Sign1 operations.
+      asymmetric encryption algorithms.
     </p>
   </section>
 
   <section>
-    <h2>Securing the Core VC Data Model</h2>
+    <h2>Securing the VC Data Model</h2>
     <p>
       The use of Verifiable Credentials often involves the
       representation and exchange of structured data in the form of
-      JSON-LD as this is the format of the core data model. While
+      JSON-LD as this is the structured suffix of the base media types defined in [[VC-DATA-MODEL]]. While
       JSON-LD provides a flexible and extensible format for describing
-      data, it is important to note that it also provides a linkage
+      linked data, see <a href="https://www.w3.org/TR/json-ld11/#relationship-to-rdf">JSON-LD Relationship to RDF</a>, it is important to note that it also provides a linkage
       between the data structure and semantic meaning of data.
     </p>
     <p>
-      This section outlines how JSON-LD encoded claimset can be secured
+      This section outlines how JSON-LD claimsets can be secured
       using either JOSE or COSE.
     </p>
     <p>
