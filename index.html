@@ -165,62 +165,6 @@
   </section>
 
   <section>
-    <h2>Securing JSON</h2>
-    <p>
-      This section provides guidance on how to use JSON [[RFC7159]]
-      claimsets with JWT registered claims to construct a JWT that can
-      be mapped to a verifiable credential. This section also describes
-      how to use content types and token types to distinguish different
-      representations of verifiable credentials.
-    </p>
-    <p class="note">
-      This representation relies on claims registered in the
-      <a
-      href="https://www.iana.org/assignments/jwt/jwt.xhtml#claims">IANA
-      JSON Web Token Claims Registry</a> whenever possible.
-    </p>
-    <p class="note">
-      Production of this representation does not use
-      <code>vc+ld+json</code> as an input.
-    </p>
-    <section>
-      <h2>Credential Header</h2>
-      <p><a data-cite="rfc7519#section-5.1">typ</a> MUST use the media
-      type <code>vc+jwt</code>.</p>
-      <aside class="example" title="credential metadata (decoded JWT
-      header)">
-        <pre class="json">
-{ "kid": "https://example.edu/issuers/14#key-0", "alg": "ES256", "typ":
-"vc+jwt" }
-          </pre>
-      </aside>
-    </section>
-    <section>
-      <h2>Credential</h2>
-      <aside class="example" title="credential (decoded JWT payload)">
-        <pre class="example">
-{ "iss": "https://example.edu/issuers/14", "sub": "1234567890", "name":
-"John Doe", "iat": 1516239022, "urn:example:claim": true }
-          </pre>
-      </aside>
-      <p class="note">
-        The <code>vc</code> and <code>vp</code> claims MUST NOT be
-        present when the content type header parameter is set to
-        <code>credential-claims-set+json</code>.
-      </p>
-    </section>
-    <section>
-      <h2>Verifiable Credential</h2>
-      <aside class="example" title="verifiable credential">
-        <p>An encoded verifiable credential (using external proof).</p>
-        <pre class="example">
-eyJraWQiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQja2V5LTAiLCJhbGciOiJFUzI1NiIsInR5cCI6InZjK2p3dCJ9.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQiLCJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ1cm46ZXhhbXBsZTpjbGFpbSI6dHJ1ZX0.WLD4Qxh629TFkJHzmbkWEefYX-QPkdCmxbBMKNHErxND2QpjVBbatxHkxS9Y_SzBmwffuM2E9i5VvVgpZ6v4Tg
-          </pre>
-      </aside>
-    </section>
-  </section>
-
-  <section>
     <h2>Securing the Core VC Data Model</h2>
     <p>
       The use of Verifiable Credentials often involves the
@@ -349,6 +293,62 @@ Arts" } } }
         details.</p>
       </section>
       <p class="issue" data-number="67"></p>
+    </section>
+  </section>
+
+  <section>
+    <h2>Securing JSON</h2>
+    <p>
+      This section provides guidance on how to use JSON [[RFC7159]]
+      claimsets with JWT registered claims to construct a JWT that can
+      be mapped to a verifiable credential. This section also describes
+      how to use content types and token types to distinguish different
+      representations of verifiable credentials.
+    </p>
+    <p class="note">
+      This representation relies on claims registered in the
+      <a
+      href="https://www.iana.org/assignments/jwt/jwt.xhtml#claims">IANA
+      JSON Web Token Claims Registry</a> whenever possible.
+    </p>
+    <p class="note">
+      Production of this representation does not use
+      <code>vc+ld+json</code> as an input.
+    </p>
+    <section>
+      <h2>Credential Header</h2>
+      <p><a data-cite="rfc7519#section-5.1">typ</a> MUST use the media
+      type <code>vc+jwt</code>.</p>
+      <aside class="example" title="credential metadata (decoded JWT
+      header)">
+        <pre class="json">
+{ "kid": "https://example.edu/issuers/14#key-0", "alg": "ES256", "typ":
+"vc+jwt" }
+          </pre>
+      </aside>
+    </section>
+    <section>
+      <h2>Credential</h2>
+      <aside class="example" title="credential (decoded JWT payload)">
+        <pre class="example">
+{ "iss": "https://example.edu/issuers/14", "sub": "1234567890", "name":
+"John Doe", "iat": 1516239022, "urn:example:claim": true }
+          </pre>
+      </aside>
+      <p class="note">
+        The <code>vc</code> and <code>vp</code> claims MUST NOT be
+        present when the content type header parameter is set to
+        <code>credential-claims-set+json</code>.
+      </p>
+    </section>
+    <section>
+      <h2>Verifiable Credential</h2>
+      <aside class="example" title="verifiable credential">
+        <p>An encoded verifiable credential (using external proof).</p>
+        <pre class="example">
+eyJraWQiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQja2V5LTAiLCJhbGciOiJFUzI1NiIsInR5cCI6InZjK2p3dCJ9.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQiLCJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ1cm46ZXhhbXBsZTpjbGFpbSI6dHJ1ZX0.WLD4Qxh629TFkJHzmbkWEefYX-QPkdCmxbBMKNHErxND2QpjVBbatxHkxS9Y_SzBmwffuM2E9i5VvVgpZ6v4Tg
+          </pre>
+      </aside>
     </section>
   </section>
 
