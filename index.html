@@ -76,6 +76,15 @@
       postProcess: [window.respecVc.createVcExamples],
       license: "w3c-software-doc",
       xref: true,
+      localBiblio:  {
+        "SD-JWT": {
+          title:    "Selective Disclosure for JWTs (SD-JWT)",
+          href:     "https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-04",
+          authors:  [ "Daniel Fett" , "Kristina Yasuda" , "Brian Campbell"],
+          status:   "Internet-Draft",
+          publisher:  "IETF"
+        },
+      }
     };
   </script>
 </head>
@@ -968,6 +977,49 @@ data:application/vp+ld+jwt;base64,ZXlKaGJHY2lPaUp1YjI1bElpd2lkSGx3SWpvaWRuQXJiR1
 
       <p class="issue">TODO add COSE Sign1 detached payload examples</p>
 
+    </section>
+    <section>
+      <h3>Selective Disclosure</h3>
+      <p>The following example is taken from <a data-cite="SD-JWT#name-example-4b-w3c-verifiable-c"></a>.</p>
+      <pre>
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://w3id.org/vaccination/v1"
+  ],
+  "type": [
+    "VerifiableCredential",
+    "VaccinationCertificate"
+  ],
+  "issuer": "https://example.com/issuer",
+  "issuanceDate": "2023-02-09T11:01:59Z",
+  "expirationDate": "2028-02-08T11:01:59Z",
+  "name": "COVID-19 Vaccination Certificate",
+  "description": "COVID-19 Vaccination Certificate",
+  "credentialSubject": {
+    "vaccine": {
+      "type": "Vaccine",
+      "medicinalProductName": "COVID-19 Vaccine Moderna",
+      "atcCode": "J07BX03"
+    },
+    "recipient": {
+      "type": "VaccineRecipient"
+    },
+    "type": "VaccinationEvent",
+    "order": "3/3",
+    "dateOfVaccination": "2021-06-23T13:40:12Z"
+  },
+  "_sd_alg": "sha-256",
+  "cnf": {
+    "jwk": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "TCAER19Zvu3OHF4j4W4vfSVoHIP1ILilDls7vCeGemc",
+      "y": "ZxjiWWbZMQGHVWKVQ4hbSIirsVfuecCE6t4jT9F2HZQ"
+    }
+  }
+}
+      </pre>
     </section>
 
 
