@@ -382,18 +382,13 @@ If <code>kid</code> is also present, it is expected to be useful to distinguish 
     <section>
       <h2>cnf</h2>
       <p>
-If <code>cnf</code> is present in the <a data-cite="RFC7515#section-4.1">Protected Header</a>,
+If <code>cnf</code> is present in the <a data-cite="RFC7515#section-4.1">Protected Header</a>
+or the <a data-cite="RFC7519#section-4.1.1">JWT Claims </a>,
 a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
 to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the 
 <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
       </p>
       <p>
-      <p>
-If <code>cnf</code> is present in the <a data-cite="RFC7519#section-4.1.1">JWT Claims </a>,
-a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
-to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the 
-<a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
-      </p>
 If <code>kid</code> is also present, it is expected to be useful to distinguish the specific key used.
       </p>
     </section>
