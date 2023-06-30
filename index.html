@@ -318,69 +318,6 @@
     </section>
   </section>
 
-  <section>
-    <h2>Securing JSON</h2>
-    <p>
-      This section provides guidance on how to use JSON [[RFC7159]]
-      claimsets with JWT registered claims to construct a JWT that can
-      be mapped to a verifiable credential. This section also describes
-      how to use content types and token types to distinguish different
-      representations of verifiable credentials.
-    </p>
-    <p class="note">
-      This representation relies on claims registered in the
-      <a href="https://www.iana.org/assignments/jwt/jwt.xhtml#claims">IANA
-        JSON Web Token Claims Registry</a> whenever possible.
-    </p>
-    <p class="note">
-      Production of this representation does not use
-      <code>vc+ld+json</code> as an input.
-    </p>
-    <section>
-      <h2>Credential Header</h2>
-      <p><a data-cite="rfc7519#section-5.1">typ</a> MUST use the media
-        type <code>vc+jwt</code>.</p>
-      <aside class="example" title="credential metadata (decoded JWT
-      header)">
-        <pre class="json">
-{
-  "kid": "https://example.edu/issuers/14#key-0",
-  "alg": "ES256",
-  "typ": "vc+jwt"
-}
-        </pre>
-      </aside>
-    </section>
-    <section>
-      <h2>Credential</h2>
-      <aside class="example" title="credential (decoded JWT payload)">
-        <pre class="example">
-{
-  "iss": "https://example.edu/issuers/14",
-  "sub": "1234567890",
-  "name": "John Doe",
-  "iat": 1516239022,
-  "urn:example:claim": true
-}
-        </pre>
-      </aside>
-      <p class="note">
-        The <code>vc</code> and <code>vp</code> claims MUST NOT be
-        present when the content type header parameter is set to
-        <code>credential-claims-set+json</code>.
-      </p>
-    </section>
-    <section>
-      <h2>Verifiable Credential</h2>
-      <aside class="example" title="verifiable credential">
-        <p>An encoded verifiable credential (using external proof).</p>
-        <pre class="example">
-eyJraWQiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQja2V5LTAiLCJhbGciOiJFUzI1NiIsInR5cCI6InZjK2p3dCJ9.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQiLCJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ1cm46ZXhhbXBsZTpjbGFpbSI6dHJ1ZX0.WLD4Qxh629TFkJHzmbkWEefYX-QPkdCmxbBMKNHErxND2QpjVBbatxHkxS9Y_SzBmwffuM2E9i5VvVgpZ6v4Tg
-        </pre>
-      </aside>
-    </section>
-  </section>
-
   <section id="conformance">
     <section class="normative">
       <h2>JSON Web Token Header Parameters</h2>
@@ -524,51 +461,6 @@ eyJraWQiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQja2V5LTAiLCJhbGciOiJFUzI1NiIs
 
   <section class="normative">
     <h2>IANA Considerations</h2>
-    <section id="vc-jwt-media-type">
-      <h2><code>application/vc+jwt</code></h2>
-      <p>
-        This specification registers the <code>application/vc+jwt</code>
-        Media Type specifically for identifying a <a data-cite="rfc7519#section-3">JWT</a> conforming to the
-        Verifiable Credentials JWT format in the `typ` header.
-      </p>
-      <table>
-        <tr>
-          <td>Type name: </td>
-          <td>application</td>
-        </tr>
-        <tr>
-          <td>Subtype name: </td>
-          <td>application/vc+jwt</td>
-        </tr>
-        <tr>
-          <td>Required parameters: </td>
-          <td>None</td>
-        </tr>
-        <tr>
-          <td>Encoding considerations: </td>
-          <td>
-            <code>application/vc+jwt</code> values are encoded as a
-            series of base64url encoded values (some of which may be the
-            empty string) each separated from the next by a single
-            period ('.') character.
-          </td>
-        </tr>
-        <tr>
-          <td>Security considerations: </td>
-          <td>
-            <p>As defined in this specification. See also the security
-              considerations in [[RFC7519]].</p>
-          </td>
-        </tr>
-        <tr>
-          <td>Contact: </td>
-          <td>
-            W3C Verifiable Credentials Working Group <a href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-          </td>
-        </tr>
-      </table>
-    </section>
-
     <section id="vc-ld-jwt-media-type">
       <h2><code>application/vc+ld+jwt</code></h2>
       <p>
@@ -985,7 +877,6 @@ eyJraWQiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQja2V5LTAiLCJhbGciOiJFUzI1NiIs
 
     </section>
 
-
     <section>
       <h3>Data URIs</h3>
       <pre class="example" title="JSON-LD Credential">
@@ -1053,120 +944,6 @@ eyJhbGciOiJFUzM4NCIsInR5cCI6InZwK2xkK2p3dCIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19
       <p class="issue">TODO add COSE Sign1 detached payload examples</p>
 
     </section>
-
-
-    <section>
-      <h3>Example Mapping</h3>
-      <p>
-        The following describes a mapping from
-        <code>application/vc+jwt</code> to
-        <code>application/vc+ld+json</code>. This is one possible
-        unidirectional mapping between 2.0 VC-JWTs and the VC Data
-        Model; other such mappings are possible.
-      </p>
-      <ul>
-        <li>
-          Extract <code>iss</code>, <code>sub</code>, <code>iat</code>,
-          <code>nbf</code>,
-          <code>exp</code>, <code>jti</code>, and <code>aud</code> as
-          registered claims.
-        </li>
-        <li>
-          Set aside all other claims as subject claims.
-        </li>
-        <li>
-          To construct the VCDM-compliant JSON:
-          <ul>
-            <li>
-              Set the value of <code>@context</code> to
-              <code>"https://www.w3.org/ns/credentials/v2"</code>.
-            </li>
-            <li>
-              Set the value of <code>type</code> to
-              <code>["VerifiableCredential"]</code>.
-            </li>
-            <li>
-              Set the value of the <code>issuer</code> property to one
-              of the following:
-              <ul>
-                <li>
-                  If the value of <code>iss</code> is a URL, use the
-                  value of <code>iss</code>.
-                </li>
-                <li>
-                  If the value of <code>iss</code> is not a URL, use the
-                  concatenation of "<code>urn:vc:</code>" and the value
-                  of <code>iss</code>.
-                </li>
-              </ul>
-            </li>
-            <li>
-              If <code>jti</code> is present, set the value of
-              <code>id</code> to the concatenation of
-              "<code>urn:vc:</code>" and the value of <code>jti</code>.
-            </li>
-            <li>
-              If <code>nbf</code> is present, set the value of
-              <code>validFrom</code> to the
-              <code>dateTime</code> obtained by converting the value of
-              <code>nbf</code> from the <code>NumericDate</code>
-              described in [[!RFC7519]] to a <code>dateTime</code> as
-              described in [[XMLSCHEMA11-2]].
-            </li>
-            <li>
-              If <code>exp</code> is present, set the value of
-              <code>validUntil</code> to the
-              <code>dateTime</code> obtained by converting the value of
-              <code>exp</code> from the <code>NumericDate</code>
-              described in [[!RFC7519]] to a <code>dateTime</code> as
-              described in [[XMLSCHEMA11-2]].
-            </li>
-            <li>
-              Set the value of <code>credentialSubject</code> to an
-              object that contains the following properties:
-              <ul>
-                <li>
-                  If <code>sub</code> is present, set the value of the
-                  <code>id</code> property to the concatenation of
-                  "urn:vc:" and the value of <code>sub</code>.
-                </li>
-                <li>
-                  Add all of the subject claims.
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
-      <aside class="example" title="application/vc+jwt mapped to
-      application/vc+ld+json">
-        <p>A Verifiable Credential of type application/vc+jwt:</p>
-        <pre class="example">
-{
-  "iss": "https://example.edu/issuers/14",
-  "sub": "1234567890",
-  "name": "John Doe",
-  "iat": 1516239022,
-  "urn:example:claim": true
-}
-        </pre>
-        <p>The application/vc+ld+json after applying the mapping:</p>
-        <pre class="example">
-{
-  "@context": "https://www.w3.org/ns/credentials/v2",
-  "type": ["VerifiableCredential"],
-  "issuer": "https://example.edu/issuers/14",
-  "credentialSubject": {
-    "id": "urn:vc:1234567890",
-    "name": "John Doe",
-    "urn:example:claim": true
-  }
-}
-        </pre>
-      </aside>
-    </section>
-
-  </section>
   </section>
 </body>
 
