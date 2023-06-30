@@ -1,161 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Securing Verifiable Credentials using JSON Web Tokens</title>
-    <script
-      src="https://www.w3.org/Tools/respec/respec-w3c"
-      class="remove"
-    ></script>
-    <script class="remove" src="https://cdn.jsdelivr.net/gh/transmute-industries/respec-vc-jwt@0.0.9/dist/main.js"></script>
-    <script class="remove">
-      // See https://github.com/w3c/respec/wiki/ for how to configure ReSpec
-      var respecConfig = {
-        group: "vc",
 
-        // specification status (e.g., WD, NOTE, etc.). If in doubt use ED.
-        specStatus: "ED",
+<head>
+  <meta charset="utf-8" />
+  <title>Securing Verifiable Credentials using JOSE and COSE</title>
+  <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"></script>
+  <script class="remove"
+    src="https://cdn.jsdelivr.net/gh/transmute-industries/respec-vc-jwt@0.0.9/dist/main.js"></script>
+  <script class="remove">
+    // See https://github.com/w3c/respec/wiki/ for how to configure
+    // ReSpec
+    var respecConfig = {
+      group: "vc",
 
-        // the specification's short name, as in http://www.w3.org/TR/short-name/
-        shortName: "vc-jwt",
+      // specification status (e.g., WD, NOTE, etc.). If in doubt use
+      // ED.
+      specStatus: "ED",
 
-        // if you wish the publication date to be other than today, set this
-        // publishDate: "2023-04-27",
+      // the specification's short name, as in
+      // http://www.w3.org/TR/short-name/
+      shortName: "vc-jwt",
 
-        // implementationReportURI: "https://w3c.github.io/vc-test-suite/implementations/",
-        // errata: "https://w3c.github.io/vc-data-model/errata.html",
-        // previousMaturity: "REC",
-        // previousPublishDate: "2019-11-19",
+      // if you wish the publication date to be other than today, set
+      // this publishDate: "2023-04-27",
 
-        // if there is a previously published draft, uncomment this and set its YYYY-MM-DD date
-        // and its maturity status
-        // previousPublishDate:  "1977-03-15",
-        // previousMaturity:  "WD",
+      // implementationReportURI:
+      // "https://w3c.github.io/vc-test-suite/implementations/", errata:
+      // "https://w3c.github.io/vc-data-model/errata.html",
+      // previousMaturity: "REC", previousPublishDate: "2019-11-19",
 
-        // extend the bibliography entries
-        // localBiblio: vcwg.localBiblio,
-        doJsonLd: true,
+      // if there is a previously published draft, uncomment this and
+      // set its YYYY-MM-DD date and its maturity status
+      // previousPublishDate:  "1977-03-15", previousMaturity:  "WD",
 
-        // Uncomment these to use the respec extension that generates a list of
-        //   normative statements:
-        // preProcess: [],
-        // postProcess: [],
+      // extend the bibliography entries localBiblio: vcwg.localBiblio,
+      doJsonLd: true,
 
-        github: "https://github.com/w3c/vc-jwt/",
-        includePermalinks: false,
+      // Uncomment these to use the respec extension that generates a
+      //   list of normative statements: preProcess: [], postProcess:
+      //   [],
 
-        // if there a publicly available Editor's Draft, this is the link
-        edDraftURI: "https://w3c.github.io/vc-jwt/",
+      github: "https://github.com/w3c/vc-jwt/",
+      includePermalinks: false,
 
-        // editors, add as many as you like
-        // only "name" is required
-        editors: [
-          {
-            name: "Orie Steele",
-            company: "Transmute",
-            companyURL: "https://transmute.industries",
-            w3cid: 109171,
-          },
-          {
-            name: "Michael Jones",
-            url: "https://self-issued.info/",
-            company: "independent",
-            w3cid: 38745,
-          },
-	        {
-            name: "Michael Prorock",
-            company: "Mesur.io", companyURL: "https://mesur.io/",
-            w3cid: 130636
-          }
-        ],
-        // authors, add as many as you like.
-        // This is optional, uncomment if you have authors as well as editors.
-        // only "name" is required. Same format as editors.
-        authors: [],
+      // if there a publicly available Editor's Draft, this is the link
+      edDraftURI: "https://w3c.github.io/vc-jwt/",
 
-        maxTocLevel: 2,
-        inlineCSS: true,
-        postProcess: [window.respecVc.createVcExamples],
-        license: "w3c-software-doc",
-        xref: true, 
-      };
-    </script>
-  </head>
-  <body>
-    <section id="abstract">
-      <p>
-This specification defines how to secure Verifiable Credentials with JSON
-Web Tokens (JWT) [RFC7519], which build on JSON Web Signatures (JWS)
-[RFC7515]. This enables Verifiable Credentials to be easily integrated into ecosystems that already support JSON Web Tokens.
-      </p>
-    </section>
-    <section id="sotd"></section>
+      // editors, add as many as you like only "name" is required
+      editors: [
+        {
+          name: "Orie Steele",
+          company: "Transmute",
+          companyURL: "https://transmute.industries",
+          w3cid: 109171,
+        },
+        {
+          name: "Michael Jones",
+          url: "https://self-issued.info/",
+          company: "independent",
+          w3cid: 38745,
+        },
+        {
+          name: "Michael Prorock",
+          company: "Mesur.io", companyURL: "https://mesur.io/",
+          w3cid: 130636
+        }
+      ],
+      // authors, add as many as you like. This is optional, uncomment
+      // if you have authors as well as editors. only "name" is
+      // required. Same format as editors.
+      authors: [],
 
-    <section id="introduction">
-      <h2>Introduction</h2>
-      <p>
-        JSON Web Token (JWT) [[RFC7519]] is a widely-used means of
-        expressing
-        <a data-cite="VC-DATA-MODEL#claims">claims</a> to be transferred between two parties. Providing a
-        representation of the Verifiable Credentials Data Model for JWT allows
-        existing systems and libraries to participate in the ecosystem described
-        in Section <a data-cite="VC-DATA-MODEL#ecosystem-overview">ecosystem overview</a>. A JWT encodes a set of
-        <a data-cite="VC-DATA-MODEL#claims">claims</a> as a JSON object that is contained in a JSON Web Signature
-        (JWS) [[RFC7515]] and/or JSON Web Encryption (JWE) [[?RFC7516]]. For this specification, the use
-        of JWE is out of scope.
-      </p>
+      maxTocLevel: 2,
+      inlineCSS: true,
+      postProcess: [window.respecVc.createVcExamples],
+      license: "w3c-software-doc",
+      xref: true,
+    };
+  </script>
+</head>
 
-      <section>
-        <h5>Verifiable Credentials Data Model</h5>
-        <p>
-          This specification describes how to secure media types 
-          expressing Verifiable Credentials and Verifiable Presentations 
-          as described in the [[VC-DATA-MODEL]], using JWTs [[RFC7519]].
-        </p>
-      </section>
-    </section>
+<body>
+  <section id="abstract">
+    <p>
+      This specification defines how to secure Verifiable Credentials
+      with JSON Object Signing and Encryption (<a href="https://datatracker.ietf.org/wg/jose/about/">JOSE</a>)
+      especially as explified by JSON Web Signatures (JWS) [[RFC7515]]
+      and with CBOR Object Signing and Encryption (COSE) [[RFC8152]].
+
+      This enables the Verifiable Credential data model
+      [[VC-DATA-MODEL]]to be implemented with standards
+      for signing and encryption that are widely adopted.
+    </p>
+  </section>
+  <section id="sotd"></section>
+
+  <section id="introduction">
+    <h2>Introduction</h2>
+    <p>
+      This specification describes how to secure media types
+      expressing Verifiable Credentials and Verifiable Presentations
+      as described in the [[VC-DATA-MODEL]], using approaches
+      described by the COSE and JOSE working groups at IETF. This
+      includes JWTs [[RFC7519]], JWS [[RFC7515]], and COSE [[RFC8152]]
+      and provides an approach using well defined content types
+      [[RFC6838]] to identify that the type of data being secured
+      conforms with the [[VC-DATA-MODEL]].
+    </p>
+    <p>
+      JSON Web Signatures (JWS) [[RFC7515]] provide a standardized
+      mechanism for digitally signing JSON data. It provides a means
+      to ensure the integrity, authenticity, and non-repudiation of
+      the information contained in a JSON object. JWS enables secure
+      communication and trust between parties by adding a
+      cryptographic signature to a payload. This signature is
+      generated using a private key and can be verified using the
+      corresponding public key. JWS enables content integrity, authentication and non repudiation,
+      protecting data from unauthorized modifications. The
+      versatility and wide adoption of JWS make it an essential
+      component for verifying the authenticity and integrity of
+      data in various applications, including
+      authentication, authorization, and secure data exchange. These
+      properties make JWS especially well suited to securing the
+      JSON-LD [[VC-DATA-MODEL]] and through this to provide a means of
+      supporting the three party model (issuer, verifier, holder) for
+      exchange of credentials enabled in verifiable credenials.
+    </p>
+    <p>
+      JSON Web Token (JWT) [[RFC7519]] is a widely-used means of
+      expressing
+      <a data-cite="VC-DATA-MODEL#claims">claims</a>, represented in JSON, to be transferred
+      between two parties. Providing a representation of the
+      Verifiable Credentials Data Model for JWT allows existing
+      systems and libraries to participate in the ecosystem described
+      in Section <a data-cite="VC-DATA-MODEL#ecosystem-overview">ecosystem
+        overview</a>. A JWT encodes a set of
+      <a data-cite="VC-DATA-MODEL#claims">claims</a> as a JSON object
+      that is contained in a JSON Web Signature (JWS) [[RFC7515]]
+      and/or JSON Web Encryption (JWE) [[?RFC7516]]. For this
+      specification, the use of JWE is out of scope.
+    <p class="issue">
+      The working group is discussing how we might comment on recent work, that does make
+      use of encryption in <a
+        href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html#section-3.2">OpenID for Verifiable
+        Presentations</a>.
+    </p>
+    </p>
+    <p>
+      CBOR Object Signing and Encryption (COSE) [[RFC8152]] is a
+      specification that defines a framework for representing signed and
+      encrypted data using (Concise Binary Object Representation) [RFC8949]
+      data structures. COSE provides a standardized way to secure the
+      integrity, authenticity, and confidentiality of CBOR-encoded
+      information. It offers a flexible and extensible set of
+      cryptographic options, allowing for a wide range of algorithms
+      to be used for signing and encryption.
+
+      COSE supports two main operations: signing and encryption. For
+      signing, COSE allows the creation of digital signatures over
+      CBOR data using various algorithms such as HMAC, RSA, ECDSA, or
+      EdDSA. These signatures provide assurance of data integrity and
+      authenticity. COSE also supports encryption, enabling the
+      confidentiality of CBOR data by encrypting it with symmetric or
+      asymmetric encryption algorithms.
+    </p>
+  </section>
+
+  <section>
+    <h2>Securing the VC Data Model</h2>
+    <p>
+      The use of Verifiable Credentials often involves the
+      representation and exchange of structured data in the form of
+      JSON-LD as this is the structured suffix of the base media types defined in [[VC-DATA-MODEL]]. While
+      JSON-LD provides a flexible and extensible format for describing
+      linked data, see <a href="https://www.w3.org/TR/json-ld11/#relationship-to-rdf">JSON-LD Relationship to RDF</a>,
+      it is important to note that it also provides a linkage
+      between the data structure and semantic meaning of data.
+    </p>
+    <p>
+      This section outlines how JSON-LD claimsets can be secured
+      using either JOSE or COSE.
+    </p>
+    <p>
+      A benefit to this approach is that payloads can be made to conform
+      directly to the [[VC-DATA-MODEL]] without any mapping or
+      transformation.
+    </p>
     <section>
-      <h2>Securing the Core VC Data Model</h2>
-      <p>
-        The use of Verifiable Credentials often involves the representation and exchange of structured 
-        data in the form of JSON-LD as this is the format of the core data model. While JSON-LD provides a flexible and extensible format for 
-        describing data, it is important to note that it also provides a linkage between the data structure
-        and semantic meaning of data. 
+      <h2>With JOSE</h2>
+      <section>
+        <h2>Securing JSON-LD Verifiable Credentials with JOSE</h2>
+        <p>
+          This section details how to secure data payloads with the type
+          <code>application/vc+ld+json</code>
+          with JOSE.
+        </p>
+        <p>[[rfc7515]] MAY be used to secure this media type.</p>
+        <p>
+          The <code>typ</code> parameter MUST be <code>vc+ld+jwt</code>
         </p>
         <p>
-        This section outlines how JSON-LD encoded claimset can be secured using either JOSE or COSE.
-      </p>
-      <p>
-A benefit to this approach is that payloads can be made to conform directly to the [[VC-DATA-MODEL]]
-without any mapping or transformation.
-      </p>
-      <section>
-        <h2>With JOSE</h2>
-        <section>
-          <h2>Securing JSON-LD Verifiable Credentials with JOSE</h2>
-          <p>
-            This section details how to secure data payloads with the type <code>application/vc+ld+json</code> 
-            with JOSE.
-          </p>
-          <p>[[rfc7515]] MAY be used to secure this media type.</p>
-          <p>
-            The <code>typ</code> parameter MUST be <code>vc+ld+jwt</code>
-          </p>
-          <p>
-            When present, the <code>cty</code> MUST be <code>vc+ld+json</code>
-          </p>
-          <p>
-            See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header Parameters</a> 
-            for additional details regarding usage of <code>typ</code> and <code>cty</code>.
-          </p>
-          <pre class="example vc-jwt" data-vc-kid="#key-0">
+          When present, the <code>cty</code> MUST be
+          <code>vc+ld+json</code>
+        </p>
+        <p>
+          See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header
+            Parameters</a>
+          for additional details regarding usage of <code>typ</code> and
+          <code>cty</code>.
+        </p>
+        <pre class="example vc-jwt" data-vc-kid="#key-0">
 {
-  "@context": [
-    "https://www.w3.org/ns/credentials/v2",
+  "@context": ["https://www.w3.org/ns/credentials/v2",
     "https://www.w3.org/ns/credentials/examples/v2"
   ],
   "id": "http://example.edu/credentials/3732",
-  "type": ["VerifiableCredential", "UniversityDegreeCredential"],
+  "type": ["VerifiableCredential",
+    "UniversityDegreeCredential"
+  ],
   "issuer": "https://example.edu/issuers/14",
   "issuanceDate": "2010-01-01T19:23:24Z",
   "credentialSubject": {
@@ -166,53 +228,53 @@ without any mapping or transformation.
     }
   }
 }
-          </pre>
+        </pre>
       </section>
-        <section>
-          <h2>Securing JSON-LD Verifiable Presentations with JOSE</h2>
-          <p>
-            This section details how to secure verifiable presentations with the type 
-            <code>application/vp+ld+json</code> with JOSE.
-          </p>
-          <p>[[rfc7515]] MAY be used to secure this media type.</p>
-          <p>The <code>typ</code> parameter MUST be <code>vp+ld+jwt</code></p>
-          <p>When present, the <code>cty</code> parameter MUST be <code>vp+ld+json</code></p>
-          <p>
-            See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header Parameters</a> 
-            for additional details regarding usage of <code>typ</code> and <code>cty</code>.
-          </p>
-          <pre class="example vc-jwt" data-vp-alg="none" title="The minimal unsecured verifiable presentation">
+      <section>
+        <h2>Securing JSON-LD Verifiable Presentations with JOSE</h2>
+        <p>
+          This section details how to secure verifiable presentations
+          with the type
+          <code>application/vp+ld+json</code> with JOSE.
+        </p>
+        <p>[[rfc7515]] MAY be used to secure this media type.</p>
+        <p>The <code>typ</code> parameter MUST be
+          <code>vp+ld+jwt</code>
+        </p>
+        <p>When present, the <code>cty</code> parameter MUST be
+          <code>vp+ld+json</code>
+        </p>
+        <p>
+          See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header
+            Parameters</a>
+          for additional details regarding usage of <code>typ</code> and
+          <code>cty</code>.
+        </p>
+        <pre class="example vc-jwt" data-vp-alg="none" title="The minimal unsecured verifiable presentation">
 {
-  "@context": [
-    "https://www.w3.org/ns/credentials/v2"
-  ],
+  "@context": ["https://www.w3.org/ns/credentials/v2"],
   "type": ["VerifiablePresentation"]
 }
-          </pre>
-          <pre class="example vc-jwt" title="The minimal secured verifiable presentation">
+        </pre>
+        <pre class="example vc-jwt" title="The minimal secured verifiable presentation">
 {
-  "@context": [
-    "https://www.w3.org/ns/credentials/v2"
-  ],
+  "@context": ["https://www.w3.org/ns/credentials/v2"],
   "type": ["VerifiablePresentation"]
 }
-          </pre>
+        </pre>
 
-          <pre class="example vc-jwt" title="A secured verifiable presentation with a holder identifier">
+        <pre class="example vc-jwt" title="A secured verifiable presentation with a holder identifier">
 {
-  "@context": [
-    "https://www.w3.org/ns/credentials/v2",
+  "@context": ["https://www.w3.org/ns/credentials/v2",
     "https://www.w3.org/ns/credentials/examples/v2"
   ],
-  "type": ["VerifiablePresentation"]
+  "type": ["VerifiablePresentation"],
   "holder": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs"
 }
-          </pre>
-          <pre class="example vc-jwt" title="A secured verifiable presentation with a holder graph node">
+        </pre>
+        <pre class="example vc-jwt" title="A secured verifiable presentation with a holder graph node">
 {
-  "@context": [
-    "https://www.w3.org/ns/credentials/v2"
-  ],
+  "@context": ["https://www.w3.org/ns/credentials/v2"],
   "type": ["VerifiablePresentation"],
   "holder": {
     "id": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs",
@@ -220,415 +282,627 @@ without any mapping or transformation.
     "name": "Contoso"
   }
 }
-          </pre>
-        </section>
-      </section>
-      <section>
-        <h2>With COSE</h2>
-        <p>
-          COSE [[rfc8152]] is a common approach to encoding and securing information
-          using CBOR [[rfc8949]]. Verifiable credentials MAY be secured using COSE [[rfc8152]] 
-          and MUST be identified through use of content types as outlined in this section.
-        </p>
-        <section>
-          <h2>Securing JSON-LD VCs with COSE</h2>
-          <p>
-            This section details how to secure data with the type <code>application/vc+ld+json</code> 
-            with COSE.
-          </p>
-          <p>[[rfc8152]] MAY be used to secure this media type.</p>
-          <p>When using this approach, the <code>type (TBD)</code> MUST be <code>vc+ld+cwt</code></p>
-          <p>When using this approach, the <code>content type (3)</code> MUST be <code>application/vc+ld+json</code></p>
-          <p>
-            See <a data-cite="rfc9052#section-3.1">Common COSE Header Parameters</a> for additional details.
-          </p>
-          <p>See <a href="https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml">Concise Binary Object Representation (CBOR) Tags</a> for additional details.</p>
-        </section>
-        <p class="issue" data-number="67"></p>
+        </pre>
       </section>
     </section>
-
-<section id="conformance">
-<section class="normative">
-  <h2>Securing Verifiable Credentials</h2>
-  <p>The [[VC-DATA-MODEL]] describes the approach taken by JSON Web Tokens to securing claimsets as applying an <code>external proof</code>.</p>
-  <p>The normative statements in <a data-cite="VC-DATA-MODEL#securing-verifiable-credentials">Securing Verifiable Credentials</a> apply to 
-    securing <code>application/vc+ld+json</code> and <code>application/vp+ld+json</code> 
-    as <code>application/vc+ld+jwt</code> and <code>application/vp+ld+jwt</code>.
-  </p>
-  <p>For clarity, these requirements are repeated here:</p>
-  <ul>
-    <li>
+    <section>
+      <h2>With COSE</h2>
       <p>
-        At least one securing mechanism, and the details necessary to evaluate it, 
-        MUST be expressed for a credential or presentation to be a verifiable credential or verifiable presentation; that is, to be verifiable.
+        COSE [[rfc8152]] is a common approach to encoding and securing
+        information using CBOR [[rfc8949]]. Verifiable credentials MAY
+        be secured using COSE [[rfc8152]] and MUST be identified through
+        use of content types as outlined in this section.
       </p>
-    </li>
-    <li>
-      <p>
-        Methods of securing credentials or presentations that embed a proof in the data model MUST use the proof property.
-      </p>
-    </li>
-    <li>
-      <p>
-        Methods of securing credentials or presentations that use an external proof MAY use the proof property.
-      </p>
-    </li>
-    <li>
-      <p>
-        One or more cryptographic proofs that can be used to detect tampering and verify the authorship of a credential or presentation. 
-        The specific method used for an embedded proof MUST be included using the type property.
-      </p>
-    </li>
-  </ul>
-  <p class="advisement">
-    The type <code>VerifiableCredential</code> and <code>VerifiablePresentation</code> are RDF Classes.<br/>
-    The presence of the word "Verifiable" does not convey a cryptographic verification capability exists.<br/>
-    The presence of the JSON <code>proof</code> member does not convey a cryptographic verification capability exists.<br/>
-    The presence of the JSON <code>proof</code> member is optional in both <code>VerifiableCredential</code> and <code>VerifiablePresentation</code>.<br/>
-    The presence of the JSON <code>proof</code> member is optional in both <code>application/vc+ld+json</code> and <code>application/vp+ld+json</code>.<br/>
-  </p>
-  <p>
-    JSON Web Token implementers are advised to review <a data-cite="RFC7519#section-8">Implementation Requirements</a>.
-  </p>
-  <p>
-    Accordingly, Issuers, Holders and Verifiers MUST understand the JSON Web Token header parameter 
-    <code>"alg": "none"</code> when securing the [[VC-DATA-MODEL]] with JSON Web Tokens.
-  </p>
-  <p>
-    When content types from the [[VC-DATA-MODEL]] are secured using JSON Web Tokens, 
-    the header parameter <code>"alg": "none"</code>, MUST be used to communicate that a claimset 
-    (a Verifiable Credential or a Verifiable Presentation) has no integrity protection.
-  </p>
-  <p>
-    When a JSON Web Token claimset (a Verifiable Credential or a Verifiable Presentation) contains <code>proof</code>, 
-    and the JSON Web Token header contains <code>"alg": "none"</code>, 
-    the claimset MUST be considered to have no integrity protection.
-  </p>
-  <p class="advisement">
-    Verifiable Credentials and Verifiable Presenatations are not required to be secured or integrity protected or to contain a <code>proof</code> member.
-  </p>
-  <p>Issuers, Holders and Verifiers MUST ignore all claimsets that have no integrity protection.</p>
-</section>
-</section>
-
-<section class="normative">
-  <h2>IANA Considerations</h2>
-  <section id="vc-ld-jwt-media-type">
-    <h2><code>application/vc+ld+jwt</code></h2>
-    <p>
-      This specification registers the <code>application/vc+ld+jwt</code> Media Type specifically for
-      identifying a <a data-cite="rfc7519#section-3">JWT</a> conforming to the Verifiable Credentials JWT format in the `typ` header.
-    </p>
-    <table>
-      <tr>
-        <td>Type name: </td>
-        <td>application</td>
-      </tr>
-      <tr>
-        <td>Subtype name: </td>
-        <td>vc+ld+jwt</td>
-      </tr>
-      <tr>
-        <td>Required parameters: </td>
-        <td>None</td>
-      </tr>
-      <tr>
-        <td>Encoding considerations: </td>
-        <td>
-          <code>application/vc+ld+jwt</code> values are encoded
-          as a series of base64url encoded values (some of which may be the
-          empty string) each separated from the next by a single period
-          ('.') character.
-        </td>
-      </tr>
-      <tr>
-        <td>Security considerations: </td>
-        <td>
-          <p>As defined in this specification. See also the security considerations in [[RFC7519]].</p>
-        </td>
-      </tr>
-      <tr>
-        <td>Contact: </td>
-        <td>
-          W3C Verifiable Credentials Working Group <a href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-        </td>
-      </tr>
-    </table>
+      <section>
+        <h2>Securing JSON-LD VCs with COSE</h2>
+        <p>
+          This section details how to secure data with the type
+          <code>application/vc+ld+json</code>
+          with COSE.
+        </p>
+        <p>[[rfc8152]] MAY be used to secure this media type.</p>
+        <p>When using this approach, the <code>type (TBD)</code> MUST be
+          <code>vc+ld+cwt</code>
+        </p>
+        <p>When using this approach, the <code>content type (3)</code>
+          MUST be <code>application/vc+ld+json</code></p>
+        <p>
+          See <a data-cite="rfc9052#section-3.1">Common COSE Header
+            Parameters</a> for additional details.
+        </p>
+        <p>See <a href="https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml">Concise
+            Binary Object Representation (CBOR) Tags</a> for additional
+          details.</p>
+      </section>
+      <p class="issue" data-number="67"></p>
+    </section>
   </section>
-  <section id="vp-ld-jwt-media-type">
-    <h2><code>application/vp+ld+jwt</code></h2>
+
+  <section>
+    <h2>Securing JSON</h2>
     <p>
-      This specification registers the <code>application/vp+ld+jwt</code> Media Type specifically for
-      identifying a <a data-cite="rfc7519#section-3">JWT</a> conforming to the Verifiable Credentials JWT format in the `typ` header.
+      This section provides guidance on how to use JSON [[RFC7159]]
+      claimsets with JWT registered claims to construct a JWT that can
+      be mapped to a verifiable credential. This section also describes
+      how to use content types and token types to distinguish different
+      representations of verifiable credentials.
     </p>
-    <table>
-      <tr>
-        <td>Type name: </td>
-        <td>application</td>
-      </tr>
-      <tr>
-        <td>Subtype name: </td>
-        <td>vp+ld+jwt</td>
-      </tr>
-      <tr>
-        <td>Required parameters: </td>
-        <td>None</td>
-      </tr>
-      <tr>
-        <td>Encoding considerations: </td>
-        <td>
-          <code>application/vp+ld+jwt</code> values are encoded
-          as a series of base64url encoded values (some of which may be the
-          empty string) each separated from the next by a single period
-          ('.') character.
-        </td>
-      </tr>
-      <tr>
-        <td>Security considerations: </td>
-        <td>
-          <p>As defined in this specification. See also the security considerations in [[RFC7519]].</p>
-        </td>
-        <td>
-          <p>
-            Be advised, per the [[VC-DATA-MODEL]], 
-            verifiable presentations are not required to be secured.
-          </p>
-          <p>
-            This "typ" value might be paired with "alg: none", in headers.
-          </p>
-        </td>
-      </tr>
-      <tr>
-        <td>Contact: </td>
-        <td>
-          W3C Verifiable Credentials Working Group <a href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-        </td>
-      </tr>
-    </table>
+    <p class="note">
+      This representation relies on claims registered in the
+      <a href="https://www.iana.org/assignments/jwt/jwt.xhtml#claims">IANA
+        JSON Web Token Claims Registry</a> whenever possible.
+    </p>
+    <p class="note">
+      Production of this representation does not use
+      <code>vc+ld+json</code> as an input.
+    </p>
+    <section>
+      <h2>Credential Header</h2>
+      <p><a data-cite="rfc7519#section-5.1">typ</a> MUST use the media
+        type <code>vc+jwt</code>.</p>
+      <aside class="example" title="credential metadata (decoded JWT
+      header)">
+        <pre class="json">
+{
+  "kid": "https://example.edu/issuers/14#key-0",
+  "alg": "ES256",
+  "typ": "vc+jwt"
+}
+        </pre>
+      </aside>
+    </section>
+    <section>
+      <h2>Credential</h2>
+      <aside class="example" title="credential (decoded JWT payload)">
+        <pre class="example">
+{
+  "iss": "https://example.edu/issuers/14",
+  "sub": "1234567890",
+  "name": "John Doe",
+  "iat": 1516239022,
+  "urn:example:claim": true
+}
+        </pre>
+      </aside>
+      <p class="note">
+        The <code>vc</code> and <code>vp</code> claims MUST NOT be
+        present when the content type header parameter is set to
+        <code>credential-claims-set+json</code>.
+      </p>
+    </section>
+    <section>
+      <h2>Verifiable Credential</h2>
+      <aside class="example" title="verifiable credential">
+        <p>An encoded verifiable credential (using external proof).</p>
+        <pre class="example">
+eyJraWQiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQja2V5LTAiLCJhbGciOiJFUzI1NiIsInR5cCI6InZjK2p3dCJ9.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQiLCJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ1cm46ZXhhbXBsZTpjbGFpbSI6dHJ1ZX0.WLD4Qxh629TFkJHzmbkWEefYX-QPkdCmxbBMKNHErxND2QpjVBbatxHkxS9Y_SzBmwffuM2E9i5VvVgpZ6v4Tg
+        </pre>
+      </aside>
+    </section>
   </section>
-</section>
-<section>
-  <h3>Other Considerations</h3>
+
+  <section id="conformance">
+    <section class="normative">
+      <h2>JSON Web Token Header Parameters</h2>
+      <p>
+        The normative statements in <a data-cite="RFC7515#section-4.1">Registered Header Parameter
+          Names</a>
+        apply to securing credentials and presentations.
+      </p>
+      <p>
+        The normative statements in <a data-cite="RFC7519#section-5">JOSE Header</a>
+        apply to securing credentials and presentations.
+      </p>
+      <p>
+        The data model for the protected header is JSON
+        (application/json), not JSON-LD (application/ld+json).
+      </p>
+      <p>
+        The normative statements in <a data-cite="RFC7519#section-5.3">Replicating Claims as Header
+          Parameters</a>
+        apply to securing claims about a credential subject.
+      </p>
+      <p>
+        When replicating claims from the claimset to the header, it is
+        RECOMMENDED to use [[RFC7519]], <a href="https://www.iana.org/assignments/jose/jose.xhtml">IANA
+          Assignments for Header Parameters</a>, and <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">IANA
+          Assignments for JSON Web Token (JWT)</a>
+        to identify any reserved claims that might be confused with
+        members of the [[VC-DATA-MODEL]. This includes but is not
+        limited to: <code>iss</code>, <code>kid</code>,
+        <code>alg</code>, <code>iat</code>,
+        <code>exp</code> and <code>cnf</code>.
+      </p>
+      <p>
+        The registered claim names <code>vc</code> and <code>vp</code>
+        MUST NOT be present as header parameters.
+      </p>
+      <p>
+        When present, members of the header are to be interpreted and
+        processed according to
+        <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">IANA
+          Assignments for JSON Web Token (JWT)</a> and
+        <a href="https://www.iana.org/assignments/jose/jose.xhtml">IANA
+          Assignments for JSON Object Signing and Encryption (JOSE)</a>.
+      </p>
+      <p>
+        Additional members may be present, if they are not understood,
+        they MUST be ignored.
+      </p>
+    </section>
+    <section class="normative">
+      <h2>Securing Verifiable Credentials</h2>
+      <p>The [[VC-DATA-MODEL]] describes the approach taken by JSON Web
+        Tokens to securing claimsets as applying an
+        <code>external proof</code>.
+      </p>
+      <p>The normative statements in <a data-cite="VC-DATA-MODEL#securing-verifiable-credentials">Securing
+          Verifiable Credentials</a> apply to securing
+        <code>application/vc+ld+json</code> and
+        <code>application/vp+ld+json</code>
+        as <code>application/vc+ld+jwt</code> and
+        <code>application/vp+ld+jwt</code>.
+      </p>
+      <p>For clarity, these requirements are repeated here:</p>
+      <ul>
+        <li>
+          <p>
+            At least one securing mechanism, and the details necessary
+            to evaluate it, MUST be expressed for a credential or
+            presentation to be a verifiable credential or verifiable
+            presentation; that is, to be verifiable.
+          </p>
+        </li>
+        <li>
+          <p>
+            Methods of securing credentials or presentations that embed
+            a proof in the data model MUST use the proof property.
+          </p>
+        </li>
+        <li>
+          <p>
+            Methods of securing credentials or presentations that use an
+            external proof MAY use the proof property.
+          </p>
+        </li>
+        <li>
+          <p>
+            One or more cryptographic proofs that can be used to detect
+            tampering and verify the authorship of a credential or
+            presentation. The specific method used for an embedded proof
+            MUST be included using the type property.
+          </p>
+        </li>
+      </ul>
+      <p class="advisement">
+        The type <code>VerifiableCredential</code> and
+        <code>VerifiablePresentation</code> are RDF Classes.<br /> The
+        presence of the word "Verifiable" does not convey a
+        cryptographic verification capability exists.<br /> The presence
+        of the JSON <code>proof</code> member does not convey a
+        cryptographic verification capability exists.<br /> The presence
+        of the JSON <code>proof</code> member is optional in both
+        <code>VerifiableCredential</code> and
+        <code>VerifiablePresentation</code>.<br /> The presence of the
+        JSON <code>proof</code> member is optional in both
+        <code>application/vc+ld+json</code> and
+        <code>application/vp+ld+json</code>.<br />
+      </p>
+      <p>
+        JSON Web Token implementers are advised to review <a data-cite="RFC7519#section-8">Implementation
+          Requirements</a>.
+      </p>
+      <p>
+        Accordingly, Issuers, Holders and Verifiers MUST understand the
+        JSON Web Token header parameter
+        <code>"alg": "none"</code> when securing the [[VC-DATA-MODEL]]
+        with JSON Web Tokens.
+      </p>
+      <p>
+        When content types from the [[VC-DATA-MODEL]] are secured using
+        JSON Web Tokens, the header parameter <code>"alg":
+        "none"</code>, MUST be used to communicate that a claimset (a
+        Verifiable Credential or a Verifiable Presentation) has no
+        integrity protection.
+      </p>
+      <p>
+        When a JSON Web Token claimset (a Verifiable Credential or a
+        Verifiable Presentation) contains
+        <code>proof</code>, and the JSON Web Token header contains
+        <code>"alg": "none"</code>, the claimset MUST be considered to
+        have no integrity protection.
+      </p>
+      <p class="advisement">
+        Verifiable Credentials and Verifiable Presenatations are not
+        required to be secured or integrity protected or to contain a
+        <code>proof</code> member.
+      </p>
+      <p>Issuers, Holders and Verifiers MUST ignore all claimsets that
+        have no integrity protection.</p>
+    </section>
+  </section>
+
+  <section class="normative">
+    <h2>IANA Considerations</h2>
+    <section id="vc-jwt-media-type">
+      <h2><code>application/vc+jwt</code></h2>
+      <p>
+        This specification registers the <code>application/vc+jwt</code>
+        Media Type specifically for identifying a <a data-cite="rfc7519#section-3">JWT</a> conforming to the
+        Verifiable Credentials JWT format in the `typ` header.
+      </p>
+      <table>
+        <tr>
+          <td>Type name: </td>
+          <td>application</td>
+        </tr>
+        <tr>
+          <td>Subtype name: </td>
+          <td>application/vc+jwt</td>
+        </tr>
+        <tr>
+          <td>Required parameters: </td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Encoding considerations: </td>
+          <td>
+            <code>application/vc+jwt</code> values are encoded as a
+            series of base64url encoded values (some of which may be the
+            empty string) each separated from the next by a single
+            period ('.') character.
+          </td>
+        </tr>
+        <tr>
+          <td>Security considerations: </td>
+          <td>
+            <p>As defined in this specification. See also the security
+              considerations in [[RFC7519]].</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Contact: </td>
+          <td>
+            W3C Verifiable Credentials Working Group <a href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="vc-ld-jwt-media-type">
+      <h2><code>application/vc+ld+jwt</code></h2>
+      <p>
+        This specification registers the
+        <code>application/vc+ld+jwt</code> Media Type specifically for
+        identifying a <a data-cite="rfc7519#section-3">JWT</a>
+        conforming to the Verifiable Credentials JWT format in the `typ`
+        header.
+      </p>
+      <table>
+        <tr>
+          <td>Type name: </td>
+          <td>application</td>
+        </tr>
+        <tr>
+          <td>Subtype name: </td>
+          <td>vc+ld+jwt</td>
+        </tr>
+        <tr>
+          <td>Required parameters: </td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Encoding considerations: </td>
+          <td>
+            <code>application/vc+ld+jwt</code> values are encoded as a
+            series of base64url encoded values (some of which may be the
+            empty string) each separated from the next by a single
+            period ('.') character.
+          </td>
+        </tr>
+        <tr>
+          <td>Security considerations: </td>
+          <td>
+            <p>As defined in this specification. See also the security
+              considerations in [[RFC7519]].</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Contact: </td>
+          <td>
+            W3C Verifiable Credentials Working Group <a href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+      </table>
+    </section>
+    <section id="vp-ld-jwt-media-type">
+      <h2><code>application/vp+ld+jwt</code></h2>
+      <p>
+        This specification registers the
+        <code>application/vp+ld+jwt</code> Media Type specifically for
+        identifying a <a data-cite="rfc7519#section-3">JWT</a>
+        conforming to the Verifiable Credentials JWT format in the `typ`
+        header.
+      </p>
+      <table>
+        <tr>
+          <td>Type name: </td>
+          <td>application</td>
+        </tr>
+        <tr>
+          <td>Subtype name: </td>
+          <td>vp+ld+jwt</td>
+        </tr>
+        <tr>
+          <td>Required parameters: </td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Encoding considerations: </td>
+          <td>
+            <code>application/vp+ld+jwt</code> values are encoded as a
+            series of base64url encoded values (some of which may be the
+            empty string) each separated from the next by a single
+            period ('.') character.
+          </td>
+        </tr>
+        <tr>
+          <td>Security considerations: </td>
+          <td>
+            <p>As defined in this specification. See also the security
+              considerations in [[RFC7519]].</p>
+          </td>
+          <td>
+            <p>
+              Be advised, per the [[VC-DATA-MODEL]], verifiable
+              presentations are not required to be secured.
+            </p>
+            <p>
+              This "typ" value might be paired with "alg: none", in
+              headers.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>Contact: </td>
+          <td>
+            W3C Verifiable Credentials Working Group <a href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+      </table>
+    </section>
+  </section>
+  <section>
+    <h3>Other Considerations</h3>
 
     <section>
       <h2>Privacy Considerations</h2>
       <p>
-        Verifiable Credentials often contain sensitive information that needs to be protected 
-        to ensure the privacy and security of organizations and individuals. This section outlines some privacy 
-        considerations relevant to implementers and users.
+        Verifiable Credentials often contain sensitive information that
+        needs to be protected to ensure the privacy and security of
+        organizations and individuals. This section outlines some
+        privacy considerations relevant to implementers and users.
       </p>
       <p>
-        Implementers are advised to note and abide by all privacy considerations called out in the [[VC-DATA-MODEL]].
+        Implementers are advised to note and abide by all privacy
+        considerations called out in the [[VC-DATA-MODEL]].
       </p>
       <p>
-    Implementers are additionally advised to reference the
-    <a href="https://www.rfc-editor.org/rfc/rfc7519#section-12">Privacy Consideration</a>
-    section of the JWT specification for privacy guidance.
+        Implementers are additionally advised to reference the
+        <a href="https://www.rfc-editor.org/rfc/rfc7519#section-12">Privacy
+          Consideration</a>
+        section of the JWT specification for privacy guidance.
       </p>
       <p>
-        In addition to the privacy recommendations in the [[VC-DATA-MODEL]], the following
-        considerations are given:
-        <ul>
-          <li>
-            <p>
-              Minimization of data: It is considered best practice for Verifiable Credentials to only contain the minimum amount 
-              of data necessary to achieve their intended purpose. This helps to limit the amount 
-              of sensitive information that is shared or stored unnecessarily.
-            </p>
-          </li>
-          <li>
-            <p>
-              Informed consent: It is considered best practice that individuals be fully informed about how their data will be 
-              used and provide the ability to consent to or decline the use of their data. 
-              This helps to ensure that individuals maintain control over their own personal information.
-            </p>
-          </li>
-          <li>
-            <p>
-              Data protection: It is considered best practice to protect Verifiable Credentials using strong encryption and other
-              security measures to prevent unauthorized access, modification, or disclosure. 
-            </p>
-          </li>
-        </ul>
+        In addition to the privacy recommendations in the
+        [[VC-DATA-MODEL]], the following considerations are given:
+      <ul>
+        <li>
+          <p>
+            Minimization of data: It is considered best practice for
+            Verifiable Credentials to only contain the minimum amount of
+            data necessary to achieve their intended purpose. This helps
+            to limit the amount of sensitive information that is shared
+            or stored unnecessarily.
+          </p>
+        </li>
+        <li>
+          <p>
+            Informed consent: It is considered best practice that
+            individuals be fully informed about how their data will be
+            used and provide the ability to consent to or decline the
+            use of their data. This helps to ensure that individuals
+            maintain control over their own personal information.
+          </p>
+        </li>
+        <li>
+          <p>
+            Data protection: It is considered best practice to protect
+            Verifiable Credentials using strong encryption and other
+            security measures to prevent unauthorized access,
+            modification, or disclosure.
+          </p>
+        </li>
+      </ul>
       </p>
       <p>
-        These considerations are not exhaustive, and implementers and users are advised to consult additional privacy 
-        resources and best practices to ensure the privacy and security of Verifiable Credentials implemented
-        using VC-JWT.
+        These considerations are not exhaustive, and implementers and
+        users are advised to consult additional privacy resources and
+        best practices to ensure the privacy and security of Verifiable
+        Credentials implemented using VC-JWT.
       </p>
     </section>
     <section>
       <h2>Security Considerations</h2>
       <p>
-        This section outlines security considerations for implementers and 
-        users of this specification.
-        It is important to carefully consider these factors to ensure the security 
-        and integrity of Verifiable Credentials when implemented using JWTs.
+        This section outlines security considerations for implementers
+        and users of this specification. It is important to carefully
+        consider these factors to ensure the security and integrity of
+        Verifiable Credentials when implemented using JWTs.
       </p>
       <p>
-        When implementing VC-JWTs, it is essential to address all security issues relevant 
-        to broad cryptographic applications. This especially includes protecting the user's
-        asymmetric private and symmetric secret keys, as well as employing countermeasures 
-        against various attacks. Failure to adequately address these issues could compromise 
-        the security and integrity of Verifiable Credentials, potentially leading to unauthorized 
-        access, modification, or disclosure of sensitive information. 
+        When implementing VC-JWTs, it is essential to address all
+        security issues relevant to broad cryptographic applications.
+        This especially includes protecting the user's asymmetric
+        private and symmetric secret keys, as well as employing
+        countermeasures against various attacks. Failure to adequately
+        address these issues could compromise the security and integrity
+        of Verifiable Credentials, potentially leading to unauthorized
+        access, modification, or disclosure of sensitive information.
       </p>
       <p>
-        Implementers are advised to follow best practices and established cryptographic standards to ensure 
-        the secure handling of keys and other sensitive data. 
-        Additionally, conduct regular security assessments and audits to identify and 
-        address any vulnerabilities or threats.
+        Implementers are advised to follow best practices and
+        established cryptographic standards to ensure the secure
+        handling of keys and other sensitive data. Additionally, conduct
+        regular security assessments and audits to identify and address
+        any vulnerabilities or threats.
       </p>
       <p>
-        Follow all security considerations outlined in [[rfc7515]] and [[rfc7519]].
+        Follow all security considerations outlined in [[rfc7515]] and
+        [[rfc7519]].
       </p>
       <p>
-        When utilizing JSON-LD, take special care around remote retrieval of contexts and follow the
-        additional security considerations noted in [[json-ld11]].
+        When utilizing JSON-LD, take special care around remote
+        retrieval of contexts and follow the additional security
+        considerations noted in [[json-ld11]].
       </p>
       <p>
-        As noted in [[rfc7515]] when utilizing JSON [[rfc7159]], strict validation is a security
-        requirement. If malformed JSON is received, it may be impossible to reliably interpret the 
-        producer's intent, potentially leading to ambiguous or exploitable situations.
-        To prevent these risks, it is essential to use a JSON parser that strictly validates the syntax 
-        of all input data. It is essential that any JSON inputs that do not conform to the JSON-text syntax defined in [[rfc7159]]
-        be rejected in their entirety by JSON parsers. Failure to reject invalid input could compromise 
-        the security and integrity of Verifiable Credentials.
+        As noted in [[rfc7515]] when utilizing JSON [[rfc7159]], strict
+        validation is a security requirement. If malformed JSON is
+        received, it may be impossible to reliably interpret the
+        producer's intent, potentially leading to ambiguous or
+        exploitable situations. To prevent these risks, it is essential
+        to use a JSON parser that strictly validates the syntax of all
+        input data. It is essential that any JSON inputs that do not
+        conform to the JSON-text syntax defined in [[rfc7159]] be
+        rejected in their entirety by JSON parsers. Failure to reject
+        invalid input could compromise the security and integrity of
+        Verifiable Credentials.
       </p>
     </section>
     <section class="informative">
       <h2>Accessibility</h2>
       <p>
         When implementing the VC-JWT specification, it is crucial for
-        technical implementers to consider various accessibility factors.
-        Ignoring accessibility concerns renders the information unusable for
-        a significant portion of the population. To ensure equal access for
-        all individuals, regardless of their abilities, it is vital to
-        adhere to accessibility guidelines and standards, such as the Web
-        Content Accessibility Guidelines (WCAG 2.1) [[WCAG21]]. This becomes
-        even more critical when establishing systems that involve
-        cryptography, as they have historically posed challenges for
-        assistive technologies.
+        technical implementers to consider various accessibility
+        factors. Ignoring accessibility concerns renders the information
+        unusable for a significant portion of the population. To ensure
+        equal access for all individuals, regardless of their abilities,
+        it is vital to adhere to accessibility guidelines and standards,
+        such as the Web Content Accessibility Guidelines (WCAG 2.1)
+        [[WCAG21]]. This becomes even more critical when establishing
+        systems that involve cryptography, as they have historically
+        posed challenges for assistive technologies.
       </p>
       <p>
         Implementers are advised to note and abide by all accessibility
         considerations called out in the [[VC-DATA-MODEL]].
       </p>
     </section>
-    
-    
+
+
     <section class="informative">
       <h2>Internationalization</h2>
       <p>
         Implementers should take into account several
-        internationalization considerations when publishing data described
-        in this specification. Disregarding internationalization hampers the
-        production and consumption of data across diverse languages and
-        societies, thereby restricting the applicability and significantly
-        reducing the value of the specification as a standard.
+        internationalization considerations when publishing data
+        described in this specification. Disregarding
+        internationalization hampers the production and consumption of
+        data across diverse languages and societies, thereby restricting
+        the applicability and significantly reducing the value of the
+        specification as a standard.
       </p>
       <p>
         Implementers are advised to note and abide by all
         internationalization considerations called out in the
-        [[VC-DATA-MODEL]], see also <a href="https://www.w3.org/standards/webdesign/i18n">i18n</a>, 
+        [[VC-DATA-MODEL]], see also <a href="https://www.w3.org/standards/webdesign/i18n">i18n</a>,
         <a href="https://url.spec.whatwg.org">URL Standard</a>
       </p>
     </section>
-       
-</section>
 
-<section>
-  <h3>Appendix</h3>
+  </section>
+
   <section>
-    <h2>Controllers</h2>
-        <pre class="example" title="A verifiable credential controller document">
-  {
-    "@context": [
-      "https://www.w3.org/ns/did/v1",
-      { "@vocab": "https://vendor.example#" }
-    ],
-    "id": "did:web:vendor.example",
-    "alsoKnownAs": [
-      "https://vendor.example",
-      "did:jwk:eyJraWQiOiJ1cm46aWV0ZjpwYXJhbXM6b2F1dGg6andrLXRodW1icHJpbnQ6c2hhLTI1NjpGZk1iek9qTW1RNGVmVDZrdndUSUpqZWxUcWpsMHhqRUlXUTJxb2JzUk1NIiwia3R5IjoiT0tQIiwiY3J2IjoiRWQyNTUxOSIsImFsZyI6IkVkRFNBIiwieCI6IkFOUmpIX3p4Y0tCeHNqUlBVdHpSYnA3RlNWTEtKWFE5QVBYOU1QMWo3azQifQ"
-    ],
-    "verificationMethod": [
-      {
-        "id": "#urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs",
-        "type": "JsonWebKey",
-        "controller": "did:web:vendor.example",
-        "publicKeyJwk": {
-          "kty": "EC",
-          "crv": "P-521",
-          "alg": "ES512",
-          "x": "AFTyMw-fIYJNg6fBVJvOPOsLxmnNj8HgqMChyRL0swLaefVAc7wrWZ8okQJqMmvv03JRUp277meQZM3JcvXFkH1v",
-          "y": "ALn96CrD88b4TClmkl1sk0xk2FgAIda97ZF8TUOjbeWSzbKnN2KB6pqlpbuJ2xIRXvsn5BWQVlAT2JGpGwDNMyV1"
-        }
-      },
-      {
-        "id": "#z6MkhEdpG12jyQegrr62ACRmNY8gc531W2j9Xo39cHphuCEH",
-        "type": "JsonWebKey2020",
-        "controller": "https://vendor.example",
-        "publicKeyJwk": {
-          "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:FfMbzOjMmQ4efT6kvwTIJjelTqjl0xjEIWQ2qobsRMM",
-          "kty": "OKP",
-          "crv": "Ed25519",
-          "alg": "EdDSA",
-          "x": "ANRjH_zxcKBxsjRPUtzRbp7FSVLKJXQ9APX9MP1j7k4"
-        }
-      }
-      {
-        "id": "#subject-authenticaton",
-        "type": "JsonWebKey",
-        "controller": "did:web:vendor.example",
-        "publicKeyJwk": {
-          "kty": "EC",
-          "crv": "P-384",
-          "alg": "ES384",
-          "x": "PxgAmVYOQvSNcMYL2tOzoLwSWn4Ta3tIMPEUKR8pxeb-gmR11-DyKHBoIiY-2LhM",
-          "y": "BZEBTkImVdpwvxR9THIRw16eblnj5-tZa7m-ww5uVd4kyPJNRoWUn2aT9ZuarAe-"
-        }
-      },
-      {
-        "id": "#credential-issuance",
-        "type": "JsonWebKey",
-        "controller": "did:web:vendor.example",
-        "publicKeyJwk": {
-          "kty": "EC",
-          "crv": "P-256",
-          "alg": "ES256",
-          "x": "MYvnaI87pfrn3FpTqW-yNiFcF1K7fedJiqapm20_q7c",
-          "y": "9YEbT6Tyuc7xp9yRvhOUVKK_NIHkn5HpK9ZMgvK5pVw"
-        }
-      },
-      {
-        "id": "#key-agreement",
-        "type": "JsonWebKey",
-        "controller": "did:web:vendor.example",
-        "publicKeyJwk": {
-          "kty": "OKP",
-          "crv": "X25519",
-          "alg": "ECDH-ES+A128KW",
-          "x": "qLZkSTbstvMWPTivmiQglEFWG2Ff7gNDVoVisdZTr1I"
-        }
-      }
-    ],
-    "authentication": ["#subject-authenticaton"],
-    "assertionMethod": ["#credential-issuance"],
-    "keyAgreement": ["#key-agreement"]
-  }
-              
-        </pre>
-       
-      </section>
-  <section>
+    <h3>Appendix</h3>
+    <section>
+      <h2>Controllers</h2>
+      <pre class="example" title="A verifiable credential controller document">
+{
+  "@context": ["https://www.w3.org/ns/did/v1", {
+    "@vocab": "https://vendor.example#"
+  }],
+  "id": "did:web:vendor.example",
+  "alsoKnownAs": ["https://vendor.example",
+    "did:jwk:eyJraWQiOiJ1cm46aWV0ZjpwYXJhbXM6b2F1dGg6andrLXRodW1icHJpbnQ6c2hhLTI1NjpGZk1iek9qTW1RNGVmVDZrdndUSUpqZWxUcWpsMHhqRUlXUTJxb2JzUk1NIiwia3R5IjoiT0tQIiwiY3J2IjoiRWQyNTUxOSIsImFsZyI6IkVkRFNBIiwieCI6IkFOUmpIX3p4Y0tCeHNqUlBVdHpSYnA3RlNWTEtKWFE5QVBYOU1QMWo3azQifQ"
+  ],
+  "verificationMethod": [{
+    "id": "#urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs",
+    "type": "JsonWebKey",
+    "controller": "did:web:vendor.example",
+    "publicKeyJwk": {
+      "kty": "EC",
+      "crv": "P-521",
+      "alg": "ES512",
+      "x": "AFTyMw-fIYJNg6fBVJvOPOsLxmnNj8HgqMChyRL0swLaefVAc7wrWZ8okQJqMmvv03JRUp277meQZM3JcvXFkH1v",
+      "y": "ALn96CrD88b4TClmkl1sk0xk2FgAIda97ZF8TUOjbeWSzbKnN2KB6pqlpbuJ2xIRXvsn5BWQVlAT2JGpGwDNMyV1"
+    }
+  }, {
+    "id": "#z6MkhEdpG12jyQegrr62ACRmNY8gc531W2j9Xo39cHphuCEH",
+    "type": "JsonWebKey2020",
+    "controller": "https://vendor.example",
+    "publicKeyJwk": {
+      "kid": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:FfMbzOjMmQ4efT6kvwTIJjelTqjl0xjEIWQ2qobsRMM",
+      "kty": "OKP",
+      "crv": "Ed25519",
+      "alg": "EdDSA",
+      "x": "ANRjH_zxcKBxsjRPUtzRbp7FSVLKJXQ9APX9MP1j7k4"
+    }
+  }, {
+    "id": "#subject-authenticaton",
+    "type": "JsonWebKey",
+    "controller": "did:web:vendor.example",
+    "publicKeyJwk": {
+      "kty": "EC",
+      "crv": "P-384",
+      "alg": "ES384",
+      "x": "PxgAmVYOQvSNcMYL2tOzoLwSWn4Ta3tIMPEUKR8pxeb-gmR11-DyKHBoIiY-2LhM",
+      "y": "BZEBTkImVdpwvxR9THIRw16eblnj5-tZa7m-ww5uVd4kyPJNRoWUn2aT9ZuarAe-"
+    }
+  }, {
+    "id": "#credential-issuance",
+    "type": "JsonWebKey",
+    "controller": "did:web:vendor.example",
+    "publicKeyJwk": {
+      "kty": "EC",
+      "crv": "P-256",
+      "alg": "ES256",
+      "x": "MYvnaI87pfrn3FpTqW-yNiFcF1K7fedJiqapm20_q7c",
+      "y": "9YEbT6Tyuc7xp9yRvhOUVKK_NIHkn5HpK9ZMgvK5pVw"
+    }
+  }, {
+    "id": "#key-agreement",
+    "type": "JsonWebKey",
+    "controller": "did:web:vendor.example",
+    "publicKeyJwk": {
+      "kty": "OKP",
+      "crv": "X25519",
+      "alg": "ECDH-ES+A128KW",
+      "x": "qLZkSTbstvMWPTivmiQglEFWG2Ff7gNDVoVisdZTr1I"
+    }
+  }],
+  "authentication": ["#subject-authenticaton"],
+  "assertionMethod": ["#credential-issuance"],
+  "keyAgreement": ["#key-agreement"]
+}
+      </pre>
+
+    </section>
+    <section>
       <h3>Credentials</h3>
-      <pre class="example vc-jwt" title="A revocable credential with multiple subjects"
+      <pre class="example vc-jwt" title="A revocable credential withmultiple subjects"
         data-vc-kid='#urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs'>
 {
-  "@context": [
-    "https://www.w3.org/ns/credentials/v2",
+  "@context": ["https://www.w3.org/ns/credentials/v2",
     "https://www.w3.org/ns/credentials/examples/v2"
   ],
   "id": "https://contoso.example/credentials/23894672394",
@@ -647,15 +921,14 @@ without any mapping or transformation.
   "credentialSubject": [{
     "id": "did:example:1312387641",
     "type": "Person"
-  },{
+  }, {
     "id": "did:example:63888231",
     "type": "Dog"
   }]
 }
       </pre>
 
-      <pre class="example vc-jwt" title="A credential with a schema"
-        data-vc-kid='#key-42'>
+      <pre class="example vc-jwt" title="A credential with a schema" data-vc-kid='#key-42'>
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
@@ -676,20 +949,19 @@ without any mapping or transformation.
   }
 }
       </pre>
-</section>
+    </section>
 
-<section>
-  <h2>
-    Presentations
-  </h2>
-  
-<pre class="example" title="Credential">
+    <section>
+      <h2>
+        Presentations
+      </h2>
+
+      <pre class="example" title="Credential">
 {
   "@context": ["https://www.w3.org/ns/credentials/v2"],
   "type": ["VerifiablePresentation"],
   "holder": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:_Fpfe27AuGmEljZE9s2lw2UH-qrZLRFNrWbJrWIe4SI",
-  "verifiableCredential": [
-    {
+  "verifiableCredential": [{
       "@context": [
         "https://www.w3.org/ns/credentials/v2"
       ],
@@ -702,92 +974,200 @@ without any mapping or transformation.
         "id": "https://subject.vendor.example"
       }
     },
-    "https://vendor.example/credentials/42",
-    "did:example:123",
+    "https://vendor.example/credentials/42", "did:example:123",
     "urn:uuid:01ec9426-c175-4e39-a006-d30050e28214",
     "urn:ietf:params:oauth:jwk-thumbprint:sha-256:_Fpfe27AuGmEljZE9s2lw2UH-qrZLRFNrWbJrWIe4SI",
     "data:application/vc+ld+json;base64,eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlQ3JlZGVudGlhbCJdLCJpc3N1ZXIiOiJkaWQ6andrOmV5SnJhV1FpT2lKMWNtNDZhV1YwWmpwd1lYSmhiWE02YjJGMWRHZzZhbmRyTFhSb2RXMWljSEpwYm5RNmMyaGhMVEkxTmpwdlFtUm1kbVpET1hoNk1GOUJVWFpSTjNZMU1YbERXbDl6ZUdwNU56VkNUSEpJZWsxT1Jqa3lPV1U0SWl3aWEzUjVJam9pVDB0UUlpd2lZM0oySWpvaVJXUXlOVFV4T1NJc0ltRnNaeUk2SWtWa1JGTkJJaXdpZUNJNklqTmljbU5zYjBJNGFEUk5XbFZJYms5UVVHbGtTbXd0U2pkdVVsRkpXSFJUYUZwM1oyNW1jbHAxVDI4aWZRIiwidmFsaWRGcm9tIjoiMjAyMy0wNi0wN1QyMToxNDoxNC4xNDhaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJodHRwczovL3N1YmplY3QudmVuZG9yLmV4YW1wbGUifX0=",
     "data:application/vc+ld+jwt;base64,ZXlKaGJHY2lPaUpGWkVSVFFTSXNJbWx6Y3lJNkltUnBaRHBxZDJzNlpYbEtjbUZYVVdsUGFVb3hZMjAwTm1GWFZqQmFhbkIzV1ZoS2FHSllUVFppTWtZeFpFZG5ObUZ1WkhKTVdGSnZaRmN4YVdOSVNuQmlibEUyWXpKb2FFeFVTVEZPYW5CMlVXMVNiV1J0V2tSUFdHZzJUVVk1UWxWWVdsSk9NMWt4VFZoc1JGZHNPWHBsUjNBMVRucFdRMVJJU2tsbGF6RlBVbXByZVU5WFZUUkphWGRwWVROU05VbHFiMmxVTUhSUlNXbDNhVmt6U2pKSmFtOXBVbGRSZVU1VVZYaFBVMGx6U1cxR2MxcDVTVFpKYTFaclVrWk9Ra2xwZDJsbFEwazJTV3BPYVdOdFRuTmlNRWswWVVSU1RsZHNWa2xpYXpsUlZVZHNhMU50ZDNSVGFtUjFWV3hHU2xkSVVsUmhSbkF6V2pJMWJXTnNjREZVTWpocFpsRWlMQ0pyYVdRaU9pSWpNQ0lzSW5SNWNDSTZJblpqSzJ4a0sycDNkQ0lzSW1saGRDSTZNVFk0TmpJMU1UVTNOSDAuZXlKQVkyOXVkR1Y0ZENJNld5Sm9kSFJ3Y3pvdkwzZDNkeTUzTXk1dmNtY3Zibk12WTNKbFpHVnVkR2xoYkhNdmRqSWlYU3dpZEhsd1pTSTZXeUpXWlhKcFptbGhZbXhsUTNKbFpHVnVkR2xoYkNKZExDSnBjM04xWlhJaU9pSmthV1E2YW5kck9tVjVTbkpoVjFGcFQybEtNV050TkRaaFYxWXdXbXB3ZDFsWVNtaGlXRTAyWWpKR01XUkhaelpoYm1SeVRGaFNiMlJYTVdsalNFcHdZbTVSTm1NeWFHaE1WRWt4VG1wd2RsRnRVbTFrYlZwRVQxaG9OazFHT1VKVldGcFNUak5aTVUxWWJFUlhiRGw2WlVkd05VNTZWa05VU0VwSlpXc3hUMUpxYTNsUFYxVTBTV2wzYVdFelVqVkphbTlwVkRCMFVVbHBkMmxaTTBveVNXcHZhVkpYVVhsT1ZGVjRUMU5KYzBsdFJuTmFlVWsyU1d0V2ExSkdUa0pKYVhkcFpVTkpOa2xxVG1samJVNXpZakJKTkdGRVVrNVhiRlpKWW1zNVVWVkhiR3RUYlhkMFUycGtkVlZzUmtwWFNGSlVZVVp3TTFveU5XMWpiSEF4VkRJNGFXWlJJaXdpZG1Gc2FXUkdjbTl0SWpvaU1qQXlNeTB3Tmkwd04xUXlNVG94TkRveE5DNHhORGhhSWl3aVkzSmxaR1Z1ZEdsaGJGTjFZbXBsWTNRaU9uc2lhV1FpT2lKb2RIUndjem92TDNOMVltcGxZM1F1ZG1WdVpHOXlMbVY0WVcxd2JHVWlmWDAubmczZlpDQXJyNUYwb1hOS1J1UlFNUXYtdnh4YlozUWJKVkJpcU1QUlVnSEFiSDVkMXptYjhLeUNkNnlVS3IxbmlsZmZiZ2pGUmRpRjFsWUdNRGNhQ0E="
   ]
-}  
-</pre>
-    
-</section>
+}
+      </pre>
+
+    </section>
 
 
     <section>
       <h3>Data URIs</h3>
-<pre class="example" title="JSON-LD Credential">
+      <pre class="example" title="JSON-LD Credential">
 data:application/vc+ld+json;base64,eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlQ3JlZGVudGlhbCJdLCJpc3N1ZXIiOiJkaWQ6andrOmV5SnJhV1FpT2lKMWNtNDZhV1YwWmpwd1lYSmhiWE02YjJGMWRHZzZhbmRyTFhSb2RXMWljSEpwYm5RNmMyaGhMVEkxTmpwdlFtUm1kbVpET1hoNk1GOUJVWFpSTjNZMU1YbERXbDl6ZUdwNU56VkNUSEpJZWsxT1Jqa3lPV1U0SWl3aWEzUjVJam9pVDB0UUlpd2lZM0oySWpvaVJXUXlOVFV4T1NJc0ltRnNaeUk2SWtWa1JGTkJJaXdpZUNJNklqTmljbU5zYjBJNGFEUk5XbFZJYms5UVVHbGtTbXd0U2pkdVVsRkpXSFJUYUZwM1oyNW1jbHAxVDI4aWZRIiwidmFsaWRGcm9tIjoiMjAyMy0wNi0wN1QyMToxNDoxNC4xNDhaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJodHRwczovL3N1YmplY3QudmVuZG9yLmV4YW1wbGUifX0=
-</pre>
+      </pre>
 
-<pre class="example" title="JWT Credential">
+      <pre class="example" title="JWT Credential">
 data:application/vc+ld+jwt;base64,ZXlKaGJHY2lPaUpGWkVSVFFTSXNJbWx6Y3lJNkltUnBaRHBxZDJzNlpYbEtjbUZYVVdsUGFVb3hZMjAwTm1GWFZqQmFhbkIzV1ZoS2FHSllUVFppTWtZeFpFZG5ObUZ1WkhKTVdGSnZaRmN4YVdOSVNuQmlibEUyWXpKb2FFeFVTVEZPYW5CMlVXMVNiV1J0V2tSUFdHZzJUVVk1UWxWWVdsSk9NMWt4VFZoc1JGZHNPWHBsUjNBMVRucFdRMVJJU2tsbGF6RlBVbXByZVU5WFZUUkphWGRwWVROU05VbHFiMmxVTUhSUlNXbDNhVmt6U2pKSmFtOXBVbGRSZVU1VVZYaFBVMGx6U1cxR2MxcDVTVFpKYTFaclVrWk9Ra2xwZDJsbFEwazJTV3BPYVdOdFRuTmlNRWswWVVSU1RsZHNWa2xpYXpsUlZVZHNhMU50ZDNSVGFtUjFWV3hHU2xkSVVsUmhSbkF6V2pJMWJXTnNjREZVTWpocFpsRWlMQ0pyYVdRaU9pSWpNQ0lzSW5SNWNDSTZJblpqSzJ4a0sycDNkQ0lzSW1saGRDSTZNVFk0TmpJMU1UVTNOSDAuZXlKQVkyOXVkR1Y0ZENJNld5Sm9kSFJ3Y3pvdkwzZDNkeTUzTXk1dmNtY3Zibk12WTNKbFpHVnVkR2xoYkhNdmRqSWlYU3dpZEhsd1pTSTZXeUpXWlhKcFptbGhZbXhsUTNKbFpHVnVkR2xoYkNKZExDSnBjM04xWlhJaU9pSmthV1E2YW5kck9tVjVTbkpoVjFGcFQybEtNV050TkRaaFYxWXdXbXB3ZDFsWVNtaGlXRTAyWWpKR01XUkhaelpoYm1SeVRGaFNiMlJYTVdsalNFcHdZbTVSTm1NeWFHaE1WRWt4VG1wd2RsRnRVbTFrYlZwRVQxaG9OazFHT1VKVldGcFNUak5aTVUxWWJFUlhiRGw2WlVkd05VNTZWa05VU0VwSlpXc3hUMUpxYTNsUFYxVTBTV2wzYVdFelVqVkphbTlwVkRCMFVVbHBkMmxaTTBveVNXcHZhVkpYVVhsT1ZGVjRUMU5KYzBsdFJuTmFlVWsyU1d0V2ExSkdUa0pKYVhkcFpVTkpOa2xxVG1samJVNXpZakJKTkdGRVVrNVhiRlpKWW1zNVVWVkhiR3RUYlhkMFUycGtkVlZzUmtwWFNGSlVZVVp3TTFveU5XMWpiSEF4VkRJNGFXWlJJaXdpZG1Gc2FXUkdjbTl0SWpvaU1qQXlNeTB3Tmkwd04xUXlNVG94TkRveE5DNHhORGhhSWl3aVkzSmxaR1Z1ZEdsaGJGTjFZbXBsWTNRaU9uc2lhV1FpT2lKb2RIUndjem92TDNOMVltcGxZM1F1ZG1WdVpHOXlMbVY0WVcxd2JHVWlmWDAubmczZlpDQXJyNUYwb1hOS1J1UlFNUXYtdnh4YlozUWJKVkJpcU1QUlVnSEFiSDVkMXptYjhLeUNkNnlVS3IxbmlsZmZiZ2pGUmRpRjFsWUdNRGNhQ0E=
-</pre>
+      </pre>
 
-<pre class="example" title="JSON-LD Verifiable Presentation">
+      <pre class="example" title="JSON-LD Verifiable Presentation">
 data:application/vp+ld+json;base64,eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlQ3JlZGVudGlhbCJdLCJpc3N1ZXIiOiJkaWQ6andrOmV5SnJhV1FpT2lKMWNtNDZhV1YwWmpwd1lYSmhiWE02YjJGMWRHZzZhbmRyTFhSb2RXMWljSEpwYm5RNmMyaGhMVEkxTmpwdlFtUm1kbVpET1hoNk1GOUJVWFpSTjNZMU1YbERXbDl6ZUdwNU56VkNUSEpJZWsxT1Jqa3lPV1U0SWl3aWEzUjVJam9pVDB0UUlpd2lZM0oySWpvaVJXUXlOVFV4T1NJc0ltRnNaeUk2SWtWa1JGTkJJaXdpZUNJNklqTmljbU5zYjBJNGFEUk5XbFZJYms5UVVHbGtTbXd0U2pkdVVsRkpXSFJUYUZwM1oyNW1jbHAxVDI4aWZRIiwidmFsaWRGcm9tIjoiMjAyMy0wNi0wN1QyMToxNDoxNC4xNDhaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJodHRwczovL3N1YmplY3QudmVuZG9yLmV4YW1wbGUifX0=
-</pre>
+      </pre>
 
-<pre class="example" title="JWT Presentation">
+      <pre class="example" title="JWT Presentation">
 data:application/vp+ld+jwt;base64,ZXlKaGJHY2lPaUpGWkVSVFFTSXNJbWx6Y3lJNkltUnBaRHBxZDJzNlpYbEtjbUZYVVdsUGFVb3hZMjAwTm1GWFZqQmFhbkIzV1ZoS2FHSllUVFppTWtZeFpFZG5ObUZ1WkhKTVdGSnZaRmN4YVdOSVNuQmlibEUyWXpKb2FFeFVTVEZPYW5CMlVXMVNiV1J0V2tSUFdHZzJUVVk1UWxWWVdsSk9NMWt4VFZoc1JGZHNPWHBsUjNBMVRucFdRMVJJU2tsbGF6RlBVbXByZVU5WFZUUkphWGRwWVROU05VbHFiMmxVTUhSUlNXbDNhVmt6U2pKSmFtOXBVbGRSZVU1VVZYaFBVMGx6U1cxR2MxcDVTVFpKYTFaclVrWk9Ra2xwZDJsbFEwazJTV3BPYVdOdFRuTmlNRWswWVVSU1RsZHNWa2xpYXpsUlZVZHNhMU50ZDNSVGFtUjFWV3hHU2xkSVVsUmhSbkF6V2pJMWJXTnNjREZVTWpocFpsRWlMQ0pyYVdRaU9pSWpNQ0lzSW5SNWNDSTZJblpqSzJ4a0sycDNkQ0lzSW1saGRDSTZNVFk0TmpJMU1UVTNOSDAuZXlKQVkyOXVkR1Y0ZENJNld5Sm9kSFJ3Y3pvdkwzZDNkeTUzTXk1dmNtY3Zibk12WTNKbFpHVnVkR2xoYkhNdmRqSWlYU3dpZEhsd1pTSTZXeUpXWlhKcFptbGhZbXhsUTNKbFpHVnVkR2xoYkNKZExDSnBjM04xWlhJaU9pSmthV1E2YW5kck9tVjVTbkpoVjFGcFQybEtNV050TkRaaFYxWXdXbXB3ZDFsWVNtaGlXRTAyWWpKR01XUkhaelpoYm1SeVRGaFNiMlJYTVdsalNFcHdZbTVSTm1NeWFHaE1WRWt4VG1wd2RsRnRVbTFrYlZwRVQxaG9OazFHT1VKVldGcFNUak5aTVUxWWJFUlhiRGw2WlVkd05VNTZWa05VU0VwSlpXc3hUMUpxYTNsUFYxVTBTV2wzYVdFelVqVkphbTlwVkRCMFVVbHBkMmxaTTBveVNXcHZhVkpYVVhsT1ZGVjRUMU5KYzBsdFJuTmFlVWsyU1d0V2ExSkdUa0pKYVhkcFpVTkpOa2xxVG1samJVNXpZakJKTkdGRVVrNVhiRlpKWW1zNVVWVkhiR3RUYlhkMFUycGtkVlZzUmtwWFNGSlVZVVp3TTFveU5XMWpiSEF4VkRJNGFXWlJJaXdpZG1Gc2FXUkdjbTl0SWpvaU1qQXlNeTB3Tmkwd04xUXlNVG94TkRveE5DNHhORGhhSWl3aVkzSmxaR1Z1ZEdsaGJGTjFZbXBsWTNRaU9uc2lhV1FpT2lKb2RIUndjem92TDNOMVltcGxZM1F1ZG1WdVpHOXlMbVY0WVcxd2JHVWlmWDAubmczZlpDQXJyNUYwb1hOS1J1UlFNUXYtdnh4YlozUWJKVkJpcU1QUlVnSEFiSDVkMXptYjhLeUNkNnlVS3IxbmlsZmZiZ2pGUmRpRjFsWUdNRGNhQ0E=
-</pre>
+      </pre>
 
-<pre class="example" title="Nested Unsecured JSON-LD Verifiable Presentation">
+      <pre class="example" title="Nested Unsecured JSON-LD Verifiable Presentation">
 data:application/vp+ld+json;base64,eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlUHJlc2VudGF0aW9uIl0sInZlcmlmaWFibGVDcmVkZW50aWFsIjpbImRhdGE6YXBwbGljYXRpb24vdmMrbGQranNvbjtiYXNlNjQsZXlKQVkyOXVkR1Y0ZENJNld5Sm9kSFJ3Y3pvdkwzZDNkeTUzTXk1dmNtY3Zibk12WTNKbFpHVnVkR2xoYkhNdmRqSWlYU3dpZEhsd1pTSTZXeUpXWlhKcFptbGhZbXhsUTNKbFpHVnVkR2xoYkNKZExDSnBjM04xWlhJaU9pSm9kSFJ3Y3pvdkwybHpjM1ZsY2k1MlpXNWtiM0l1WlhoaGJYQnNaU0lzSW5aaGJHbGtSbkp2YlNJNklqSXdNak10TURZdE1EZFVNakU2TVRRNk1UUXVNVFE0V2lJc0ltTnlaV1JsYm5ScFlXeFRkV0pxWldOMElqcDdJbWxrSWpvaWFIUjBjSE02THk5emRXSnFaV04wTG5abGJtUnZjaTVsZUdGdGNHeGxJbjE5Il19
-</pre>
+      </pre>
 
-<pre class="example" title="Nested Unsecured JWT">
+      <pre class="example" title="Nested Unsecured JWT">
 data:application/vp+ld+jwt;base64,ZXlKaGJHY2lPaUp1YjI1bElpd2lkSGx3SWpvaWRuQXJiR1FyYW5kMEluMC5leUpBWTI5dWRHVjRkQ0k2V3lKb2RIUndjem92TDNkM2R5NTNNeTV2Y21jdmJuTXZZM0psWkdWdWRHbGhiSE12ZGpJaVhTd2lkSGx3WlNJNld5SldaWEpwWm1saFlteGxVSEpsYzJWdWRHRjBhVzl1SWwwc0luWmxjbWxtYVdGaWJHVkRjbVZrWlc1MGFXRnNJanBiSW1SaGRHRTZZWEJ3YkdsallYUnBiMjR2ZG1NcmJHUXJhbmQwTzJKaGMyVTJOQ3hhV0d4TFlVZEtTRmt5YkZCaFZYQXhXV3BKTVdKRmJIQmtNbXhyVTBkNE0xTlhjSFpoVjFKMFZGaEthVkl4Um5sWlZ6VnJUVVZzZFUxRE5XeGxWWEJDVjFSSk5XUlhVa2hXYWxKclVUQnJNbFl6YkV0aU1sSkpWVzVrYW1WdE9USlVSRTVyVFRKU05VNVVUazVsVkZZeVdUSXhhbVJ0U25WVVdGcGFUVEJ3YzFkclpGZGtWMUpJWWtkb2FWTkZNVEphUjNCS1lWWm9WR1F5Ykd0VFIzZ3pWMnhPU2s1c1pEVlRiR1JoVjBWd2QxZHRNWE5oUm14MFpVZDRVazB3Y0hOWGEyUlhaRmRTU0dKSGFHbFJNSEJyVkVWT1MyTkhUWHBVYWtaaFYwVnNjRlF5YkV0aU1sSkpWVzVrYW1WdE9USlVSRXB6WlcxTmVsWnRlR3BoVkZWNVYyeGpNV0V5U1hwVFdGWmhWMGRvYjFsc2FFTmpNWEJVVTFoT1NtSnNjRzlaYTJSellURktkVk51V21sVk1Hc3lVMWR3U21Rd01YRlVXRkpPVWtac01GUlZVbXRXVlRGeFVsUmFUbFpHUlRKVVZsSlNaRlV4VlZWVVVsaGhWV3g2VTFjeFQyVldjRmhWYlhocFlteEtkMWRXWkRSV1IxSllVMjVHWVZZd05IZFRWM0IzVGpCc2RHSkhkRXBoYlRsd1dWVm9VMDFIVGtsVVZGcE5aVlJzTmxwR1pFdGpWbkJZVkdwQ1RXSnNjSE5aYlRGVFpHMU9jRTVYZUd4U01Gb3dXVEJrTkdKRmJIVk5WR3QxSWwxOS4=
-</pre>
+      </pre>
     </section>
 
     <section>
-<h2>
-  Detached Proofs
-</h2>
+      <h2>
+        Detached Proofs
+      </h2>
 
-<pre class="example" title="Verifiable Credential">
-  {
-    "@context": [
-      "https://www.w3.org/ns/credentials/v2"
-    ],
-    "type": [
-      "VerifiableCredential"
-    ],
-    "issuer": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:_Fpfe27AuGmEljZE9s2lw2UH-qrZLRFNrWbJrWIe4SI",
-    "validFrom": "2023-06-07T21:14:14.148Z",
-    "credentialSubject": {
-      "id": "https://subject.vendor.example"
-    }
+      <pre class="example" title="Verifiable Credential">
+{
+  "@context": ["https://www.w3.org/ns/credentials/v2"],
+  "type": [
+    "VerifiableCredential"
+  ],
+  "issuer": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:_Fpfe27AuGmEljZE9s2lw2UH-qrZLRFNrWbJrWIe4SI",
+  "validFrom": "2023-06-07T21:14:14.148Z",
+  "credentialSubject": {
+    "id": "https://subject.vendor.example"
   }
-  </pre>
-  
-  <pre class="example" title="Detached Verifiable Credential Proof">
-  eyJhbGciOiJFUzM4NCIsInR5cCI6InZjK2xkK2p3dCIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..Z-s5JgWQK91e1bzk-87ofJcRqGrw7wGehepSYH3U18u9-BNi9QOcgHWMFAN72HGNNhmn9xyT7UF59om7Wbb_IQTPAlzjMdPbzfq3bRffutP-Swg_Sz2R1VwpufVJ5Ult
-  </pre>
-  
-  <pre class="example" title="Verifiable Presentation">
-  {
-    "@context": [
-      "https://www.w3.org/ns/credentials/v2"
-    ],
-    "type": [
-      "VerifiablePresentation"
-    ],
-    "holder": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:_Fpfe27AuGmEljZE9s2lw2UH-qrZLRFNrWbJrWIe4SI"
-  }
-  </pre>
-  
-  <pre class="example" title="Detached Presentation Proof">
-  eyJhbGciOiJFUzM4NCIsInR5cCI6InZwK2xkK2p3dCIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..TsKRjY56LWTPPXWKLYfDs-NKmZZHIcrZ2pndwEDtO5DaGiDW3OtABr-esL9y6CdZTxwshoqZCs_RnPRx17-uO8k_SBugAQwnzN8bnulkSN4gXaST0kxk23X4bVmw6sBD
-  </pre>
+}
+      </pre>
 
-<p class="issue">TODO add COSE Sign1 detached payload examples</p>
-  
-</section>
+      <pre class="example" title="Detached Verifiable Credential Proof">
+eyJhbGciOiJFUzM4NCIsInR5cCI6InZjK2xkK2p3dCIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..Z-s5JgWQK91e1bzk-87ofJcRqGrw7wGehepSYH3U18u9-BNi9QOcgHWMFAN72HGNNhmn9xyT7UF59om7Wbb_IQTPAlzjMdPbzfq3bRffutP-Swg_Sz2R1VwpufVJ5Ult
+      </pre>
+
+      <pre class="example" title="Verifiable Presentation">
+{
+  "@context": ["https://www.w3.org/ns/credentials/v2"],
+  "type": [
+    "VerifiablePresentation"
+  ],
+  "holder": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:_Fpfe27AuGmEljZE9s2lw2UH-qrZLRFNrWbJrWIe4SI"
+}
+      </pre>
+
+      <pre class="example" title="Detached Presentation Proof">
+eyJhbGciOiJFUzM4NCIsInR5cCI6InZwK2xkK2p3dCIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..TsKRjY56LWTPPXWKLYfDs-NKmZZHIcrZ2pndwEDtO5DaGiDW3OtABr-esL9y6CdZTxwshoqZCs_RnPRx17-uO8k_SBugAQwnzN8bnulkSN4gXaST0kxk23X4bVmw6sBD
+      </pre>
+
+      <p class="issue">TODO add COSE Sign1 detached payload examples</p>
 
     </section>
+
+
+    <section>
+      <h3>Example Mapping</h3>
+      <p>
+        The following describes a mapping from
+        <code>application/vc+jwt</code> to
+        <code>application/vc+ld+json</code>. This is one possible
+        unidirectional mapping between 2.0 VC-JWTs and the VC Data
+        Model; other such mappings are possible.
+      </p>
+      <ul>
+        <li>
+          Extract <code>iss</code>, <code>sub</code>, <code>iat</code>,
+          <code>nbf</code>,
+          <code>exp</code>, <code>jti</code>, and <code>aud</code> as
+          registered claims.
+        </li>
+        <li>
+          Set aside all other claims as subject claims.
+        </li>
+        <li>
+          To construct the VCDM-compliant JSON:
+          <ul>
+            <li>
+              Set the value of <code>@context</code> to
+              <code>"https://www.w3.org/ns/credentials/v2"</code>.
+            </li>
+            <li>
+              Set the value of <code>type</code> to
+              <code>["VerifiableCredential"]</code>.
+            </li>
+            <li>
+              Set the value of the <code>issuer</code> property to one
+              of the following:
+              <ul>
+                <li>
+                  If the value of <code>iss</code> is a URL, use the
+                  value of <code>iss</code>.
+                </li>
+                <li>
+                  If the value of <code>iss</code> is not a URL, use the
+                  concatenation of "<code>urn:vc:</code>" and the value
+                  of <code>iss</code>.
+                </li>
+              </ul>
+            </li>
+            <li>
+              If <code>jti</code> is present, set the value of
+              <code>id</code> to the concatenation of
+              "<code>urn:vc:</code>" and the value of <code>jti</code>.
+            </li>
+            <li>
+              If <code>nbf</code> is present, set the value of
+              <code>validFrom</code> to the
+              <code>dateTime</code> obtained by converting the value of
+              <code>nbf</code> from the <code>NumericDate</code>
+              described in [[!RFC7519]] to a <code>dateTime</code> as
+              described in [[XMLSCHEMA11-2]].
+            </li>
+            <li>
+              If <code>exp</code> is present, set the value of
+              <code>validUntil</code> to the
+              <code>dateTime</code> obtained by converting the value of
+              <code>exp</code> from the <code>NumericDate</code>
+              described in [[!RFC7519]] to a <code>dateTime</code> as
+              described in [[XMLSCHEMA11-2]].
+            </li>
+            <li>
+              Set the value of <code>credentialSubject</code> to an
+              object that contains the following properties:
+              <ul>
+                <li>
+                  If <code>sub</code> is present, set the value of the
+                  <code>id</code> property to the concatenation of
+                  "urn:vc:" and the value of <code>sub</code>.
+                </li>
+                <li>
+                  Add all of the subject claims.
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <aside class="example" title="application/vc+jwt mapped to
+      application/vc+ld+json">
+        <p>A Verifiable Credential of type application/vc+jwt:</p>
+        <pre class="example">
+{
+  "iss": "https://example.edu/issuers/14",
+  "sub": "1234567890",
+  "name": "John Doe",
+  "iat": 1516239022,
+  "urn:example:claim": true
+}
+        </pre>
+        <p>The application/vc+ld+json after applying the mapping:</p>
+        <pre class="example">
+{
+  "@context": "https://www.w3.org/ns/credentials/v2",
+  "type": ["VerifiableCredential"],
+  "issuer": "https://example.edu/issuers/14",
+  "credentialSubject": {
+    "id": "urn:vc:1234567890",
+    "name": "John Doe",
+    "urn:example:claim": true
+  }
+}
+        </pre>
+      </aside>
+    </section>
+
   </section>
-  </body>
+  </section>
+</body>
+
 </html>
