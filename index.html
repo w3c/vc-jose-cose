@@ -209,7 +209,7 @@
           for additional details regarding usage of <code>typ</code> and
           <code>cty</code>.
         </p>
-        <pre class="example vc-jwt" data-vc-kid="#key-0">
+        <pre class="example vc-jwt" data-vc-kid="#key-0" title="Example Credential">
 {
   "@context": ["https://www.w3.org/ns/credentials/v2",
     "https://www.w3.org/ns/credentials/examples/v2"
@@ -353,8 +353,7 @@
     </section>
     <section>
       <h2>Credential</h2>
-      <aside class="example" title="credential (decoded JWT payload)">
-        <pre class="example">
+      <pre class="example" title="A credential decoded from a JWT payload">
 {
   "iss": "https://example.edu/issuers/14",
   "sub": "1234567890",
@@ -362,8 +361,7 @@
   "iat": 1516239022,
   "urn:example:claim": true
 }
-        </pre>
-      </aside>
+      </pre>
       <p class="note">
         The <code>vc</code> and <code>vp</code> claims MUST NOT be
         present when the content type header parameter is set to
@@ -372,12 +370,9 @@
     </section>
     <section>
       <h2>Verifiable Credential</h2>
-      <aside class="example" title="verifiable credential">
-        <p>An encoded verifiable credential (using external proof).</p>
-        <pre class="example">
+      <pre class="example" title="An encoded verifiable credential that uses an external proof">
 eyJraWQiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQja2V5LTAiLCJhbGciOiJFUzI1NiIsInR5cCI6InZjK2p3dCJ9.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQiLCJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ1cm46ZXhhbXBsZTpjbGFpbSI6dHJ1ZX0.WLD4Qxh629TFkJHzmbkWEefYX-QPkdCmxbBMKNHErxND2QpjVBbatxHkxS9Y_SzBmwffuM2E9i5VvVgpZ6v4Tg
-        </pre>
-      </aside>
+      </pre>
     </section>
   </section>
 
@@ -476,17 +471,21 @@ eyJraWQiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQja2V5LTAiLCJhbGciOiJFUzI1NiIs
       </ul>
       <p class="advisement">
         The type <code>VerifiableCredential</code> and
-        <code>VerifiablePresentation</code> are RDF Classes.<br /> The
-        presence of the word "Verifiable" does not convey a
-        cryptographic verification capability exists.<br /> The presence
-        of the JSON <code>proof</code> member does not convey a
-        cryptographic verification capability exists.<br /> The presence
-        of the JSON <code>proof</code> member is optional in both
-        <code>VerifiableCredential</code> and
-        <code>VerifiablePresentation</code>.<br /> The presence of the
-        JSON <code>proof</code> member is optional in both
-        <code>application/vc+ld+json</code> and
-        <code>application/vp+ld+json</code>.<br />
+        <code>VerifiablePresentation</code> are RDF Classes.
+        <br /><br />
+        The presence of the word "Verifiable" does not convey a
+        cryptographic verification capability exists.
+        <br /><br />
+        The presence of the JSON <code>proof</code> member does not
+        convey a cryptographic verification capability exists.
+        <br /><br />
+        The presence of the JSON <code>proof</code> member is
+        optional in both <code>VerifiableCredential</code> and
+        <code>VerifiablePresentation</code>.
+        <br /><br />
+        The presence of the JSON <code>proof</code> member is
+        optional in both <code>application/vc+ld+json</code> and
+        <code>application/vp+ld+json</code>.
       </p>
       <p>
         JSON Web Token implementers are advised to review <a data-cite="RFC7519#section-8">Implementation
