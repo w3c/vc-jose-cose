@@ -376,7 +376,108 @@ eyJraWQiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQja2V5LTAiLCJhbGciOiJFUzI1NiIs
     </section>
   </section>
 
-  <section id="conformance">
+  
+
+<section class="normative">
+  <h2>Key Discovery</h2>
+  <p class="issue">
+    The working group is still discussing how to close many related issues.
+  </p>
+  <p class="issue" data-number="117"></p>
+  <p class="issue" data-number="106"></p>
+  <p class="issue" data-number="31"></p>
+  <p class="issue" data-number="30"></p>
+  <p class="issue" data-number="15"></p>
+  <p class="issue" data-number="13"></p>
+  <p class="issue" data-number="117"></p>
+  <p class="issue" data-number="117"></p>
+  <p>
+In order to complete the <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process, 
+a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> needs to obtain the cryptographic keys used to secure the 
+<a data-cite="VC-DATA-MODEL#dfn-credential">credential</a>.
+  </p>
+  <p>
+There are several different ways to discover the verification keys of
+the <a data-cite="VC-DATA-MODEL#dfn-issuers">issuers</a>
+and <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a>.
+  </p>
+
+  <section>
+    <h2>Registered Claim Names</h2>
+    <p>
+When found in the <a data-cite="RFC7515#section-4.1">Protected Header</a>, or 
+the <a data-cite="RFC7519#section-4.1.1">Protected Claimset</a>, members present in
+<a href="https://www.iana.org/assignments/jwt/jwt.xhtml">IANA Assignments for JSON Web Token (JWT)</a> and 
+<a href="https://www.iana.org/assignments/jose/jose.xhtml">IANA Assignments for JSON Object Signing and Encryption (JOSE)</a>
+are to be interpreted according to the associated specifications referenced by IANA.
+    </p>
+    <p>
+<a href="#registered-claim-names">Registered claims</a> that are present in either
+the <a data-cite="RFC7515#section-4.1">Protected Header</a>
+or the <a data-cite="RFC7519#section-4.1.1">Claimset</a> can be used to help
+<a data-cite="VC-DATA-MODEL#dfn-verifier">verifiers</a> discover verification keys.
+    </p>
+    <section>
+      <h2>kid</h2>
+      <p>
+If <code>kid</code> is present in the <a data-cite="RFC7515#section-4.1">Protected Header</a>,
+a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
+to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the 
+<a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
+      </p>
+    </section>
+    <section>
+      <h2>iss</h2>
+      <p>
+If <code>iss</code> is present in the <a data-cite="RFC7515#section-4.1">Protected Header</a>
+or the <a data-cite="RFC7519#section-4.1.1">JWT Claims </a>,
+a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
+to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the 
+<a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
+      </p>
+      <p>
+If <code>kid</code> is also present in the
+<a data-cite="RFC7515#section-4.1">Protected Header</a>, it is expected to be useful to
+distinguish the specific key used.
+      </p>
+    <p class="issue"  data-number="31">
+      There are a few issues related to clarification of optionality and behavior of 
+      registered claims.  
+    </p>
+    </section>
+
+    <section>
+      <h2>cnf</h2>
+      <p>
+If <code>cnf</code> is present in the <a data-cite="RFC7515#section-4.1">Protected Header</a>
+or the <a data-cite="RFC7519#section-4.1.1">JWT Claims </a>,
+a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
+to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the 
+<a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
+      </p>
+      <p>
+If <code>kid</code> is also present in the
+<a data-cite="RFC7515#section-4.1">Protected Header</a>, it is expected to be
+useful to distinguish the specific key used.
+      </p>
+    </section>
+  </section>
+  
+  <section>
+    <h2>Well Known URIs</h2>
+    <p class="issue">
+The working group is currently exploring how 
+<a data-cite="RFC5785#section-3">Defining Well-Known Uniform Resource Identifiers (URIs)</a>
+could be leveraged to assist a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> in discovering verification keys for 
+<a data-cite="VC-DATA-MODEL#dfn-issuers">issuers</a> 
+and <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a>.
+    </p>
+  </section>
+
+  
+</section>
+
+<section id="conformance">
     <section class="normative">
       <h2>JSON Web Token Header Parameters</h2>
       <p>
@@ -409,7 +510,7 @@ eyJraWQiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQja2V5LTAiLCJhbGciOiJFUzI1NiIs
         <code>exp</code> and <code>cnf</code>.
       </p>
       <p>
-        The registered claim names <code>vc</code> and <code>vp</code>
+        The <a href="#registered-claim-names">registered claim</a> names <code>vc</code> and <code>vp</code>
         MUST NOT be present as header parameters.
       </p>
       <p>
@@ -427,9 +528,9 @@ eyJraWQiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQja2V5LTAiLCJhbGciOiJFUzI1NiIs
     </section>
     <section class="normative">
       <h2>Securing Verifiable Credentials</h2>
-      <p>The [[VC-DATA-MODEL]] describes the approach taken by JSON Web
-        Tokens to securing claimsets as applying an
-        <code>external proof</code>.
+      <p>The <a data-cite="VC-DATA-MODEL#proof-formats"></a> describes the approach taken by JSON Web
+        Tokens to secure claimsets as <i>applying an
+        <code>external proof</code></i>.
       </p>
       <p>The normative statements in <a data-cite="VC-DATA-MODEL#securing-verifiable-credentials">Securing
           Verifiable Credentials</a> apply to securing
@@ -519,7 +620,8 @@ eyJraWQiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQja2V5LTAiLCJhbGciOiJFUzI1NiIs
       <p>Issuers, Holders and Verifiers MUST ignore all claimsets that
         have no integrity protection.</p>
     </section>
-  </section>
+  
+</section>
 
   <section class="normative">
     <h2>IANA Considerations</h2>
@@ -1069,7 +1171,7 @@ eyJhbGciOiJFUzM4NCIsInR5cCI6InZwK2xkK2p3dCIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19
           Extract <code>iss</code>, <code>sub</code>, <code>iat</code>,
           <code>nbf</code>,
           <code>exp</code>, <code>jti</code>, and <code>aud</code> as
-          registered claims.
+          <a href="#registered-claim-names">registered claims</a>.
         </li>
         <li>
           Set aside all other claims as subject claims.
