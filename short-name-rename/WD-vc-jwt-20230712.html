@@ -1,0 +1,3145 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta name="generator" content="ReSpec 34.1.4">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+span.example-title{text-transform:none}
+:is(aside,div).example,div.illegal-example{padding:.5em;margin:1em 0;position:relative;clear:both}
+div.illegal-example{color:red}
+div.illegal-example p{color:#000}
+:is(aside,div).example{border-left-width:.5em;border-left-style:solid;border-color:#e0cb52;background:#fcfaee}
+aside.example div.example{border-left-width:.1em;border-color:#999;background:#fff}
+.example pre{background-color:rgba(0,0,0,.03)}
+</style>
+<style>
+.issue-label{text-transform:initial}
+.warning>p:first-child{margin-top:0}
+.warning{padding:.5em;border-left-width:.5em;border-left-style:solid}
+span.warning{padding:.1em .5em .15em}
+.issue.closed span.issue-number{text-decoration:line-through}
+.issue.closed span.issue-number::after{content:" (Closed)";font-size:smaller}
+.warning{border-color:#f11;border-width:.2em;border-style:solid;background:#fbe9e9}
+.warning-title:before{content:"⚠";font-size:1.3em;float:left;padding-right:.3em;margin-top:-.3em}
+li.task-list-item{list-style:none}
+input.task-list-item-checkbox{margin:0 .35em .25em -1.6em;vertical-align:middle}
+.issue a.respec-gh-label{padding:5px;margin:0 2px 0 2px;font-size:10px;text-transform:none;text-decoration:none;font-weight:700;border-radius:4px;position:relative;bottom:2px;border:none;display:inline-block}
+</style>
+<style>
+dfn{cursor:pointer}
+.dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font-family:"Helvetica Neue",sans-serif;font-size:small;background:#fff;color:#000;box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);border-radius:2px}
+.dfn-panel:not(.docked)>.caret{position:absolute;top:-9px}
+.dfn-panel:not(.docked)>.caret::after,.dfn-panel:not(.docked)>.caret::before{content:"";position:absolute;border:10px solid transparent;border-top:0;border-bottom:10px solid #fff;top:0}
+.dfn-panel:not(.docked)>.caret::before{border-bottom:9px solid #a2a9b1}
+.dfn-panel *{margin:0}
+.dfn-panel b{display:block;color:#000;margin-top:.25em}
+.dfn-panel ul a[href]{color:#333}
+.dfn-panel>div{display:flex}
+.dfn-panel a.self-link{font-weight:700;margin-right:auto}
+.dfn-panel .marker{padding:.1em;margin-left:.5em;border-radius:.2em;text-align:center;white-space:nowrap;font-size:90%;color:#040b1c}
+.dfn-panel .marker.dfn-exported{background:#d1edfd;box-shadow:0 0 0 .125em #1ca5f940}
+.dfn-panel .marker.idl-block{background:#8ccbf2;box-shadow:0 0 0 .125em #0670b161}
+.dfn-panel a:not(:hover){text-decoration:none!important;border-bottom:none!important}
+.dfn-panel a[href]:hover{border-bottom-width:1px}
+.dfn-panel ul{padding:0}
+.dfn-panel li{margin-left:1em}
+.dfn-panel.docked{position:fixed;left:.5em;top:unset;bottom:2em;margin:0 auto;max-width:calc(100vw - .75em * 2 - .5em - .2em * 2);max-height:30vh;overflow:auto}
+</style>
+  
+  
+<title>Securing Verifiable Credentials using JOSE and COSE</title>
+  
+<style id="respec-mainstyle">
+@keyframes pop{
+0%{transform:scale(1,1)}
+25%{transform:scale(1.25,1.25);opacity:.75}
+100%{transform:scale(1,1)}
+}
+:is(h1,h2,h3,h4,h5,h6,a) abbr{border:none}
+dfn{font-weight:700}
+a.internalDFN{color:inherit;border-bottom:1px solid #99c;text-decoration:none}
+a.externalDFN{color:inherit;border-bottom:1px dotted #ccc;text-decoration:none}
+a.bibref{text-decoration:none}
+.respec-offending-element:target{animation:pop .25s ease-in-out 0s 1}
+.respec-offending-element,a[href].respec-offending-element{text-decoration:red wavy underline}
+@supports not (text-decoration:red wavy underline){
+.respec-offending-element:not(pre){display:inline-block}
+.respec-offending-element{background:url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x}
+}
+#references :target{background:#eaf3ff;animation:pop .4s ease-in-out 0s 1}
+cite .bibref{font-style:normal}
+a[href].orcid{padding-left:4px;padding-right:4px}
+a[href].orcid>svg{margin-bottom:-2px}
+.toc a,.tof a{text-decoration:none}
+a .figno,a .secno{color:#000}
+ol.tof,ul.tof{list-style:none outside none}
+.caption{margin-top:.5em;font-style:italic}
+table.simple{border-spacing:0;border-collapse:collapse;border-bottom:3px solid #005a9c}
+.simple th{background:#005a9c;color:#fff;padding:3px 5px;text-align:left}
+.simple th a{color:#fff;padding:3px 5px;text-align:left}
+.simple th[scope=row]{background:inherit;color:inherit;border-top:1px solid #ddd}
+.simple td{padding:3px 10px;border-top:1px solid #ddd}
+.simple tr:nth-child(even){background:#f0f6ff}
+.section dd>p:first-child{margin-top:0}
+.section dd>p:last-child{margin-bottom:0}
+.section dd{margin-bottom:1em}
+.section dl.attrs dd,.section dl.eldef dd{margin-bottom:0}
+#issue-summary>ul{column-count:2}
+#issue-summary li{list-style:none;display:inline-block}
+details.respec-tests-details{margin-left:1em;display:inline-block;vertical-align:top}
+details.respec-tests-details>*{padding-right:2em}
+details.respec-tests-details[open]{z-index:999999;position:absolute;border:thin solid #cad3e2;border-radius:.3em;background-color:#fff;padding-bottom:.5em}
+details.respec-tests-details[open]>summary{border-bottom:thin solid #cad3e2;padding-left:1em;margin-bottom:1em;line-height:2em}
+details.respec-tests-details>ul{width:100%;margin-top:-.3em}
+details.respec-tests-details>li{padding-left:1em}
+.self-link:hover{opacity:1;text-decoration:none;background-color:transparent}
+aside.example .marker>a.self-link{color:inherit}
+.header-wrapper{display:flex;align-items:baseline}
+:is(h2,h3,h4,h5,h6):not(#toc>h2,#abstract>h2,#sotd>h2,.head>h2){position:relative;left:-.5em}
+:is(h2,h3,h4,h5,h6):not(#toch2)+a.self-link{color:inherit;order:-1;position:relative;left:-1.1em;font-size:1rem;opacity:.5}
+:is(h2,h3,h4,h5,h6)+a.self-link::before{content:"§";text-decoration:none;color:var(--heading-text)}
+:is(h2,h3)+a.self-link{top:-.2em}
+:is(h4,h5,h6)+a.self-link::before{color:#000}
+@media (max-width:767px){
+dd{margin-left:0}
+}
+@media print{
+.removeOnSave{display:none}
+}
+</style>
+  
+  
+
+<meta name="description" content="This specification defines how to secure Verifiable Credentials
+      with JSON Object Signing and Encryption (JOSE)
+      especially as explified by JSON Web Signatures (JWS) [RFC7515]
+      and with CBOR Object Signing and Encryption (COSE) [RFC8152].
+
+      This enables the Verifiable Credential data model
+      [VC-DATA-MODEL]to be implemented with standards
+      for signing and encryption that are widely adopted.">
+<link rel="canonical" href="https://www.w3.org/TR/vc-jwt/">
+<script type="application/ld+json">{
+  "@context": [
+    "http://schema.org",
+    {
+      "@vocab": "http://schema.org/",
+      "@language": "en",
+      "w3p": "http://www.w3.org/2001/02pd/rec54#",
+      "foaf": "http://xmlns.com/foaf/0.1/",
+      "datePublished": {
+        "@type": "http://www.w3.org/2001/XMLSchema#date"
+      },
+      "inLanguage": {
+        "@language": null
+      },
+      "isBasedOn": {
+        "@type": "@id"
+      },
+      "license": {
+        "@type": "@id"
+      }
+    }
+  ],
+  "id": "https://www.w3.org/TR/vc-jwt/",
+  "type": [
+    "TechArticle",
+    "w3p:WD"
+  ],
+  "name": "Securing Verifiable Credentials using JOSE and COSE",
+  "inLanguage": "en",
+  "license": "https://www.w3.org/Consortium/Legal/2023/software-license",
+  "datePublished": "2023-07-12",
+  "copyrightHolder": {
+    "name": "World Wide Web Consortium",
+    "url": "https://www.w3.org/"
+  },
+  "discussionUrl": "https://github.com/w3c/vc-jwt/issues/",
+  "alternativeHeadline": "",
+  "isBasedOn": "",
+  "description": "This specification defines how to secure Verifiable Credentials\n      with JSON Object Signing and Encryption (JOSE)\n      especially as explified by JSON Web Signatures (JWS) [RFC7515]\n      and with CBOR Object Signing and Encryption (COSE) [RFC8152].\n\n      This enables the Verifiable Credential data model\n      [VC-DATA-MODEL]to be implemented with standards\n      for signing and encryption that are widely adopted.",
+  "editor": [
+    {
+      "type": "Person",
+      "name": "Orie Steele",
+      "worksFor": {
+        "name": "Transmute",
+        "url": "https://transmute.industries"
+      }
+    },
+    {
+      "type": "Person",
+      "name": "Michael Jones",
+      "url": "https://self-issued.info/",
+      "worksFor": {
+        "name": "independent"
+      }
+    },
+    {
+      "type": "Person",
+      "name": "Michael Prorock",
+      "worksFor": {
+        "name": "Mesur.io",
+        "url": "https://mesur.io/"
+      }
+    }
+  ],
+  "contributor": [],
+  "citation": [
+    {
+      "id": "https://www.w3.org/TR/vc-data-model/",
+      "type": "TechArticle",
+      "name": "Verifiable Credentials Data Model v1.1",
+      "url": "https://www.w3.org/TR/vc-data-model/",
+      "creator": [
+        {
+          "name": "Manu Sporny"
+        },
+        {
+          "name": "Grant Noble"
+        },
+        {
+          "name": "Dave Longley"
+        },
+        {
+          "name": "Daniel Burnett"
+        },
+        {
+          "name": "Brent Zundel"
+        },
+        {
+          "name": "Kyle Den Hartog"
+        }
+      ],
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://www.rfc-editor.org/rfc/rfc7519",
+      "type": "TechArticle",
+      "name": "JSON Web Token (JWT)",
+      "url": "https://www.rfc-editor.org/rfc/rfc7519",
+      "creator": [
+        {
+          "name": "M. Jones"
+        },
+        {
+          "name": "J. Bradley"
+        },
+        {
+          "name": "N. Sakimura"
+        }
+      ],
+      "publisher": {
+        "name": "IETF"
+      }
+    },
+    {
+      "id": "https://www.rfc-editor.org/rfc/rfc7515",
+      "type": "TechArticle",
+      "name": "JSON Web Signature (JWS)",
+      "url": "https://www.rfc-editor.org/rfc/rfc7515",
+      "creator": [
+        {
+          "name": "M. Jones"
+        },
+        {
+          "name": "J. Bradley"
+        },
+        {
+          "name": "N. Sakimura"
+        }
+      ],
+      "publisher": {
+        "name": "IETF"
+      }
+    },
+    {
+      "id": "https://www.rfc-editor.org/rfc/rfc8152",
+      "type": "TechArticle",
+      "name": "CBOR Object Signing and Encryption (COSE)",
+      "url": "https://www.rfc-editor.org/rfc/rfc8152",
+      "creator": [
+        {
+          "name": "J. Schaad"
+        }
+      ],
+      "publisher": {
+        "name": "IETF"
+      }
+    },
+    {
+      "id": "https://www.rfc-editor.org/rfc/rfc6838",
+      "type": "TechArticle",
+      "name": "Media Type Specifications and Registration Procedures",
+      "url": "https://www.rfc-editor.org/rfc/rfc6838",
+      "creator": [
+        {
+          "name": "N. Freed"
+        },
+        {
+          "name": "J. Klensin"
+        },
+        {
+          "name": "T. Hansen"
+        }
+      ],
+      "publisher": {
+        "name": "IETF"
+      }
+    },
+    {
+      "id": "https://www.rfc-editor.org/rfc/rfc8949",
+      "type": "TechArticle",
+      "name": "Concise Binary Object Representation (CBOR)",
+      "url": "https://www.rfc-editor.org/rfc/rfc8949",
+      "creator": [
+        {
+          "name": "C. Bormann"
+        },
+        {
+          "name": "P. Hoffman"
+        }
+      ],
+      "publisher": {
+        "name": "IETF"
+      }
+    },
+    {
+      "id": "https://www.rfc-editor.org/rfc/rfc7159",
+      "type": "TechArticle",
+      "name": "The JavaScript Object Notation (JSON) Data Interchange Format",
+      "url": "https://www.rfc-editor.org/rfc/rfc7159",
+      "creator": [
+        {
+          "name": "T. Bray, Ed."
+        }
+      ],
+      "publisher": {
+        "name": "IETF"
+      }
+    },
+    {
+      "id": "https://www.w3.org/TR/json-ld11/",
+      "type": "TechArticle",
+      "name": "JSON-LD 1.1",
+      "url": "https://www.w3.org/TR/json-ld11/",
+      "creator": [
+        {
+          "name": "Gregg Kellogg"
+        },
+        {
+          "name": "Pierre-Antoine Champin"
+        },
+        {
+          "name": "Dave Longley"
+        }
+      ],
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://www.rfc-editor.org/rfc/rfc2119",
+      "type": "TechArticle",
+      "name": "Key words for use in RFCs to Indicate Requirement Levels",
+      "url": "https://www.rfc-editor.org/rfc/rfc2119",
+      "creator": [
+        {
+          "name": "S. Bradner"
+        }
+      ],
+      "publisher": {
+        "name": "IETF"
+      }
+    },
+    {
+      "id": "https://www.rfc-editor.org/rfc/rfc8174",
+      "type": "TechArticle",
+      "name": "Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words",
+      "url": "https://www.rfc-editor.org/rfc/rfc8174",
+      "creator": [
+        {
+          "name": "B. Leiba"
+        }
+      ],
+      "publisher": {
+        "name": "IETF"
+      }
+    },
+    {
+      "id": "https://www.rfc-editor.org/rfc/rfc9052",
+      "type": "TechArticle",
+      "name": "CBOR Object Signing and Encryption (COSE): Structures and Process",
+      "url": "https://www.rfc-editor.org/rfc/rfc9052",
+      "creator": [
+        {
+          "name": "J. Schaad"
+        }
+      ],
+      "publisher": {
+        "name": "IETF"
+      }
+    },
+    {
+      "id": "https://www.rfc-editor.org/rfc/rfc7517",
+      "type": "TechArticle",
+      "name": "JSON Web Key (JWK)",
+      "url": "https://www.rfc-editor.org/rfc/rfc7517",
+      "creator": [
+        {
+          "name": "M. Jones"
+        }
+      ],
+      "publisher": {
+        "name": "IETF"
+      }
+    },
+    {
+      "id": "https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-05",
+      "type": "TechArticle",
+      "name": "Selective Disclosure for JWTs (SD-JWT)",
+      "url": "https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-05",
+      "creator": [
+        {
+          "name": "Daniel Fett"
+        },
+        {
+          "name": "Kristina Yasuda"
+        },
+        {
+          "name": "Brian Campbell"
+        }
+      ],
+      "publisher": {
+        "name": "IETF"
+      }
+    },
+    {
+      "id": "https://www.rfc-editor.org/rfc/rfc7516",
+      "type": "TechArticle",
+      "name": "JSON Web Encryption (JWE)",
+      "url": "https://www.rfc-editor.org/rfc/rfc7516",
+      "creator": [
+        {
+          "name": "M. Jones"
+        },
+        {
+          "name": "J. Hildebrand"
+        }
+      ],
+      "publisher": {
+        "name": "IETF"
+      }
+    },
+    {
+      "id": "https://www.w3.org/TR/WCAG21/",
+      "type": "TechArticle",
+      "name": "Web Content Accessibility Guidelines (WCAG) 2.1",
+      "url": "https://www.w3.org/TR/WCAG21/",
+      "creator": [
+        {
+          "name": "Andrew Kirkpatrick"
+        },
+        {
+          "name": "Joshue O'Connor"
+        },
+        {
+          "name": "Alastair Campbell"
+        },
+        {
+          "name": "Michael Cooper"
+        }
+      ],
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://www.w3.org/TR/xmlschema11-2/",
+      "type": "TechArticle",
+      "name": "W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes",
+      "url": "https://www.w3.org/TR/xmlschema11-2/",
+      "creator": [
+        {
+          "name": "David Peterson"
+        },
+        {
+          "name": "Sandy Gao"
+        },
+        {
+          "name": "Ashok Malhotra"
+        },
+        {
+          "name": "Michael Sperberg-McQueen"
+        },
+        {
+          "name": "Henry Thompson"
+        },
+        {
+          "name": "Paul V. Biron"
+        }
+      ],
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
+      "id": "https://www.rfc-editor.org/rfc/rfc5785",
+      "type": "TechArticle",
+      "name": "Defining Well-Known Uniform Resource Identifiers (URIs)",
+      "url": "https://www.rfc-editor.org/rfc/rfc5785",
+      "creator": [
+        {
+          "name": "M. Nottingham"
+        },
+        {
+          "name": "E. Hammer-Lahav"
+        }
+      ],
+      "publisher": {
+        "name": "IETF"
+      }
+    }
+  ]
+}</script>
+<style>
+.hljs{display:block;overflow-x:auto;padding:.5em;color:#383a42;background:#fafafa}
+.hljs-comment,.hljs-quote{color:#717277;font-style:italic}
+.hljs-doctag,.hljs-formula,.hljs-keyword{color:#a626a4}
+.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#ca4706;font-weight:700}
+.hljs-literal{color:#0b76c5}
+.hljs-addition,.hljs-attribute,.hljs-meta-string,.hljs-regexp,.hljs-string{color:#42803c}
+.hljs-built_in,.hljs-class .hljs-title{color:#9a6a01}
+.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#986801}
+.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#336ae3}
+.hljs-emphasis{font-style:italic}
+.hljs-strong{font-weight:700}
+.hljs-link{text-decoration:underline}
+</style>
+<style>
+var{position:relative;cursor:pointer}
+var[data-type]::after,var[data-type]::before{position:absolute;left:50%;top:-6px;opacity:0;transition:opacity .4s;pointer-events:none}
+var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#000}
+var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#000;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
+var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
+</style>
+<style>
+
+
+  .mermaid {
+    height: 512px;
+    width: 100%;
+  }
+  .vc-tabbed {
+    overflow-x: hidden;
+    margin: 0 0;
+  }
+
+  .vc-tabbed [type="radio"] {
+    display: none;
+  }
+
+  .vc-tabs {
+    display: flex;
+    align-items: stretch;
+    list-style: none;
+    padding: 0;
+    border-bottom: 1px solid #ccc;
+  }
+
+  li.vc-tab {
+    margin: unset;
+    margin-left: 8px;
+  }
+
+  .vc-tab > label {
+    display: block;
+    margin-bottom: -1px;
+    padding: .4em .5em;
+    border: 1px solid #ccc;
+    border-top-right-radius: .4em;
+    border-top-left-radius: .4em;
+    background: #eee;
+    color: #666;
+    cursor: pointer;	
+    transition: all 0.3s;
+  }
+  .vc-tab:hover label {
+    border-left-color: #333;
+    border-top-color: #333;
+    border-right-color: #333;
+    color: #333;
+  }
+  
+  .vc-tab-content {
+    display: none;
+  }
+
+  .vc-tabbed [type="radio"]:nth-of-type(1):checked ~ .vc-tabs .vc-tab:nth-of-type(1) label,
+  .vc-tabbed [type="radio"]:nth-of-type(2):checked ~ .vc-tabs .vc-tab:nth-of-type(2) label,
+  .vc-tabbed [type="radio"]:nth-of-type(3):checked ~ .vc-tabs .vc-tab:nth-of-type(3) label {
+    border-bottom-color: #fff;
+    background: #fff;
+    color: #222;
+  }
+  
+  .vc-tabbed [type="radio"]:nth-of-type(1):checked ~ .vc-tab-content:nth-of-type(1),
+  .vc-tabbed [type="radio"]:nth-of-type(2):checked ~ .vc-tab-content:nth-of-type(2),
+  .vc-tabbed [type="radio"]:nth-of-type(3):checked ~ .vc-tab-content:nth-of-type(3) {
+    display: block;
+  }
+</style>
+<script id="initialUserConfig" type="application/json">{
+  "group": "vc",
+  "specStatus": "WD",
+  "shortName": "vc-jwt",
+  "doJsonLd": true,
+  "github": "https://github.com/w3c/vc-jwt/",
+  "includePermalinks": false,
+  "edDraftURI": "https://w3c.github.io/vc-jwt/",
+  "editors": [
+    {
+      "name": "Orie Steele",
+      "company": "Transmute",
+      "companyURL": "https://transmute.industries",
+      "w3cid": 109171
+    },
+    {
+      "name": "Michael Jones",
+      "url": "https://self-issued.info/",
+      "company": "independent",
+      "w3cid": 38745
+    },
+    {
+      "name": "Michael Prorock",
+      "company": "Mesur.io",
+      "companyURL": "https://mesur.io/",
+      "w3cid": 130636
+    }
+  ],
+  "authors": [],
+  "maxTocLevel": 2,
+  "inlineCSS": true,
+  "postProcess": [
+    null
+  ],
+  "license": "w3c-software-doc",
+  "xref": true,
+  "localBiblio": {
+    "SD-JWT": {
+      "title": "Selective Disclosure for JWTs (SD-JWT)",
+      "href": "https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-05",
+      "authors": [
+        "Daniel Fett",
+        "Kristina Yasuda",
+        "Brian Campbell"
+      ],
+      "status": "Internet-Draft",
+      "publisher": "IETF",
+      "id": "sd-jwt"
+    }
+  },
+  "publishISODate": "2023-07-12T00:00:00.000Z",
+  "generatedSubtitle": "W3C Working Draft 12 July 2023"
+}</script>
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-WD"></head>
+
+<body class="h-entry"><div class="head">
+    <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
+  </a></p>
+    <h1 id="title" class="title">Securing Verifiable Credentials using JOSE and COSE</h1> 
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#WD">W3C Working Draft</a> <time class="dt-published" datetime="2023-07-12">12 July 2023</time></p>
+    <details open="">
+      <summary>More details about this document</summary>
+      <dl>
+        <dt>This version:</dt><dd>
+                <a class="u-url" href="https://www.w3.org/TR/2023/WD-vc-jwt-20230712/">https://www.w3.org/TR/2023/WD-vc-jwt-20230712/</a>
+              </dd>
+        <dt>Latest published version:</dt><dd>
+                <a href="https://www.w3.org/TR/vc-jwt/">https://www.w3.org/TR/vc-jwt/</a>
+              </dd>
+        <dt>Latest editor's draft:</dt><dd><a href="https://w3c.github.io/vc-jwt/">https://w3c.github.io/vc-jwt/</a></dd>
+        <dt>History:</dt><dd>
+                    <a href="https://www.w3.org/standards/history/vc-jwt/">https://www.w3.org/standards/history/vc-jwt/</a>
+                  </dd><dd>
+                    <a href="https://github.com/w3c/vc-jwt/commits/">Commit history</a>
+                  </dd>
+        
+        
+        
+        
+        
+        <dt>Editors:</dt><dd class="editor p-author h-card vcard" data-editor-id="109171">
+    <span class="p-name fn">Orie Steele</span> (<a class="p-org org h-org" href="https://transmute.industries">Transmute</a>)
+  </dd><dd class="editor p-author h-card vcard" data-editor-id="38745">
+    <a class="u-url url p-name fn" href="https://self-issued.info/">Michael Jones</a> (<span class="p-org org h-org">independent</span>)
+  </dd><dd class="editor p-author h-card vcard" data-editor-id="130636">
+    <span class="p-name fn">Michael Prorock</span> (<a class="p-org org h-org" href="https://mesur.io/">Mesur.io</a>)
+  </dd>
+        
+        
+        <dt>Feedback:</dt><dd>
+        <a href="https://github.com/w3c/vc-jwt/">GitHub w3c/vc-jwt</a>
+        (<a href="https://github.com/w3c/vc-jwt/pulls/">pull requests</a>,
+        <a href="https://github.com/w3c/vc-jwt/issues/new/choose">new issue</a>,
+        <a href="https://github.com/w3c/vc-jwt/issues/">open issues</a>)
+      </dd>
+        
+        
+      </dl>
+    </details>
+    
+    
+    <p class="copyright">
+    <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a>
+    ©
+    2023
+    
+    <a href="https://www.w3.org/">World Wide Web Consortium</a>.
+    <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup>
+    <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
+    <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and
+    <a rel="license" href="https://www.w3.org/Consortium/Legal/2023/software-license" title="W3C Software and Document Notice and License">permissive document license</a> rules apply.
+  </p>
+    <hr title="Separator for header">
+  </div>
+  <section id="abstract" class="introductory"><h2>Abstract</h2>
+    <p>
+      This specification defines how to secure Verifiable Credentials
+      with JSON Object Signing and Encryption (<a href="https://datatracker.ietf.org/wg/jose/about/">JOSE</a>)
+      especially as explified by JSON Web Signatures (JWS) [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7515" title="JSON Web Signature (JWS)">RFC7515</a></cite>]
+      and with CBOR Object Signing and Encryption (COSE) [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8152" title="CBOR Object Signing and Encryption (COSE)">RFC8152</a></cite>].
+
+      This enables the Verifiable Credential data model
+      [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-model" title="Verifiable Credentials Data Model v1.1">VC-DATA-MODEL</a></cite>]to be implemented with standards
+      for signing and encryption that are widely adopted.
+    </p>
+  </section>
+  <section id="sotd" class="introductory"><h2>Status of This Document</h2><p><em>This section describes the status of this
+      document at the time of its publication. A list of current <abbr title="World Wide Web Consortium">W3C</abbr>
+      publications and the latest revision of this technical report can be found
+      in the <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at
+      https://www.w3.org/TR/.</em></p><p>
+    This document was published by the <a href="https://www.w3.org/groups/wg/vc">Verifiable Credentials Working Group</a> as
+    a Working Draft using the
+        <a href="https://www.w3.org/2021/Process-20211102/#recs-and-notes">Recommendation track</a>. 
+  </p><p>Publication as a Working Draft does not
+  imply endorsement by <abbr title="World Wide Web Consortium">W3C</abbr> and its Members. </p><p>
+    This is a draft document and may be updated, replaced or obsoleted by other
+    documents at any time. It is inappropriate to cite this document as other
+    than work in progress.
+    
+  </p><p>
+    
+        This document was produced by a group
+        operating under the
+        <a href="https://www.w3.org/Consortium/Patent-Policy/"><abbr title="World Wide Web Consortium">W3C</abbr> Patent
+          Policy</a>.
+      
+    
+                <abbr title="World Wide Web Consortium">W3C</abbr> maintains a
+                <a rel="disclosure" href="https://www.w3.org/groups/wg/vc/ipr">public list of any patent disclosures</a>
+          made in connection with the deliverables of
+          the group; that page also includes
+          instructions for disclosing a patent. An individual who has actual
+          knowledge of a patent which the individual believes contains
+          <a href="https://www.w3.org/Consortium/Patent-Policy/#def-essential">Essential Claim(s)</a>
+          must disclose the information in accordance with
+          <a href="https://www.w3.org/Consortium/Patent-Policy/#sec-Disclosure">section 6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>.
+        
+  </p><p>
+                  This document is governed by the
+                  <a id="w3c_process_revision" href="https://www.w3.org/2021/Process-20211102/">2 November 2021 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
+                </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1. </bdi>Introduction</a></li><li class="tocline"><a class="tocxref" href="#securing-the-vc-data-model"><bdi class="secno">2. </bdi>Securing the VC Data Model</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#with-jose"><bdi class="secno">2.1 </bdi>With JOSE</a><ol class="toc"></ol></li><li class="tocline"><a class="tocxref" href="#with-cose"><bdi class="secno">2.2 </bdi>With COSE</a><ol class="toc"></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#securing-json"><bdi class="secno">3. </bdi>Securing JSON</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#credential-header"><bdi class="secno">3.1 </bdi>Credential Header</a></li><li class="tocline"><a class="tocxref" href="#credential"><bdi class="secno">3.2 </bdi>Credential</a></li><li class="tocline"><a class="tocxref" href="#verifiable-credential"><bdi class="secno">3.3 </bdi>Verifiable Credential</a></li></ol></li><li class="tocline"><a class="tocxref" href="#key-discovery"><bdi class="secno">4. </bdi>Key Discovery</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#registered-claim-names"><bdi class="secno">4.1 </bdi>Registered Claim Names</a><ol class="toc"></ol></li><li class="tocline"><a class="tocxref" href="#well-known-uris"><bdi class="secno">4.2 </bdi>Well Known URIs</a></li></ol></li><li class="tocline"><a class="tocxref" href="#conformance"><bdi class="secno">5. </bdi>Conformance</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#json-web-token-header-parameters"><bdi class="secno">5.1 </bdi>JSON Web Token Header Parameters</a></li><li class="tocline"><a class="tocxref" href="#securing-verifiable-credentials"><bdi class="secno">5.2 </bdi>Securing Verifiable Credentials</a></li></ol></li><li class="tocline"><a class="tocxref" href="#iana-considerations"><bdi class="secno">6. </bdi>IANA Considerations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#media-type-registrations"><bdi class="secno">6.1 </bdi>Media Types</a><ol class="toc"></ol></li><li class="tocline"><a class="tocxref" href="#json-web-token-claim-registrations"><bdi class="secno">6.2 </bdi>JSON Web Token Claims</a><ol class="toc"></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#other-considerations"><bdi class="secno">7. </bdi>Other Considerations</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#privacy-considerations"><bdi class="secno">7.1 </bdi>Privacy Considerations</a></li><li class="tocline"><a class="tocxref" href="#security-considerations"><bdi class="secno">7.2 </bdi>Security Considerations</a></li><li class="tocline"><a class="tocxref" href="#accessibility"><bdi class="secno">7.3 </bdi>Accessibility</a></li><li class="tocline"><a class="tocxref" href="#internationalization"><bdi class="secno">7.4 </bdi>Internationalization</a></li></ol></li><li class="tocline"><a class="tocxref" href="#appendix"><bdi class="secno">8. </bdi>Appendix</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#controllers"><bdi class="secno">8.1 </bdi>Controllers</a></li><li class="tocline"><a class="tocxref" href="#credentials"><bdi class="secno">8.2 </bdi>Credentials</a></li><li class="tocline"><a class="tocxref" href="#presentations"><bdi class="secno">8.3 </bdi>
+        Presentations
+      </a></li><li class="tocline"><a class="tocxref" href="#data-uris"><bdi class="secno">8.4 </bdi>Data URIs</a></li><li class="tocline"><a class="tocxref" href="#detached-proofs"><bdi class="secno">8.5 </bdi>
+        Detached Proofs
+      </a></li><li class="tocline"><a class="tocxref" href="#selective-disclosure"><bdi class="secno">8.6 </bdi>Selective Disclosure</a></li><li class="tocline"><a class="tocxref" href="#example-mapping"><bdi class="secno">8.7 </bdi>Example Mapping</a></li></ol></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">A. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">A.1 </bdi>Normative references</a></li><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">A.2 </bdi>Informative references</a></li></ol></li></ol></nav>
+
+  <section id="introduction"><div class="header-wrapper"><h2 id="x1-introduction"><bdi class="secno">1. </bdi>Introduction</h2><a class="self-link" href="#introduction" aria-label="Permalink for Section 1."></a></div>
+    
+    <p>
+      This specification describes how to secure media types
+      expressing Verifiable Credentials and Verifiable Presentations
+      as described in the [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-model" title="Verifiable Credentials Data Model v1.1">VC-DATA-MODEL</a></cite>], using approaches
+      described by the COSE and JOSE working groups at IETF. This
+      includes JWTs [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7519" title="JSON Web Token (JWT)">RFC7519</a></cite>], JWS [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7515" title="JSON Web Signature (JWS)">RFC7515</a></cite>], and COSE [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8152" title="CBOR Object Signing and Encryption (COSE)">RFC8152</a></cite>]
+      and provides an approach using well defined content types
+      [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc6838" title="Media Type Specifications and Registration Procedures">RFC6838</a></cite>] to identify that the type of data being secured
+      conforms with the [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-model" title="Verifiable Credentials Data Model v1.1">VC-DATA-MODEL</a></cite>].
+    </p>
+    <p>
+      JSON Web Signatures (JWS) [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7515" title="JSON Web Signature (JWS)">RFC7515</a></cite>] provide a standardized
+      mechanism for digitally signing JSON data. It provides a means
+      to ensure the integrity, authenticity, and non-repudiation of
+      the information contained in a JSON object. JWS enables secure
+      communication and trust between parties by adding a
+      cryptographic signature to a payload. This signature is
+      generated using a private key and can be verified using the
+      corresponding public key. JWS enables content integrity, authentication and non repudiation,
+      protecting data from unauthorized modifications. The
+      versatility and wide adoption of JWS make it an essential
+      component for verifying the authenticity and integrity of
+      data in various applications, including
+      authentication, authorization, and secure data exchange. These
+      properties make JWS especially well suited to securing the
+      JSON-LD [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-model" title="Verifiable Credentials Data Model v1.1">VC-DATA-MODEL</a></cite>] and through this to provide a means of
+      supporting the three party model (issuer, verifier, holder) for
+      exchange of credentials enabled in verifiable credenials.
+    </p>
+    <p>
+      JSON Web Token (JWT) [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7519" title="JSON Web Token (JWT)">RFC7519</a></cite>] is a widely-used means of
+      expressing
+      <a href="https://www.w3.org/TR/vc-data-model/#claims">claims</a>, represented in JSON, to be transferred
+      between two parties. Providing a representation of the
+      Verifiable Credentials Data Model for JWT allows existing
+      systems and libraries to participate in the ecosystem described
+      in Section <a href="https://www.w3.org/TR/vc-data-model/#ecosystem-overview">ecosystem
+        overview</a>. A JWT encodes a set of
+      <a href="https://www.w3.org/TR/vc-data-model/#claims">claims</a> as a JSON object
+      that is contained in a JSON Web Signature (JWS) [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7515" title="JSON Web Signature (JWS)">RFC7515</a></cite>]
+      and/or JSON Web Encryption (JWE) [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7516" title="JSON Web Encryption (JWE)">RFC7516</a></cite>]. For this
+      specification, the use of JWE is out of scope.
+    </p><div class="issue" id="issue-container-generatedID"><div role="heading" class="issue-title marker" id="h-issue" aria-level="3"><span>Issue</span></div><p class="">
+      The working group is discussing how we might comment on recent work, that does make
+      use of encryption in <a href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html#section-3.2">OpenID for Verifiable
+        Presentations</a>.
+    </p></div>
+    <p></p>
+    <p>
+      CBOR Object Signing and Encryption (COSE) [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8152" title="CBOR Object Signing and Encryption (COSE)">RFC8152</a></cite>] is a
+      specification that defines a framework for representing signed and
+      encrypted data using (Concise Binary Object Representation) [RFC8949]
+      data structures. COSE provides a standardized way to secure the
+      integrity, authenticity, and confidentiality of CBOR-encoded
+      information. It offers a flexible and extensible set of
+      cryptographic options, allowing for a wide range of algorithms
+      to be used for signing and encryption.
+
+      COSE supports two main operations: signing and encryption. For
+      signing, COSE allows the creation of digital signatures over
+      CBOR data using various algorithms such as HMAC, RSA, ECDSA, or
+      EdDSA. These signatures provide assurance of data integrity and
+      authenticity. COSE also supports encryption, enabling the
+      confidentiality of CBOR data by encrypting it with symmetric or
+      asymmetric encryption algorithms.
+    </p>
+  </section>
+
+  <section id="securing-the-vc-data-model"><div class="header-wrapper"><h2 id="x2-securing-the-vc-data-model"><bdi class="secno">2. </bdi>Securing the VC Data Model</h2><a class="self-link" href="#securing-the-vc-data-model" aria-label="Permalink for Section 2."></a></div>
+    
+    <p>
+      The use of Verifiable Credentials often involves the
+      representation and exchange of structured data in the form of
+      JSON-LD as this is the structured suffix of the base media types defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-model" title="Verifiable Credentials Data Model v1.1">VC-DATA-MODEL</a></cite>]. While
+      JSON-LD provides a flexible and extensible format for describing
+      linked data, see <a href="https://www.w3.org/TR/json-ld11/#relationship-to-rdf">JSON-LD Relationship to RDF</a>,
+      it is important to note that it also provides a linkage
+      between the data structure and semantic meaning of data.
+    </p>
+    <p>
+      This section outlines how JSON-LD claimsets can be secured
+      using either JOSE or COSE.
+    </p>
+    <p>
+      A benefit to this approach is that payloads can be made to conform
+      directly to the [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-model" title="Verifiable Credentials Data Model v1.1">VC-DATA-MODEL</a></cite>] without any mapping or
+      transformation.
+    </p>
+    <section id="with-jose"><div class="header-wrapper"><h3 id="x2-1-with-jose"><bdi class="secno">2.1 </bdi>With JOSE</h3><a class="self-link" href="#with-jose" aria-label="Permalink for Section 2.1"></a></div>
+      
+      <section id="securing-json-ld-verifiable-credentials-with-jose"><div class="header-wrapper"><h4 id="x2-1-1-securing-json-ld-verifiable-credentials-with-jose"><bdi class="secno">2.1.1 </bdi>Securing JSON-LD Verifiable Credentials with JOSE</h4><a class="self-link" href="#securing-json-ld-verifiable-credentials-with-jose" aria-label="Permalink for Section 2.1.1"></a></div>
+        
+        <p>
+          This section details how to secure data payloads with the type
+          <code>application/vc+ld+json</code>
+          with JOSE.
+        </p>
+        <p>[<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7515" title="JSON Web Signature (JWS)">rfc7515</a></cite>] <em class="rfc2119">MAY</em> be used to secure this media type.</p>
+        <p>
+          The <code>typ</code> parameter <em class="rfc2119">MUST</em> be <code>vc+ld+jwt</code>
+        </p>
+        <p>
+          When present, the <code>cty</code> <em class="rfc2119">MUST</em> be
+          <code>vc+ld+json</code>
+        </p>
+        <p>
+          See <a href="https://www.rfc-editor.org/rfc/rfc7515#section-4.1.10">Common JOSE Header
+            Parameters</a>
+          for additional details regarding usage of <code>typ</code> and
+          <code>cty</code>.
+        </p>
+        <div class="example" id="example-example-credential">
+        <div class="marker">
+    <a class="self-link" href="#example-example-credential">Example<bdi> 1</bdi></a><span class="example-title">: Example Credential</span>
+  </div> 
+      <div class="vc-tabbed"><input type="radio" id="vc-tab11" name="vc-tabs1" checked="checked"><input type="radio" id="vc-tab12" name="vc-tabs1"><input type="radio" id="vc-tab13" name="vc-tabs1"><ul class="vc-tabs"><li class="vc-tab"><label for="vc-tab11">Claimset</label></li><li class="vc-tab"><label for="vc-tab12">Verifiable Credential</label></li><li class="vc-tab"><label for="vc-tab13">Graph</label></li></ul><div class="vc-tab-content"><pre class="vc-jwt" data-vc-kid="#key-0" aria-busy="false"><code class="hljs">{
+  "@context": ["https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "id": "http://example.edu/credentials/3732",
+  "type": ["VerifiableCredential",
+    "UniversityDegreeCredential"
+  ],
+  "issuer": "https://example.edu/issuers/14",
+  "issuanceDate": "2010-01-01T19:23:24Z",
+  "credentialSubject": {
+    "id": "did:example:123",
+    "degree": {
+      "type": "BachelorDegree",
+      "name": "Bachelor of Science and Arts"
+    }
+  }
+}</code></pre></div><div class="vc-tab-content"><pre>---------------- Decoded Protected Header ----------------
+{
+  "alg": "ES384",
+  "typ": "vc+ld+jwt",
+  "iss": "https://example.edu/issuers/14",
+  "iat": 1689183395
+}
+---------------- Decoded Protected Claimset ----------------
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "id": "http://example.edu/credentials/3732",
+  "type": [
+    "VerifiableCredential",
+    "UniversityDegreeCredential"
+  ],
+  "issuer": "https://example.edu/issuers/14",
+  "issuanceDate": "2010-01-01T19:23:24Z",
+  "credentialSubject": {
+    "id": "did:example:123",
+    "degree": {
+      "type": "BachelorDegree",
+      "name": "Bachelor of Science and Arts"
+    }
+  }
+}
+---------------- Compact Encoded JSON Web Token ----------------
+eyJhbGciOiJFUzM4NCIsInR5cCI6InZjK2xkK2p3dCIsImlzcyI6Imh0dHBzOi8vZXhhbXBsZS5
+lZHUvaXNzdWVycy8xNCIsImlhdCI6MTY4OTE4MzM5NX0.eyJAY29udGV4dCI6WyJodHRwczovL3
+d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZ
+GVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaWQiOiJodHRwOi8vZXhhbXBsZS5lZHUvY3JlZGVudGlh
+bHMvMzczMiIsInR5cGUiOlsiVmVyaWZpYWJsZUNyZWRlbnRpYWwiLCJVbml2ZXJzaXR5RGVncmV
+lQ3JlZGVudGlhbCJdLCJpc3N1ZXIiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQiLC
+Jpc3N1YW5jZURhdGUiOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTdWJqZWN0I
+jp7ImlkIjoiZGlkOmV4YW1wbGU6MTIzIiwiZGVncmVlIjp7InR5cGUiOiJCYWNoZWxvckRlZ3Jl
+ZSIsIm5hbWUiOiJCYWNoZWxvciBvZiBTY2llbmNlIGFuZCBBcnRzIn19fQ.fKKVkM9Tuf768_XZ
+uly0EgxvKqc0i9A_0xU04c58DGn4VhQS348QGagLn868X6mJeXBaGE5bqOtHKy50QmNakjvTMc_
+XDF6iQLoM3DBekKmhHoUCoVU19lsTHwej5Y-X</pre></div><div class="vc-tab-content"><code class="respec-mermaid">
+graph LR
+
+0("VerifiableCredential")
+1{{"id"}}
+2("http://example.edu/credentials/3732")
+3(("type"))
+4("UniversityDegreeCredential")
+5("issuer")
+6("https://example.edu/issuers/14")
+7("issuanceDate")
+8("2010-01-01T19:23:24Z")
+9("credentialSubject")
+10{{"id"}}
+11("did:example:123")
+12("degree")
+13(("type"))
+14("BachelorDegree")
+15("name")
+16("Bachelor of Science and Arts")
+
+0 --- 1
+1 --- 2
+0 --- 3
+3 --- 4
+0 --- 5
+5 --- 6
+0 --- 7
+7 --- 8
+0 --- 9
+9 --- 10
+10 --- 11
+9 --- 12
+12 --- 13
+13 --- 14
+12 --- 15
+15 --- 16
+
+</code></div></div></div>
+      </section>
+      <section id="securing-json-ld-verifiable-presentations-with-jose"><div class="header-wrapper"><h4 id="x2-1-2-securing-json-ld-verifiable-presentations-with-jose"><bdi class="secno">2.1.2 </bdi>Securing JSON-LD Verifiable Presentations with JOSE</h4><a class="self-link" href="#securing-json-ld-verifiable-presentations-with-jose" aria-label="Permalink for Section 2.1.2"></a></div>
+        
+        <p>
+          This section details how to secure verifiable presentations
+          with the type
+          <code>application/vp+ld+json</code> with JOSE.
+        </p>
+        <p>[<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7515" title="JSON Web Signature (JWS)">rfc7515</a></cite>] <em class="rfc2119">MAY</em> be used to secure this media type.</p>
+        <p>The <code>typ</code> parameter <em class="rfc2119">MUST</em> be
+          <code>vp+ld+jwt</code>
+        </p>
+        <p>When present, the <code>cty</code> parameter <em class="rfc2119">MUST</em> be
+          <code>vp+ld+json</code>
+        </p>
+        <p>
+          See <a href="https://www.rfc-editor.org/rfc/rfc7515#section-4.1.10">Common JOSE Header
+            Parameters</a>
+          for additional details regarding usage of <code>typ</code> and
+          <code>cty</code>.
+        </p>
+        <div class="example" id="example-the-minimal-unsecured-verifiable-presentation">
+        <div class="marker">
+    <a class="self-link" href="#example-the-minimal-unsecured-verifiable-presentation">Example<bdi> 2</bdi></a><span class="example-title">: The minimal unsecured verifiable presentation</span>
+  </div> 
+      <div class="vc-tabbed"><input type="radio" id="vc-tab21" name="vc-tabs2" checked="checked"><input type="radio" id="vc-tab22" name="vc-tabs2"><input type="radio" id="vc-tab23" name="vc-tabs2"><ul class="vc-tabs"><li class="vc-tab"><label for="vc-tab21">Claimset</label></li><li class="vc-tab"><label for="vc-tab22">Verifiable Credential</label></li><li class="vc-tab"><label for="vc-tab23">Graph</label></li></ul><div class="vc-tab-content"><pre class="vc-jwt" data-vp-alg="none" aria-busy="false"><code class="hljs">{
+  "@context": ["https://www.w3.org/ns/credentials/v2"],
+  "type": ["VerifiablePresentation"]
+}</code></pre></div><div class="vc-tab-content"><pre>---------------- Decoded Unprotected Header ----------------
+{
+  "alg": "none",
+  "typ": "vp+ld+jwt"
+}
+---------------- Decoded Unprotected Claimset ----------------
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2"
+  ],
+  "type": [
+    "VerifiablePresentation"
+  ]
+}
+---------------- Compact Encoded JSON Web Token ----------------
+eyJhbGciOiJub25lIiwidHlwIjoidnArbGQrand0In0.eyJAY29udGV4dCI6WyJodHRwczovL3d
+3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlUHJlc2VudG
+F0aW9uIl19.</pre></div><div class="vc-tab-content"><code class="respec-mermaid">
+graph LR
+
+17("VerifiablePresentation")
+
+
+
+</code></div></div></div>
+        <div class="example" id="example-the-minimal-secured-verifiable-presentation">
+        <div class="marker">
+    <a class="self-link" href="#example-the-minimal-secured-verifiable-presentation">Example<bdi> 3</bdi></a><span class="example-title">: The minimal secured verifiable presentation</span>
+  </div> 
+      <div class="vc-tabbed"><input type="radio" id="vc-tab31" name="vc-tabs3" checked="checked"><input type="radio" id="vc-tab32" name="vc-tabs3"><input type="radio" id="vc-tab33" name="vc-tabs3"><ul class="vc-tabs"><li class="vc-tab"><label for="vc-tab31">Claimset</label></li><li class="vc-tab"><label for="vc-tab32">Verifiable Credential</label></li><li class="vc-tab"><label for="vc-tab33">Graph</label></li></ul><div class="vc-tab-content"><pre class="vc-jwt" aria-busy="false"><code class="hljs">{
+  "@context": ["https://www.w3.org/ns/credentials/v2"],
+  "type": ["VerifiablePresentation"]
+}</code></pre></div><div class="vc-tab-content"><pre>---------------- Decoded Protected Header ----------------
+{
+  "alg": "ES384"
+}
+---------------- Decoded Protected Claimset ----------------
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2"
+  ],
+  "type": [
+    "VerifiablePresentation"
+  ]
+}
+---------------- Compact Encoded JSON Web Token ----------------
+eyJhbGciOiJFUzM4NCJ9.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZG
+VudGlhbHMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlUHJlc2VudGF0aW9uIl19.AjjxNlvsRKmn
+UIBqus3cnaVmoo5dWEPASANn4UvFsOXvIaB4A6hAF82-uqF1SrW9bUDf6B7Xob0zST2zHF7gYen
+3--DIihok4296VSp8wmPZ1WKPH1codptqa2WLBn7i</pre></div><div class="vc-tab-content"><code class="respec-mermaid">
+graph LR
+
+18("VerifiablePresentation")
+
+
+
+</code></div></div></div>
+
+        <div class="example" id="example-a-secured-verifiable-presentation-with-a-holder-identifier">
+        <div class="marker">
+    <a class="self-link" href="#example-a-secured-verifiable-presentation-with-a-holder-identifier">Example<bdi> 4</bdi></a><span class="example-title">: A secured verifiable presentation with a holder identifier</span>
+  </div> 
+      <div class="vc-tabbed"><input type="radio" id="vc-tab41" name="vc-tabs4" checked="checked"><input type="radio" id="vc-tab42" name="vc-tabs4"><input type="radio" id="vc-tab43" name="vc-tabs4"><ul class="vc-tabs"><li class="vc-tab"><label for="vc-tab41">Claimset</label></li><li class="vc-tab"><label for="vc-tab42">Verifiable Credential</label></li><li class="vc-tab"><label for="vc-tab43">Graph</label></li></ul><div class="vc-tab-content"><pre class="vc-jwt" aria-busy="false"><code class="hljs">{
+  "@context": ["https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "type": ["VerifiablePresentation"],
+  "holder": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs"
+}</code></pre></div><div class="vc-tab-content"><pre>---------------- Decoded Protected Header ----------------
+{
+  "alg": "ES384",
+  "typ": "vp+ld+jwt",
+  "iss": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF
+4W_7noWXFZAfHkxZsRGC9Xs",
+  "iat": 1689183395,
+  "nonce": "n-0S6_WzA2Mj",
+  "aud": "https://contoso.example"
+}
+---------------- Decoded Protected Claimset ----------------
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "type": [
+    "VerifiablePresentation"
+  ],
+  "holder": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MN
+wXF4W_7noWXFZAfHkxZsRGC9Xs"
+}
+---------------- Compact Encoded JSON Web Token ----------------
+eyJhbGciOiJFUzM4NCIsInR5cCI6InZwK2xkK2p3dCIsImlzcyI6InVybjppZXRmOnBhcmFtczp
+vYXV0aDpqd2stdGh1bWJwcmludDpzaGEtMjU2Ok56YkxzWGg4dURDY2QtNk1Od1hGNFdfN25vV1
+hGWkFmSGt4WnNSR0M5WHMiLCJpYXQiOjE2ODkxODMzOTUsIm5vbmNlIjoibi0wUzZfV3pBMk1qI
+iwiYXVkIjoiaHR0cHM6Ly9jb250b3NvLmV4YW1wbGUifQ.eyJAY29udGV4dCI6WyJodHRwczovL
+3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3Jl
+ZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlUHJlc2VudGF0aW9uIl0
+sImhvbGRlciI6InVybjppZXRmOnBhcmFtczpvYXV0aDpqd2stdGh1bWJwcmludDpzaGEtMjU2Ok
+56YkxzWGg4dURDY2QtNk1Od1hGNFdfN25vV1hGWkFmSGt4WnNSR0M5WHMifQ.4zuQcZAh8X7Xl9
+bjTV_outs3T-Hi1ztcuiIwPQxwK33iJY0u_teZGsyr_f8PAFNUonKpc8B9w2pVE4MGxymLZvyfR
+e-o6CWaTjKbhPtKJllFzEi6zG01pu7rwtFDPxB3</pre></div><div class="vc-tab-content"><code class="respec-mermaid">
+graph LR
+
+19("VerifiablePresentation")
+20("holder")
+21("urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs")
+
+19 --- 20
+20 --- 21
+
+</code></div></div></div>
+        <div class="example" id="example-a-secured-verifiable-presentation-with-a-holder-graph-node">
+        <div class="marker">
+    <a class="self-link" href="#example-a-secured-verifiable-presentation-with-a-holder-graph-node">Example<bdi> 5</bdi></a><span class="example-title">: A secured verifiable presentation with a holder graph node</span>
+  </div> 
+      <div class="vc-tabbed"><input type="radio" id="vc-tab51" name="vc-tabs5" checked="checked"><input type="radio" id="vc-tab52" name="vc-tabs5"><input type="radio" id="vc-tab53" name="vc-tabs5"><ul class="vc-tabs"><li class="vc-tab"><label for="vc-tab51">Claimset</label></li><li class="vc-tab"><label for="vc-tab52">Verifiable Credential</label></li><li class="vc-tab"><label for="vc-tab53">Graph</label></li></ul><div class="vc-tab-content"><pre class="vc-jwt" aria-busy="false"><code class="hljs">{
+  "@context": ["https://www.w3.org/ns/credentials/v2"],
+  "type": ["VerifiablePresentation"],
+  "holder": {
+    "id": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs",
+    "type": "Organization",
+    "name": "Contoso"
+  }
+}</code></pre></div><div class="vc-tab-content"><pre>---------------- Decoded Protected Header ----------------
+{
+  "alg": "ES384",
+  "typ": "vp+ld+jwt",
+  "iss": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF
+4W_7noWXFZAfHkxZsRGC9Xs",
+  "iat": 1689183395,
+  "nonce": "n-0S6_WzA2Mj",
+  "aud": "https://contoso.example"
+}
+---------------- Decoded Protected Claimset ----------------
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2"
+  ],
+  "type": [
+    "VerifiablePresentation"
+  ],
+  "holder": {
+    "id": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwX
+F4W_7noWXFZAfHkxZsRGC9Xs",
+    "type": "Organization",
+    "name": "Contoso"
+  }
+}
+---------------- Compact Encoded JSON Web Token ----------------
+eyJhbGciOiJFUzM4NCIsInR5cCI6InZwK2xkK2p3dCIsImlzcyI6InVybjppZXRmOnBhcmFtczp
+vYXV0aDpqd2stdGh1bWJwcmludDpzaGEtMjU2Ok56YkxzWGg4dURDY2QtNk1Od1hGNFdfN25vV1
+hGWkFmSGt4WnNSR0M5WHMiLCJpYXQiOjE2ODkxODMzOTUsIm5vbmNlIjoibi0wUzZfV3pBMk1qI
+iwiYXVkIjoiaHR0cHM6Ly9jb250b3NvLmV4YW1wbGUifQ.eyJAY29udGV4dCI6WyJodHRwczovL
+3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlUHJlc2Vu
+dGF0aW9uIl0sImhvbGRlciI6eyJpZCI6InVybjppZXRmOnBhcmFtczpvYXV0aDpqd2stdGh1bWJ
+wcmludDpzaGEtMjU2Ok56YkxzWGg4dURDY2QtNk1Od1hGNFdfN25vV1hGWkFmSGt4WnNSR0M5WH
+MiLCJ0eXBlIjoiT3JnYW5pemF0aW9uIiwibmFtZSI6IkNvbnRvc28ifX0.EblJ5JB5mwG8N5ooW
+h4wrV9OiYVaFxhSHKscohWzdOMR50TvvzAxoiW8E_ZN5Q5Pnjv1UHHsbDvTqu6PmyRVqCV1ZOrT
+u2XxUjSStvLUIIJsqT83FTPUNtxSTsTGNSLx</pre></div><div class="vc-tab-content"><code class="respec-mermaid">
+graph LR
+
+22("VerifiablePresentation")
+23("holder")
+24{{"id"}}
+25("urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs")
+26(("type"))
+27("Organization")
+28("name")
+29("Contoso")
+
+22 --- 23
+23 --- 24
+24 --- 25
+23 --- 26
+26 --- 27
+23 --- 28
+28 --- 29
+
+</code></div></div></div>
+      </section>
+    </section>
+    <section id="with-cose"><div class="header-wrapper"><h3 id="x2-2-with-cose"><bdi class="secno">2.2 </bdi>With COSE</h3><a class="self-link" href="#with-cose" aria-label="Permalink for Section 2.2"></a></div>
+      
+      <p>
+        COSE [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8152" title="CBOR Object Signing and Encryption (COSE)">rfc8152</a></cite>] is a common approach to encoding and securing
+        information using CBOR [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8949" title="Concise Binary Object Representation (CBOR)">rfc8949</a></cite>]. Verifiable credentials <em class="rfc2119">MAY</em>
+        be secured using COSE [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8152" title="CBOR Object Signing and Encryption (COSE)">rfc8152</a></cite>] and <em class="rfc2119">MUST</em> be identified through
+        use of content types as outlined in this section.
+      </p>
+      <section id="securing-json-ld-vcs-with-cose"><div class="header-wrapper"><h4 id="x2-2-1-securing-json-ld-vcs-with-cose"><bdi class="secno">2.2.1 </bdi>Securing JSON-LD VCs with COSE</h4><a class="self-link" href="#securing-json-ld-vcs-with-cose" aria-label="Permalink for Section 2.2.1"></a></div>
+        
+        <p>
+          This section details how to secure data with the type
+          <code>application/vc+ld+json</code>
+          with COSE.
+        </p>
+        <p>[<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8152" title="CBOR Object Signing and Encryption (COSE)">rfc8152</a></cite>] <em class="rfc2119">MAY</em> be used to secure this media type.</p>
+        <p>When using this approach, the <code>type (TBD)</code> <em class="rfc2119">MUST</em> be
+          <code>vc+ld+json+cose</code>
+        </p>
+        <p>When using this approach, the <code>content type (3)</code>
+          <em class="rfc2119">MUST</em> be <code>application/vc+ld+json</code></p>
+        <p>
+          See <a href="https://www.rfc-editor.org/rfc/rfc9052#section-3.1">Common COSE Header
+            Parameters</a> for additional details.
+        </p>
+        <p>See <a href="https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml">Concise
+            Binary Object Representation (CBOR) Tags</a> for additional
+          details.</p>
+      </section>
+      <div class="issue" id="issue-container-number-67"><div role="heading" class="issue-title marker" id="h-issue-0" aria-level="4"><a href="https://github.com/w3c/vc-jwt/issues/67"><span class="issue-number">Issue 67</span></a><span class="issue-label">: typ for COSE</span></div><p dir="auto">There is no registered tag for <code class="notranslate">typ</code> in COSE.</p>
+<p dir="auto">This prevents following the guidance from the JWT BCP</p></div>
+    </section>
+  </section>
+
+  <section id="securing-json"><div class="header-wrapper"><h2 id="x3-securing-json"><bdi class="secno">3. </bdi>Securing JSON</h2><a class="self-link" href="#securing-json" aria-label="Permalink for Section 3."></a></div>
+    
+    <p>
+      This section provides guidance on how to use JSON [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7159" title="The JavaScript Object Notation (JSON) Data Interchange Format">RFC7159</a></cite>]
+      claimsets with JWT registered claims to construct a JWT that can
+      be mapped to a verifiable credential. This section also describes
+      how to use content types and token types to distinguish different
+      representations of verifiable credentials.
+    </p>
+    <div class="note" role="note" id="issue-container-generatedID-0"><div role="heading" class="note-title marker" id="h-note" aria-level="3"><span>Note</span></div><p class="">
+      This representation relies on claims registered in the
+      <a href="https://www.iana.org/assignments/jwt/jwt.xhtml#claims">IANA
+        JSON Web Token Claims Registry</a> whenever possible.
+    </p></div>
+    <div class="note" role="note" id="issue-container-generatedID-1"><div role="heading" class="note-title marker" id="h-note-0" aria-level="3"><span>Note</span></div><p class="">
+      Production of this representation does not use
+      <code>vc+ld+json</code> as an input.
+    </p></div>
+    <section id="credential-header"><div class="header-wrapper"><h3 id="x3-1-credential-header"><bdi class="secno">3.1 </bdi>Credential Header</h3><a class="self-link" href="#credential-header" aria-label="Permalink for Section 3.1"></a></div>
+      
+      <p><a href="https://www.rfc-editor.org/rfc/rfc7519#section-5.1">typ</a> <em class="rfc2119">MUST</em> use the media
+        type <code>vc+jwt</code>.</p>
+      <aside class="example" id="example-credential-metadata-decoded-jwt-header"><div class="marker">
+    <a class="self-link" href="#example-credential-metadata-decoded-jwt-header">Example<bdi> 6</bdi></a><span class="example-title">: credential metadata (decoded JWT
+      header)</span>
+  </div>
+        <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"kid"</span>: <span class="hljs-string">"https://example.edu/issuers/14#key-0"</span>,
+  <span class="hljs-attr">"alg"</span>: <span class="hljs-string">"ES256"</span>,
+  <span class="hljs-attr">"typ"</span>: <span class="hljs-string">"vc+jwt"</span>
+}</code></pre>
+      </aside>
+    </section>
+    <section id="credential"><div class="header-wrapper"><h3 id="x3-2-credential"><bdi class="secno">3.2 </bdi>Credential</h3><a class="self-link" href="#credential" aria-label="Permalink for Section 3.2"></a></div>
+      
+      <div class="example" id="example-a-credential-decoded-from-a-jwt-payload">
+        <div class="marker">
+    <a class="self-link" href="#example-a-credential-decoded-from-a-jwt-payload">Example<bdi> 7</bdi></a><span class="example-title">: A credential decoded from a JWT payload</span>
+  </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"iss"</span>: <span class="hljs-string">"https://example.edu/issuers/14"</span>,
+  <span class="hljs-attr">"sub"</span>: <span class="hljs-string">"1234567890"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"John Doe"</span>,
+  <span class="hljs-attr">"iat"</span>: <span class="hljs-number">1516239022</span>,
+  <span class="hljs-attr">"urn:example:claim"</span>: <span class="hljs-literal">true</span>
+}</code></pre>
+      </div>
+      <div class="note" role="note" id="issue-container-generatedID-2"><div role="heading" class="note-title marker" id="h-note-1" aria-level="4"><span>Note</span></div><p class="">
+        The <code>vc</code> and <code>vp</code> claims <em class="rfc2119">MUST NOT</em> be
+        present when the content type header parameter is set to
+        <code>credential-claims-set+json</code>.
+      </p></div>
+    </section>
+    <section id="verifiable-credential"><div class="header-wrapper"><h3 id="x3-3-verifiable-credential"><bdi class="secno">3.3 </bdi>Verifiable Credential</h3><a class="self-link" href="#verifiable-credential" aria-label="Permalink for Section 3.3"></a></div>
+      
+      <div class="example" id="example-an-encoded-verifiable-credential-that-uses-an-external-proof">
+        <div class="marker">
+    <a class="self-link" href="#example-an-encoded-verifiable-credential-that-uses-an-external-proof">Example<bdi> 8</bdi></a><span class="example-title">: An encoded verifiable credential that uses an external proof</span>
+  </div> <pre aria-busy="false"><code class="hljs">eyJraWQiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQja2V5LTAiLCJhbGciOiJFUzI1NiIsInR5cCI6InZjK2p3dCJ9.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQiLCJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ1cm46ZXhhbXBsZTpjbGFpbSI6dHJ1ZX0.WLD4Qxh629TFkJHzmbkWEefYX-QPkdCmxbBMKNHErxND2QpjVBbatxHkxS9Y_SzBmwffuM2E9i5VvVgpZ6v4Tg</code></pre>
+      </div>
+    </section>
+  </section>
+
+  
+
+<section class="normative" id="key-discovery"><div class="header-wrapper"><h2 id="x4-key-discovery"><bdi class="secno">4. </bdi>Key Discovery</h2><a class="self-link" href="#key-discovery" aria-label="Permalink for Section 4."></a></div>
+  
+  <div class="issue" id="issue-container-generatedID-3"><div role="heading" class="issue-title marker" id="h-issue-1" aria-level="3"><span>Issue</span></div><p class="">
+    The working group is still discussing how to close many related issues.
+  </p></div>
+  <div class="issue" id="issue-container-number-117"><div role="heading" class="issue-title marker" id="h-issue-2" aria-level="3"><a href="https://github.com/w3c/vc-jwt/issues/117"><span class="issue-number">Issue 117</span></a><span class="issue-label">: how is `kid` to be `useful to distinguish the specific key used`?</span></div><p dir="auto"><em>Originally posted by <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/TallTed/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/TallTed">@TallTed</a> in <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1775041403" data-permission-text="Title is private" data-url="https://github.com/w3c/vc-jwt/issues/111" data-hovercard-type="pull_request" data-hovercard-url="/w3c/vc-jwt/pull/111/hovercard?comment_id=1244392502&amp;comment_type=review_comment" href="https://github.com/w3c/vc-jwt/pull/111#discussion_r1244392502">#111 (comment)</a></em></p>
+<p dir="auto">line 377 says (and another line says the same) --</p>
+<blockquote>
+<p dir="auto"><code class="notranslate">If &lt;code&gt;kid&lt;/code&gt; is also present, it is expected to be useful to distinguish the specific key used.</code></p>
+</blockquote>
+<p dir="auto">-- in response to which I ask --</p>
+<blockquote>
+<p dir="auto">how is <code class="notranslate">kid</code> to be <code class="notranslate">useful to distinguish the specific key used</code>? This cries out for an example, or a fair amount of additional prose.</p>
+</blockquote></div>
+  <div class="issue" id="issue-container-number-106"><div role="heading" class="issue-title marker" id="h-issue-3" aria-level="3"><a href="https://github.com/w3c/vc-jwt/issues/106"><span class="issue-number">Issue 106</span></a><span class="issue-label">: Explain relationship between controller documents and JOSE headers</span></div><div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="          Just read that section, and I have to say that it's not intuitive at all. I think it would be worth either: adding an example that refers to this controller document, pointing to the spec you mentioned, or explicitly stating the relationship between controller docs and  `iss` &amp; `kid`."><pre class="notranslate"><code class="notranslate hljs" aria-busy="false">          Just read that section, and I have to say that it's not intuitive at all. I think it would be worth either: adding an example that refers to this controller document, pointing to the spec you mentioned, or explicitly stating the relationship between controller docs and  `iss` &amp; `kid`.
+</code></pre></div>
+<p dir="auto"><em>Originally posted by <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/andresuribe87/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/andresuribe87">@andresuribe87</a> in <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1746399326" data-permission-text="Title is private" data-url="https://github.com/w3c/vc-jwt/issues/104" data-hovercard-type="pull_request" data-hovercard-url="/w3c/vc-jwt/pull/104/hovercard?comment_id=1224839405&amp;comment_type=review_comment" href="https://github.com/w3c/vc-jwt/pull/104#discussion_r1224839405">#104 (comment)</a></em></p></div>
+  <div class="issue" id="issue-container-number-31"><div role="heading" class="issue-title marker" id="h-issue-4" aria-level="3"><a href="https://github.com/w3c/vc-jwt/issues/31"><span class="issue-number">Issue 31</span></a><span class="issue-label">: About the optionality of the "kid" field in JWT-formatted VCs/VPs <a class="respec-gh-label" href="https://github.com/w3c/vc-jwt/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discuss%22" style="background-color: rgb(225, 58, 243); color: rgb(0, 0, 0);" aria-label="GitHub label: discuss">discuss</a></span></div><p dir="auto"><a href="https://www.w3.org/TR/vc-data-model/#jwt-encoding" rel="nofollow">https://www.w3.org/TR/vc-data-model/#jwt-encoding</a> shows:</p>
+<blockquote>
+<p dir="auto">kid MAY be used if there are multiple keys associated with the <a href="https://www.w3.org/TR/vc-data-model/#dfn-issuers" rel="nofollow">issuer</a> of the JWT. The key discovery is out of the scope of this specification. For example, the kid can refer to a key in a <a href="https://www.w3.org/TR/vc-data-model/#dfn-decentralized-identifier-documents" rel="nofollow">DID document</a>, or can be the identifier of a key inside a JWKS.</p>
+</blockquote>
+<p dir="auto">I'd like some clarification on the optionality of the "kid" field. My guess is that VCs/VPs are trying to be generic regarding issuers/holders, allowing for URIs, which precludes the possibility of giving any more details about how the "kid" field should be used. Is that right?</p>
+<p dir="auto">I'm coming from a DID-centric ecosystem, and in that scenario it seems that there's no reason not to set the "kid" field on a JWT-formatted VC/VP to the DID fragment URL of the specific key used to sign. From <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1344561790" data-permission-text="Title is private" data-url="https://github.com/w3c/vc-data-model/issues/914" data-hovercard-type="issue" data-hovercard-url="/w3c/vc-data-model/issues/914/hovercard" href="https://github.com/w3c/vc-data-model/issues/914">w3c/vc-data-model#914</a> I understand that it would still be necessary to tie the "kid" to the "iss" field, but that seems fine.</p>
+<p dir="auto">As far as I can tell, if the "kid" field is missing, and assuming we're working with DIDs here, the process to resolve the signing key has to be:</p>
+<ul dir="auto">
+<li>Identify the VC issuer / holder -- the "iss" field of the JWT. This should be a DID. (Question: Could this validly include query params such as versionTime?)</li>
+<li>Resolve the DID document for that DID.</li>
+<li>For each key with purpose "authentication", attempt to verify the VC/VP's signature using that key.</li>
+<li>If one of the keys verifies the signature, accept the VP/VC's signature as valid. Otherwise reject it as invalid.</li>
+</ul>
+<p dir="auto">To me, this seems sloppy, involving unnecessary complexity and computation, and making detecting errors in implementations harder. It also wouldn't scale if for whatever reason a DID had very many keys (inefficient at best, possible DoS at worst). Maybe I'm missing something here. Can anyone comment on this? Thanks.</p></div>
+  <div class="issue" id="issue-container-number-30"><div role="heading" class="issue-title marker" id="h-issue-5" aria-level="3"><a href="https://github.com/w3c/vc-jwt/issues/30"><span class="issue-number">Issue 30</span></a><span class="issue-label">: Accept or Dismiss the guidance provided by DIF on `kid` / `iss` <a class="respec-gh-label" href="https://github.com/w3c/vc-jwt/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discuss%22" style="background-color: rgb(225, 58, 243); color: rgb(0, 0, 0);" aria-label="GitHub label: discuss">discuss</a></span></div><p dir="auto">See <a href="https://github.com/decentralized-identity/did-jose-extensions/blob/master/options.md">https://github.com/decentralized-identity/did-jose-extensions/blob/master/options.md</a></p>
+<p dir="auto">^ this guidance is ancient, I believe we can do better.</p>
+<p dir="auto">cc <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/tplooker/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/tplooker">@tplooker</a> <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/selfissued/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/selfissued">@selfissued</a> <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/Sakurann/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/Sakurann">@Sakurann</a> <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/dwaite/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/dwaite">@dwaite</a></p></div>
+  <div class="issue" id="issue-container-number-15"><div role="heading" class="issue-title marker" id="h-issue-6" aria-level="3"><a href="https://github.com/w3c/vc-jwt/issues/15"><span class="issue-number">Issue 15</span></a><span class="issue-label">: Describe why core data model members are translated to JWT claims <a class="respec-gh-label" href="https://github.com/w3c/vc-jwt/issues/?q=is%3Aissue+is%3Aopen+label%3A%22pending-close%22" style="background-color: rgb(71, 127, 192); color: rgb(0, 0, 0);" aria-label="GitHub label: pending-close">pending-close</a></span></div><blockquote>
+<p dir="auto">Can we add an explanation why do these members need to be translated to the equivalents of the JWT claims?<br>
+iss, nbf, all of them are optional in RFC 7519 itself. They only become required when the JWT is used for a specific purpose, and the only place I can think of right now is an ID Token.</p>
+</blockquote>
+<p dir="auto">See: <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1357638840" data-permission-text="Title is private" data-url="https://github.com/w3c/vc-jwt/issues/11" data-hovercard-type="pull_request" data-hovercard-url="/w3c/vc-jwt/pull/11/hovercard?comment_id=959861979&amp;comment_type=review_comment" href="https://github.com/w3c/vc-jwt/pull/11#discussion_r959861979">#11 (comment)</a></p></div>
+  <div class="issue" id="issue-container-number-13"><div role="heading" class="issue-title marker" id="h-issue-7" aria-level="3"><a href="https://github.com/w3c/vc-jwt/issues/13"><span class="issue-number">Issue 13</span></a><span class="issue-label">: Proposal: use did:jwk for testing dids and vc-jwt in the vc-jwt-test-suite</span></div><ul dir="auto">
+<li>Provide example key pairs</li>
+<li>Provide example DIDs</li>
+<li>Provide example VC signed by DIDs</li>
+<li>Provide example VP signed by DIDs</li>
+</ul></div>
+  <div class="issue" id="issue-container-number-117-0"><div role="heading" class="issue-title marker" id="h-issue-8" aria-level="3"><a href="https://github.com/w3c/vc-jwt/issues/117"><span class="issue-number">Issue 117</span></a><span class="issue-label">: how is `kid` to be `useful to distinguish the specific key used`?</span></div><p dir="auto"><em>Originally posted by <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/TallTed/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/TallTed">@TallTed</a> in <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1775041403" data-permission-text="Title is private" data-url="https://github.com/w3c/vc-jwt/issues/111" data-hovercard-type="pull_request" data-hovercard-url="/w3c/vc-jwt/pull/111/hovercard?comment_id=1244392502&amp;comment_type=review_comment" href="https://github.com/w3c/vc-jwt/pull/111#discussion_r1244392502">#111 (comment)</a></em></p>
+<p dir="auto">line 377 says (and another line says the same) --</p>
+<blockquote>
+<p dir="auto"><code class="notranslate">If &lt;code&gt;kid&lt;/code&gt; is also present, it is expected to be useful to distinguish the specific key used.</code></p>
+</blockquote>
+<p dir="auto">-- in response to which I ask --</p>
+<blockquote>
+<p dir="auto">how is <code class="notranslate">kid</code> to be <code class="notranslate">useful to distinguish the specific key used</code>? This cries out for an example, or a fair amount of additional prose.</p>
+</blockquote></div>
+  <div class="issue" id="issue-container-number-117-1"><div role="heading" class="issue-title marker" id="h-issue-9" aria-level="3"><a href="https://github.com/w3c/vc-jwt/issues/117"><span class="issue-number">Issue 117</span></a><span class="issue-label">: how is `kid` to be `useful to distinguish the specific key used`?</span></div><p dir="auto"><em>Originally posted by <a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/TallTed/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/TallTed">@TallTed</a> in <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="1775041403" data-permission-text="Title is private" data-url="https://github.com/w3c/vc-jwt/issues/111" data-hovercard-type="pull_request" data-hovercard-url="/w3c/vc-jwt/pull/111/hovercard?comment_id=1244392502&amp;comment_type=review_comment" href="https://github.com/w3c/vc-jwt/pull/111#discussion_r1244392502">#111 (comment)</a></em></p>
+<p dir="auto">line 377 says (and another line says the same) --</p>
+<blockquote>
+<p dir="auto"><code class="notranslate">If &lt;code&gt;kid&lt;/code&gt; is also present, it is expected to be useful to distinguish the specific key used.</code></p>
+</blockquote>
+<p dir="auto">-- in response to which I ask --</p>
+<blockquote>
+<p dir="auto">how is <code class="notranslate">kid</code> to be <code class="notranslate">useful to distinguish the specific key used</code>? This cries out for an example, or a fair amount of additional prose.</p>
+</blockquote></div>
+  <p>
+In order to complete the <a href="https://www.w3.org/TR/vc-data-model/#dfn-verify">verification</a> process, 
+a <a href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a> needs to obtain the cryptographic keys used to secure the 
+<a href="https://www.w3.org/TR/vc-data-model/#dfn-credential">credential</a>.
+  </p>
+  <p>
+There are several different ways to discover the verification keys of
+the <a href="https://www.w3.org/TR/vc-data-model/#dfn-issuers">issuers</a>
+and <a href="https://www.w3.org/TR/vc-data-model/#dfn-holders">holders</a>.
+  </p>
+
+  <section id="registered-claim-names"><div class="header-wrapper"><h3 id="x4-1-registered-claim-names"><bdi class="secno">4.1 </bdi>Registered Claim Names</h3><a class="self-link" href="#registered-claim-names" aria-label="Permalink for Section 4.1"></a></div>
+    
+    <p>
+When found in the <a href="https://www.rfc-editor.org/rfc/rfc7515#section-4.1">Protected Header</a>, or 
+the <a href="https://www.rfc-editor.org/rfc/rfc7519#section-4.1.1">Protected Claimset</a>, members present in
+<a href="https://www.iana.org/assignments/jwt/jwt.xhtml">IANA Assignments for JSON Web Token (JWT)</a> and 
+<a href="https://www.iana.org/assignments/jose/jose.xhtml">IANA Assignments for JSON Object Signing and Encryption (JOSE)</a>
+are to be interpreted according to the associated specifications referenced by IANA.
+    </p>
+    <p>
+<a href="#registered-claim-names">Registered claims</a> that are present in either
+the <a href="https://www.rfc-editor.org/rfc/rfc7515#section-4.1">Protected Header</a>
+or the <a href="https://www.rfc-editor.org/rfc/rfc7519#section-4.1.1">Claimset</a> can be used to help
+<a href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifiers</a> discover verification keys.
+    </p>
+    <section id="kid"><div class="header-wrapper"><h4 id="x4-1-1-kid"><bdi class="secno">4.1.1 </bdi>kid</h4><a class="self-link" href="#kid" aria-label="Permalink for Section 4.1.1"></a></div>
+      
+      <p>
+If <code>kid</code> is present in the <a href="https://www.rfc-editor.org/rfc/rfc7515#section-4.1">Protected Header</a>,
+a <a href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a> can use this parameter
+to obtain a <a href="https://www.rfc-editor.org/rfc/rfc7517#section-4">JSON Web Key</a> to use in the 
+<a href="https://www.w3.org/TR/vc-data-model/#dfn-verify">verification</a> process.
+      </p>
+    </section>
+    <section id="iss"><div class="header-wrapper"><h4 id="x4-1-2-iss"><bdi class="secno">4.1.2 </bdi>iss</h4><a class="self-link" href="#iss" aria-label="Permalink for Section 4.1.2"></a></div>
+      
+      <p>
+If <code>iss</code> is present in the <a href="https://www.rfc-editor.org/rfc/rfc7515#section-4.1">Protected Header</a>
+or the <a href="https://www.rfc-editor.org/rfc/rfc7519#section-4.1.1">JWT Claims </a>,
+a <a href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a> can use this parameter
+to obtain a <a href="https://www.rfc-editor.org/rfc/rfc7517#section-4">JSON Web Key</a> to use in the 
+<a href="https://www.w3.org/TR/vc-data-model/#dfn-verify">verification</a> process.
+      </p>
+      <p>
+If <code>kid</code> is also present in the
+<a href="https://www.rfc-editor.org/rfc/rfc7515#section-4.1">Protected Header</a>, it is expected to be useful to
+distinguish the specific key used.
+      </p>
+    <div class="issue" id="issue-container-number-31-0"><div role="heading" class="issue-title marker" id="h-issue-10" aria-level="5"><a href="https://github.com/w3c/vc-jwt/issues/31"><span class="issue-number">Issue 31</span></a><span class="issue-label">: About the optionality of the "kid" field in JWT-formatted VCs/VPs <a class="respec-gh-label" href="https://github.com/w3c/vc-jwt/issues/?q=is%3Aissue+is%3Aopen+label%3A%22discuss%22" style="background-color: rgb(225, 58, 243); color: rgb(0, 0, 0);" aria-label="GitHub label: discuss">discuss</a></span></div><p class="">
+      There are a few issues related to clarification of optionality and behavior of 
+      registered claims.  
+    </p></div>
+    </section>
+
+    <section id="cnf"><div class="header-wrapper"><h4 id="x4-1-3-cnf"><bdi class="secno">4.1.3 </bdi>cnf</h4><a class="self-link" href="#cnf" aria-label="Permalink for Section 4.1.3"></a></div>
+      
+      <p>
+If <code>cnf</code> is present in the <a href="https://www.rfc-editor.org/rfc/rfc7515#section-4.1">Protected Header</a>
+or the <a href="https://www.rfc-editor.org/rfc/rfc7519#section-4.1.1">JWT Claims </a>,
+a <a href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a> can use this parameter
+to obtain a <a href="https://www.rfc-editor.org/rfc/rfc7517#section-4">JSON Web Key</a> to use in the 
+<a href="https://www.w3.org/TR/vc-data-model/#dfn-verify">verification</a> process.
+      </p>
+      <p>
+If <code>kid</code> is also present in the
+<a href="https://www.rfc-editor.org/rfc/rfc7515#section-4.1">Protected Header</a>, it is expected to be
+useful to distinguish the specific key used.
+      </p>
+    </section>
+  </section>
+  
+  <section id="well-known-uris"><div class="header-wrapper"><h3 id="x4-2-well-known-uris"><bdi class="secno">4.2 </bdi>Well Known URIs</h3><a class="self-link" href="#well-known-uris" aria-label="Permalink for Section 4.2"></a></div>
+    
+    <div class="issue" id="issue-container-generatedID-4"><div role="heading" class="issue-title marker" id="h-issue-11" aria-level="4"><span>Issue</span></div><p class="">
+The working group is currently exploring how 
+<a href="https://www.rfc-editor.org/rfc/rfc5785#section-3">Defining Well-Known Uniform Resource Identifiers (URIs)</a>
+could be leveraged to assist a <a href="https://www.w3.org/TR/vc-data-model/#dfn-verifier">verifier</a> in discovering verification keys for 
+<a href="https://www.w3.org/TR/vc-data-model/#dfn-issuers">issuers</a> 
+and <a href="https://www.w3.org/TR/vc-data-model/#dfn-holders">holders</a>.
+    </p></div>
+
+
+
+  </section>
+
+  
+</section>
+
+<section id="conformance"><div class="header-wrapper"><h2 id="x5-conformance"><bdi class="secno">5. </bdi>Conformance</h2><a class="self-link" href="#conformance" aria-label="Permalink for Section 5."></a></div><p>As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.</p><p>
+        The key words <em class="rfc2119">MAY</em>, <em class="rfc2119">MUST</em>, <em class="rfc2119">MUST NOT</em>, and <em class="rfc2119">RECOMMENDED</em> in this document
+        are to be interpreted as described in
+        <a href="https://datatracker.ietf.org/doc/html/bcp14">BCP 14</a>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">RFC2119</a></cite>] [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8174" title="Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words">RFC8174</a></cite>]
+        when, and only when, they appear in all capitals, as shown here.
+      </p>
+    <section class="normative" id="json-web-token-header-parameters"><div class="header-wrapper"><h3 id="x5-1-json-web-token-header-parameters"><bdi class="secno">5.1 </bdi>JSON Web Token Header Parameters</h3><a class="self-link" href="#json-web-token-header-parameters" aria-label="Permalink for Section 5.1"></a></div>
+      
+      <p>
+        The normative statements in <a href="https://www.rfc-editor.org/rfc/rfc7515#section-4.1">Registered Header Parameter
+          Names</a>
+        apply to securing credentials and presentations.
+      </p>
+      <p>
+        The normative statements in <a href="https://www.rfc-editor.org/rfc/rfc7519#section-5">JOSE Header</a>
+        apply to securing credentials and presentations.
+      </p>
+      <p>
+        The data model for the protected header is JSON
+        (application/json), not JSON-LD (application/ld+json).
+      </p>
+      <p>
+        The normative statements in <a href="https://www.rfc-editor.org/rfc/rfc7519#section-5.3">Replicating Claims as Header
+          Parameters</a>
+        apply to securing claims about a credential subject.
+      </p>
+      <p>
+        When replicating claims from the claimset to the header, it is
+        <em class="rfc2119">RECOMMENDED</em> to use [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7519" title="JSON Web Token (JWT)">RFC7519</a></cite>], <a href="https://www.iana.org/assignments/jose/jose.xhtml">IANA
+          Assignments for Header Parameters</a>, and <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">IANA
+          Assignments for JSON Web Token (JWT)</a>
+        to identify any reserved claims that might be confused with
+        members of the [[VC-DATA-MODEL]. This includes but is not
+        limited to: <code>iss</code>, <code>kid</code>,
+        <code>alg</code>, <code>iat</code>,
+        <code>exp</code> and <code>cnf</code>.
+      </p>
+      <p>
+        The <a href="#registered-claim-names">registered claim</a> names <code>vc</code> and <code>vp</code>
+        <em class="rfc2119">MUST NOT</em> be present as header parameters.
+      </p>
+      <p>
+        When present, members of the header are to be interpreted and
+        processed according to
+        <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">IANA
+          Assignments for JSON Web Token (JWT)</a> and
+        <a href="https://www.iana.org/assignments/jose/jose.xhtml">IANA
+          Assignments for JSON Object Signing and Encryption (JOSE)</a>.
+      </p>
+      <p>
+        Additional members may be present, if they are not understood,
+        they <em class="rfc2119">MUST</em> be ignored.
+      </p>
+    </section>
+    <section class="normative" id="securing-verifiable-credentials"><div class="header-wrapper"><h3 id="x5-2-securing-verifiable-credentials"><bdi class="secno">5.2 </bdi>Securing Verifiable Credentials</h3><a class="self-link" href="#securing-verifiable-credentials" aria-label="Permalink for Section 5.2"></a></div>
+      
+      <p>The <a href="https://www.w3.org/TR/vc-data-model/#proof-formats">Verifiable Credentials Data Model v1.1</a> describes the approach taken by JSON Web
+        Tokens to secure claimsets as <i>applying an
+        <code>external proof</code></i>.
+      </p>
+      <p>The normative statements in <a href="https://www.w3.org/TR/vc-data-model/#securing-verifiable-credentials">Securing
+          Verifiable Credentials</a> apply to securing
+        <code>application/vc+ld+json</code> and
+        <code>application/vp+ld+json</code>
+        as <code>application/vc+ld+jwt</code> and
+        <code>application/vp+ld+jwt</code>.
+      </p>
+      <p>For clarity, these requirements are repeated here:</p>
+      <ul>
+        <li>
+          <p>
+            At least one securing mechanism, and the details necessary
+            to evaluate it, <em class="rfc2119">MUST</em> be expressed for a credential or
+            presentation to be a verifiable credential or verifiable
+            presentation; that is, to be verifiable.
+          </p>
+        </li>
+        <li>
+          <p>
+            Methods of securing credentials or presentations that embed
+            a proof in the data model <em class="rfc2119">MUST</em> use the proof property.
+          </p>
+        </li>
+        <li>
+          <p>
+            Methods of securing credentials or presentations that use an
+            external proof <em class="rfc2119">MAY</em> use the proof property.
+          </p>
+        </li>
+        <li>
+          <p>
+            One or more cryptographic proofs that can be used to detect
+            tampering and verify the authorship of a credential or
+            presentation. The specific method used for an embedded proof
+            <em class="rfc2119">MUST</em> be included using the type property.
+          </p>
+        </li>
+      </ul>
+      <p class="advisement">
+        The type <code>VerifiableCredential</code> and
+        <code>VerifiablePresentation</code> are RDF Classes.
+        <br><br>
+        The presence of the word "Verifiable" does not convey a
+        cryptographic verification capability exists.
+        <br><br>
+        The presence of the JSON <code>proof</code> member does not
+        convey a cryptographic verification capability exists.
+        <br><br>
+        The presence of the JSON <code>proof</code> member is
+        optional in both <code>VerifiableCredential</code> and
+        <code>VerifiablePresentation</code>.
+        <br><br>
+        The presence of the JSON <code>proof</code> member is
+        optional in both <code>application/vc+ld+json</code> and
+        <code>application/vp+ld+json</code>.
+      </p>
+      <p>
+        JSON Web Token implementers are advised to review <a href="https://www.rfc-editor.org/rfc/rfc7519#section-8">Implementation
+          Requirements</a>.
+      </p>
+      <p>
+        Accordingly, Issuers, Holders and Verifiers <em class="rfc2119">MUST</em> understand the
+        JSON Web Token header parameter
+        <code>"alg": "none"</code> when securing the [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-model" title="Verifiable Credentials Data Model v1.1">VC-DATA-MODEL</a></cite>]
+        with JSON Web Tokens.
+      </p>
+      <p>
+        When content types from the [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-model" title="Verifiable Credentials Data Model v1.1">VC-DATA-MODEL</a></cite>] are secured using
+        JSON Web Tokens, the header parameter <code>"alg":
+        "none"</code>, <em class="rfc2119">MUST</em> be used to communicate that a claimset (a
+        Verifiable Credential or a Verifiable Presentation) has no
+        integrity protection.
+      </p>
+      <p>
+        When a JSON Web Token claimset (a Verifiable Credential or a
+        Verifiable Presentation) contains
+        <code>proof</code>, and the JSON Web Token header contains
+        <code>"alg": "none"</code>, the claimset <em class="rfc2119">MUST</em> be considered to
+        have no integrity protection.
+      </p>
+      <p class="advisement">
+        Verifiable Credentials and Verifiable Presenatations are not
+        required to be secured or integrity protected or to contain a
+        <code>proof</code> member.
+      </p>
+      <p>Issuers, Holders and Verifiers <em class="rfc2119">MUST</em> ignore all claimsets that
+        have no integrity protection.</p>
+    </section>
+  
+</section>
+
+  <section class="normative" id="iana-considerations"><div class="header-wrapper"><h2 id="x6-iana-considerations"><bdi class="secno">6. </bdi>IANA Considerations</h2><a class="self-link" href="#iana-considerations" aria-label="Permalink for Section 6."></a></div>
+    
+    <section id="media-type-registrations"><div class="header-wrapper"><h3 id="x6-1-media-types"><bdi class="secno">6.1 </bdi>Media Types</h3><a class="self-link" href="#media-type-registrations" aria-label="Permalink for Section 6.1"></a></div>
+    
+    <section id="vc-jwt-media-type"><div class="header-wrapper"><h4 id="x6-1-1-application-vc-jwt"><bdi class="secno">6.1.1 </bdi><code>application/vc+jwt</code></h4><a class="self-link" href="#vc-jwt-media-type" aria-label="Permalink for Section 6.1.1"></a></div>
+      
+      <p>
+        This specification registers the <code>application/vc+jwt</code>
+        Media Type specifically for identifying a <a href="https://www.rfc-editor.org/rfc/rfc7519#section-3">JWT</a> conforming to the
+        Verifiable Credentials JWT format in the <code>typ</code> header.
+      </p>
+      <table>
+        <tbody><tr>
+          <td>Type name: </td>
+          <td>application</td>
+        </tr>
+        <tr>
+          <td>Subtype name: </td>
+          <td>application/vc+jwt</td>
+        </tr>
+        <tr>
+          <td>Required parameters: </td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Encoding considerations: </td>
+          <td>
+            <code>application/vc+jwt</code> values are encoded as a
+            series of base64url encoded values (some of which may be the
+            empty string) each separated from the next by a single
+            period ('.') character.
+          </td>
+        </tr>
+        <tr>
+          <td>Security considerations: </td>
+          <td>
+            <p>As defined in this specification. See also the security
+              considerations in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7519" title="JSON Web Token (JWT)">RFC7519</a></cite>].</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Contact: </td>
+          <td>
+            <abbr title="World Wide Web Consortium">W3C</abbr> Verifiable Credentials Working Group <a href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+      </tbody></table>
+    </section>
+
+    <section id="vc-ld-jwt-media-type"><div class="header-wrapper"><h4 id="x6-1-2-application-vc-ld-jwt"><bdi class="secno">6.1.2 </bdi><code>application/vc+ld+jwt</code></h4><a class="self-link" href="#vc-ld-jwt-media-type" aria-label="Permalink for Section 6.1.2"></a></div>
+      
+      <p>
+        This specification registers the
+        <code>application/vc+ld+jwt</code> Media Type specifically for
+        identifying a <a href="https://www.rfc-editor.org/rfc/rfc7519#section-3">JWT</a>
+        conforming to the Verifiable Credentials JWT format in the <code>typ</code>
+        header.
+      </p>
+      <table>
+        <tbody><tr>
+          <td>Type name: </td>
+          <td>application</td>
+        </tr>
+        <tr>
+          <td>Subtype name: </td>
+          <td>vc+ld+jwt</td>
+        </tr>
+        <tr>
+          <td>Required parameters: </td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Encoding considerations: </td>
+          <td>
+            <code>application/vc+ld+jwt</code> values are encoded as a
+            series of base64url encoded values (some of which may be the
+            empty string) each separated from the next by a single
+            period ('.') character.
+          </td>
+        </tr>
+        <tr>
+          <td>Security considerations: </td>
+          <td>
+            <p>As defined in this specification. See also the security
+              considerations in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7519" title="JSON Web Token (JWT)">RFC7519</a></cite>].</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Contact: </td>
+          <td>
+            <abbr title="World Wide Web Consortium">W3C</abbr> Verifiable Credentials Working Group <a href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+      </tbody></table>
+    </section>
+    <section id="vp-ld-jwt-media-type"><div class="header-wrapper"><h4 id="x6-1-3-application-vp-ld-jwt"><bdi class="secno">6.1.3 </bdi><code>application/vp+ld+jwt</code></h4><a class="self-link" href="#vp-ld-jwt-media-type" aria-label="Permalink for Section 6.1.3"></a></div>
+      
+      <p>
+        This specification registers the
+        <code>application/vp+ld+jwt</code> Media Type specifically for
+        identifying a <a href="https://www.rfc-editor.org/rfc/rfc7519#section-3">JWT</a>
+        conforming to the Verifiable Credentials JWT format in the <code>typ</code>
+        header.
+      </p>
+      <table>
+        <tbody><tr>
+          <td>Type name: </td>
+          <td>application</td>
+        </tr>
+        <tr>
+          <td>Subtype name: </td>
+          <td>vp+ld+jwt</td>
+        </tr>
+        <tr>
+          <td>Required parameters: </td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Encoding considerations: </td>
+          <td>
+            <code>application/vp+ld+jwt</code> values are encoded as a
+            series of base64url encoded values (some of which may be the
+            empty string) each separated from the next by a single
+            period ('.') character.
+          </td>
+        </tr>
+        <tr>
+          <td>Security considerations: </td>
+          <td>
+            <p>As defined in this specification. See also the security
+              considerations in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7519" title="JSON Web Token (JWT)">RFC7519</a></cite>].</p>
+          </td>
+          <td>
+            <p>
+              Be advised, per the [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-model" title="Verifiable Credentials Data Model v1.1">VC-DATA-MODEL</a></cite>], verifiable
+              presentations are not required to be secured.
+            </p>
+            <p>
+              This "typ" value might be paired with "alg: none", in
+              headers.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>Contact: </td>
+          <td>
+            <abbr title="World Wide Web Consortium">W3C</abbr> Verifiable Credentials Working Group <a href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+      </tbody></table>
+    </section>
+    <section id="vc-ld-sd-jwt-media-type"><div class="header-wrapper"><h4 id="x6-1-4-application-vc-ld-sd-jwt"><bdi class="secno">6.1.4 </bdi><code>application/vc+ld+sd-jwt</code></h4><a class="self-link" href="#vc-ld-sd-jwt-media-type" aria-label="Permalink for Section 6.1.4"></a></div>
+      
+      <p>
+        This specification registers the
+        <code>application/vc+ld+sd-jwt</code> Media Type specifically for
+        identifying a <cite><a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-05">Selective Disclosure for JWTs (SD-JWT)</a></cite>
+        conforming to the Verifiable Credentials.
+      </p>
+      <table>
+        <tbody><tr>
+          <td>Type name: </td>
+          <td>application</td>
+        </tr>
+        <tr>
+          <td>Subtype name: </td>
+          <td>vc+ld+sd-jwt</td>
+        </tr>
+        <tr>
+          <td>Required parameters: </td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Encoding considerations: </td>
+          <td>
+            binary; application/sd-jwt values are a series of base64url-encoded values 
+            (some of which may be the empty string) separated by period ('.') or tilde ('~') characters.
+          </td>
+        </tr>
+        <tr>
+          <td>Security considerations: </td>
+          <td>
+            <p>As defined in this specification. See also the security
+            considerations in <cite><a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-05">Selective Disclosure for JWTs (SD-JWT)</a></cite>.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Contact: </td>
+          <td>
+            <abbr title="World Wide Web Consortium">W3C</abbr> Verifiable Credentials Working Group <a href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+      </tbody></table>
+    </section>
+  </section>
+  
+
+  <section id="json-web-token-claim-registrations"><div class="header-wrapper"><h3 id="x6-2-json-web-token-claims"><bdi class="secno">6.2 </bdi>JSON Web Token Claims</h3><a class="self-link" href="#json-web-token-claim-registrations" aria-label="Permalink for Section 6.2"></a></div>
+    
+    <p>
+      This section retained deprecated registered claim names, 
+      that have been submitted to the Internet Engineering Steering Group
+      (IESG) for review, approval, and registration with IANA in the
+      "JSON Web Token Claims Registry".
+    </p>
+
+    <div class="issue" id="issue-container-number-119"><div role="heading" class="issue-title marker" id="h-issue-12" aria-level="4"><a href="https://github.com/w3c/vc-jwt/issues/119"><span class="issue-number">Issue 119</span></a><span class="issue-label">: Deprecate `vc` &amp; `vp` ?</span></div><p dir="auto">These are registered claims at:</p>
+<ul dir="auto">
+<li><a href="https://www.iana.org/assignments/jwt/jwt.xhtml" rel="nofollow">https://www.iana.org/assignments/jwt/jwt.xhtml</a></li>
+</ul>
+<p dir="auto">As it says, the change controller is IESG, but it references v1.0 of the data model, specifically:</p>
+<ul dir="auto">
+<li><a href="https://www.w3.org/TR/2019/REC-vc-data-model-20191119/" rel="nofollow">https://www.w3.org/TR/2019/REC-vc-data-model-20191119/</a></li>
+</ul>
+<p dir="auto">In v2, we removed these from the core data model, and we removed them from this specification.</p>
+<p dir="auto">Should we tell the IESG to update the registry in any way?</p></div>
+    
+      <section id="vc-json-web-token-claim"><div class="header-wrapper"><h4 id="x6-2-1-vc"><bdi class="secno">6.2.1 </bdi><code>vc</code></h4><a class="self-link" href="#vc-json-web-token-claim" aria-label="Permalink for Section 6.2.1"></a></div>
+        
+        <table>
+          <tbody><tr>
+            <th>Claim Name: </th>
+            <td>"vc" </td>
+          </tr>
+          <tr>
+            <th>Claim Description: </th>
+            <td>Verifiable Credential</td>
+          </tr>
+          <tr>
+            <th>Change Controller:  </th>
+            <td><abbr title="World Wide Web Consortium">W3C</abbr></td>
+          </tr>
+          <tr>
+            <th>Specification Document(s): </th>
+            <td>
+            <a href="https://www.w3.org/TR/vc-data-model/">Section 6.3.1.2: JSON Web Token
+              Extensions of Verifiable Credentials Data Model 1.0</a>
+            </td>
+          </tr>
+        </tbody></table>
+      </section>
+
+      <section id="vp-json-web-token-claim"><div class="header-wrapper"><h4 id="x6-2-2-vp"><bdi class="secno">6.2.2 </bdi><code>vp</code></h4><a class="self-link" href="#vp-json-web-token-claim" aria-label="Permalink for Section 6.2.2"></a></div>
+        
+        <table>
+          <tbody><tr>
+            <th>Claim Name: </th>
+            <td>"vp"</td>
+          </tr>
+          <tr>
+            <th>Claim Description: </th>
+            <td>Verifiable Presentation</td>
+          </tr>
+          <tr>
+            <th>Change Controller: </th>
+            <td><abbr title="World Wide Web Consortium">W3C</abbr></td>
+          </tr>
+          <tr>
+            <th>Specification Document(s):</th>
+            <td>
+              <a href="https://www.w3.org/TR/vc-data-model/">Section 6.3.1.2: JSON Web Token
+                Extensions of Verifiable Credentials Data Model 1.0</a>
+            </td>
+          </tr>
+        </tbody></table>
+      </section>
+    </section>
+  </section>
+  <section id="other-considerations"><div class="header-wrapper"><h2 id="x7-other-considerations"><bdi class="secno">7. </bdi>Other Considerations</h2><a class="self-link" href="#other-considerations" aria-label="Permalink for Section 7."></a></div>
+    
+
+    <section id="privacy-considerations"><div class="header-wrapper"><h3 id="x7-1-privacy-considerations"><bdi class="secno">7.1 </bdi>Privacy Considerations</h3><a class="self-link" href="#privacy-considerations" aria-label="Permalink for Section 7.1"></a></div>
+      
+      <p>
+        Verifiable Credentials often contain sensitive information that
+        needs to be protected to ensure the privacy and security of
+        organizations and individuals. This section outlines some
+        privacy considerations relevant to implementers and users.
+      </p>
+      <p>
+        Implementers are advised to note and abide by all privacy
+        considerations called out in the [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-model" title="Verifiable Credentials Data Model v1.1">VC-DATA-MODEL</a></cite>].
+      </p>
+      <p>
+        Implementers are additionally advised to reference the
+        <a href="https://www.rfc-editor.org/rfc/rfc7519#section-12">Privacy
+          Consideration</a>
+        section of the JWT specification for privacy guidance.
+      </p>
+      <p>
+        In addition to the privacy recommendations in the
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-model" title="Verifiable Credentials Data Model v1.1">VC-DATA-MODEL</a></cite>], the following considerations are given:
+      </p><ul>
+        <li>
+          <p>
+            Minimization of data: It is considered best practice for
+            Verifiable Credentials to only contain the minimum amount of
+            data necessary to achieve their intended purpose. This helps
+            to limit the amount of sensitive information that is shared
+            or stored unnecessarily.
+          </p>
+        </li>
+        <li>
+          <p>
+            Informed consent: It is considered best practice that
+            individuals be fully informed about how their data will be
+            used and provide the ability to consent to or decline the
+            use of their data. This helps to ensure that individuals
+            maintain control over their own personal information.
+          </p>
+        </li>
+        <li>
+          <p>
+            Data protection: It is considered best practice to protect
+            Verifiable Credentials using strong encryption and other
+            security measures to prevent unauthorized access,
+            modification, or disclosure.
+          </p>
+        </li>
+      </ul>
+      <p></p>
+      <p>
+        These considerations are not exhaustive, and implementers and
+        users are advised to consult additional privacy resources and
+        best practices to ensure the privacy and security of Verifiable
+        Credentials implemented using VC-JWT.
+      </p>
+    </section>
+    <section id="security-considerations"><div class="header-wrapper"><h3 id="x7-2-security-considerations"><bdi class="secno">7.2 </bdi>Security Considerations</h3><a class="self-link" href="#security-considerations" aria-label="Permalink for Section 7.2"></a></div>
+      
+      <p>
+        This section outlines security considerations for implementers
+        and users of this specification. It is important to carefully
+        consider these factors to ensure the security and integrity of
+        Verifiable Credentials when implemented using JWTs.
+      </p>
+      <p>
+        When implementing VC-JWTs, it is essential to address all
+        security issues relevant to broad cryptographic applications.
+        This especially includes protecting the user's asymmetric
+        private and symmetric secret keys, as well as employing
+        countermeasures against various attacks. Failure to adequately
+        address these issues could compromise the security and integrity
+        of Verifiable Credentials, potentially leading to unauthorized
+        access, modification, or disclosure of sensitive information.
+      </p>
+      <p>
+        Implementers are advised to follow best practices and
+        established cryptographic standards to ensure the secure
+        handling of keys and other sensitive data. Additionally, conduct
+        regular security assessments and audits to identify and address
+        any vulnerabilities or threats.
+      </p>
+      <p>
+        Follow all security considerations outlined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7515" title="JSON Web Signature (JWS)">rfc7515</a></cite>] and
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7519" title="JSON Web Token (JWT)">rfc7519</a></cite>].
+      </p>
+      <p>
+        When utilizing JSON-LD, take special care around remote
+        retrieval of contexts and follow the additional security
+        considerations noted in [<cite><a class="bibref" data-link-type="biblio" href="#bib-json-ld11" title="JSON-LD 1.1">json-ld11</a></cite>].
+      </p>
+      <p>
+        As noted in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7515" title="JSON Web Signature (JWS)">rfc7515</a></cite>] when utilizing JSON [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7159" title="The JavaScript Object Notation (JSON) Data Interchange Format">rfc7159</a></cite>], strict
+        validation is a security requirement. If malformed JSON is
+        received, it may be impossible to reliably interpret the
+        producer's intent, potentially leading to ambiguous or
+        exploitable situations. To prevent these risks, it is essential
+        to use a JSON parser that strictly validates the syntax of all
+        input data. It is essential that any JSON inputs that do not
+        conform to the JSON-text syntax defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7159" title="The JavaScript Object Notation (JSON) Data Interchange Format">rfc7159</a></cite>] be
+        rejected in their entirety by JSON parsers. Failure to reject
+        invalid input could compromise the security and integrity of
+        Verifiable Credentials.
+      </p>
+    </section>
+    <section class="informative" id="accessibility"><div class="header-wrapper"><h3 id="x7-3-accessibility"><bdi class="secno">7.3 </bdi>Accessibility</h3><a class="self-link" href="#accessibility" aria-label="Permalink for Section 7.3"></a></div><p><em>This section is non-normative.</em></p>
+      
+      <p>
+        When implementing the VC-JWT specification, it is crucial for
+        technical implementers to consider various accessibility
+        factors. Ignoring accessibility concerns renders the information
+        unusable for a significant portion of the population. To ensure
+        equal access for all individuals, regardless of their abilities,
+        it is vital to adhere to accessibility guidelines and standards,
+        such as the Web Content Accessibility Guidelines (WCAG 2.1)
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-wcag21" title="Web Content Accessibility Guidelines (WCAG) 2.1">WCAG21</a></cite>]. This becomes even more critical when establishing
+        systems that involve cryptography, as they have historically
+        posed challenges for assistive technologies.
+      </p>
+      <p>
+        Implementers are advised to note and abide by all accessibility
+        considerations called out in the [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-model" title="Verifiable Credentials Data Model v1.1">VC-DATA-MODEL</a></cite>].
+      </p>
+    </section>
+
+
+    <section class="informative" id="internationalization"><div class="header-wrapper"><h3 id="x7-4-internationalization"><bdi class="secno">7.4 </bdi>Internationalization</h3><a class="self-link" href="#internationalization" aria-label="Permalink for Section 7.4"></a></div><p><em>This section is non-normative.</em></p>
+      
+      <p>
+        Implementers should take into account several
+        internationalization considerations when publishing data
+        described in this specification. Disregarding
+        internationalization hampers the production and consumption of
+        data across diverse languages and societies, thereby restricting
+        the applicability and significantly reducing the value of the
+        specification as a standard.
+      </p>
+      <p>
+        Implementers are advised to note and abide by all
+        internationalization considerations called out in the
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-vc-data-model" title="Verifiable Credentials Data Model v1.1">VC-DATA-MODEL</a></cite>], see also <a href="https://www.w3.org/standards/webdesign/i18n">i18n</a>,
+        <a href="https://url.spec.whatwg.org">URL Standard</a>
+      </p>
+    </section>
+
+  </section>
+
+
+  <section class="informative" id="appendix"><div class="header-wrapper"><h2 id="x8-appendix"><bdi class="secno">8. </bdi>Appendix</h2><a class="self-link" href="#appendix" aria-label="Permalink for Section 8."></a></div><p><em>This section is non-normative.</em></p>
+    
+    <section id="controllers"><div class="header-wrapper"><h3 id="x8-1-controllers"><bdi class="secno">8.1 </bdi>Controllers</h3><a class="self-link" href="#controllers" aria-label="Permalink for Section 8.1"></a></div>
+      
+      <div class="example" id="example-a-verifiable-credential-controller-document">
+        <div class="marker">
+    <a class="self-link" href="#example-a-verifiable-credential-controller-document">Example<bdi> 9</bdi></a><span class="example-title">: A verifiable credential controller document</span>
+  </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"@context"</span>: [<span class="hljs-string">"https://www.w3.org/ns/did/v1"</span>, {
+    <span class="hljs-attr">"@vocab"</span>: <span class="hljs-string">"https://vendor.example#"</span>
+  }],
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"did:web:vendor.example"</span>,
+  <span class="hljs-attr">"alsoKnownAs"</span>: [<span class="hljs-string">"https://vendor.example"</span>,
+    <span class="hljs-string">"did:jwk:eyJraWQiOiJ1cm46aWV0ZjpwYXJhbXM6b2F1dGg6andrLXRodW1icHJpbnQ6c2hhLTI1NjpGZk1iek9qTW1RNGVmVDZrdndUSUpqZWxUcWpsMHhqRUlXUTJxb2JzUk1NIiwia3R5IjoiT0tQIiwiY3J2IjoiRWQyNTUxOSIsImFsZyI6IkVkRFNBIiwieCI6IkFOUmpIX3p4Y0tCeHNqUlBVdHpSYnA3RlNWTEtKWFE5QVBYOU1QMWo3azQifQ"</span>
+  ],
+  <span class="hljs-attr">"verificationMethod"</span>: [{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"#urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs"</span>,
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"JsonWebKey"</span>,
+    <span class="hljs-attr">"controller"</span>: <span class="hljs-string">"did:web:vendor.example"</span>,
+    <span class="hljs-attr">"publicKeyJwk"</span>: {
+      <span class="hljs-attr">"kty"</span>: <span class="hljs-string">"EC"</span>,
+      <span class="hljs-attr">"crv"</span>: <span class="hljs-string">"P-521"</span>,
+      <span class="hljs-attr">"alg"</span>: <span class="hljs-string">"ES512"</span>,
+      <span class="hljs-attr">"x"</span>: <span class="hljs-string">"AFTyMw-fIYJNg6fBVJvOPOsLxmnNj8HgqMChyRL0swLaefVAc7wrWZ8okQJqMmvv03JRUp277meQZM3JcvXFkH1v"</span>,
+      <span class="hljs-attr">"y"</span>: <span class="hljs-string">"ALn96CrD88b4TClmkl1sk0xk2FgAIda97ZF8TUOjbeWSzbKnN2KB6pqlpbuJ2xIRXvsn5BWQVlAT2JGpGwDNMyV1"</span>
+    }
+  }, {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"#z6MkhEdpG12jyQegrr62ACRmNY8gc531W2j9Xo39cHphuCEH"</span>,
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"JsonWebKey2020"</span>,
+    <span class="hljs-attr">"controller"</span>: <span class="hljs-string">"https://vendor.example"</span>,
+    <span class="hljs-attr">"publicKeyJwk"</span>: {
+      <span class="hljs-attr">"kid"</span>: <span class="hljs-string">"urn:ietf:params:oauth:jwk-thumbprint:sha-256:FfMbzOjMmQ4efT6kvwTIJjelTqjl0xjEIWQ2qobsRMM"</span>,
+      <span class="hljs-attr">"kty"</span>: <span class="hljs-string">"OKP"</span>,
+      <span class="hljs-attr">"crv"</span>: <span class="hljs-string">"Ed25519"</span>,
+      <span class="hljs-attr">"alg"</span>: <span class="hljs-string">"EdDSA"</span>,
+      <span class="hljs-attr">"x"</span>: <span class="hljs-string">"ANRjH_zxcKBxsjRPUtzRbp7FSVLKJXQ9APX9MP1j7k4"</span>
+    }
+  }, {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"#subject-authenticaton"</span>,
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"JsonWebKey"</span>,
+    <span class="hljs-attr">"controller"</span>: <span class="hljs-string">"did:web:vendor.example"</span>,
+    <span class="hljs-attr">"publicKeyJwk"</span>: {
+      <span class="hljs-attr">"kty"</span>: <span class="hljs-string">"EC"</span>,
+      <span class="hljs-attr">"crv"</span>: <span class="hljs-string">"P-384"</span>,
+      <span class="hljs-attr">"alg"</span>: <span class="hljs-string">"ES384"</span>,
+      <span class="hljs-attr">"x"</span>: <span class="hljs-string">"PxgAmVYOQvSNcMYL2tOzoLwSWn4Ta3tIMPEUKR8pxeb-gmR11-DyKHBoIiY-2LhM"</span>,
+      <span class="hljs-attr">"y"</span>: <span class="hljs-string">"BZEBTkImVdpwvxR9THIRw16eblnj5-tZa7m-ww5uVd4kyPJNRoWUn2aT9ZuarAe-"</span>
+    }
+  }, {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"#credential-issuance"</span>,
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"JsonWebKey"</span>,
+    <span class="hljs-attr">"controller"</span>: <span class="hljs-string">"did:web:vendor.example"</span>,
+    <span class="hljs-attr">"publicKeyJwk"</span>: {
+      <span class="hljs-attr">"kty"</span>: <span class="hljs-string">"EC"</span>,
+      <span class="hljs-attr">"crv"</span>: <span class="hljs-string">"P-256"</span>,
+      <span class="hljs-attr">"alg"</span>: <span class="hljs-string">"ES256"</span>,
+      <span class="hljs-attr">"x"</span>: <span class="hljs-string">"MYvnaI87pfrn3FpTqW-yNiFcF1K7fedJiqapm20_q7c"</span>,
+      <span class="hljs-attr">"y"</span>: <span class="hljs-string">"9YEbT6Tyuc7xp9yRvhOUVKK_NIHkn5HpK9ZMgvK5pVw"</span>
+    }
+  }, {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"#key-agreement"</span>,
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"JsonWebKey"</span>,
+    <span class="hljs-attr">"controller"</span>: <span class="hljs-string">"did:web:vendor.example"</span>,
+    <span class="hljs-attr">"publicKeyJwk"</span>: {
+      <span class="hljs-attr">"kty"</span>: <span class="hljs-string">"OKP"</span>,
+      <span class="hljs-attr">"crv"</span>: <span class="hljs-string">"X25519"</span>,
+      <span class="hljs-attr">"alg"</span>: <span class="hljs-string">"ECDH-ES+A128KW"</span>,
+      <span class="hljs-attr">"x"</span>: <span class="hljs-string">"qLZkSTbstvMWPTivmiQglEFWG2Ff7gNDVoVisdZTr1I"</span>
+    }
+  }],
+  <span class="hljs-attr">"authentication"</span>: [<span class="hljs-string">"#subject-authenticaton"</span>],
+  <span class="hljs-attr">"assertionMethod"</span>: [<span class="hljs-string">"#credential-issuance"</span>],
+  <span class="hljs-attr">"keyAgreement"</span>: [<span class="hljs-string">"#key-agreement"</span>]
+}</code></pre>
+      </div>
+
+    </section>
+    <section id="credentials"><div class="header-wrapper"><h3 id="x8-2-credentials"><bdi class="secno">8.2 </bdi>Credentials</h3><a class="self-link" href="#credentials" aria-label="Permalink for Section 8.2"></a></div>
+      
+      <div class="example" id="example-a-revocable-credential-withmultiple-subjects">
+        <div class="marker">
+    <a class="self-link" href="#example-a-revocable-credential-withmultiple-subjects">Example<bdi> 10</bdi></a><span class="example-title">: A revocable credential withmultiple subjects</span>
+  </div> 
+      <div class="vc-tabbed"><input type="radio" id="vc-tab61" name="vc-tabs6" checked="checked"><input type="radio" id="vc-tab62" name="vc-tabs6"><input type="radio" id="vc-tab63" name="vc-tabs6"><ul class="vc-tabs"><li class="vc-tab"><label for="vc-tab61">Claimset</label></li><li class="vc-tab"><label for="vc-tab62">Verifiable Credential</label></li><li class="vc-tab"><label for="vc-tab63">Graph</label></li></ul><div class="vc-tab-content"><pre class="vc-jwt" data-vc-kid="#urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs" aria-busy="false"><code class="hljs">{
+  "@context": ["https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "id": "https://contoso.example/credentials/23894672394",
+  "type": ["VerifiableCredential", "K9UnitCredential"],
+  "issuer": {
+    "id": "https://contoso.example"
+  },
+  "validFrom": "2015-04-16T05:11:32.432Z",
+  "credentialStatus": {
+    "id": "https://contoso.example/credentials/status/4#273762",
+    "type": "StatusList2021Entry",
+    "statusPurpose": "revocation",
+    "statusListIndex": "273762",
+    "statusListCredential": "https://contoso.example/credentials/status/4"
+  },
+  "credentialSubject": [{
+    "id": "did:example:1312387641",
+    "type": "Person"
+  }, {
+    "id": "did:example:63888231",
+    "type": "Dog"
+  }]
+}</code></pre></div><div class="vc-tab-content"><pre>---------------- Decoded Protected Header ----------------
+{
+  "alg": "ES384",
+  "typ": "vc+ld+jwt",
+  "iss": "https://contoso.example",
+  "iat": 1689183395
+}
+---------------- Decoded Protected Claimset ----------------
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "id": "https://contoso.example/credentials/23894672394",
+  "type": [
+    "VerifiableCredential",
+    "K9UnitCredential"
+  ],
+  "issuer": {
+    "id": "https://contoso.example"
+  },
+  "validFrom": "2015-04-16T05:11:32.432Z",
+  "credentialStatus": {
+    "id": "https://contoso.example/credentials/status/4#273762",
+    "type": "StatusList2021Entry",
+    "statusPurpose": "revocation",
+    "statusListIndex": "273762",
+    "statusListCredential": "https://contoso.example/credentials/status/4"
+  },
+  "credentialSubject": [
+    {
+      "id": "did:example:1312387641",
+      "type": "Person"
+    },
+    {
+      "id": "did:example:63888231",
+      "type": "Dog"
+    }
+  ]
+}
+---------------- Compact Encoded JSON Web Token ----------------
+eyJhbGciOiJFUzM4NCIsInR5cCI6InZjK2xkK2p3dCIsImlzcyI6Imh0dHBzOi8vY29udG9zby5
+leGFtcGxlIiwiaWF0IjoxNjg5MTgzMzk1fQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5
+vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbH
+MvZXhhbXBsZXMvdjIiXSwiaWQiOiJodHRwczovL2NvbnRvc28uZXhhbXBsZS9jcmVkZW50aWFsc
+y8yMzg5NDY3MjM5NCIsInR5cGUiOlsiVmVyaWZpYWJsZUNyZWRlbnRpYWwiLCJLOVVuaXRDcmVk
+ZW50aWFsIl0sImlzc3VlciI6eyJpZCI6Imh0dHBzOi8vY29udG9zby5leGFtcGxlIn0sInZhbGl
+kRnJvbSI6IjIwMTUtMDQtMTZUMDU6MTE6MzIuNDMyWiIsImNyZWRlbnRpYWxTdGF0dXMiOnsiaW
+QiOiJodHRwczovL2NvbnRvc28uZXhhbXBsZS9jcmVkZW50aWFscy9zdGF0dXMvNCMyNzM3NjIiL
+CJ0eXBlIjoiU3RhdHVzTGlzdDIwMjFFbnRyeSIsInN0YXR1c1B1cnBvc2UiOiJyZXZvY2F0aW9u
+Iiwic3RhdHVzTGlzdEluZGV4IjoiMjczNzYyIiwic3RhdHVzTGlzdENyZWRlbnRpYWwiOiJodHR
+wczovL2NvbnRvc28uZXhhbXBsZS9jcmVkZW50aWFscy9zdGF0dXMvNCJ9LCJjcmVkZW50aWFsU3
+ViamVjdCI6W3siaWQiOiJkaWQ6ZXhhbXBsZToxMzEyMzg3NjQxIiwidHlwZSI6IlBlcnNvbiJ9L
+HsiaWQiOiJkaWQ6ZXhhbXBsZTo2Mzg4ODIzMSIsInR5cGUiOiJEb2cifV19.Pn1Ta0kDxANWI7j
+yEPNVdqEsyXBNyhLnGK_IFN3H1MIeBjUqsjhEI_2XSRTCwMUwwEZMqz6khkzZkCDc-VZmOdv3Kn
+7YD_D7yRXGv0rnVkDieKy-kacErxwseJ0W_OiQ</pre></div><div class="vc-tab-content"><code class="respec-mermaid">
+graph LR
+
+30("VerifiableCredential")
+31{{"id"}}
+32("https://contoso.example/credentials/23894672394")
+33(("type"))
+34("K9UnitCredential")
+35("issuer")
+36{{"id"}}
+37("https://contoso.example")
+38("validFrom")
+39("2015-04-16T05:11:32.432Z")
+40("credentialStatus")
+41{{"id"}}
+42("https://contoso.example/credentials/status/4#273762")
+43(("type"))
+44("StatusList2021Entry")
+45("statusPurpose")
+46("revocation")
+47("statusListIndex")
+48("273762")
+49("statusListCredential")
+50("https://contoso.example/credentials/status/4")
+51("credentialSubject")
+52{{"id"}}
+53("did:example:1312387641")
+54(("type"))
+55("Person")
+56("credentialSubject")
+57{{"id"}}
+58("did:example:63888231")
+59(("type"))
+60("Dog")
+
+30 --- 31
+31 --- 32
+30 --- 33
+33 --- 34
+30 --- 35
+35 --- 36
+36 --- 37
+30 --- 38
+38 --- 39
+30 --- 40
+40 --- 41
+41 --- 42
+40 --- 43
+43 --- 44
+40 --- 45
+45 --- 46
+40 --- 47
+47 --- 48
+40 --- 49
+49 --- 50
+30 --- 51
+51 --- 52
+52 --- 53
+51 --- 54
+54 --- 55
+30 --- 56
+56 --- 57
+57 --- 58
+56 --- 59
+59 --- 60
+
+</code></div></div></div>
+
+      <div class="example" id="example-a-credential-with-a-schema">
+        <div class="marker">
+    <a class="self-link" href="#example-a-credential-with-a-schema">Example<bdi> 11</bdi></a><span class="example-title">: A credential with a schema</span>
+  </div> 
+      <div class="vc-tabbed"><input type="radio" id="vc-tab71" name="vc-tabs7" checked="checked"><input type="radio" id="vc-tab72" name="vc-tabs7"><input type="radio" id="vc-tab73" name="vc-tabs7"><ul class="vc-tabs"><li class="vc-tab"><label for="vc-tab71">Claimset</label></li><li class="vc-tab"><label for="vc-tab72">Verifiable Credential</label></li><li class="vc-tab"><label for="vc-tab73">Graph</label></li></ul><div class="vc-tab-content"><pre class="vc-jwt" data-vc-kid="#key-42" aria-busy="false"><code class="hljs">{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "id": "https://contoso.example/credentials/35327255",
+  "type": ["VerifiableCredential", "KYCExample"],
+  "issuer": "did:web:contoso.example",
+  "validFrom": "2019-05-25T03:10:16.992Z",
+  "validUntil": "2027-05-25T03:10:16.992Z",
+  "credentialSchema": {
+    "id": "https://contoso.example/bafybeigdyr...lqabf3oclgtqy55fbzdi",
+    "type": "JsonSchema"
+  },
+  "credentialSubject": {
+    "id": "did:example:1231588",
+    "type": "Person"
+  }
+}</code></pre></div><div class="vc-tab-content"><pre>---------------- Decoded Protected Header ----------------
+{
+  "alg": "ES384",
+  "typ": "vc+ld+jwt",
+  "iss": "did:web:contoso.example",
+  "iat": 1689183395
+}
+---------------- Decoded Protected Claimset ----------------
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "id": "https://contoso.example/credentials/35327255",
+  "type": [
+    "VerifiableCredential",
+    "KYCExample"
+  ],
+  "issuer": "did:web:contoso.example",
+  "validFrom": "2019-05-25T03:10:16.992Z",
+  "validUntil": "2027-05-25T03:10:16.992Z",
+  "credentialSchema": {
+    "id": "https://contoso.example/bafybeigdyr...lqabf3oclgtqy55fbzdi",
+    "type": "JsonSchema"
+  },
+  "credentialSubject": {
+    "id": "did:example:1231588",
+    "type": "Person"
+  }
+}
+---------------- Compact Encoded JSON Web Token ----------------
+eyJhbGciOiJFUzM4NCIsInR5cCI6InZjK2xkK2p3dCIsImlzcyI6ImRpZDp3ZWI6Y29udG9zby5
+leGFtcGxlIiwiaWF0IjoxNjg5MTgzMzk1fQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5
+vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbH
+MvZXhhbXBsZXMvdjIiXSwiaWQiOiJodHRwczovL2NvbnRvc28uZXhhbXBsZS9jcmVkZW50aWFsc
+y8zNTMyNzI1NSIsInR5cGUiOlsiVmVyaWZpYWJsZUNyZWRlbnRpYWwiLCJLWUNFeGFtcGxlIl0s
+Imlzc3VlciI6ImRpZDp3ZWI6Y29udG9zby5leGFtcGxlIiwidmFsaWRGcm9tIjoiMjAxOS0wNS0
+yNVQwMzoxMDoxNi45OTJaIiwidmFsaWRVbnRpbCI6IjIwMjctMDUtMjVUMDM6MTA6MTYuOTkyWi
+IsImNyZWRlbnRpYWxTY2hlbWEiOnsiaWQiOiJodHRwczovL2NvbnRvc28uZXhhbXBsZS9iYWZ5Y
+mVpZ2R5ci4uLmxxYWJmM29jbGd0cXk1NWZiemRpIiwidHlwZSI6Ikpzb25TY2hlbWEifSwiY3Jl
+ZGVudGlhbFN1YmplY3QiOnsiaWQiOiJkaWQ6ZXhhbXBsZToxMjMxNTg4IiwidHlwZSI6IlBlcnN
+vbiJ9fQ.1cz03WTk2EQwI8k21AigO2NKRFXiTq7BWBqwuLCMWsTQxo6WhZZlLWrDetZqS5KHFac
+RyTgPQmMSDo4AlGmrr2HWfZpm-BLvj21UvEP2iMzCjWHWqFppDbiKb-Alz6Eq</pre></div><div class="vc-tab-content"><code class="respec-mermaid">
+graph LR
+
+61("VerifiableCredential")
+62{{"id"}}
+63("https://contoso.example/credentials/35327255")
+64(("type"))
+65("KYCExample")
+66("issuer")
+67("did:web:contoso.example")
+68("validFrom")
+69("2019-05-25T03:10:16.992Z")
+70("validUntil")
+71("2027-05-25T03:10:16.992Z")
+72("credentialSchema")
+73{{"id"}}
+74("https://contoso.example/bafybeigdyr...lqabf3oclgtqy55fbzdi")
+75(("type"))
+76("JsonSchema")
+77("credentialSubject")
+78{{"id"}}
+79("did:example:1231588")
+80(("type"))
+81("Person")
+
+61 --- 62
+62 --- 63
+61 --- 64
+64 --- 65
+61 --- 66
+66 --- 67
+61 --- 68
+68 --- 69
+61 --- 70
+70 --- 71
+61 --- 72
+72 --- 73
+73 --- 74
+72 --- 75
+75 --- 76
+61 --- 77
+77 --- 78
+78 --- 79
+77 --- 80
+80 --- 81
+
+</code></div></div></div>
+    </section>
+
+    <section id="presentations"><div class="header-wrapper"><h3 id="x8-3-presentations"><bdi class="secno">8.3 </bdi>
+        Presentations
+      </h3><a class="self-link" href="#presentations" aria-label="Permalink for Section 8.3"></a></div>
+      
+
+      <div class="example" id="example-credential">
+        <div class="marker">
+    <a class="self-link" href="#example-credential">Example<bdi> 12</bdi></a><span class="example-title">: Credential</span>
+  </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"@context"</span>: [<span class="hljs-string">"https://www.w3.org/ns/credentials/v2"</span>],
+  <span class="hljs-attr">"type"</span>: [<span class="hljs-string">"VerifiablePresentation"</span>],
+  <span class="hljs-attr">"holder"</span>: <span class="hljs-string">"urn:ietf:params:oauth:jwk-thumbprint:sha-256:_Fpfe27AuGmEljZE9s2lw2UH-qrZLRFNrWbJrWIe4SI"</span>,
+  <span class="hljs-attr">"verifiableCredential"</span>: [{
+      <span class="hljs-attr">"@context"</span>: [
+        <span class="hljs-string">"https://www.w3.org/ns/credentials/v2"</span>
+      ],
+      <span class="hljs-attr">"type"</span>: [
+        <span class="hljs-string">"VerifiableCredential"</span>
+      ],
+      <span class="hljs-attr">"issuer"</span>: <span class="hljs-string">"https://issuer.example/issuers/68"</span>,
+      <span class="hljs-attr">"validFrom"</span>: <span class="hljs-string">"2023-06-07T21:14:14.148Z"</span>,
+      <span class="hljs-attr">"credentialSubject"</span>: {
+        <span class="hljs-attr">"id"</span>: <span class="hljs-string">"https://subject.vendor.example"</span>
+      }
+    },
+    <span class="hljs-string">"https://vendor.example/credentials/42"</span>, <span class="hljs-string">"did:example:123"</span>,
+    <span class="hljs-string">"urn:uuid:01ec9426-c175-4e39-a006-d30050e28214"</span>,
+    <span class="hljs-string">"urn:ietf:params:oauth:jwk-thumbprint:sha-256:_Fpfe27AuGmEljZE9s2lw2UH-qrZLRFNrWbJrWIe4SI"</span>,
+    <span class="hljs-string">"data:application/vc+ld+json;base64,eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlQ3JlZGVudGlhbCJdLCJpc3N1ZXIiOiJkaWQ6andrOmV5SnJhV1FpT2lKMWNtNDZhV1YwWmpwd1lYSmhiWE02YjJGMWRHZzZhbmRyTFhSb2RXMWljSEpwYm5RNmMyaGhMVEkxTmpwdlFtUm1kbVpET1hoNk1GOUJVWFpSTjNZMU1YbERXbDl6ZUdwNU56VkNUSEpJZWsxT1Jqa3lPV1U0SWl3aWEzUjVJam9pVDB0UUlpd2lZM0oySWpvaVJXUXlOVFV4T1NJc0ltRnNaeUk2SWtWa1JGTkJJaXdpZUNJNklqTmljbU5zYjBJNGFEUk5XbFZJYms5UVVHbGtTbXd0U2pkdVVsRkpXSFJUYUZwM1oyNW1jbHAxVDI4aWZRIiwidmFsaWRGcm9tIjoiMjAyMy0wNi0wN1QyMToxNDoxNC4xNDhaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJodHRwczovL3N1YmplY3QudmVuZG9yLmV4YW1wbGUifX0="</span>,
+    <span class="hljs-string">"data:application/vc+ld+jwt;base64,ZXlKaGJHY2lPaUpGWkVSVFFTSXNJbWx6Y3lJNkltUnBaRHBxZDJzNlpYbEtjbUZYVVdsUGFVb3hZMjAwTm1GWFZqQmFhbkIzV1ZoS2FHSllUVFppTWtZeFpFZG5ObUZ1WkhKTVdGSnZaRmN4YVdOSVNuQmlibEUyWXpKb2FFeFVTVEZPYW5CMlVXMVNiV1J0V2tSUFdHZzJUVVk1UWxWWVdsSk9NMWt4VFZoc1JGZHNPWHBsUjNBMVRucFdRMVJJU2tsbGF6RlBVbXByZVU5WFZUUkphWGRwWVROU05VbHFiMmxVTUhSUlNXbDNhVmt6U2pKSmFtOXBVbGRSZVU1VVZYaFBVMGx6U1cxR2MxcDVTVFpKYTFaclVrWk9Ra2xwZDJsbFEwazJTV3BPYVdOdFRuTmlNRWswWVVSU1RsZHNWa2xpYXpsUlZVZHNhMU50ZDNSVGFtUjFWV3hHU2xkSVVsUmhSbkF6V2pJMWJXTnNjREZVTWpocFpsRWlMQ0pyYVdRaU9pSWpNQ0lzSW5SNWNDSTZJblpqSzJ4a0sycDNkQ0lzSW1saGRDSTZNVFk0TmpJMU1UVTNOSDAuZXlKQVkyOXVkR1Y0ZENJNld5Sm9kSFJ3Y3pvdkwzZDNkeTUzTXk1dmNtY3Zibk12WTNKbFpHVnVkR2xoYkhNdmRqSWlYU3dpZEhsd1pTSTZXeUpXWlhKcFptbGhZbXhsUTNKbFpHVnVkR2xoYkNKZExDSnBjM04xWlhJaU9pSmthV1E2YW5kck9tVjVTbkpoVjFGcFQybEtNV050TkRaaFYxWXdXbXB3ZDFsWVNtaGlXRTAyWWpKR01XUkhaelpoYm1SeVRGaFNiMlJYTVdsalNFcHdZbTVSTm1NeWFHaE1WRWt4VG1wd2RsRnRVbTFrYlZwRVQxaG9OazFHT1VKVldGcFNUak5aTVUxWWJFUlhiRGw2WlVkd05VNTZWa05VU0VwSlpXc3hUMUpxYTNsUFYxVTBTV2wzYVdFelVqVkphbTlwVkRCMFVVbHBkMmxaTTBveVNXcHZhVkpYVVhsT1ZGVjRUMU5KYzBsdFJuTmFlVWsyU1d0V2ExSkdUa0pKYVhkcFpVTkpOa2xxVG1samJVNXpZakJKTkdGRVVrNVhiRlpKWW1zNVVWVkhiR3RUYlhkMFUycGtkVlZzUmtwWFNGSlVZVVp3TTFveU5XMWpiSEF4VkRJNGFXWlJJaXdpZG1Gc2FXUkdjbTl0SWpvaU1qQXlNeTB3Tmkwd04xUXlNVG94TkRveE5DNHhORGhhSWl3aVkzSmxaR1Z1ZEdsaGJGTjFZbXBsWTNRaU9uc2lhV1FpT2lKb2RIUndjem92TDNOMVltcGxZM1F1ZG1WdVpHOXlMbVY0WVcxd2JHVWlmWDAubmczZlpDQXJyNUYwb1hOS1J1UlFNUXYtdnh4YlozUWJKVkJpcU1QUlVnSEFiSDVkMXptYjhLeUNkNnlVS3IxbmlsZmZiZ2pGUmRpRjFsWUdNRGNhQ0E="</span>
+  ]
+}</code></pre>
+      </div>
+
+    </section>
+
+
+    <section id="data-uris"><div class="header-wrapper"><h3 id="x8-4-data-uris"><bdi class="secno">8.4 </bdi>Data URIs</h3><a class="self-link" href="#data-uris" aria-label="Permalink for Section 8.4"></a></div>
+      
+      <div class="example" id="example-json-ld-credential">
+        <div class="marker">
+    <a class="self-link" href="#example-json-ld-credential">Example<bdi> 13</bdi></a><span class="example-title">: JSON-LD Credential</span>
+  </div> <pre aria-busy="false"><code class="hljs">data:application/vc+ld+json;base64,eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlQ3JlZGVudGlhbCJdLCJpc3N1ZXIiOiJkaWQ6andrOmV5SnJhV1FpT2lKMWNtNDZhV1YwWmpwd1lYSmhiWE02YjJGMWRHZzZhbmRyTFhSb2RXMWljSEpwYm5RNmMyaGhMVEkxTmpwdlFtUm1kbVpET1hoNk1GOUJVWFpSTjNZMU1YbERXbDl6ZUdwNU56VkNUSEpJZWsxT1Jqa3lPV1U0SWl3aWEzUjVJam9pVDB0UUlpd2lZM0oySWpvaVJXUXlOVFV4T1NJc0ltRnNaeUk2SWtWa1JGTkJJaXdpZUNJNklqTmljbU5zYjBJNGFEUk5XbFZJYms5UVVHbGtTbXd0U2pkdVVsRkpXSFJUYUZwM1oyNW1jbHAxVDI4aWZRIiwidmFsaWRGcm9tIjoiMjAyMy0wNi0wN1QyMToxNDoxNC4xNDhaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJodHRwczovL3N1YmplY3QudmVuZG9yLmV4YW1wbGUifX0=</code></pre>
+      </div>
+
+      <div class="example" id="example-jwt-credential">
+        <div class="marker">
+    <a class="self-link" href="#example-jwt-credential">Example<bdi> 14</bdi></a><span class="example-title">: JWT Credential</span>
+  </div> <pre aria-busy="false"><code class="hljs">data:application/vc+ld+jwt;base64,ZXlKaGJHY2lPaUpGWkVSVFFTSXNJbWx6Y3lJNkltUnBaRHBxZDJzNlpYbEtjbUZYVVdsUGFVb3hZMjAwTm1GWFZqQmFhbkIzV1ZoS2FHSllUVFppTWtZeFpFZG5ObUZ1WkhKTVdGSnZaRmN4YVdOSVNuQmlibEUyWXpKb2FFeFVTVEZPYW5CMlVXMVNiV1J0V2tSUFdHZzJUVVk1UWxWWVdsSk9NMWt4VFZoc1JGZHNPWHBsUjNBMVRucFdRMVJJU2tsbGF6RlBVbXByZVU5WFZUUkphWGRwWVROU05VbHFiMmxVTUhSUlNXbDNhVmt6U2pKSmFtOXBVbGRSZVU1VVZYaFBVMGx6U1cxR2MxcDVTVFpKYTFaclVrWk9Ra2xwZDJsbFEwazJTV3BPYVdOdFRuTmlNRWswWVVSU1RsZHNWa2xpYXpsUlZVZHNhMU50ZDNSVGFtUjFWV3hHU2xkSVVsUmhSbkF6V2pJMWJXTnNjREZVTWpocFpsRWlMQ0pyYVdRaU9pSWpNQ0lzSW5SNWNDSTZJblpqSzJ4a0sycDNkQ0lzSW1saGRDSTZNVFk0TmpJMU1UVTNOSDAuZXlKQVkyOXVkR1Y0ZENJNld5Sm9kSFJ3Y3pvdkwzZDNkeTUzTXk1dmNtY3Zibk12WTNKbFpHVnVkR2xoYkhNdmRqSWlYU3dpZEhsd1pTSTZXeUpXWlhKcFptbGhZbXhsUTNKbFpHVnVkR2xoYkNKZExDSnBjM04xWlhJaU9pSmthV1E2YW5kck9tVjVTbkpoVjFGcFQybEtNV050TkRaaFYxWXdXbXB3ZDFsWVNtaGlXRTAyWWpKR01XUkhaelpoYm1SeVRGaFNiMlJYTVdsalNFcHdZbTVSTm1NeWFHaE1WRWt4VG1wd2RsRnRVbTFrYlZwRVQxaG9OazFHT1VKVldGcFNUak5aTVUxWWJFUlhiRGw2WlVkd05VNTZWa05VU0VwSlpXc3hUMUpxYTNsUFYxVTBTV2wzYVdFelVqVkphbTlwVkRCMFVVbHBkMmxaTTBveVNXcHZhVkpYVVhsT1ZGVjRUMU5KYzBsdFJuTmFlVWsyU1d0V2ExSkdUa0pKYVhkcFpVTkpOa2xxVG1samJVNXpZakJKTkdGRVVrNVhiRlpKWW1zNVVWVkhiR3RUYlhkMFUycGtkVlZzUmtwWFNGSlVZVVp3TTFveU5XMWpiSEF4VkRJNGFXWlJJaXdpZG1Gc2FXUkdjbTl0SWpvaU1qQXlNeTB3Tmkwd04xUXlNVG94TkRveE5DNHhORGhhSWl3aVkzSmxaR1Z1ZEdsaGJGTjFZbXBsWTNRaU9uc2lhV1FpT2lKb2RIUndjem92TDNOMVltcGxZM1F1ZG1WdVpHOXlMbVY0WVcxd2JHVWlmWDAubmczZlpDQXJyNUYwb1hOS1J1UlFNUXYtdnh4YlozUWJKVkJpcU1QUlVnSEFiSDVkMXptYjhLeUNkNnlVS3IxbmlsZmZiZ2pGUmRpRjFsWUdNRGNhQ0E=</code></pre>
+      </div>
+
+      <div class="example" id="example-json-ld-verifiable-presentation">
+        <div class="marker">
+    <a class="self-link" href="#example-json-ld-verifiable-presentation">Example<bdi> 15</bdi></a><span class="example-title">: JSON-LD Verifiable Presentation</span>
+  </div> <pre aria-busy="false"><code class="hljs">data:application/vp+ld+json;base64,eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlQ3JlZGVudGlhbCJdLCJpc3N1ZXIiOiJkaWQ6andrOmV5SnJhV1FpT2lKMWNtNDZhV1YwWmpwd1lYSmhiWE02YjJGMWRHZzZhbmRyTFhSb2RXMWljSEpwYm5RNmMyaGhMVEkxTmpwdlFtUm1kbVpET1hoNk1GOUJVWFpSTjNZMU1YbERXbDl6ZUdwNU56VkNUSEpJZWsxT1Jqa3lPV1U0SWl3aWEzUjVJam9pVDB0UUlpd2lZM0oySWpvaVJXUXlOVFV4T1NJc0ltRnNaeUk2SWtWa1JGTkJJaXdpZUNJNklqTmljbU5zYjBJNGFEUk5XbFZJYms5UVVHbGtTbXd0U2pkdVVsRkpXSFJUYUZwM1oyNW1jbHAxVDI4aWZRIiwidmFsaWRGcm9tIjoiMjAyMy0wNi0wN1QyMToxNDoxNC4xNDhaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJodHRwczovL3N1YmplY3QudmVuZG9yLmV4YW1wbGUifX0=</code></pre>
+      </div>
+
+      <div class="example" id="example-jwt-presentation">
+        <div class="marker">
+    <a class="self-link" href="#example-jwt-presentation">Example<bdi> 16</bdi></a><span class="example-title">: JWT Presentation</span>
+  </div> <pre aria-busy="false"><code class="hljs">data:application/vp+ld+jwt;base64,ZXlKaGJHY2lPaUpGWkVSVFFTSXNJbWx6Y3lJNkltUnBaRHBxZDJzNlpYbEtjbUZYVVdsUGFVb3hZMjAwTm1GWFZqQmFhbkIzV1ZoS2FHSllUVFppTWtZeFpFZG5ObUZ1WkhKTVdGSnZaRmN4YVdOSVNuQmlibEUyWXpKb2FFeFVTVEZPYW5CMlVXMVNiV1J0V2tSUFdHZzJUVVk1UWxWWVdsSk9NMWt4VFZoc1JGZHNPWHBsUjNBMVRucFdRMVJJU2tsbGF6RlBVbXByZVU5WFZUUkphWGRwWVROU05VbHFiMmxVTUhSUlNXbDNhVmt6U2pKSmFtOXBVbGRSZVU1VVZYaFBVMGx6U1cxR2MxcDVTVFpKYTFaclVrWk9Ra2xwZDJsbFEwazJTV3BPYVdOdFRuTmlNRWswWVVSU1RsZHNWa2xpYXpsUlZVZHNhMU50ZDNSVGFtUjFWV3hHU2xkSVVsUmhSbkF6V2pJMWJXTnNjREZVTWpocFpsRWlMQ0pyYVdRaU9pSWpNQ0lzSW5SNWNDSTZJblpqSzJ4a0sycDNkQ0lzSW1saGRDSTZNVFk0TmpJMU1UVTNOSDAuZXlKQVkyOXVkR1Y0ZENJNld5Sm9kSFJ3Y3pvdkwzZDNkeTUzTXk1dmNtY3Zibk12WTNKbFpHVnVkR2xoYkhNdmRqSWlYU3dpZEhsd1pTSTZXeUpXWlhKcFptbGhZbXhsUTNKbFpHVnVkR2xoYkNKZExDSnBjM04xWlhJaU9pSmthV1E2YW5kck9tVjVTbkpoVjFGcFQybEtNV050TkRaaFYxWXdXbXB3ZDFsWVNtaGlXRTAyWWpKR01XUkhaelpoYm1SeVRGaFNiMlJYTVdsalNFcHdZbTVSTm1NeWFHaE1WRWt4VG1wd2RsRnRVbTFrYlZwRVQxaG9OazFHT1VKVldGcFNUak5aTVUxWWJFUlhiRGw2WlVkd05VNTZWa05VU0VwSlpXc3hUMUpxYTNsUFYxVTBTV2wzYVdFelVqVkphbTlwVkRCMFVVbHBkMmxaTTBveVNXcHZhVkpYVVhsT1ZGVjRUMU5KYzBsdFJuTmFlVWsyU1d0V2ExSkdUa0pKYVhkcFpVTkpOa2xxVG1samJVNXpZakJKTkdGRVVrNVhiRlpKWW1zNVVWVkhiR3RUYlhkMFUycGtkVlZzUmtwWFNGSlVZVVp3TTFveU5XMWpiSEF4VkRJNGFXWlJJaXdpZG1Gc2FXUkdjbTl0SWpvaU1qQXlNeTB3Tmkwd04xUXlNVG94TkRveE5DNHhORGhhSWl3aVkzSmxaR1Z1ZEdsaGJGTjFZbXBsWTNRaU9uc2lhV1FpT2lKb2RIUndjem92TDNOMVltcGxZM1F1ZG1WdVpHOXlMbVY0WVcxd2JHVWlmWDAubmczZlpDQXJyNUYwb1hOS1J1UlFNUXYtdnh4YlozUWJKVkJpcU1QUlVnSEFiSDVkMXptYjhLeUNkNnlVS3IxbmlsZmZiZ2pGUmRpRjFsWUdNRGNhQ0E=</code></pre>
+      </div>
+
+      <div class="example" id="example-nested-unsecured-json-ld-verifiable-presentation">
+        <div class="marker">
+    <a class="self-link" href="#example-nested-unsecured-json-ld-verifiable-presentation">Example<bdi> 17</bdi></a><span class="example-title">: Nested Unsecured JSON-LD Verifiable Presentation</span>
+  </div> <pre aria-busy="false"><code class="hljs css">data:application/vp+ld+json;base64,eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlUHJlc2VudGF0aW9uIl0sInZlcmlmaWFibGVDcmVkZW50aWFsIjpbImRhdGE6YXBwbGljYXRpb24vdmMrbGQranNvbjtiYXNlNjQsZXlKQVkyOXVkR1Y0ZENJNld5Sm9kSFJ3Y3pvdkwzZDNkeTUzTXk1dmNtY3Zibk12WTNKbFpHVnVkR2xoYkhNdmRqSWlYU3dpZEhsd1pTSTZXeUpXWlhKcFptbGhZbXhsUTNKbFpHVnVkR2xoYkNKZExDSnBjM04xWlhJaU9pSm9kSFJ3Y3pvdkwybHpjM1ZsY2k1MlpXNWtiM0l1WlhoaGJYQnNaU0lzSW5aaGJHbGtSbkp2YlNJNklqSXdNak10TURZdE1EZFVNakU2TVRRNk1UUXVNVFE0V2lJc0ltTnlaV1JsYm5ScFlXeFRkV0pxWldOMElqcDdJbWxrSWpvaWFIUjBjSE02THk5emRXSnFaV04wTG5abGJtUnZjaTVsZUdGdGNHeGxJbjE5Il19</code></pre>
+      </div>
+
+      <div class="example" id="example-nested-unsecured-jwt">
+        <div class="marker">
+    <a class="self-link" href="#example-nested-unsecured-jwt">Example<bdi> 18</bdi></a><span class="example-title">: Nested Unsecured JWT</span>
+  </div> <pre aria-busy="false"><code class="hljs">data:application/vp+ld+jwt;base64,ZXlKaGJHY2lPaUp1YjI1bElpd2lkSGx3SWpvaWRuQXJiR1FyYW5kMEluMC5leUpBWTI5dWRHVjRkQ0k2V3lKb2RIUndjem92TDNkM2R5NTNNeTV2Y21jdmJuTXZZM0psWkdWdWRHbGhiSE12ZGpJaVhTd2lkSGx3WlNJNld5SldaWEpwWm1saFlteGxVSEpsYzJWdWRHRjBhVzl1SWwwc0luWmxjbWxtYVdGaWJHVkRjbVZrWlc1MGFXRnNJanBiSW1SaGRHRTZZWEJ3YkdsallYUnBiMjR2ZG1NcmJHUXJhbmQwTzJKaGMyVTJOQ3hhV0d4TFlVZEtTRmt5YkZCaFZYQXhXV3BKTVdKRmJIQmtNbXhyVTBkNE0xTlhjSFpoVjFKMFZGaEthVkl4Um5sWlZ6VnJUVVZzZFUxRE5XeGxWWEJDVjFSSk5XUlhVa2hXYWxKclVUQnJNbFl6YkV0aU1sSkpWVzVrYW1WdE9USlVSRTVyVFRKU05VNVVUazVsVkZZeVdUSXhhbVJ0U25WVVdGcGFUVEJ3YzFkclpGZGtWMUpJWWtkb2FWTkZNVEphUjNCS1lWWm9WR1F5Ykd0VFIzZ3pWMnhPU2s1c1pEVlRiR1JoVjBWd2QxZHRNWE5oUm14MFpVZDRVazB3Y0hOWGEyUlhaRmRTU0dKSGFHbFJNSEJyVkVWT1MyTkhUWHBVYWtaaFYwVnNjRlF5YkV0aU1sSkpWVzVrYW1WdE9USlVSRXB6WlcxTmVsWnRlR3BoVkZWNVYyeGpNV0V5U1hwVFdGWmhWMGRvYjFsc2FFTmpNWEJVVTFoT1NtSnNjRzlaYTJSellURktkVk51V21sVk1Hc3lVMWR3U21Rd01YRlVXRkpPVWtac01GUlZVbXRXVlRGeFVsUmFUbFpHUlRKVVZsSlNaRlV4VlZWVVVsaGhWV3g2VTFjeFQyVldjRmhWYlhocFlteEtkMWRXWkRSV1IxSllVMjVHWVZZd05IZFRWM0IzVGpCc2RHSkhkRXBoYlRsd1dWVm9VMDFIVGtsVVZGcE5aVlJzTmxwR1pFdGpWbkJZVkdwQ1RXSnNjSE5aYlRGVFpHMU9jRTVYZUd4U01Gb3dXVEJrTkdKRmJIVk5WR3QxSWwxOS4=</code></pre>
+      </div>
+    </section>
+
+    <section id="detached-proofs"><div class="header-wrapper"><h3 id="x8-5-detached-proofs"><bdi class="secno">8.5 </bdi>
+        Detached Proofs
+      </h3><a class="self-link" href="#detached-proofs" aria-label="Permalink for Section 8.5"></a></div>
+      
+
+      <div class="example" id="example-verifiable-credential">
+        <div class="marker">
+    <a class="self-link" href="#example-verifiable-credential">Example<bdi> 19</bdi></a><span class="example-title">: Verifiable Credential</span>
+  </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"@context"</span>: [<span class="hljs-string">"https://www.w3.org/ns/credentials/v2"</span>],
+  <span class="hljs-attr">"type"</span>: [
+    <span class="hljs-string">"VerifiableCredential"</span>
+  ],
+  <span class="hljs-attr">"issuer"</span>: <span class="hljs-string">"urn:ietf:params:oauth:jwk-thumbprint:sha-256:_Fpfe27AuGmEljZE9s2lw2UH-qrZLRFNrWbJrWIe4SI"</span>,
+  <span class="hljs-attr">"validFrom"</span>: <span class="hljs-string">"2023-06-07T21:14:14.148Z"</span>,
+  <span class="hljs-attr">"credentialSubject"</span>: {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"https://subject.vendor.example"</span>
+  }
+}</code></pre>
+      </div>
+
+      <div class="example" id="example-detached-verifiable-credential-proof">
+        <div class="marker">
+    <a class="self-link" href="#example-detached-verifiable-credential-proof">Example<bdi> 20</bdi></a><span class="example-title">: Detached Verifiable Credential Proof</span>
+  </div> <pre aria-busy="false"><code class="hljs">eyJhbGciOiJFUzM4NCIsInR5cCI6InZjK2xkK2p3dCIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..Z-s5JgWQK91e1bzk-87ofJcRqGrw7wGehepSYH3U18u9-BNi9QOcgHWMFAN72HGNNhmn9xyT7UF59om7Wbb_IQTPAlzjMdPbzfq3bRffutP-Swg_Sz2R1VwpufVJ5Ult</code></pre>
+      </div>
+
+      <div class="example" id="example-verifiable-presentation">
+        <div class="marker">
+    <a class="self-link" href="#example-verifiable-presentation">Example<bdi> 21</bdi></a><span class="example-title">: Verifiable Presentation</span>
+  </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"@context"</span>: [<span class="hljs-string">"https://www.w3.org/ns/credentials/v2"</span>],
+  <span class="hljs-attr">"type"</span>: [
+    <span class="hljs-string">"VerifiablePresentation"</span>
+  ],
+  <span class="hljs-attr">"holder"</span>: <span class="hljs-string">"urn:ietf:params:oauth:jwk-thumbprint:sha-256:_Fpfe27AuGmEljZE9s2lw2UH-qrZLRFNrWbJrWIe4SI"</span>
+}</code></pre>
+      </div>
+
+      <div class="example" id="example-detached-presentation-proof">
+        <div class="marker">
+    <a class="self-link" href="#example-detached-presentation-proof">Example<bdi> 22</bdi></a><span class="example-title">: Detached Presentation Proof</span>
+  </div> <pre aria-busy="false"><code class="hljs">eyJhbGciOiJFUzM4NCIsInR5cCI6InZwK2xkK2p3dCIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..TsKRjY56LWTPPXWKLYfDs-NKmZZHIcrZ2pndwEDtO5DaGiDW3OtABr-esL9y6CdZTxwshoqZCs_RnPRx17-uO8k_SBugAQwnzN8bnulkSN4gXaST0kxk23X4bVmw6sBD</code></pre>
+      </div>
+
+      <div class="issue" id="issue-container-generatedID-5"><div role="heading" class="issue-title marker" id="h-issue-13" aria-level="4"><span>Issue</span></div><p class="">TODO add COSE Sign1 detached payload examples</p></div>
+
+    </section>
+    <section id="selective-disclosure"><div class="header-wrapper"><h3 id="x8-6-selective-disclosure"><bdi class="secno">8.6 </bdi>Selective Disclosure</h3><a class="self-link" href="#selective-disclosure" aria-label="Permalink for Section 8.6"></a></div>
+      
+      <p>The following examples are taken from <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-05#name-example-4b-w3c-verifiable-c">Selective Disclosure for JWTs (SD-JWT)</a>.</p>
+      <div class="issue" id="issue-container-generatedID-6"><div role="heading" class="issue-title marker" id="h-issue-14" aria-level="4"><span>Issue</span></div><p class="">These example are from a work in progress draft.</p></div>
+      <p>
+        An issuer might start with a <code>vc+ld+json</code> claimset, for example:
+      </p>
+      <div class="example" id="example-23">
+        <div class="marker">
+    <a class="self-link" href="#example-23">Example<bdi> 23</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"@context"</span>: [
+    <span class="hljs-string">"https://www.w3.org/2018/credentials/v1"</span>,
+    <span class="hljs-string">"https://w3id.org/vaccination/v1"</span>
+  ],
+  <span class="hljs-attr">"type"</span>: [
+    <span class="hljs-string">"VerifiableCredential"</span>,
+    <span class="hljs-string">"VaccinationCertificate"</span>
+  ],
+  <span class="hljs-attr">"issuer"</span>: <span class="hljs-string">"https://example.com/issuer"</span>,
+  <span class="hljs-attr">"issuanceDate"</span>: <span class="hljs-string">"2023-02-09T11:01:59Z"</span>,
+  <span class="hljs-attr">"expirationDate"</span>: <span class="hljs-string">"2028-02-08T11:01:59Z"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"COVID-19 Vaccination Certificate"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"COVID-19 Vaccination Certificate"</span>,
+  <span class="hljs-attr">"credentialSubject"</span>: {
+    <span class="hljs-attr">"vaccine"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Vaccine"</span>,
+      <span class="hljs-attr">"atcCode"</span>: <span class="hljs-string">"J07BX03"</span>,
+      <span class="hljs-attr">"medicinalProductName"</span>: <span class="hljs-string">"COVID-19 Vaccine Moderna"</span>,
+      <span class="hljs-attr">"marketingAuthorizationHolder"</span>: <span class="hljs-string">"Moderna Biotech"</span>
+    },
+    <span class="hljs-attr">"nextVaccinationDate"</span>: <span class="hljs-string">"2021-08-16T13:40:12Z"</span>,
+    <span class="hljs-attr">"countryOfVaccination"</span>: <span class="hljs-string">"GE"</span>,
+    <span class="hljs-attr">"dateOfVaccination"</span>: <span class="hljs-string">"2021-06-23T13:40:12Z"</span>,
+    <span class="hljs-attr">"order"</span>: <span class="hljs-string">"3/3"</span>,
+    <span class="hljs-attr">"recipient"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"VaccineRecipient"</span>,
+      <span class="hljs-attr">"gender"</span>: <span class="hljs-string">"Female"</span>,
+      <span class="hljs-attr">"birthDate"</span>: <span class="hljs-string">"1961-08-17"</span>,
+      <span class="hljs-attr">"givenName"</span>: <span class="hljs-string">"Marion"</span>,
+      <span class="hljs-attr">"familyName"</span>: <span class="hljs-string">"Mustermann"</span>
+    },
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"VaccinationEvent"</span>,
+    <span class="hljs-attr">"administeringCentre"</span>: <span class="hljs-string">"Praxis Sommergarten"</span>,
+    <span class="hljs-attr">"batchNumber"</span>: <span class="hljs-string">"1626382736"</span>,
+    <span class="hljs-attr">"healthProfessional"</span>: <span class="hljs-string">"883110000015376"</span>
+  }
+}</code></pre>
+      </div>
+      <p>
+        The issuer converts this claimset into the SD-JWT payload, and encodes the token, for example:
+      </p>
+      <div class="example" id="example-24">
+        <div class="marker">
+    <a class="self-link" href="#example-24">Example<bdi> 24</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs">eyJhbGciOiAiRVMyNTYifQ.eyJpc3MiOiAiaHR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1Z
+XIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4cCI6IDE4ODMwMDAwMDAsICJAY29udGV4d
+CI6IFsiaHR0cHM6Ly93d3cudzMub3JnLzIwMTgvY3JlZGVudGlhbHMvdjEiLCAiaHR0c
+HM6Ly93M2lkLm9yZy92YWNjaW5hdGlvbi92MSJdLCAidHlwZSI6IFsiVmVyaWZpYWJsZ
+UNyZWRlbnRpYWwiLCAiVmFjY2luYXRpb25DZXJ0aWZpY2F0ZSJdLCAiaXNzdWVyIjogI
+mh0dHBzOi8vZXhhbXBsZS5jb20vaXNzdWVyIiwgImlzc3VhbmNlRGF0ZSI6ICIyMDIzL
+TAyLTA5VDExOjAxOjU5WiIsICJleHBpcmF0aW9uRGF0ZSI6ICIyMDI4LTAyLTA4VDExO
+jAxOjU5WiIsICJuYW1lIjogIkNPVklELTE5IFZhY2NpbmF0aW9uIENlcnRpZmljYXRlI
+iwgImRlc2NyaXB0aW9uIjogIkNPVklELTE5IFZhY2NpbmF0aW9uIENlcnRpZmljYXRlI
+iwgImNyZWRlbnRpYWxTdWJqZWN0IjogeyJfc2QiOiBbIjFWX0stOGxEUThpRlhCRlhiW
+lk5ZWhxUjRIYWJXQ2k1VDB5Ykl6WlBld3ciLCAiSnpqTGd0UDI5ZFAtQjN0ZDEyUDY3N
+GdGbUsyenk4MUhNdEJnZjZDSk5XZyIsICJSMmZHYmZBMDdaX1lsa3FtTlp5bWExeHl5e
+DFYc3RJaVM2QjFZYmwySlo0IiwgIlRDbXpybDdLMmdldl9kdTdwY01JeXpSTEhwLVllZ
+y1GbF9jeHRyVXZQeGciLCAiVjdrSkJMSzc4VG1WRE9tcmZKN1p1VVBIdUtfMmNjN3laU
+mE0cVYxdHh3TSIsICJiMGVVc3ZHUC1PRERkRm9ZNE5semxYYzN0RHNsV0p0Q0pGNzVOd
+zhPal9nIiwgInpKS19lU01YandNOGRYbU1aTG5JOEZHTTA4ekozX3ViR2VFTUotNVRCe
+TAiXSwgInZhY2NpbmUiOiB7Il9zZCI6IFsiMWNGNWhMd2toTU5JYXFmV0pyWEk3Tk1XZ
+WRMLTlmNlkyUEE1MnlQalNaSSIsICJIaXk2V1d1ZUxENWJuMTYyOTh0UHY3R1hobWxkT
+URPVG5CaS1DWmJwaE5vIiwgIkxiMDI3cTY5MWpYWGwtakM3M3ZpOGViT2o5c214M0MtX
+29nN2dBNFRCUUUiXSwgInR5cGUiOiAiVmFjY2luZSJ9LCAicmVjaXBpZW50IjogeyJfc
+2QiOiBbIjFsU1FCTlkyNHEwVGg2T0d6dGhxLTctNGw2Y0FheHJZWE9HWnBlV19sbkEiL
+CAiM256THE4MU0yb04wNndkdjFzaEh2T0VKVnhaNUtMbWREa0hFREpBQldFSSIsICJQb
+jFzV2kwNkc0TEpybm4tX1JUMFJiTV9IVGR4blBKUXVYMmZ6V3ZfSk9VIiwgImxGOXV6Z
+HN3N0hwbEdMYzcxNFRyNFdPN01HSnphN3R0N1FGbGVDWDRJdHciXSwgInR5cGUiOiAiV
+mFjY2luZVJlY2lwaWVudCJ9LCAidHlwZSI6ICJWYWNjaW5hdGlvbkV2ZW50In0sICJfc
+2RfYWxnIjogInNoYS0yNTYifQ.5jJEqiRViN_DJ4VMxHQIN4KK-Cdfn30nY3nRe5jGxS
+5Pths5G7mF1GWy9TawYuyFwCze7qiCIx_MhJ68Uu5zeQ~WyIyR0xDNDJzS1F2ZUNmR2Z
+yeU5STjl3IiwgImF0Y0NvZGUiLCAiSjA3QlgwMyJd~WyJlbHVWNU9nM2dTTklJOEVZbn
+N4QV9BIiwgIm1lZGljaW5hbFByb2R1Y3ROYW1lIiwgIkNPVklELTE5IFZhY2NpbmUgTW
+9kZXJuYSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBIiwgIm1hcmtldGluZ0F1dGhvc
+ml6YXRpb25Ib2xkZXIiLCAiTW9kZXJuYSBCaW90ZWNoIl0~WyJlSThaV205UW5LUHBOU
+GVOZW5IZGhRIiwgIm5leHRWYWNjaW5hdGlvbkRhdGUiLCAiMjAyMS0wOC0xNlQxMzo0M
+DoxMloiXQ~WyJRZ19PNjR6cUF4ZTQxMmExMDhpcm9BIiwgImNvdW50cnlPZlZhY2Npbm
+F0aW9uIiwgIkdFIl0~WyJBSngtMDk1VlBycFR0TjRRTU9xUk9BIiwgImRhdGVPZlZhY2
+NpbmF0aW9uIiwgIjIwMjEtMDYtMjNUMTM6NDA6MTJaIl0~WyJQYzMzSk0yTGNoY1VfbE
+hnZ3ZfdWZRIiwgIm9yZGVyIiwgIjMvMyJd~WyJHMDJOU3JRZmpGWFE3SW8wOXN5YWpBI
+iwgImdlbmRlciIsICJGZW1hbGUiXQ~WyJsa2x4RjVqTVlsR1RQVW92TU5JdkNBIiwgIm
+JpcnRoRGF0ZSIsICIxOTYxLTA4LTE3Il0~WyJuUHVvUW5rUkZxM0JJZUFtN0FuWEZBIi
+wgImdpdmVuTmFtZSIsICJNYXJpb24iXQ~WyI1YlBzMUlxdVpOYTBoa2FGenp6Wk53Iiw
+gImZhbWlseU5hbWUiLCAiTXVzdGVybWFubiJd~WyI1YTJXMF9OcmxFWnpmcW1rXzdQcS
+13IiwgImFkbWluaXN0ZXJpbmdDZW50cmUiLCAiUHJheGlzIFNvbW1lcmdhcnRlbiJd~W
+yJ5MXNWVTV3ZGZKYWhWZGd3UGdTN1JRIiwgImJhdGNoTnVtYmVyIiwgIjE2MjYzODI3M
+zYiXQ~WyJIYlE0WDhzclZXM1FEeG5JSmRxeU9BIiwgImhlYWx0aFByb2Zlc3Npb25hbC
+IsICI4ODMxMTAwMDAwMTUzNzYiXQ~</code></pre>
+      </div>
+      <p>
+        Notice that, in the case of sd-jwt, the decoded payload 
+        is different from the input claimset:
+      </p>
+      <div class="example" id="example-25">
+        <div class="marker">
+    <a class="self-link" href="#example-25">Example<bdi> 25</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"iss"</span>: <span class="hljs-string">"https://example.com/issuer"</span>,
+  <span class="hljs-attr">"iat"</span>: <span class="hljs-number">1683000000</span>,
+  <span class="hljs-attr">"exp"</span>: <span class="hljs-number">1883000000</span>,
+  <span class="hljs-attr">"@context"</span>: [
+    <span class="hljs-string">"https://www.w3.org/2018/credentials/v1"</span>,
+    <span class="hljs-string">"https://w3id.org/vaccination/v1"</span>
+  ],
+  <span class="hljs-attr">"type"</span>: [
+    <span class="hljs-string">"VerifiableCredential"</span>,
+    <span class="hljs-string">"VaccinationCertificate"</span>
+  ],
+  <span class="hljs-attr">"issuer"</span>: <span class="hljs-string">"https://example.com/issuer"</span>,
+  <span class="hljs-attr">"issuanceDate"</span>: <span class="hljs-string">"2023-02-09T11:01:59Z"</span>,
+  <span class="hljs-attr">"expirationDate"</span>: <span class="hljs-string">"2028-02-08T11:01:59Z"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"COVID-19 Vaccination Certificate"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"COVID-19 Vaccination Certificate"</span>,
+  <span class="hljs-attr">"credentialSubject"</span>: {
+    <span class="hljs-attr">"_sd"</span>: [
+      <span class="hljs-string">"1V_K-8lDQ8iFXBFXbZY9ehqR4HabWCi5T0ybIzZPeww"</span>,
+      <span class="hljs-string">"JzjLgtP29dP-B3td12P674gFmK2zy81HMtBgf6CJNWg"</span>,
+      <span class="hljs-string">"R2fGbfA07Z_YlkqmNZyma1xyyx1XstIiS6B1Ybl2JZ4"</span>,
+      <span class="hljs-string">"TCmzrl7K2gev_du7pcMIyzRLHp-Yeg-Fl_cxtrUvPxg"</span>,
+      <span class="hljs-string">"V7kJBLK78TmVDOmrfJ7ZuUPHuK_2cc7yZRa4qV1txwM"</span>,
+      <span class="hljs-string">"b0eUsvGP-ODDdFoY4NlzlXc3tDslWJtCJF75Nw8Oj_g"</span>,
+      <span class="hljs-string">"zJK_eSMXjwM8dXmMZLnI8FGM08zJ3_ubGeEMJ-5TBy0"</span>
+    ],
+    <span class="hljs-attr">"vaccine"</span>: {
+      <span class="hljs-attr">"_sd"</span>: [
+        <span class="hljs-string">"1cF5hLwkhMNIaqfWJrXI7NMWedL-9f6Y2PA52yPjSZI"</span>,
+        <span class="hljs-string">"Hiy6WWueLD5bn16298tPv7GXhmldMDOTnBi-CZbphNo"</span>,
+        <span class="hljs-string">"Lb027q691jXXl-jC73vi8ebOj9smx3C-_og7gA4TBQE"</span>
+      ],
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Vaccine"</span>
+    },
+    <span class="hljs-attr">"recipient"</span>: {
+      <span class="hljs-attr">"_sd"</span>: [
+        <span class="hljs-string">"1lSQBNY24q0Th6OGzthq-7-4l6cAaxrYXOGZpeW_lnA"</span>,
+        <span class="hljs-string">"3nzLq81M2oN06wdv1shHvOEJVxZ5KLmdDkHEDJABWEI"</span>,
+        <span class="hljs-string">"Pn1sWi06G4LJrnn-_RT0RbM_HTdxnPJQuX2fzWv_JOU"</span>,
+        <span class="hljs-string">"lF9uzdsw7HplGLc714Tr4WO7MGJza7tt7QFleCX4Itw"</span>
+      ],
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"VaccineRecipient"</span>
+    },
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"VaccinationEvent"</span>
+  },
+  <span class="hljs-attr">"_sd_alg"</span>: <span class="hljs-string">"sha-256"</span>
+}</code></pre>
+      </div>
+      <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"@context"</span>: [
+    <span class="hljs-string">"https://www.w3.org/2018/credentials/v1"</span>,
+    <span class="hljs-string">"https://w3id.org/vaccination/v1"</span>
+  ],
+  <span class="hljs-attr">"type"</span>: [
+    <span class="hljs-string">"VerifiableCredential"</span>,
+    <span class="hljs-string">"VaccinationCertificate"</span>
+  ],
+  <span class="hljs-attr">"issuer"</span>: <span class="hljs-string">"https://example.com/issuer"</span>,
+  <span class="hljs-attr">"issuanceDate"</span>: <span class="hljs-string">"2023-02-09T11:01:59Z"</span>,
+  <span class="hljs-attr">"expirationDate"</span>: <span class="hljs-string">"2028-02-08T11:01:59Z"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"COVID-19 Vaccination Certificate"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"COVID-19 Vaccination Certificate"</span>,
+  <span class="hljs-attr">"credentialSubject"</span>: {
+    <span class="hljs-attr">"vaccine"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Vaccine"</span>,
+      <span class="hljs-attr">"medicinalProductName"</span>: <span class="hljs-string">"COVID-19 Vaccine Moderna"</span>,
+      <span class="hljs-attr">"atcCode"</span>: <span class="hljs-string">"J07BX03"</span>
+    },
+    <span class="hljs-attr">"recipient"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"VaccineRecipient"</span>
+    },
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"VaccinationEvent"</span>,
+    <span class="hljs-attr">"order"</span>: <span class="hljs-string">"3/3"</span>,
+    <span class="hljs-attr">"dateOfVaccination"</span>: <span class="hljs-string">"2021-06-23T13:40:12Z"</span>
+  },
+  <span class="hljs-attr">"_sd_alg"</span>: <span class="hljs-string">"sha-256"</span>,
+  <span class="hljs-attr">"cnf"</span>: {
+    <span class="hljs-attr">"jwk"</span>: {
+      <span class="hljs-attr">"kty"</span>: <span class="hljs-string">"EC"</span>,
+      <span class="hljs-attr">"crv"</span>: <span class="hljs-string">"P-256"</span>,
+      <span class="hljs-attr">"x"</span>: <span class="hljs-string">"TCAER19Zvu3OHF4j4W4vfSVoHIP1ILilDls7vCeGemc"</span>,
+      <span class="hljs-attr">"y"</span>: <span class="hljs-string">"ZxjiWWbZMQGHVWKVQ4hbSIirsVfuecCE6t4jT9F2HZQ"</span>
+    }
+  }
+}</code></pre>
+      <p>
+        See <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-05#name-example-4b-w3c-verifiable-c">Selective Disclosure for JWTs (SD-JWT)</a> 
+        for a detailed explanation of each disclosable claim, 
+        and the mandatory to disclose claims.
+      </p>
+      <p>
+        The holder, converts the issued sd-jwt to its presentation form, 
+        redacting any fields they don't wish to disclose to the verifier, 
+        for example:
+      </p>
+      <div class="example" id="example-26">
+        <div class="marker">
+    <a class="self-link" href="#example-26">Example<bdi> 26</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs">eyJhbGciOiAiRVMyNTYifQ.eyJpc3MiOiAiaHR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1Z
+XIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4cCI6IDE4ODMwMDAwMDAsICJAY29udGV4d
+CI6IFsiaHR0cHM6Ly93d3cudzMub3JnLzIwMTgvY3JlZGVudGlhbHMvdjEiLCAiaHR0c
+HM6Ly93M2lkLm9yZy92YWNjaW5hdGlvbi92MSJdLCAidHlwZSI6IFsiVmVyaWZpYWJsZ
+UNyZWRlbnRpYWwiLCAiVmFjY2luYXRpb25DZXJ0aWZpY2F0ZSJdLCAiaXNzdWVyIjogI
+mh0dHBzOi8vZXhhbXBsZS5jb20vaXNzdWVyIiwgImlzc3VhbmNlRGF0ZSI6ICIyMDIzL
+TAyLTA5VDExOjAxOjU5WiIsICJleHBpcmF0aW9uRGF0ZSI6ICIyMDI4LTAyLTA4VDExO
+jAxOjU5WiIsICJuYW1lIjogIkNPVklELTE5IFZhY2NpbmF0aW9uIENlcnRpZmljYXRlI
+iwgImRlc2NyaXB0aW9uIjogIkNPVklELTE5IFZhY2NpbmF0aW9uIENlcnRpZmljYXRlI
+iwgImNyZWRlbnRpYWxTdWJqZWN0IjogeyJfc2QiOiBbIjFWX0stOGxEUThpRlhCRlhiW
+lk5ZWhxUjRIYWJXQ2k1VDB5Ykl6WlBld3ciLCAiSnpqTGd0UDI5ZFAtQjN0ZDEyUDY3N
+GdGbUsyenk4MUhNdEJnZjZDSk5XZyIsICJSMmZHYmZBMDdaX1lsa3FtTlp5bWExeHl5e
+DFYc3RJaVM2QjFZYmwySlo0IiwgIlRDbXpybDdLMmdldl9kdTdwY01JeXpSTEhwLVllZ
+y1GbF9jeHRyVXZQeGciLCAiVjdrSkJMSzc4VG1WRE9tcmZKN1p1VVBIdUtfMmNjN3laU
+mE0cVYxdHh3TSIsICJiMGVVc3ZHUC1PRERkRm9ZNE5semxYYzN0RHNsV0p0Q0pGNzVOd
+zhPal9nIiwgInpKS19lU01YandNOGRYbU1aTG5JOEZHTTA4ekozX3ViR2VFTUotNVRCe
+TAiXSwgInZhY2NpbmUiOiB7Il9zZCI6IFsiMWNGNWhMd2toTU5JYXFmV0pyWEk3Tk1XZ
+WRMLTlmNlkyUEE1MnlQalNaSSIsICJIaXk2V1d1ZUxENWJuMTYyOTh0UHY3R1hobWxkT
+URPVG5CaS1DWmJwaE5vIiwgIkxiMDI3cTY5MWpYWGwtakM3M3ZpOGViT2o5c214M0MtX
+29nN2dBNFRCUUUiXSwgInR5cGUiOiAiVmFjY2luZSJ9LCAicmVjaXBpZW50IjogeyJfc
+2QiOiBbIjFsU1FCTlkyNHEwVGg2T0d6dGhxLTctNGw2Y0FheHJZWE9HWnBlV19sbkEiL
+CAiM256THE4MU0yb04wNndkdjFzaEh2T0VKVnhaNUtMbWREa0hFREpBQldFSSIsICJQb
+jFzV2kwNkc0TEpybm4tX1JUMFJiTV9IVGR4blBKUXVYMmZ6V3ZfSk9VIiwgImxGOXV6Z
+HN3N0hwbEdMYzcxNFRyNFdPN01HSnphN3R0N1FGbGVDWDRJdHciXSwgInR5cGUiOiAiV
+mFjY2luZVJlY2lwaWVudCJ9LCAidHlwZSI6ICJWYWNjaW5hdGlvbkV2ZW50In0sICJfc
+2RfYWxnIjogInNoYS0yNTYifQ.5jJEqiRViN_DJ4VMxHQIN4KK-Cdfn30nY3nRe5jGxS
+5Pths5G7mF1GWy9TawYuyFwCze7qiCIx_MhJ68Uu5zeQ~WyJQYzMzSk0yTGNoY1VfbEh
+nZ3ZfdWZRIiwgIm9yZGVyIiwgIjMvMyJd~WyJBSngtMDk1VlBycFR0TjRRTU9xUk9BIi
+wgImRhdGVPZlZhY2NpbmF0aW9uIiwgIjIwMjEtMDYtMjNUMTM6NDA6MTJaIl0~WyIyR0
+xDNDJzS1F2ZUNmR2ZyeU5STjl3IiwgImF0Y0NvZGUiLCAiSjA3QlgwMyJd~WyJlbHVWN
+U9nM2dTTklJOEVZbnN4QV9BIiwgIm1lZGljaW5hbFByb2R1Y3ROYW1lIiwgIkNPVklEL
+TE5IFZhY2NpbmUgTW9kZXJuYSJd~</code></pre>
+      </div>
+      <p>
+      After validation, the Verifier will have the following data for further processing:
+      </p>
+      <div class="note" role="note" id="issue-container-generatedID-7"><div role="heading" class="note-title marker" id="h-note-2" aria-level="4"><span>Note</span></div><p class="">
+        A benefit of using <code>vc+ld+jwt</code> and <code>vc+ld+sd-jwt</code> 
+        is that they both produce <code>vc+ld+json</code> which 
+        can be further processed as RDF by a verifier.
+      </p></div>
+      <div class="issue" id="issue-container-generatedID-8"><div role="heading" class="issue-title marker" id="h-issue-15" aria-level="4"><span>Issue</span></div><p class="">
+        The working group is still discussing the relevance of the JWT BCP, 
+        and distinguishing vc+ld+sd-jwt from vc+sd-jwt via <code>type</code>.
+      </p></div>
+      <div class="example" id="example-27">
+        <div class="marker">
+    <a class="self-link" href="#example-27">Example<bdi> 27</bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"iss"</span>: <span class="hljs-string">"https://example.com/issuer"</span>,
+  <span class="hljs-attr">"iat"</span>: <span class="hljs-number">1683000000</span>,
+  <span class="hljs-attr">"exp"</span>: <span class="hljs-number">1883000000</span>,
+  <span class="hljs-attr">"@context"</span>: [
+    <span class="hljs-string">"https://www.w3.org/2018/credentials/v1"</span>,
+    <span class="hljs-string">"https://w3id.org/vaccination/v1"</span>
+  ],
+  <span class="hljs-attr">"type"</span>: [
+    <span class="hljs-string">"VerifiableCredential"</span>,
+    <span class="hljs-string">"VaccinationCertificate"</span>
+  ],
+  <span class="hljs-attr">"issuer"</span>: <span class="hljs-string">"https://example.com/issuer"</span>,
+  <span class="hljs-attr">"issuanceDate"</span>: <span class="hljs-string">"2023-02-09T11:01:59Z"</span>,
+  <span class="hljs-attr">"expirationDate"</span>: <span class="hljs-string">"2028-02-08T11:01:59Z"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"COVID-19 Vaccination Certificate"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"COVID-19 Vaccination Certificate"</span>,
+  <span class="hljs-attr">"credentialSubject"</span>: {
+    <span class="hljs-attr">"vaccine"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Vaccine"</span>,
+      <span class="hljs-attr">"atcCode"</span>: <span class="hljs-string">"J07BX03"</span>,
+      <span class="hljs-attr">"medicinalProductName"</span>: <span class="hljs-string">"COVID-19 Vaccine Moderna"</span>
+    },
+    <span class="hljs-attr">"recipient"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"VaccineRecipient"</span>
+    },
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"VaccinationEvent"</span>,
+    <span class="hljs-attr">"order"</span>: <span class="hljs-string">"3/3"</span>,
+    <span class="hljs-attr">"dateOfVaccination"</span>: <span class="hljs-string">"2021-06-23T13:40:12Z"</span>
+  },
+  <span class="hljs-attr">"_sd_alg"</span>: <span class="hljs-string">"sha-256"</span>
+}</code></pre>
+      </div>
+    </section>
+
+
+    <section id="example-mapping"><div class="header-wrapper"><h3 id="x8-7-example-mapping"><bdi class="secno">8.7 </bdi>Example Mapping</h3><a class="self-link" href="#example-mapping" aria-label="Permalink for Section 8.7"></a></div>
+      
+      <p>
+        The following describes a mapping from
+        <code>application/vc+jwt</code> to
+        <code>application/vc+ld+json</code>. This is one possible
+        unidirectional mapping between 2.0 VC-JWTs and the VC Data
+        Model; other such mappings are possible.
+      </p>
+      <ul>
+        <li>
+          Extract <code>iss</code>, <code>sub</code>, <code>iat</code>,
+          <code>nbf</code>,
+          <code>exp</code>, <code>jti</code>, and <code>aud</code> as
+          <a href="#registered-claim-names">registered claims</a>.
+        </li>
+        <li>
+          Set aside all other claims as subject claims.
+        </li>
+        <li>
+          To construct the VCDM-compliant JSON:
+          <ul>
+            <li>
+              Set the value of <code>@context</code> to
+              <code>"https://www.w3.org/ns/credentials/v2"</code>.
+            </li>
+            <li>
+              Set the value of <code>type</code> to
+              <code>["VerifiableCredential"]</code>.
+            </li>
+            <li>
+              Set the value of the <code>issuer</code> property to one
+              of the following:
+              <ul>
+                <li>
+                  If the value of <code>iss</code> is a URL, use the
+                  value of <code>iss</code>.
+                </li>
+                <li>
+                  If the value of <code>iss</code> is not a URL, use the
+                  concatenation of "<code>urn:vc:</code>" and the value
+                  of <code>iss</code>.
+                </li>
+              </ul>
+            </li>
+            <li>
+              If <code>jti</code> is present, set the value of
+              <code>id</code> to the concatenation of
+              "<code>urn:vc:</code>" and the value of <code>jti</code>.
+            </li>
+            <li>
+              If <code>nbf</code> is present, set the value of
+              <code>validFrom</code> to the
+              <code>dateTime</code> obtained by converting the value of
+              <code>nbf</code> from the <code>NumericDate</code>
+              described in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7519" title="JSON Web Token (JWT)">RFC7519</a></cite>] to a <code>dateTime</code> as
+              described in [<cite><a class="bibref" data-link-type="biblio" href="#bib-xmlschema11-2" title="W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes">XMLSCHEMA11-2</a></cite>].
+            </li>
+            <li>
+              If <code>exp</code> is present, set the value of
+              <code>validUntil</code> to the
+              <code>dateTime</code> obtained by converting the value of
+              <code>exp</code> from the <code>NumericDate</code>
+              described in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7519" title="JSON Web Token (JWT)">RFC7519</a></cite>] to a <code>dateTime</code> as
+              described in [<cite><a class="bibref" data-link-type="biblio" href="#bib-xmlschema11-2" title="W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes">XMLSCHEMA11-2</a></cite>].
+            </li>
+            <li>
+              Set the value of <code>credentialSubject</code> to an
+              object that contains the following properties:
+              <ul>
+                <li>
+                  If <code>sub</code> is present, set the value of the
+                  <code>id</code> property to the concatenation of
+                  "urn:vc:" and the value of <code>sub</code>.
+                </li>
+                <li>
+                  Add all of the subject claims.
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <aside class="example" id="example-application-vc-jwt-mapped-to-application-vc-ld-json"><div class="marker">
+    <a class="self-link" href="#example-application-vc-jwt-mapped-to-application-vc-ld-json">Example<bdi> 28</bdi></a><span class="example-title">: application/vc+jwt mapped to
+      application/vc+ld+json</span>
+  </div>
+        <p>A Verifiable Credential of type application/vc+jwt:</p>
+        <div class="example" id="example-28">
+        <div class="marker">
+    <a class="self-link" href="#example-28">Example<bdi></bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"iss"</span>: <span class="hljs-string">"https://example.edu/issuers/14"</span>,
+  <span class="hljs-attr">"sub"</span>: <span class="hljs-string">"1234567890"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"John Doe"</span>,
+  <span class="hljs-attr">"iat"</span>: <span class="hljs-number">1516239022</span>,
+  <span class="hljs-attr">"urn:example:claim"</span>: <span class="hljs-literal">true</span>
+}</code></pre>
+      </div>
+        <p>The application/vc+ld+json after applying the mapping:</p>
+        <div class="example" id="example-28-0">
+        <div class="marker">
+    <a class="self-link" href="#example-28-0">Example<bdi></bdi></a>
+  </div> <pre aria-busy="false"><code class="hljs json">{
+  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"https://www.w3.org/ns/credentials/v2"</span>,
+  <span class="hljs-attr">"type"</span>: [<span class="hljs-string">"VerifiableCredential"</span>],
+  <span class="hljs-attr">"issuer"</span>: <span class="hljs-string">"https://example.edu/issuers/14"</span>,
+  <span class="hljs-attr">"credentialSubject"</span>: {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"urn:vc:1234567890"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"John Doe"</span>,
+    <span class="hljs-attr">"urn:example:claim"</span>: <span class="hljs-literal">true</span>
+  }
+}</code></pre>
+      </div>
+      </aside>
+    </section>
+
+  </section>
+  
+
+
+
+<section id="references" class="appendix"><div class="header-wrapper"><h2 id="a-references"><bdi class="secno">A. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix A."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="a-1-normative-references"><bdi class="secno">A.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix A.1"></a></div>
+    
+    <dl class="bibliography"><dt id="bib-json-ld11">[json-ld11]</dt><dd>
+      <a href="https://www.w3.org/TR/json-ld11/"><cite>JSON-LD 1.1</cite></a>. Gregg Kellogg; Pierre-Antoine Champin; Dave Longley.  W3C. 16 July 2020. W3C Recommendation. URL: <a href="https://www.w3.org/TR/json-ld11/">https://www.w3.org/TR/json-ld11/</a>
+    </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>
+    </dd><dt id="bib-rfc6838">[RFC6838]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc6838"><cite>Media Type Specifications and Registration Procedures</cite></a>. N. Freed; J. Klensin; T. Hansen.  IETF. January 2013. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc6838">https://www.rfc-editor.org/rfc/rfc6838</a>
+    </dd><dt id="bib-rfc7159">[RFC7159]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc7159"><cite>The JavaScript Object Notation (JSON) Data Interchange Format</cite></a>. T. Bray, Ed..  IETF. March 2014. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc7159">https://www.rfc-editor.org/rfc/rfc7159</a>
+    </dd><dt id="bib-rfc7515">[RFC7515]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc7515"><cite>JSON Web Signature (JWS)</cite></a>. M. Jones; J. Bradley; N. Sakimura.  IETF. May 2015. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc7515">https://www.rfc-editor.org/rfc/rfc7515</a>
+    </dd><dt id="bib-rfc7517">[RFC7517]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc7517"><cite>JSON Web Key (JWK)</cite></a>. M. Jones.  IETF. May 2015. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc7517">https://www.rfc-editor.org/rfc/rfc7517</a>
+    </dd><dt id="bib-rfc7519">[RFC7519]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc7519"><cite>JSON Web Token (JWT)</cite></a>. M. Jones; J. Bradley; N. Sakimura.  IETF. May 2015. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc7519">https://www.rfc-editor.org/rfc/rfc7519</a>
+    </dd><dt id="bib-rfc8152">[RFC8152]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc8152"><cite>CBOR Object Signing and Encryption (COSE)</cite></a>. J. Schaad.  IETF. July 2017. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc8152">https://www.rfc-editor.org/rfc/rfc8152</a>
+    </dd><dt id="bib-rfc8174">[RFC8174]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>
+    </dd><dt id="bib-rfc8949">[rfc8949]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc8949"><cite>Concise Binary Object Representation (CBOR)</cite></a>. C. Bormann; P. Hoffman.  IETF. December 2020. Internet Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc8949">https://www.rfc-editor.org/rfc/rfc8949</a>
+    </dd><dt id="bib-rfc9052">[rfc9052]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc9052"><cite>CBOR Object Signing and Encryption (COSE): Structures and Process</cite></a>. J. Schaad.  IETF. August 2022. Internet Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc9052">https://www.rfc-editor.org/rfc/rfc9052</a>
+    </dd><dt id="bib-sd-jwt">[SD-JWT]</dt><dd>
+      <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-05"><cite>Selective Disclosure for JWTs (SD-JWT)</cite></a>. Daniel Fett; Kristina Yasuda; Brian Campbell.  IETF. Internet-Draft. URL: <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-05">https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-05</a>
+    </dd><dt id="bib-vc-data-model">[VC-DATA-MODEL]</dt><dd>
+      <a href="https://www.w3.org/TR/vc-data-model/"><cite>Verifiable Credentials Data Model v1.1</cite></a>. Manu Sporny; Grant Noble; Dave Longley; Daniel Burnett; Brent Zundel; Kyle Den Hartog.  W3C. 3 March 2022. W3C Recommendation. URL: <a href="https://www.w3.org/TR/vc-data-model/">https://www.w3.org/TR/vc-data-model/</a>
+    </dd></dl>
+  </section><section id="informative-references"><div class="header-wrapper"><h3 id="a-2-informative-references"><bdi class="secno">A.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix A.2"></a></div>
+    
+    <dl class="bibliography"><dt id="bib-rfc5785">[RFC5785]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc5785"><cite>Defining Well-Known Uniform Resource Identifiers (URIs)</cite></a>. M. Nottingham; E. Hammer-Lahav.  IETF. April 2010. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc5785">https://www.rfc-editor.org/rfc/rfc5785</a>
+    </dd><dt id="bib-rfc7516">[RFC7516]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc7516"><cite>JSON Web Encryption (JWE)</cite></a>. M. Jones; J. Hildebrand.  IETF. May 2015. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc7516">https://www.rfc-editor.org/rfc/rfc7516</a>
+    </dd><dt id="bib-wcag21">[WCAG21]</dt><dd>
+      <a href="https://www.w3.org/TR/WCAG21/"><cite>Web Content Accessibility Guidelines (WCAG) 2.1</cite></a>. Andrew Kirkpatrick; Joshue O'Connor; Alastair Campbell; Michael Cooper.  W3C. 5 June 2018. W3C Recommendation. URL: <a href="https://www.w3.org/TR/WCAG21/">https://www.w3.org/TR/WCAG21/</a>
+    </dd><dt id="bib-xmlschema11-2">[XMLSCHEMA11-2]</dt><dd>
+      <a href="https://www.w3.org/TR/xmlschema11-2/"><cite>W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes</cite></a>. David Peterson; Sandy Gao; Ashok Malhotra; Michael Sperberg-McQueen; Henry Thompson; Paul V. Biron et al.  W3C. 5 April 2012. W3C Recommendation. URL: <a href="https://www.w3.org/TR/xmlschema11-2/">https://www.w3.org/TR/xmlschema11-2/</a>
+    </dd></dl>
+  </section></section><p role="navigation" id="back-to-top">
+    <a href="#title"><abbr title="Back to Top">↑</abbr></a>
+  </p><script id="respec-dfn-panel">(() => {
+// @ts-check
+if (document.respec) {
+  document.respec.ready.then(setupPanel);
+} else {
+  setupPanel();
+}
+
+function setupPanel() {
+  const listener = panelListener();
+  document.body.addEventListener("keydown", listener);
+  document.body.addEventListener("click", listener);
+}
+
+function panelListener() {
+  /** @type {HTMLElement} */
+  let panel = null;
+  return event => {
+    const { target, type } = event;
+
+    if (!(target instanceof HTMLElement)) return;
+
+    // For keys, we only care about Enter key to activate the panel
+    // otherwise it's activated via a click.
+    if (type === "keydown" && event.key !== "Enter") return;
+
+    const action = deriveAction(event);
+
+    switch (action) {
+      case "show": {
+        hidePanel(panel);
+        /** @type {HTMLElement} */
+        const dfn = target.closest("dfn, .index-term");
+        panel = document.getElementById(`dfn-panel-for-${dfn.id}`);
+        const coords = deriveCoordinates(event);
+        displayPanel(dfn, panel, coords);
+        break;
+      }
+      case "dock": {
+        panel.style.left = null;
+        panel.style.top = null;
+        panel.classList.add("docked");
+        break;
+      }
+      case "hide": {
+        hidePanel(panel);
+        panel = null;
+        break;
+      }
+    }
+  };
+}
+
+/**
+ * @param {MouseEvent|KeyboardEvent} event
+ */
+function deriveCoordinates(event) {
+  const target = /** @type HTMLElement */ (event.target);
+
+  // We prevent synthetic AT clicks from putting
+  // the dialog in a weird place. The AT events sometimes
+  // lack coordinates, so they have clientX/Y = 0
+  const rect = target.getBoundingClientRect();
+  if (
+    event instanceof MouseEvent &&
+    event.clientX >= rect.left &&
+    event.clientY >= rect.top
+  ) {
+    // The event probably happened inside the bounding rect...
+    return { x: event.clientX, y: event.clientY };
+  }
+
+  // Offset to the middle of the element
+  const x = rect.x + rect.width / 2;
+  // Placed at the bottom of the element
+  const y = rect.y + rect.height;
+  return { x, y };
+}
+
+/**
+ * @param {Event} event
+ */
+function deriveAction(event) {
+  const target = /** @type {HTMLElement} */ (event.target);
+  const hitALink = !!target.closest("a");
+  if (target.closest("dfn:not([data-cite]), .index-term")) {
+    return hitALink ? "none" : "show";
+  }
+  if (target.closest(".dfn-panel")) {
+    if (hitALink) {
+      return target.classList.contains("self-link") ? "hide" : "dock";
+    }
+    const panel = target.closest(".dfn-panel");
+    return panel.classList.contains("docked") ? "hide" : "none";
+  }
+  if (document.querySelector(".dfn-panel:not([hidden])")) {
+    return "hide";
+  }
+  return "none";
+}
+
+/**
+ * @param {HTMLElement} dfn
+ * @param {HTMLElement} panel
+ * @param {{ x: number, y: number }} clickPosition
+ */
+function displayPanel(dfn, panel, { x, y }) {
+  panel.hidden = false;
+  // distance (px) between edge of panel and the pointing triangle (caret)
+  const MARGIN = 20;
+
+  const dfnRects = dfn.getClientRects();
+  // Find the `top` offset when the `dfn` can be spread across multiple lines
+  let closestTop = 0;
+  let minDiff = Infinity;
+  for (const rect of dfnRects) {
+    const { top, bottom } = rect;
+    const diffFromClickY = Math.abs((top + bottom) / 2 - y);
+    if (diffFromClickY < minDiff) {
+      minDiff = diffFromClickY;
+      closestTop = top;
+    }
+  }
+
+  const top = window.scrollY + closestTop + dfnRects[0].height;
+  const left = x - MARGIN;
+  panel.style.left = `${left}px`;
+  panel.style.top = `${top}px`;
+
+  // Find if the panel is flowing out of the window
+  const panelRect = panel.getBoundingClientRect();
+  const SCREEN_WIDTH = Math.min(window.innerWidth, window.screen.width);
+  if (panelRect.right > SCREEN_WIDTH) {
+    const newLeft = Math.max(MARGIN, x + MARGIN - panelRect.width);
+    const newCaretOffset = left - newLeft;
+    panel.style.left = `${newLeft}px`;
+    /** @type {HTMLElement} */
+    const caret = panel.querySelector(".caret");
+    caret.style.left = `${newCaretOffset}px`;
+  }
+
+  // As it's a dialog, we trap focus.
+  // TODO: when <dialog> becomes a implemented, we should really
+  // use that.
+  trapFocus(panel, dfn);
+}
+
+/**
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function trapFocus(panel, dfn) {
+  /** @type NodeListOf<HTMLAnchorElement> elements */
+  const anchors = panel.querySelectorAll("a[href]");
+  // No need to trap focus
+  if (!anchors.length) return;
+
+  // Move focus to first anchor element
+  const first = anchors.item(0);
+  first.focus();
+
+  const trapListener = createTrapListener(anchors, panel, dfn);
+  panel.addEventListener("keydown", trapListener);
+
+  // Hiding the panel releases the trap
+  const mo = new MutationObserver(records => {
+    const [record] = records;
+    const target = /** @type HTMLElement */ (record.target);
+    if (target.hidden) {
+      panel.removeEventListener("keydown", trapListener);
+      mo.disconnect();
+    }
+  });
+  mo.observe(panel, { attributes: true, attributeFilter: ["hidden"] });
+}
+
+/**
+ *
+ * @param {NodeListOf<HTMLAnchorElement>} anchors
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function createTrapListener(anchors, panel, dfn) {
+  const lastIndex = anchors.length - 1;
+  let currentIndex = 0;
+  return event => {
+    switch (event.key) {
+      // Hitting "Tab" traps us in a nice loop around elements.
+      case "Tab": {
+        event.preventDefault();
+        currentIndex += event.shiftKey ? -1 : +1;
+        if (currentIndex < 0) {
+          currentIndex = lastIndex;
+        } else if (currentIndex > lastIndex) {
+          currentIndex = 0;
+        }
+        anchors.item(currentIndex).focus();
+        break;
+      }
+
+      // Hitting "Enter" on an anchor releases the trap.
+      case "Enter":
+        hidePanel(panel);
+        break;
+
+      // Hitting "Escape" returns focus to dfn.
+      case "Escape":
+        hidePanel(panel);
+        dfn.focus();
+        return;
+    }
+  };
+}
+
+/** @param {HTMLElement} panel */
+function hidePanel(panel) {
+  if (!panel) return;
+  panel.hidden = true;
+  panel.classList.remove("docked");
+}
+})()</script><script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script></body></html>
