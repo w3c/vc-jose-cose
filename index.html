@@ -397,7 +397,6 @@ eyJraWQiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQja2V5LTAiLCJhbGciOiJFUzI1NiIs
   <p class="issue" data-number="31"></p>
   <p class="issue" data-number="30"></p>
   <p class="issue" data-number="15"></p>
-  <p class="issue" data-number="13"></p>
   <p class="issue" data-number="117"></p>
   <p class="issue" data-number="117"></p>
   <p>
@@ -483,7 +482,96 @@ and <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a>.
     </p>
 
 
-
+    <section>
+      <h2>OpenID Connect</h2>
+      <p>
+        OpenID Connect uses <a data-cite="RFC5785#section-3">Well-Known Uniform Resource Identifiers (URIs)</a> 
+        to enable <a data-cite="VC-DATA-MODEL#dfn-issuers">issuer</a> key discovery.
+      </p>
+      <ol>
+        <li>
+          <p>
+            The <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> (or relying party)
+            decodes the JWT claimset, and obtains the <code>iss</code> claim.
+          </p>
+        </li>
+        <li>
+          <p>
+            The <code>iss</code> value is converted to the well-known OpenID Connect Configuration 
+            Endpoint URL by applying the following URI template:
+          </p>
+          <pre class="example">
+            https://{iss}/.well-known/openid-configuration
+          </pre>
+        </li>
+        <li>
+          <p>
+            The OIDC Configuration Endpoint URL is dereferenced to a JSON document which contains issuer configuration details,
+            one of which is the <code>jwks_uri</code>. This URL might also be well-known, for example:
+          </p>
+          <pre class="example">
+            https://{iss}/.well-known/jwks
+          </pre>
+        </li>
+        <li>
+          <p>
+            The OIDC <code>jwks_uri</code> is dereferenced to a JSON Web Key Set.
+          </p>
+          <p>
+            The content type of the key set could be 
+            <a href="https://www.iana.org/assignments/media-types/application/jwk-set+json">application/jwk-set+json</a> 
+            or <a href="https://www.iana.org/assignments/media-types/application/json">application/json</a>.
+          </p>
+          <p>
+            Here is an example of a key set used by an issuer:
+          </p>
+          <pre class="example">
+{
+  "keys": [
+    {
+      "alg": "RS256",
+      "kty": "RSA",
+      "use": "sig",
+      "n": "wW9TkSbcn5FV3iUJ-812sqTvwTGCFrDm6vD2U-g23gn6rrBdFZQbf2bgEnSkolph6CanOYTQ1lKVhKjHLd6Q4MDVGidbVBhESxib2YIzJVUS-0oQgizkBEJxyHI4Zl3xX_sdA_yegLUi-Ykt_gaMPSw_vpxe-pBxu-jd14i-jDfwoPJUdF8ZJGS9orCPRiHCYLDgOscC9XibH9rUbTvG8q4bAPx9Ox6malx4OLvU3pXVjew6LG3iBi2YhpCWe6voMvZJYXqC1n5Mk_KOdGcCFtDgu3I56SGSfsF7-tI7qG1ZO8RMuzqH0LkJVirujYzXrnMZ7WgbMPXmHU8i4z04zw",
+      "e": "AQAB",
+      "kid": "NTBGNTJEMDc3RUE3RUVEOTM4NDcyOEFDNzEyOTY5NDNGOUQ4OEU5OA",
+      "x5t": "NTBGNTJEMDc3RUE3RUVEOTM4NDcyOEFDNzEyOTY5NDNGOUQ4OEU5OA",
+      "x5c": [
+        "MIIDCzCCAfOgAwIBAgIJANPng0XRWwsdMA0GCSqGSIb3DQEBBQUAMBwxGjAYBgNVBAMMEWNvbnRvc28uYXV0aDAuY29tMB4XDTE0MDcxMTE2NTQyN1oXDTI4MDMxOTE2NTQyN1owHDEaMBgGA1UEAwwRY29udG9zby5hdXRoMC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDBb1ORJtyfkVXeJQn7zXaypO/BMYIWsObq8PZT6DbeCfqusF0VlBt/ZuASdKSiWmHoJqc5hNDWUpWEqMct3pDgwNUaJ1tUGERLGJvZgjMlVRL7ShCCLOQEQnHIcjhmXfFf+x0D/J6AtSL5iS3+Bow9LD++nF76kHG76N3XiL6MN/Cg8lR0XxkkZL2isI9GIcJgsOA6xwL1eJsf2tRtO8byrhsA/H07HqZqXHg4u9TeldWN7DosbeIGLZiGkJZ7q+gy9klheoLWfkyT8o50ZwIW0OC7cjnpIZJ+wXv60juobVk7xEy7OofQuQlWKu6NjNeucxntaBsw9eYdTyLjPTjPAgMBAAGjUDBOMB0GA1UdDgQWBBTLarHdkNa5CzPyiKJU51t8JWn9WTAfBgNVHSMEGDAWgBTLarHdkNa5CzPyiKJU51t8JWn9WTAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4IBAQA2FOjm+Bpbqk59rQBC0X6ops1wBcXH8clnXfG1G9qeRwLEwSef5HPz4TTh1f2lcf4Pcq2vF0HbVNJFnLVV+PjR9ACkto+v1n84i/U4BBezZyYuX2ZpEbv7hV/PWxg8tcVrtyPaj60UaA/pUA86CfYy+LckY4NRKmD7ZrcCzjxW2hFGNanfm2FEryxXA3RMNf6IiW7tbJ9ZGTEfA/DhVnZgh/e82KVX7EZnkB4MjCQrwj9QsWSMBtBiYp0/vRi9cxDFHlUwnYAUeZdHWTW+Rp2JX7Qwf0YycxgyjkGAUEZc4WpdNiQlwYf5G5epfOtHGiwiJS+u/nSYvqCFt57+g3R+"
+      ]
+    },
+    {
+      "alg": "RS256",
+      "kty": "RSA",
+      "use": "sig",
+      "n": "ylgVZbNR4nlsU_AbU8Zd7ZhVfmYuwq-RB1_YQWHY362pAed-qgSXV1QmKwCukQ2WDsPHWgpPuEf3O_acmJcCiSxhctpBr5WKkji5o50YX2FqC3xymGkYW5NilvFznKaKU45ulBVByrcb3Vt8BqqBAhaD4YywZZKo7mMudcq_M__f0_tB4fHsHHe7ehWobWtzAW7_NRP0_FjB4Kw4PiqJnChPvfbuxTCEUcIYrshRwD6GF4D_oLdeR44dwx4wtEgvPOtkQ5XIGrhQC_sgWcb2jh7YXauVUjuPezP-VkK7Wm9mZRe758q43SWxwT3afo5BLa3_YLWazqcpWRXn9QEDWw",
+      "e": "AQAB",
+      "kid": "aMIKy_brQk3nLd0PKd9ln",
+      "x5t": "-xcTyx47q3ddycG7LtE6QCcETbs",
+      "x5c": [
+        "MIIC/TCCAeWgAwIBAgIJH62yWyX7VxxQMA0GCSqGSIb3DQEBCwUAMBwxGjAYBgNVBAMTEWNvbnRvc28uYXV0aDAuY29tMB4XDTIwMDMxMTE5Mjk0N1oXDTMzMTExODE5Mjk0N1owHDEaMBgGA1UEAxMRY29udG9zby5hdXRoMC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDKWBVls1HieWxT8BtTxl3tmFV+Zi7Cr5EHX9hBYdjfrakB536qBJdXVCYrAK6RDZYOw8daCk+4R/c79pyYlwKJLGFy2kGvlYqSOLmjnRhfYWoLfHKYaRhbk2KW8XOcpopTjm6UFUHKtxvdW3wGqoECFoPhjLBlkqjuYy51yr8z/9/T+0Hh8ewcd7t6Fahta3MBbv81E/T8WMHgrDg+KomcKE+99u7FMIRRwhiuyFHAPoYXgP+gt15Hjh3DHjC0SC8862RDlcgauFAL+yBZxvaOHthdq5VSO497M/5WQrtab2ZlF7vnyrjdJbHBPdp+jkEtrf9gtZrOpylZFef1AQNbAgMBAAGjQjBAMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFPVdE4SPvuhlODV0GOcPE4QZ7xNuMA4GA1UdDwEB/wQEAwIChDANBgkqhkiG9w0BAQsFAAOCAQEAu2nhfiJk/Sp49LEsR1bliuVMP9nycbSz0zdp2ToAy0DZffTd0FKk/wyFtmbb0UFTD2aOg/WZJLDc+3dYjWQ15SSLDRh6LV45OHU8Dkrc2qLjiRdoh2RI+iQFakDn2OgPNgquL+3EEIpbBDA/uVoOYCbkqJNaNM/egN/s2vZ6Iq7O+BprWX/eM25xw8PMi+MU4K2sJpkcDRwoK9Wy8eeSSRIGYnpKO42g/3QI9+BRa5uD+9shG6n7xgzAPGeldUXajCThomwO8vInp6VqY8k3IeLEYoboJj5KMfJgOWUkmaoh6ZBJHnCogvSXI35jbxCxmHAbK+KdTka/Yg2MadFZdA=="
+      ]
+    }
+  ]
+}
+          </pre>
+        </li>
+        <li>
+          <p>
+            The <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> (or relying party)
+            uses <code>kid</code> from the protected header of the JWT
+            to identify the public key, controlled by the issuer, and uses it to verify
+            the token.
+          </p>
+          <p>
+            The <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> (or relying party)
+            verifies the signature on the JWT.
+            After verification, the claims the issuer has made about the subject can be reviewed or processed, 
+            because the integrity of the claims has been protected by a digital signature verification.
+          </p>
+        </li>
+      </ol>
+    </section>
   </section>
 
   
@@ -764,8 +852,6 @@ and <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a>.
           <td>
             <p>As defined in this specification. See also the security
               considerations in [[RFC7519]].</p>
-          </td>
-          <td>
             <p>
               Be advised, per the [[VC-DATA-MODEL]], verifiable
               presentations are not required to be secured.
