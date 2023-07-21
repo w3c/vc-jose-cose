@@ -9,7 +9,7 @@ on the
 mailing list as well.
 
 ## Editor's draft:
-* [Securing Verifiable Credentials using JSON Web Tokens](https://w3c.github.io/vc-jwt/)
+* [Securing Verifiable Credentials using JSON Web Tokens](https://w3c.github.io/vc-jose-cose/)
 
 ## Verifiable Credentials Working Group
 * Group page: [https://www.w3.org/2017/vc/WG/](https://www.w3.org/2017/vc/WG/)
