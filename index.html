@@ -86,6 +86,13 @@
           status:   "Internet-Draft",
           publisher:  "IETF"
         },
+        "MULTIPLE-SUFFIXES": {
+          title:    "Media Types with Multiple Suffixes",
+          href:     "https://datatracker.ietf.org/doc/draft-ietf-mediaman-suffixes/",
+          authors:  [ 	"Manu Sporny" , "Amy Guy" ],
+          status:   "Internet-Draft",
+          publisher:  "IETF"
+        },
       }
     };
   </script>
@@ -94,10 +101,10 @@
 <body>
   <section id="abstract">
     <p>
-      This specification defines how to secure Verifiable Credentials
-      with JSON Object Signing and Encryption (<a href="https://datatracker.ietf.org/wg/jose/about/">JOSE</a>)
-      especially as explified by JSON Web Signatures (JWS) [[RFC7515]]
-      and with CBOR Object Signing and Encryption (COSE) [[RFC8152]].
+      This specification defines how to secure credentials and presentations
+      conforming to the [[VC-DATA-MODEL]],
+      with JSON Object Signing and Encryption (<a href="https://datatracker.ietf.org/wg/jose/about/">JOSE</a>),
+      and CBOR Object Signing and Encryption (COSE) [[RFC9052]].
 
       This enables the Verifiable Credential data model
       [[VC-DATA-MODEL]]to be implemented with standards
@@ -112,17 +119,19 @@
       This specification describes how to secure media types
       expressing Verifiable Credentials and Verifiable Presentations
       as described in the [[VC-DATA-MODEL]], using approaches
-      described by the COSE and JOSE working groups at IETF. This
-      includes JWTs [[RFC7519]], JWS [[RFC7515]], and COSE [[RFC8152]]
-      and provides an approach using well defined content types
-      [[RFC6838]] to identify that the type of data being secured
-      conforms with the [[VC-DATA-MODEL]].
+      described by the OAUTH, JOSE, and COSE working groups at IETF. This
+      includes JWTs [[RFC7519]], JWS [[RFC7515]], SD-JWT [[SD-JWT]], and COSE [[RFC9052]],
+      and provides an approach using well-defined content types
+      [[RFC6838]] and structured suffixes [[MULTIPLE-SUFFIXES]] 
+      to distinguish the data types of documents conforming to [[VC-DATA-MODEL]]
+      from the data types of secured documents conforming to [[VC-DATA-MODEL]],
+      defined in this specification.
     </p>
     <p>
       JSON Web Signatures (JWS) [[RFC7515]] provide a standardized
-      mechanism for digitally signing JSON data. It provides a means
+      mechanism for digitally signing JSON documents. It provides a means
       to ensure the integrity, authenticity, and non-repudiation of
-      the information contained in a JSON object. JWS enables secure
+      the information contained in a JSON document. JWS enables secure
       communication and trust between parties by adding a
       cryptographic signature to a payload. This signature is
       generated using a private key and can be verified using the
@@ -130,24 +139,24 @@
       protecting data from unauthorized modifications. The
       versatility and wide adoption of JWS make it an essential
       component for verifying the authenticity and integrity of
-      data in various applications, including
+      various application media types, including
       authentication, authorization, and secure data exchange. These
       properties make JWS especially well suited to securing the
       JSON-LD [[VC-DATA-MODEL]] and through this to provide a means of
-      supporting the three party model (issuer, verifier, holder) for
-      exchange of credentials enabled in verifiable credenials.
+      supporting the three party model (issuer, holder, verifier) for
+      exchange of verifiable credentials and verifiable presentations.
     </p>
     <p>
       JSON Web Token (JWT) [[RFC7519]] is a widely-used means of
       expressing
       <a data-cite="VC-DATA-MODEL#claims">claims</a>, represented in JSON, to be transferred
       between two parties. Providing a representation of the
-      Verifiable Credentials Data Model for JWT allows existing
+      [[VC-DATA-MODEL]] for JWT allows existing
       systems and libraries to participate in the ecosystem described
       in Section <a data-cite="VC-DATA-MODEL#ecosystem-overview">ecosystem
         overview</a>. A JWT encodes a set of
       <a data-cite="VC-DATA-MODEL#claims">claims</a> as a JSON object
-      that is contained in a JSON Web Signature (JWS) [[RFC7515]]
+      that is secured via a JSON Web Signature (JWS) [[RFC7515]]
       and/or JSON Web Encryption (JWE) [[?RFC7516]]. For this
       specification, the use of JWE is out of scope.
     <p class="issue">
@@ -158,7 +167,7 @@
     </p>
     </p>
     <p>
-      CBOR Object Signing and Encryption (COSE) [[RFC8152]] is a
+      CBOR Object Signing and Encryption (COSE) [[RFC9052]] is a
       specification that defines a framework for representing signed and
       encrypted data using (Concise Binary Object Representation) [RFC8949]
       data structures. COSE provides a standardized way to secure the
@@ -180,22 +189,20 @@
   <section>
     <h2>Securing the VC Data Model</h2>
     <p>
-      The use of Verifiable Credentials often involves the
-      representation and exchange of structured data in the form of
-      JSON-LD as this is the structured suffix of the base media types defined in [[VC-DATA-MODEL]]. While
-      JSON-LD provides a flexible and extensible format for describing
-      linked data, see <a href="https://www.w3.org/TR/json-ld11/#relationship-to-rdf">JSON-LD Relationship to RDF</a>,
-      it is important to note that it also provides a linkage
-      between the data structure and semantic meaning of data.
+      This section outlines how to secure documents conforming
+      to the [[VC-DATA-MODEL]] using JOSE and COSE.
     </p>
     <p>
-      This section outlines how JSON-LD claimsets can be secured
-      using either JOSE or COSE.
+      Documents conforming to the [[VC-DATA-MODEL]], 
+      and their associated media types, rely on
+      JSON-LD, which is a flexible and extensible format for describing
+      linked data, see <a href="https://www.w3.org/TR/json-ld11/#relationship-to-rdf">JSON-LD Relationship to RDF</a>.
     </p>
     <p>
       A benefit to this approach is that payloads can be made to conform
-      directly to the [[VC-DATA-MODEL]] without any mapping or
-      transformation.
+      directly to the [[VC-DATA-MODEL]] without any mappings or
+      transformation, while at the same time supporting registered 
+      claims that are understood in the context of JOSE and COSE.
     </p>
     <section>
       <h2>With JOSE</h2>
@@ -299,9 +306,9 @@
     <section>
       <h2>With COSE</h2>
       <p>
-        COSE [[rfc8152]] is a common approach to encoding and securing
+        COSE [[rfc9052]] is a common approach to encoding and securing
         information using CBOR [[rfc8949]]. Verifiable credentials MAY
-        be secured using COSE [[rfc8152]] and MUST be identified through
+        be secured using COSE [[rfc9052]] and MUST be identified through
         use of content types as outlined in this section.
       </p>
       <section>
@@ -311,9 +318,13 @@
           <code>application/vc+ld+json</code>
           with COSE.
         </p>
-        <p>[[rfc8152]] MAY be used to secure this media type.</p>
+        <p>[[rfc9052]] MAY be used to secure this media type.</p>
         <p>When using this approach, the <code>type (TBD)</code> MUST be
           <code>vc+ld+json+cose</code>
+        </p>
+        <p class="issue">
+          See <a href="https://datatracker.ietf.org/doc/draft-jones-cose-typ-header-parameter/">draft-jones-cose-typ-header-parameter</a>,
+          regarding progress towards explicit typing for COSE.
         </p>
         <p>When using this approach, the <code>content type (3)</code>
           MUST be <code>application/vc+ld+json</code></p>
