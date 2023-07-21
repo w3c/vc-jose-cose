@@ -727,6 +727,8 @@ and <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a>.
 
   <section class="normative">
     <h2>IANA Considerations</h2>
+    <section id="media-type-registrations">
+    <h3>Media Types</h3>
     <section id="vc-jwt-media-type">
       <h2><code>application/vc+jwt</code></h2>
       <p>
@@ -915,6 +917,70 @@ and <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a>.
           </td>
         </tr>
       </table>
+    </section>
+  </section>
+  
+
+  <section id="json-web-token-claim-registrations">
+    <h3>JSON Web Token Claims</h3>
+    <p>
+      This section retains deprecated registered claim names 
+      that were previously submitted to the Internet Engineering Steering
+      Group (IESG) for review, approval, and registration with IANA in the
+      "JSON Web Token Claims Registry".
+    </p>
+
+    <p class="issue" data-number="119"></p>
+    
+      <section id="vc-json-web-token-claim">
+        <h4>`vc`</h4>
+        <table>
+          <tr>
+            <th>Claim Name: </th>
+            <td>"vc" </td>
+          </tr>
+          <tr>
+            <th>Claim Description: </th>
+            <td>Verifiable Credential</td>
+          </tr>
+          <tr>
+            <th>Change Controller:  </th>
+            <td>W3C</td>
+          </tr>
+          <tr>
+            <th>Specification Document(s): </th>
+            <td>
+            <a href="https://www.w3.org/TR/vc-data-model/">Section 6.3.1.2: JSON Web Token
+              Extensions of Verifiable Credentials Data Model 1.0</a>
+            </td>
+          </tr>
+        </table>
+      </section>
+
+      <section id="vp-json-web-token-claim">
+        <h4>`vp`</h4>
+        <table>
+          <tr>
+            <th>Claim Name: </th>
+            <td>"vp"</td>
+          </tr>
+          <tr>
+            <th>Claim Description: </th>
+            <td>Verifiable Presentation</td>
+          </tr>
+          <tr>
+            <th>Change Controller: </th>
+            <td>W3C</td>
+          </tr>
+          <tr>
+            <th>Specification Document(s):</th>
+            <td>
+              <a href="https://www.w3.org/TR/vc-data-model/">Section 6.3.1.2: JSON Web Token
+                Extensions of Verifiable Credentials Data Model 1.0</a>
+            </td>
+          </tr>
+        </table>
+      </section>
     </section>
   </section>
   <section>
