@@ -340,257 +340,194 @@
     </section>
   </section>
 
-  <section>
-    <h2>Securing JSON</h2>
-    <p>
-      This section provides guidance on how to use JSON [[RFC7159]]
-      claimsets with JWT registered claims to construct a JWT that can
-      be mapped to a verifiable credential. This section also describes
-      how to use content types and token types to distinguish different
-      representations of verifiable credentials.
-    </p>
-    <p class="note">
-      This representation relies on claims registered in the
-      <a href="https://www.iana.org/assignments/jwt/jwt.xhtml#claims">IANA
-        JSON Web Token Claims Registry</a> whenever possible.
-    </p>
-    <p class="note">
-      Production of this representation does not use
-      <code>vc+ld+json</code> as an input.
-    </p>
-    <section>
-      <h2>Credential Header</h2>
-      <p><a data-cite="rfc7519#section-5.1">typ</a> MUST use the media
-        type <code>vc+jwt</code>.</p>
-      <aside class="example" title="credential metadata (decoded JWT
-      header)">
-        <pre class="json">
-{
-  "kid": "https://example.edu/issuers/14#key-0",
-  "alg": "ES256",
-  "typ": "vc+jwt"
-}
-        </pre>
-      </aside>
+  <section id="conformance">
+    <section class="normative">
+      <h2>Key Discovery</h2>
+        <p class="issue">
+          The working group is still discussing how to close many related issues.
+        </p>
+        <p class="issue" data-number="117"></p>
+        <p class="issue" data-number="106"></p>
+        <p class="issue" data-number="31"></p>
+        <p class="issue" data-number="30"></p>
+        <p class="issue" data-number="15"></p>
+        <p class="issue" data-number="117"></p>
+        <p class="issue" data-number="117"></p>
+        <p>
+      In order to complete the <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process, 
+      a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> needs to obtain the cryptographic keys used to secure the 
+      <a data-cite="VC-DATA-MODEL#dfn-credential">credential</a>.
+        </p>
+        <p>
+      There are several different ways to discover the verification keys of
+      the <a data-cite="VC-DATA-MODEL#dfn-issuers">issuers</a>
+      and <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a>.
+        </p>
     </section>
     <section>
-      <h2>Credential</h2>
-      <pre class="example" title="A credential decoded from a JWT payload">
-{
-  "iss": "https://example.edu/issuers/14",
-  "sub": "1234567890",
-  "name": "John Doe",
-  "iat": 1516239022,
-  "urn:example:claim": true
-}
-      </pre>
-      <p class="note">
-        The <code>vc</code> and <code>vp</code> claims MUST NOT be
-        present when the content type header parameter is set to
-        <code>credential-claims-set+json</code>.
-      </p>
-    </section>
-    <section>
-      <h2>Verifiable Credential</h2>
-      <pre class="example" title="An encoded verifiable credential that uses an external proof">
-eyJraWQiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQja2V5LTAiLCJhbGciOiJFUzI1NiIsInR5cCI6InZjK2p3dCJ9.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuZWR1L2lzc3VlcnMvMTQiLCJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJ1cm46ZXhhbXBsZTpjbGFpbSI6dHJ1ZX0.WLD4Qxh629TFkJHzmbkWEefYX-QPkdCmxbBMKNHErxND2QpjVBbatxHkxS9Y_SzBmwffuM2E9i5VvVgpZ6v4Tg
-      </pre>
-    </section>
-  </section>
-
-  
-
-<section class="normative">
-  <h2>Key Discovery</h2>
-  <p class="issue">
-    The working group is still discussing how to close many related issues.
-  </p>
-  <p class="issue" data-number="117"></p>
-  <p class="issue" data-number="106"></p>
-  <p class="issue" data-number="31"></p>
-  <p class="issue" data-number="30"></p>
-  <p class="issue" data-number="15"></p>
-  <p class="issue" data-number="117"></p>
-  <p class="issue" data-number="117"></p>
-  <p>
-In order to complete the <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process, 
-a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> needs to obtain the cryptographic keys used to secure the 
-<a data-cite="VC-DATA-MODEL#dfn-credential">credential</a>.
-  </p>
-  <p>
-There are several different ways to discover the verification keys of
-the <a data-cite="VC-DATA-MODEL#dfn-issuers">issuers</a>
-and <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a>.
-  </p>
-
-  <section>
-    <h2>Registered Claim Names</h2>
-    <p>
-When found in the <a data-cite="RFC7515#section-4.1">Protected Header</a>, or 
-the <a data-cite="RFC7519#section-4.1.1">Protected Claimset</a>, members present in
-<a href="https://www.iana.org/assignments/jwt/jwt.xhtml">IANA Assignments for JSON Web Token (JWT)</a> and 
-<a href="https://www.iana.org/assignments/jose/jose.xhtml">IANA Assignments for JSON Object Signing and Encryption (JOSE)</a>
-are to be interpreted according to the associated specifications referenced by IANA.
-    </p>
-    <p>
-<a href="#registered-claim-names">Registered claims</a> that are present in either
-the <a data-cite="RFC7515#section-4.1">Protected Header</a>
-or the <a data-cite="RFC7519#section-4.1.1">Claimset</a> can be used to help
-<a data-cite="VC-DATA-MODEL#dfn-verifier">verifiers</a> discover verification keys.
-    </p>
-    <section>
-      <h2>kid</h2>
+      <h2>Registered Claim Names</h2>
       <p>
-If <code>kid</code> is present in the <a data-cite="RFC7515#section-4.1">Protected Header</a>,
-a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
-to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the 
-<a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
-      </p>
-    </section>
-    <section>
-      <h2>iss</h2>
-      <p>
-If <code>iss</code> is present in the <a data-cite="RFC7515#section-4.1">Protected Header</a>
-or the <a data-cite="RFC7519#section-4.1.1">JWT Claims </a>,
-a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
-to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the 
-<a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
+      When found in the <a data-cite="RFC7515#section-4.1">Protected Header</a>, or 
+      the <a data-cite="RFC7519#section-4.1.1">Protected Claimset</a>, members present in
+      <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">IANA Assignments for JSON Web Token (JWT)</a> and 
+      <a href="https://www.iana.org/assignments/jose/jose.xhtml">IANA Assignments for JSON Object Signing and Encryption (JOSE)</a>
+      are to be interpreted according to the associated specifications referenced by IANA.
       </p>
       <p>
-If <code>kid</code> is also present in the
-<a data-cite="RFC7515#section-4.1">Protected Header</a>, it is expected to be useful to
-distinguish the specific key used.
+      <a href="#registered-claim-names">Registered claims</a> that are present in either
+      the <a data-cite="RFC7515#section-4.1">Protected Header</a>
+      or the <a data-cite="RFC7519#section-4.1.1">Claimset</a> can be used to help
+      <a data-cite="VC-DATA-MODEL#dfn-verifier">verifiers</a> discover verification keys.
       </p>
-    <p class="issue"  data-number="31">
-      There are a few issues related to clarification of optionality and behavior of 
-      registered claims.  
-    </p>
-    </section>
-
-    <section>
-      <h2>cnf</h2>
-      <p>
-If <code>cnf</code> is present in the <a data-cite="RFC7515#section-4.1">Protected Header</a>
-or the <a data-cite="RFC7519#section-4.1.1">JWT Claims </a>,
-a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
-to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the 
-<a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
+      <section>
+        <h2>kid</h2>
+        <p>
+      If <code>kid</code> is present in the <a data-cite="RFC7515#section-4.1">Protected Header</a>,
+      a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
+      to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the 
+      <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
+        </p>
+      </section>
+      <section>
+        <h2>iss</h2>
+        <p>
+      If <code>iss</code> is present in the <a data-cite="RFC7515#section-4.1">Protected Header</a>
+      or the <a data-cite="RFC7519#section-4.1.1">JWT Claims </a>,
+      a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
+      to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the 
+      <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
+        </p>
+        <p>
+      If <code>kid</code> is also present in the
+      <a data-cite="RFC7515#section-4.1">Protected Header</a>, it is expected to be useful to
+      distinguish the specific key used.
+        </p>
+      <p class="issue"  data-number="31">
+        There are a few issues related to clarification of optionality and behavior of 
+        registered claims.  
       </p>
-      <p>
-If <code>kid</code> is also present in the
-<a data-cite="RFC7515#section-4.1">Protected Header</a>, it is expected to be
-useful to distinguish the specific key used.
+      </section>
+      
+      <section>
+        <h2>cnf</h2>
+        <p>
+      If <code>cnf</code> is present in the <a data-cite="RFC7515#section-4.1">Protected Header</a>
+      or the <a data-cite="RFC7519#section-4.1.1">JWT Claims </a>,
+      a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
+      to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the 
+      <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
+        </p>
+        <p>
+      If <code>kid</code> is also present in the
+      <a data-cite="RFC7515#section-4.1">Protected Header</a>, it is expected to be
+      useful to distinguish the specific key used.
+        </p>
+      </section>
+      </section>
+      
+      <section>
+      <h2>Well Known URIs</h2>
+      <p class="issue">
+      The working group is currently exploring how 
+      <a data-cite="RFC5785#section-3">Defining Well-Known Uniform Resource Identifiers (URIs)</a>
+      could be leveraged to assist a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> in discovering verification keys for 
+      <a data-cite="VC-DATA-MODEL#dfn-issuers">issuers</a> 
+      and <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a>.
       </p>
-    </section>
-  </section>
-  
-  <section>
-    <h2>Well Known URIs</h2>
-    <p class="issue">
-The working group is currently exploring how 
-<a data-cite="RFC5785#section-3">Defining Well-Known Uniform Resource Identifiers (URIs)</a>
-could be leveraged to assist a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> in discovering verification keys for 
-<a data-cite="VC-DATA-MODEL#dfn-issuers">issuers</a> 
-and <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a>.
-    </p>
-
-
-    <section>
-      <h2>OpenID Connect</h2>
-      <p>
-        OpenID Connect uses <a data-cite="RFC5785#section-3">Well-Known Uniform Resource Identifiers (URIs)</a> 
-        to enable <a data-cite="VC-DATA-MODEL#dfn-issuers">issuer</a> key discovery.
-      </p>
-      <ol>
-        <li>
-          <p>
-            The <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> (or relying party)
-            decodes the JWT claimset, and obtains the <code>iss</code> claim.
-          </p>
-        </li>
-        <li>
-          <p>
-            The <code>iss</code> value is converted to the well-known OpenID Connect Configuration 
-            Endpoint URL by applying the following URI template:
-          </p>
-          <pre class="example">
-            https://{iss}/.well-known/openid-configuration
-          </pre>
-        </li>
-        <li>
-          <p>
-            The OIDC Configuration Endpoint URL is dereferenced to a JSON document which contains issuer configuration details,
-            one of which is the <code>jwks_uri</code>. This URL might also be well-known, for example:
-          </p>
-          <pre class="example">
-            https://{iss}/.well-known/jwks
-          </pre>
-        </li>
-        <li>
-          <p>
-            The OIDC <code>jwks_uri</code> is dereferenced to a JSON Web Key Set.
-          </p>
-          <p>
-            The content type of the key set could be 
-            <a href="https://www.iana.org/assignments/media-types/application/jwk-set+json">application/jwk-set+json</a> 
-            or <a href="https://www.iana.org/assignments/media-types/application/json">application/json</a>.
-          </p>
-          <p>
-            Here is an example of a key set used by an issuer:
-          </p>
-          <pre class="example">
-{
-  "keys": [
-    {
-      "alg": "RS256",
-      "kty": "RSA",
-      "use": "sig",
-      "n": "wW9TkSbcn5FV3iUJ-812sqTvwTGCFrDm6vD2U-g23gn6rrBdFZQbf2bgEnSkolph6CanOYTQ1lKVhKjHLd6Q4MDVGidbVBhESxib2YIzJVUS-0oQgizkBEJxyHI4Zl3xX_sdA_yegLUi-Ykt_gaMPSw_vpxe-pBxu-jd14i-jDfwoPJUdF8ZJGS9orCPRiHCYLDgOscC9XibH9rUbTvG8q4bAPx9Ox6malx4OLvU3pXVjew6LG3iBi2YhpCWe6voMvZJYXqC1n5Mk_KOdGcCFtDgu3I56SGSfsF7-tI7qG1ZO8RMuzqH0LkJVirujYzXrnMZ7WgbMPXmHU8i4z04zw",
-      "e": "AQAB",
-      "kid": "NTBGNTJEMDc3RUE3RUVEOTM4NDcyOEFDNzEyOTY5NDNGOUQ4OEU5OA",
-      "x5t": "NTBGNTJEMDc3RUE3RUVEOTM4NDcyOEFDNzEyOTY5NDNGOUQ4OEU5OA",
-      "x5c": [
-        "MIIDCzCCAfOgAwIBAgIJANPng0XRWwsdMA0GCSqGSIb3DQEBBQUAMBwxGjAYBgNVBAMMEWNvbnRvc28uYXV0aDAuY29tMB4XDTE0MDcxMTE2NTQyN1oXDTI4MDMxOTE2NTQyN1owHDEaMBgGA1UEAwwRY29udG9zby5hdXRoMC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDBb1ORJtyfkVXeJQn7zXaypO/BMYIWsObq8PZT6DbeCfqusF0VlBt/ZuASdKSiWmHoJqc5hNDWUpWEqMct3pDgwNUaJ1tUGERLGJvZgjMlVRL7ShCCLOQEQnHIcjhmXfFf+x0D/J6AtSL5iS3+Bow9LD++nF76kHG76N3XiL6MN/Cg8lR0XxkkZL2isI9GIcJgsOA6xwL1eJsf2tRtO8byrhsA/H07HqZqXHg4u9TeldWN7DosbeIGLZiGkJZ7q+gy9klheoLWfkyT8o50ZwIW0OC7cjnpIZJ+wXv60juobVk7xEy7OofQuQlWKu6NjNeucxntaBsw9eYdTyLjPTjPAgMBAAGjUDBOMB0GA1UdDgQWBBTLarHdkNa5CzPyiKJU51t8JWn9WTAfBgNVHSMEGDAWgBTLarHdkNa5CzPyiKJU51t8JWn9WTAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4IBAQA2FOjm+Bpbqk59rQBC0X6ops1wBcXH8clnXfG1G9qeRwLEwSef5HPz4TTh1f2lcf4Pcq2vF0HbVNJFnLVV+PjR9ACkto+v1n84i/U4BBezZyYuX2ZpEbv7hV/PWxg8tcVrtyPaj60UaA/pUA86CfYy+LckY4NRKmD7ZrcCzjxW2hFGNanfm2FEryxXA3RMNf6IiW7tbJ9ZGTEfA/DhVnZgh/e82KVX7EZnkB4MjCQrwj9QsWSMBtBiYp0/vRi9cxDFHlUwnYAUeZdHWTW+Rp2JX7Qwf0YycxgyjkGAUEZc4WpdNiQlwYf5G5epfOtHGiwiJS+u/nSYvqCFt57+g3R+"
-      ]
-    },
-    {
-      "alg": "RS256",
-      "kty": "RSA",
-      "use": "sig",
-      "n": "ylgVZbNR4nlsU_AbU8Zd7ZhVfmYuwq-RB1_YQWHY362pAed-qgSXV1QmKwCukQ2WDsPHWgpPuEf3O_acmJcCiSxhctpBr5WKkji5o50YX2FqC3xymGkYW5NilvFznKaKU45ulBVByrcb3Vt8BqqBAhaD4YywZZKo7mMudcq_M__f0_tB4fHsHHe7ehWobWtzAW7_NRP0_FjB4Kw4PiqJnChPvfbuxTCEUcIYrshRwD6GF4D_oLdeR44dwx4wtEgvPOtkQ5XIGrhQC_sgWcb2jh7YXauVUjuPezP-VkK7Wm9mZRe758q43SWxwT3afo5BLa3_YLWazqcpWRXn9QEDWw",
-      "e": "AQAB",
-      "kid": "aMIKy_brQk3nLd0PKd9ln",
-      "x5t": "-xcTyx47q3ddycG7LtE6QCcETbs",
-      "x5c": [
-        "MIIC/TCCAeWgAwIBAgIJH62yWyX7VxxQMA0GCSqGSIb3DQEBCwUAMBwxGjAYBgNVBAMTEWNvbnRvc28uYXV0aDAuY29tMB4XDTIwMDMxMTE5Mjk0N1oXDTMzMTExODE5Mjk0N1owHDEaMBgGA1UEAxMRY29udG9zby5hdXRoMC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDKWBVls1HieWxT8BtTxl3tmFV+Zi7Cr5EHX9hBYdjfrakB536qBJdXVCYrAK6RDZYOw8daCk+4R/c79pyYlwKJLGFy2kGvlYqSOLmjnRhfYWoLfHKYaRhbk2KW8XOcpopTjm6UFUHKtxvdW3wGqoECFoPhjLBlkqjuYy51yr8z/9/T+0Hh8ewcd7t6Fahta3MBbv81E/T8WMHgrDg+KomcKE+99u7FMIRRwhiuyFHAPoYXgP+gt15Hjh3DHjC0SC8862RDlcgauFAL+yBZxvaOHthdq5VSO497M/5WQrtab2ZlF7vnyrjdJbHBPdp+jkEtrf9gtZrOpylZFef1AQNbAgMBAAGjQjBAMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFPVdE4SPvuhlODV0GOcPE4QZ7xNuMA4GA1UdDwEB/wQEAwIChDANBgkqhkiG9w0BAQsFAAOCAQEAu2nhfiJk/Sp49LEsR1bliuVMP9nycbSz0zdp2ToAy0DZffTd0FKk/wyFtmbb0UFTD2aOg/WZJLDc+3dYjWQ15SSLDRh6LV45OHU8Dkrc2qLjiRdoh2RI+iQFakDn2OgPNgquL+3EEIpbBDA/uVoOYCbkqJNaNM/egN/s2vZ6Iq7O+BprWX/eM25xw8PMi+MU4K2sJpkcDRwoK9Wy8eeSSRIGYnpKO42g/3QI9+BRa5uD+9shG6n7xgzAPGeldUXajCThomwO8vInp6VqY8k3IeLEYoboJj5KMfJgOWUkmaoh6ZBJHnCogvSXI35jbxCxmHAbK+KdTka/Yg2MadFZdA=="
-      ]
-    }
-  ]
-}
-          </pre>
-        </li>
-        <li>
-          <p>
-            The <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> (or relying party)
-            uses <code>kid</code> from the protected header of the JWT
-            to identify the public key, controlled by the issuer, and uses it to verify
-            the token.
-          </p>
-          <p>
-            The <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> (or relying party)
-            verifies the signature on the JWT.
-            After verification, the claims the issuer has made about the subject can be reviewed or processed, 
-            because the integrity of the claims has been protected by a digital signature verification.
-          </p>
-        </li>
-      </ol>
-    </section>
-  </section>
-
-  
-</section>
-
-<section id="conformance">
+      
+      
+      <section>
+        <h2>OpenID Connect</h2>
+            <p>
+              OpenID Connect uses <a data-cite="RFC5785#section-3">Well-Known Uniform Resource Identifiers (URIs)</a> 
+              to enable <a data-cite="VC-DATA-MODEL#dfn-issuers">issuer</a> key discovery.
+            </p>
+            <ol>
+              <li>
+                <p>
+                  The <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> (or relying party)
+                  decodes the JWT claimset, and obtains the <code>iss</code> claim.
+                </p>
+              </li>
+              <li>
+                <p>
+                  The <code>iss</code> value is converted to the well-known OpenID Connect Configuration 
+                  Endpoint URL by applying the following URI template:
+                </p>
+                <pre class="example">
+                  https://{iss}/.well-known/openid-configuration
+                </pre>
+              </li>
+              <li>
+                <p>
+                  The OIDC Configuration Endpoint URL is dereferenced to a JSON document which contains issuer configuration details,
+                  one of which is the <code>jwks_uri</code>. This URL might also be well-known, for example:
+                </p>
+                <pre class="example">
+                  https://{iss}/.well-known/jwks
+                </pre>
+              </li>
+              <li>
+                <p>
+                  The OIDC <code>jwks_uri</code> is dereferenced to a JSON Web Key Set.
+                </p>
+                <p>
+                  The content type of the key set could be 
+                  <a href="https://www.iana.org/assignments/media-types/application/jwk-set+json">application/jwk-set+json</a> 
+                  or <a href="https://www.iana.org/assignments/media-types/application/json">application/json</a>.
+                </p>
+                <p>
+                  Here is an example of a key set used by an issuer:
+                </p>
+                <pre class="example">
+      {
+        "keys": [
+          {
+            "alg": "RS256",
+            "kty": "RSA",
+            "use": "sig",
+            "n": "wW9TkSbcn5FV3iUJ-812sqTvwTGCFrDm6vD2U-g23gn6rrBdFZQbf2bgEnSkolph6CanOYTQ1lKVhKjHLd6Q4MDVGidbVBhESxib2YIzJVUS-0oQgizkBEJxyHI4Zl3xX_sdA_yegLUi-Ykt_gaMPSw_vpxe-pBxu-jd14i-jDfwoPJUdF8ZJGS9orCPRiHCYLDgOscC9XibH9rUbTvG8q4bAPx9Ox6malx4OLvU3pXVjew6LG3iBi2YhpCWe6voMvZJYXqC1n5Mk_KOdGcCFtDgu3I56SGSfsF7-tI7qG1ZO8RMuzqH0LkJVirujYzXrnMZ7WgbMPXmHU8i4z04zw",
+            "e": "AQAB",
+            "kid": "NTBGNTJEMDc3RUE3RUVEOTM4NDcyOEFDNzEyOTY5NDNGOUQ4OEU5OA",
+            "x5t": "NTBGNTJEMDc3RUE3RUVEOTM4NDcyOEFDNzEyOTY5NDNGOUQ4OEU5OA",
+            "x5c": [
+              "MIIDCzCCAfOgAwIBAgIJANPng0XRWwsdMA0GCSqGSIb3DQEBBQUAMBwxGjAYBgNVBAMMEWNvbnRvc28uYXV0aDAuY29tMB4XDTE0MDcxMTE2NTQyN1oXDTI4MDMxOTE2NTQyN1owHDEaMBgGA1UEAwwRY29udG9zby5hdXRoMC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDBb1ORJtyfkVXeJQn7zXaypO/BMYIWsObq8PZT6DbeCfqusF0VlBt/ZuASdKSiWmHoJqc5hNDWUpWEqMct3pDgwNUaJ1tUGERLGJvZgjMlVRL7ShCCLOQEQnHIcjhmXfFf+x0D/J6AtSL5iS3+Bow9LD++nF76kHG76N3XiL6MN/Cg8lR0XxkkZL2isI9GIcJgsOA6xwL1eJsf2tRtO8byrhsA/H07HqZqXHg4u9TeldWN7DosbeIGLZiGkJZ7q+gy9klheoLWfkyT8o50ZwIW0OC7cjnpIZJ+wXv60juobVk7xEy7OofQuQlWKu6NjNeucxntaBsw9eYdTyLjPTjPAgMBAAGjUDBOMB0GA1UdDgQWBBTLarHdkNa5CzPyiKJU51t8JWn9WTAfBgNVHSMEGDAWgBTLarHdkNa5CzPyiKJU51t8JWn9WTAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4IBAQA2FOjm+Bpbqk59rQBC0X6ops1wBcXH8clnXfG1G9qeRwLEwSef5HPz4TTh1f2lcf4Pcq2vF0HbVNJFnLVV+PjR9ACkto+v1n84i/U4BBezZyYuX2ZpEbv7hV/PWxg8tcVrtyPaj60UaA/pUA86CfYy+LckY4NRKmD7ZrcCzjxW2hFGNanfm2FEryxXA3RMNf6IiW7tbJ9ZGTEfA/DhVnZgh/e82KVX7EZnkB4MjCQrwj9QsWSMBtBiYp0/vRi9cxDFHlUwnYAUeZdHWTW+Rp2JX7Qwf0YycxgyjkGAUEZc4WpdNiQlwYf5G5epfOtHGiwiJS+u/nSYvqCFt57+g3R+"
+            ]
+          },
+          {
+            "alg": "RS256",
+            "kty": "RSA",
+            "use": "sig",
+            "n": "ylgVZbNR4nlsU_AbU8Zd7ZhVfmYuwq-RB1_YQWHY362pAed-qgSXV1QmKwCukQ2WDsPHWgpPuEf3O_acmJcCiSxhctpBr5WKkji5o50YX2FqC3xymGkYW5NilvFznKaKU45ulBVByrcb3Vt8BqqBAhaD4YywZZKo7mMudcq_M__f0_tB4fHsHHe7ehWobWtzAW7_NRP0_FjB4Kw4PiqJnChPvfbuxTCEUcIYrshRwD6GF4D_oLdeR44dwx4wtEgvPOtkQ5XIGrhQC_sgWcb2jh7YXauVUjuPezP-VkK7Wm9mZRe758q43SWxwT3afo5BLa3_YLWazqcpWRXn9QEDWw",
+            "e": "AQAB",
+            "kid": "aMIKy_brQk3nLd0PKd9ln",
+            "x5t": "-xcTyx47q3ddycG7LtE6QCcETbs",
+            "x5c": [
+              "MIIC/TCCAeWgAwIBAgIJH62yWyX7VxxQMA0GCSqGSIb3DQEBCwUAMBwxGjAYBgNVBAMTEWNvbnRvc28uYXV0aDAuY29tMB4XDTIwMDMxMTE5Mjk0N1oXDTMzMTExODE5Mjk0N1owHDEaMBgGA1UEAxMRY29udG9zby5hdXRoMC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDKWBVls1HieWxT8BtTxl3tmFV+Zi7Cr5EHX9hBYdjfrakB536qBJdXVCYrAK6RDZYOw8daCk+4R/c79pyYlwKJLGFy2kGvlYqSOLmjnRhfYWoLfHKYaRhbk2KW8XOcpopTjm6UFUHKtxvdW3wGqoECFoPhjLBlkqjuYy51yr8z/9/T+0Hh8ewcd7t6Fahta3MBbv81E/T8WMHgrDg+KomcKE+99u7FMIRRwhiuyFHAPoYXgP+gt15Hjh3DHjC0SC8862RDlcgauFAL+yBZxvaOHthdq5VSO497M/5WQrtab2ZlF7vnyrjdJbHBPdp+jkEtrf9gtZrOpylZFef1AQNbAgMBAAGjQjBAMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFPVdE4SPvuhlODV0GOcPE4QZ7xNuMA4GA1UdDwEB/wQEAwIChDANBgkqhkiG9w0BAQsFAAOCAQEAu2nhfiJk/Sp49LEsR1bliuVMP9nycbSz0zdp2ToAy0DZffTd0FKk/wyFtmbb0UFTD2aOg/WZJLDc+3dYjWQ15SSLDRh6LV45OHU8Dkrc2qLjiRdoh2RI+iQFakDn2OgPNgquL+3EEIpbBDA/uVoOYCbkqJNaNM/egN/s2vZ6Iq7O+BprWX/eM25xw8PMi+MU4K2sJpkcDRwoK9Wy8eeSSRIGYnpKO42g/3QI9+BRa5uD+9shG6n7xgzAPGeldUXajCThomwO8vInp6VqY8k3IeLEYoboJj5KMfJgOWUkmaoh6ZBJHnCogvSXI35jbxCxmHAbK+KdTka/Yg2MadFZdA=="
+            ]
+          }
+        ]
+      }
+                </pre>
+              </li>
+              <li>
+                <p>
+                  The <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> (or relying party)
+                  uses <code>kid</code> from the protected header of the JWT
+                  to identify the public key, controlled by the issuer, and uses it to verify
+                  the token.
+                </p>
+                <p>
+                  The <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> (or relying party)
+                  verifies the signature on the JWT.
+                  After verification, the claims the issuer has made about the subject can be reviewed or processed, 
+                  because the integrity of the claims has been protected by a digital signature verification.
+                </p>
+              </li>
+            </ol>
+          </section>
+        </section>
+      </section>
     <section class="normative">
       <h2>JSON Web Token Header Parameters</h2>
       <p>
@@ -738,53 +675,6 @@ and <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a>.
 
   <section class="normative">
     <h2>IANA Considerations</h2>
-    <section id="media-type-registrations">
-    <h3>Media Types</h3>
-    <section id="vc-jwt-media-type">
-      <h2><code>application/vc+jwt</code></h2>
-      <p>
-        This specification registers the <code>application/vc+jwt</code>
-        Media Type specifically for identifying a <a data-cite="rfc7519#section-3">JWT</a> conforming to the
-        Verifiable Credentials JWT format in the `typ` header.
-      </p>
-      <table>
-        <tr>
-          <td>Type name: </td>
-          <td>application</td>
-        </tr>
-        <tr>
-          <td>Subtype name: </td>
-          <td>application/vc+jwt</td>
-        </tr>
-        <tr>
-          <td>Required parameters: </td>
-          <td>None</td>
-        </tr>
-        <tr>
-          <td>Encoding considerations: </td>
-          <td>
-            <code>application/vc+jwt</code> values are encoded as a
-            series of base64url encoded values (some of which may be the
-            empty string) each separated from the next by a single
-            period ('.') character.
-          </td>
-        </tr>
-        <tr>
-          <td>Security considerations: </td>
-          <td>
-            <p>As defined in this specification. See also the security
-              considerations in [[RFC7519]].</p>
-          </td>
-        </tr>
-        <tr>
-          <td>Contact: </td>
-          <td>
-            W3C Verifiable Credentials Working Group <a href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-          </td>
-        </tr>
-      </table>
-    </section>
-
     <section id="vc-ld-jwt-media-type">
       <h2><code>application/vc+ld+jwt</code></h2>
       <p>
@@ -1308,7 +1198,6 @@ and <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a>.
 
     </section>
 
-
     <section>
       <h3>Data URIs</h3>
       <pre class="example" title="JSON-LD Credential">
@@ -1656,119 +1545,6 @@ TE5IFZhY2NpbmUgTW9kZXJuYSJd~
 }
       </pre>
     </section>
-
-
-    <section>
-      <h3>Example Mapping</h3>
-      <p>
-        The following describes a mapping from
-        <code>application/vc+jwt</code> to
-        <code>application/vc+ld+json</code>. This is one possible
-        unidirectional mapping between 2.0 VC-JWTs and the VC Data
-        Model; other such mappings are possible.
-      </p>
-      <ul>
-        <li>
-          Extract <code>iss</code>, <code>sub</code>, <code>iat</code>,
-          <code>nbf</code>,
-          <code>exp</code>, <code>jti</code>, and <code>aud</code> as
-          <a href="#registered-claim-names">registered claims</a>.
-        </li>
-        <li>
-          Set aside all other claims as subject claims.
-        </li>
-        <li>
-          To construct the VCDM-compliant JSON:
-          <ul>
-            <li>
-              Set the value of <code>@context</code> to
-              <code>"https://www.w3.org/ns/credentials/v2"</code>.
-            </li>
-            <li>
-              Set the value of <code>type</code> to
-              <code>["VerifiableCredential"]</code>.
-            </li>
-            <li>
-              Set the value of the <code>issuer</code> property to one
-              of the following:
-              <ul>
-                <li>
-                  If the value of <code>iss</code> is a URL, use the
-                  value of <code>iss</code>.
-                </li>
-                <li>
-                  If the value of <code>iss</code> is not a URL, use the
-                  concatenation of "<code>urn:vc:</code>" and the value
-                  of <code>iss</code>.
-                </li>
-              </ul>
-            </li>
-            <li>
-              If <code>jti</code> is present, set the value of
-              <code>id</code> to the concatenation of
-              "<code>urn:vc:</code>" and the value of <code>jti</code>.
-            </li>
-            <li>
-              If <code>nbf</code> is present, set the value of
-              <code>validFrom</code> to the
-              <code>dateTime</code> obtained by converting the value of
-              <code>nbf</code> from the <code>NumericDate</code>
-              described in [[!RFC7519]] to a <code>dateTime</code> as
-              described in [[XMLSCHEMA11-2]].
-            </li>
-            <li>
-              If <code>exp</code> is present, set the value of
-              <code>validUntil</code> to the
-              <code>dateTime</code> obtained by converting the value of
-              <code>exp</code> from the <code>NumericDate</code>
-              described in [[!RFC7519]] to a <code>dateTime</code> as
-              described in [[XMLSCHEMA11-2]].
-            </li>
-            <li>
-              Set the value of <code>credentialSubject</code> to an
-              object that contains the following properties:
-              <ul>
-                <li>
-                  If <code>sub</code> is present, set the value of the
-                  <code>id</code> property to the concatenation of
-                  "urn:vc:" and the value of <code>sub</code>.
-                </li>
-                <li>
-                  Add all of the subject claims.
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
-      <aside class="example" title="application/vc+jwt mapped to
-      application/vc+ld+json">
-        <p>A Verifiable Credential of type application/vc+jwt:</p>
-        <pre class="example">
-{
-  "iss": "https://example.edu/issuers/14",
-  "sub": "1234567890",
-  "name": "John Doe",
-  "iat": 1516239022,
-  "urn:example:claim": true
-}
-        </pre>
-        <p>The application/vc+ld+json after applying the mapping:</p>
-        <pre class="example">
-{
-  "@context": "https://www.w3.org/ns/credentials/v2",
-  "type": ["VerifiableCredential"],
-  "issuer": "https://example.edu/issuers/14",
-  "credentialSubject": {
-    "id": "urn:vc:1234567890",
-    "name": "John Doe",
-    "urn:example:claim": true
-  }
-}
-        </pre>
-      </aside>
-    </section>
-
   </section>
   </section>
 </body>
