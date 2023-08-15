@@ -340,30 +340,30 @@
     </section>
   </section>
 
-  <section id="conformance">
-    <section class="normative">
-      <h2>Key Discovery</h2>
-        <p class="issue">
-          The working group is still discussing how to close many related issues.
-        </p>
-        <p class="issue" data-number="117"></p>
-        <p class="issue" data-number="106"></p>
-        <p class="issue" data-number="31"></p>
-        <p class="issue" data-number="30"></p>
-        <p class="issue" data-number="15"></p>
-        <p class="issue" data-number="117"></p>
-        <p class="issue" data-number="117"></p>
-        <p>
-      In order to complete the <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process, 
-      a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> needs to obtain the cryptographic keys used to secure the 
-      <a data-cite="VC-DATA-MODEL#dfn-credential">credential</a>.
-        </p>
-        <p>
-      There are several different ways to discover the verification keys of
-      the <a data-cite="VC-DATA-MODEL#dfn-issuers">issuers</a>
-      and <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a>.
-        </p>
-    </section>
+  <section class="normative">
+    <h2>Key Discovery</h2>
+      <p class="issue">
+        The working group is still discussing how to close many related issues.
+      </p>
+      <p class="issue" data-number="117"></p>
+      <p class="issue" data-number="106"></p>
+      <p class="issue" data-number="31"></p>
+      <p class="issue" data-number="30"></p>
+      <p class="issue" data-number="15"></p>
+      <p class="issue" data-number="117"></p>
+      <p class="issue" data-number="117"></p>
+      <p>
+    In order to complete the <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process, 
+    a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> needs to obtain the cryptographic keys used to secure the 
+    <a data-cite="VC-DATA-MODEL#dfn-credential">credential</a>.
+      </p>
+      <p>
+    There are several different ways to discover the verification keys of
+    the <a data-cite="VC-DATA-MODEL#dfn-issuers">issuers</a>
+    and <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a>.
+      </p>
+
+
     <section>
       <h2>Registered Claim Names</h2>
       <p>
@@ -529,7 +529,7 @@
         </section>
       </section>
     <section class="normative">
-      <h2>JSON Web Token Header Parameters</h2>
+      <h2>Protected Header Parameters</h2>
       <p>
         The normative statements in <a data-cite="RFC7515#section-4.1">Registered Header Parameter
           Names</a>
@@ -576,6 +576,9 @@
         they MUST be ignored.
       </p>
     </section>
+  </section>
+
+  <section id="conformance">
     <section class="normative">
       <h2>Securing Verifiable Credentials</h2>
       <p>The <a data-cite="VC-DATA-MODEL#proof-formats"></a> describes the approach taken by JSON Web
@@ -675,6 +678,9 @@
 
   <section class="normative">
     <h2>IANA Considerations</h2>
+
+    <section>
+    <h2>Media Types</h2>
     <section id="vc-ld-jwt-media-type">
       <h2><code>application/vc+ld+jwt</code></h2>
       <p>
@@ -821,7 +827,7 @@
   
 
   <section id="json-web-token-claim-registrations">
-    <h3>JSON Web Token Claims</h3>
+    <h3>Registered Claims</h3>
     <p>
       This section retains deprecated registered claim names 
       that were previously submitted to the Internet Engineering Steering
@@ -882,6 +888,7 @@
       </section>
     </section>
   </section>
+</section>
   <section>
     <h3>Other Considerations</h3>
 
