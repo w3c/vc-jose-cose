@@ -6,7 +6,7 @@
   <title>Securing Verifiable Credentials using JOSE and COSE</title>
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"></script>
   <script class="remove"
-    src="https://cdn.jsdelivr.net/gh/transmute-industries/respec-vc-jwt@0.0.9/dist/main.js"></script>
+    src="https://cdn.jsdelivr.net/gh/transmute-industries/respec-vc-jwt@0.0.10/dist/main.js"></script>
   <script class="remove">
     // See https://github.com/w3c/respec/wiki/ for how to configure
     // ReSpec
@@ -227,7 +227,7 @@
           for additional details regarding usage of <code>typ</code> and
           <code>cty</code>.
         </p>
-        <pre class="example vc-jwt" data-vc-kid="#key-0" title="Example Credential">
+        <pre class="example vc-jose-cose-vc-example" data-alg="ES384" title="Example Credential">
 {
   "@context": ["https://www.w3.org/ns/credentials/v2",
     "https://www.w3.org/ns/credentials/examples/v2"
@@ -268,20 +268,20 @@
           for additional details regarding usage of <code>typ</code> and
           <code>cty</code>.
         </p>
-        <pre class="example vc-jwt" data-vp-alg="none" title="The minimal unsecured verifiable presentation">
+        <pre class="example vc-jose-cose-vp-example" data-alg="none" title="The minimal unsecured verifiable presentation">
 {
   "@context": ["https://www.w3.org/ns/credentials/v2"],
   "type": ["VerifiablePresentation"]
 }
         </pre>
-        <pre class="example vc-jwt" title="The minimal secured verifiable presentation">
+        <pre class="example vc-jose-cose-vp-example" title="The minimal secured verifiable presentation">
 {
   "@context": ["https://www.w3.org/ns/credentials/v2"],
   "type": ["VerifiablePresentation"]
 }
         </pre>
 
-        <pre class="example vc-jwt" title="A secured verifiable presentation with a holder identifier">
+        <pre class="example vc-jose-cose-vp-example" title="A secured verifiable presentation with a holder identifier">
 {
   "@context": ["https://www.w3.org/ns/credentials/v2",
     "https://www.w3.org/ns/credentials/examples/v2"
@@ -290,7 +290,7 @@
   "holder": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs"
 }
         </pre>
-        <pre class="example vc-jwt" title="A secured verifiable presentation with a holder graph node">
+        <pre class="example vc-jose-cose-vp-example" title="A secured verifiable presentation with a holder graph node">
 {
   "@context": ["https://www.w3.org/ns/credentials/v2"],
   "type": ["VerifiablePresentation"],
@@ -1117,8 +1117,7 @@
     </section>
     <section>
       <h3>Credentials</h3>
-      <pre class="example vc-jwt" title="A revocable credential withmultiple subjects"
-        data-vc-kid='#urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs'>
+      <pre class="example vc-jose-cose-vc-example" title="A revocable credential withmultiple subjects" data-alg="ES256" data-typ="vc+ld+json+jwt" data-cty="vc+ld+json">
 {
   "@context": ["https://www.w3.org/ns/credentials/v2",
     "https://www.w3.org/ns/credentials/examples/v2"
@@ -1146,7 +1145,7 @@
 }
       </pre>
 
-      <pre class="example vc-jwt" title="A credential with a schema" data-vc-kid='#key-42'>
+      <pre class="example vc-jose-cose-vc-example" title="A credential with a schema">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
@@ -1174,7 +1173,7 @@
         Presentations
       </h2>
 
-      <pre class="example" title="Credential">
+      <pre class="example vc-jose-cose-vp-example" title="Presentation" data-alg="ES256" data-typ="vp+ld+json+jwt" data-cty="vp+ld+json">
 {
   "@context": ["https://www.w3.org/ns/credentials/v2"],
   "type": ["VerifiablePresentation"],
