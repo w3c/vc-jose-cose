@@ -339,7 +339,34 @@
       <p class="issue" data-number="67"></p>
     </section>
   </section>
-
+  <section class="informative">
+    <h2>Wallets</h2>
+    <p>
+    <a data-cite="VC-DATA-MODEL#dfn-issuers">Issuers</a>,
+    <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a> and 
+    <a data-cite="VC-DATA-MODEL#dfn-verifier">verifiers</a> might rely on clients, 
+    as defined in <a href="https://datatracker.ietf.org/doc/html/rfc4949">RFC4949</a>.
+    Such clients are often referred to as <i>wallets</i> or <i>digital credential wallets</i>,
+    when they support storing and presenting digital credentials.
+    </p>
+    <p>
+    In order to meet <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> requirements, some
+    <a data-cite="VC-DATA-MODEL#dfn-issuers">issuers</a> might need to assess the quality of a wallet used by a 
+    <a data-cite="VC-DATA-MODEL#dfn-holders">holder</a>, prior to issuing and
+    delivering credentials to a <a data-cite="VC-DATA-MODEL#dfn-holders">holder</a>.
+    </p>
+    <p>
+    For example, some <a data-cite="VC-DATA-MODEL#dfn-verifier">verifiers</a> might require that cryptographic material 
+    associated with a <a data-cite="VC-DATA-MODEL#dfn-holders">holder</a>, be protected at specific 
+    assurance levels.
+    (See <a href="https://pages.nist.gov/800-63-3-Implementation-Resources/63B/AAL/">NIST 800-63-3: Authenticator Assurance Levels</a>.)
+    </p>
+    <p class="note">
+      Also see <a href="https://datatracker.ietf.org/doc/draft-looker-oauth-attestation-based-client-auth/">
+        OAuth 2.0 Attestation-Based Client Authentication
+      </a>.
+    </p>
+  </section> 
   <section class="normative">
     <h2>Key Discovery</h2>
       <p class="issue">
