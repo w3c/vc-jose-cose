@@ -554,6 +554,775 @@
             </ol>
           </section>
         </section>
+
+        <!-- Controller documents start -->
+        <section>
+        <h3>Controller Documents</h3>
+
+        <p>
+A <a>controller document</a> is a set of data that specifies one or more
+relationships between a <a>controller</a> and a set of data, such as a set of
+public cryptographic keys. The <a>controller document</a> SHOULD
+contain <a>verification relationships</a> that explicitly permit the use of
+certain <a>verification methods</a> for specific purposes.
+        </p>
+
+        <div class="issue">Add examples of common Controller documents, such as
+controller documents published on a ledger-based registry, or on a mutable medium in
+combination with an integrity protection mechanism such as Hashlinks.
+        </div>
+
+        <section>
+          <h2>Verification Methods</h2>
+          <p>
+A <a>controller document</a> can express <a>verification methods</a>, such as
+cryptographic <a>public keys</a>, which can be used to <a>authenticate</a> or
+authorize interactions with the <a>controller</a> or associated parties. For
+example, a cryptographic <a>public key</a> can be used as a <a>verification
+method</a> with respect to a digital signature; in such usage, it verifies that
+the signer could use the associated cryptographic private key. <a>Verification
+methods</a> might take many parameters. An example of this is a set of five
+cryptographic keys from which any three are required to contribute to a
+cryptographic threshold signature.
+          </p>
+
+          <dl>
+            <dt><dfn class="lint-ignore">verificationMethod</dfn></dt>
+            <dd>
+              <p>
+The `verificationMethod` property is OPTIONAL. If present, the value
+MUST be a <a data-cite="INFRA#ordered-set">set</a> of <a>verification
+methods</a>, where each <a>verification method</a> is expressed using a <a
+data-cite="INFRA#ordered-map">map</a>. The <a>verification method</a> <a
+data-cite="INFRA#ordered-map">map</a> MUST include the `id`,
+`type`, `controller`, and specific verification material
+properties that are determined by the value of `type` and are defined
+in <a href="#verification-material"></a>. A <a>verification method</a> MAY
+include additional properties. <a>Verification methods</a> SHOULD be registered
+in the Data Integrity Specification Registries [TBD - DIS-REGISTRIES].
+              </p>
+              <p class="note">
+The `verificationMethod` property is REQUIRED for proofs, unlike controller
+documents, for which it is optional. See section <a href="#proofs"></a>.
+              </p>
+
+              <dl>
+                <dt>id</dt>
+                <dd>
+                  <p>
+The value of the `id` property for a <a>verification
+method</a> MUST be a <a data-cite="INFRA#string">string</a> that conforms to the
+conforms to the [[URL]] syntax.
+                  </p>
+                </dd>
+                <dt>type</dt>
+                <dd>
+The value of the `type` property MUST be a <a
+data-cite="INFRA#string">string</a> that references exactly one <a>verification
+method</a> type. In order to maximize global interoperability, the
+<a>verification method</a> type SHOULD be registered in the Data Integrity Specification
+Registries [TBD -- DIS-REGISTRIES].
+                </dd>
+                <dt><span id="defn-controller">controller</span></dt>
+                <dd>
+The value of the `controller` property MUST be a <a
+data-cite="INFRA#string">string</a> that conforms to the [[URL]] syntax.
+                </dd>
+                <dt><dfn class="lint-ignore">revoked</dfn></dt>
+                <dd>
+The `revoked` property is OPTIONAL. If provided, it MUST be an [[XMLSCHEMA11-2]]
+combined date and time string specifying when the <a>verification method</a>
+SHOULD cease to be used. Once the value is set, it is not expected to be updated, and
+systems depending on the value are expected to not verify any proofs associated
+with the <a>verification method</a> at or after the time of revocation.
+                </dd>
+              </dl>
+            </dd>
+          </dl>
+
+          <pre class="example nohighlight"
+            title="Example verification method structure">
+    {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/data-integrity/v1"
+      ]
+      "id": "did:example:123456789abcdefghi",
+      <span class="comment">...</span>
+      "verificationMethod": [{
+        "id": <span class="comment">...</span>,
+        "type": <span class="comment">...</span>,
+        "controller": <span class="comment">...</span>,
+        "publicKeyJwk": <span class="comment">...</span>
+      }, {
+        "id": <span class="comment">...</span>,
+        "type": <span class="comment">...</span>,
+        "controller": <span class="comment">...</span>,
+        "publicKeyMultibase": <span class="comment">...</span>
+      }]
+    }
+          </pre>
+
+          <p class="note"
+            title="Verification method controller(s) and controller(s)">
+The semantics of the `controller` property are the same when the
+subject of the relationship is the <a>controller document</a> as when the subject of
+the relationship is a <a>verification method</a>, such as a cryptographic public
+key. Since a key can't control itself, and the key controller cannot be inferred
+from the <a>controller document</a>, it is necessary to explicitly express the identity
+of the controller of the key. The difference is that the value of
+`controller` for a <a>verification method</a> is <em>not</em>
+necessarily a <a>controller</a>. <a>controllers</a> are expressed
+using the `<a>controller</a>` property at the highest level of the
+<a>controller document</a>.
+          </p>
+
+          <section>
+            <h3>Verification Material</h3>
+
+            <p>
+Verification material is any information that is used by a process that applies
+a <a>verification method</a>. The `type` of a <a>verification method</a> is
+expected to be used to determine its compatibility with such processes. Examples
+of verification methods include `JsonWebKey` and `Multikey`.
+A <a>cryptographic suite</a> specification is responsible for specifying the
+<a>verification method</a> `type` and its associated verification material
+format. For examples, see
+<a href="https://www.w3.org/TR/vc-di-ecdsa/">the Data Integrity ECDSA
+Cryptosuites</a> and <a href="https://w3c-ccg.github.io/lds-ed25519-2020/">
+the Data Integrity EdDSA Cryptosuites</a>. For a list of <a>verification
+method</a> types, please see the [[?SECURITY-VOCABULARY]].
+            </p>
+
+            <p>
+To increase the likelihood of interoperable implementations, this specification
+limits the number of formats for expressing verification material in a
+<a>controller document</a>. The fewer formats that implementers have to
+implement, the more likely it will be that they will support all of them. This
+approach attempts to strike a delicate balance between easing implementation
+and providing support for formats that have historically had broad deployment.
+            </p>
+
+            <p>
+A <a>verification method</a> MUST NOT contain multiple verification material
+properties for the same material. For example, expressing key material in a
+<a>verification method</a> using both `publicKeyJwk` and
+`publicKeyMultibase` at the same time is prohibited.
+            </p>
+
+            <p>
+An example of a <a>controller document</a> containing <a>verification
+methods</a> using both properties above is shown below.
+            </p>
+
+            <pre id="example-various-verification-method-types"
+              class="example nohighlight"
+              title="Verification methods using publicKeyJwk and publicKeyMultibase">
+    {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/suites/jws-2020/v1",
+        "https://w3id.org/security/multikey/v1"
+      ]
+      "id": "did:example:123456789abcdefghi",
+      <span class="comment">...</span>
+      "verificationMethod": [{
+        "id": "did:example:123#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
+        "type": "JsonWebKey", <span class="comment">// external (property value)</span>
+        "controller": "did:example:123",
+        "publicKeyJwk": {
+          "crv": "Ed25519", <span class="comment">// external (property name)</span>
+          "x": "VCpo2LMLhn6iWku8MKvSLg2ZAoC-nlOyPVQaO3FxVeQ", <span class="comment">// external (property name)</span>
+          "kty": "OKP", <span class="comment">// external (property name)</span>
+          "kid": "_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A" <span class="comment">// external (property name)</span>
+        }
+      }, {
+        "id": "did:example:123456789abcdefghi#keys-1",
+        "type": "Multikey", <span class="comment">// external (property value)</span>
+        "controller": "did:example:pqrstuvwxyz0987654321",
+        "publicKeyMultibase": "z6MkmM42vxfqZQsv4ehtTjFFxQ4sQKS2w6WR7emozFAn5cxu"
+      }],
+      <span class="comment">...</span>
+    }
+            </pre>
+          </section>
+
+          <section>
+            <h3>Multikey</h3>
+            <p>
+The Multikey data model is a specific type of <a>verification method</a> that
+utilizes the [[MULTICODEC]] specification to encode key types into a single
+binary stream that is then encoded using the [[MULTIBASE]] specification.
+            </p>
+
+            <p>
+When specifing a `Multikey`, the object takes the following form:
+            </p>
+
+            <dl>
+              <dt>type</dt>
+              <dd>
+The value of the `type` property MUST contain the string `Multikey`.
+              </dd>
+              <dt><dfn class="lint-ignore">publicKeyMultibase</dfn></dt>
+              <dd>
+The `publicKeyMultibase` property is OPTIONAL. If present, its value MUST be a
+[[MULTIBASE]] encoded [[MULTICODEC]] value.
+              </dd>
+              <dt><dfn class="lint-ignore">secretKeyMultibase</dfn></dt>
+              <dd>
+The `secretKeyMultibase` property is OPTIONAL. If present, its value MUST be a
+[[MULTIBASE]] encoded [[MULTICODEC]] value.
+              </dd>
+            </dl>
+
+            <p>
+An example of a Multikey is provided below:
+            </p>
+
+            <pre class="example nohighlight"
+              title="Multikey encoding of a Ed25519 public key">
+{
+  "@context": ["https://w3id.org/security/multikey/v1"],
+  "id": "did:example:123456789abcdefghi#keys-1",
+  "type": "Multikey",
+  "controller": "did:example:123456789abcdefghi",
+  "publicKeyMultibase": "z6MkmM42vxfqZQsv4ehtTjFFxQ4sQKS2w6WR7emozFAn5cxu"
+}
+            </pre>
+
+            <p>
+In the example above, the `publicKeyMultibase` value starts with the letter `z`,
+which is the [[?MULTIBASE]] header that conveys that the binary data is
+base58-encoded using the Bitcoin base-encoding alphabet. The decoded binary data
+[[?MULTICODEC]] header is `0xed`, which specifies that the remaining data
+is a 32-byte raw Ed25519 <a>public key</a>.
+            </p>
+
+            <p>
+The Multikey data model is also capable of encoding secret keys, whose subtypes
+include <em>symmetric keys</em> and <em>private keys</em>.
+            </p>
+
+            <pre class="example nohighlight"
+              title="Multikey encoding of a Ed25519 secret key">
+{
+  "@context": ["https://w3id.org/security/suites/secrets/v1"],
+  "id": "did:example:123456789abcdefghi#keys-1",
+  "type": "Multikey",
+  "controller": "did:example:123456789abcdefghi",
+  "secretKeyMultibase": "z3u2fprgdREFtGakrHr6zLyTeTEZtivDnYCPZmcSt16EYCER"
+}
+            </pre>
+
+            <p>
+In the example above, the `secretKeyMultibase` value starts with the letter `z`,
+which is the [[?MULTIBASE]] header that conveys that the binary data is
+base58-encoded using the Bitcoin base-encoding alphabet. The decoded binary data
+[[?MULTICODEC]] header is `0x1300`, which specifies that the remaining data
+is a 32-byte raw Ed25519 private key.
+            </p>
+
+          </section>
+
+          <section>
+            <h3>JsonWebKey</h3>
+            <p>
+The JSON Web Key (JWK) data model is a specific type of <a>verification method</a>
+that uses the JWK specification [[RFC7517]] to encode key types into a
+set of parameters.
+            </p>
+
+            <p>
+When specifing a `JsonWebKey`, the object takes the following form:
+            </p>
+
+            <dl>
+              <dt>type</dt>
+              <dd>
+The value of the `type` property MUST contain the string `JsonWebKey`.
+              </dd>
+              <dt><dfn class="lint-ignore">publicKeyJwk</dfn></dt>
+              <dd>
+The `publicKeyJwk` property is OPTIONAL. If present, its value MUST
+be a <a data-cite="INFRA#ordered-map">map</a> representing a JSON Web Key that
+conforms to [[RFC7517]]. The <a data-cite="INFRA#ordered-map">map</a> MUST NOT
+include any members of the private information class, such as `d`, as described
+in the <a href="https://tools.ietf.org/html/rfc7517#section-8.1.1">JWK
+Registration Template</a>. It is RECOMMENDED that verification methods that use
+JWKs [[RFC7517]] to represent their <a>public keys</a> use the value of `kid` as
+their fragment identifier. It is RECOMMENDED that JWK `kid` values are set to
+the public key fingerprint [[RFC7638]]. See the first key in
+<a href="#example-various-verification-method-types"></a> for an example of a
+public key with a compound key identifier.
+              </dd>
+              <dt><dfn class="lint-ignore">secretKeyJwk</dfn></dt>
+              <dd>
+The `secretKeyJwk` property is OPTIONAL. If present, its value MUST be a <a
+data-cite="INFRA#ordered-map">map</a> representing a JSON Web Key that conforms
+to [[RFC7517]].
+              </dd>
+            </dl>
+
+            <p>
+An example of an object that conforms to this data model is provided below:
+            </p>
+
+            <pre class="example nohighlight"
+              title="JSON Web Key encoding of an Ed25519 public key">
+{
+  "@context": ["https://www.w3.org/ns/security/jwk/v1"],
+  "id": "did:example:123456789abcdefghi#key-1",
+  "type": "JsonWebKey",
+  "controller": "did:example:123456789abcdefghi",
+  "publicKeyJwk": {
+    "kty": "OKP",
+    "alg": "EdDSA"
+    "crv": "Ed25519",
+    "kid": "key-1",
+    "x": "_1EiHquO2aUx9JARSu0P8jdYT_OVneYxYOnOMAmUcFI",
+  }
+}
+            </pre>
+
+            <p>
+In the example above, the `publicKeyJwk` value contains the JSON Web Key.
+The `kty` property encodes the key type of "OKP", which means
+"Octet string key pairs". The `alg` property identifies the algorithm intended
+for use with the public key. The `crv` property identifies the particular
+curve type of the public key. The `kid` property specifies how the public key
+might be referenced in software systems; if present, the `kid` value SHOULD match the
+`id` property of the encapsulating `JsonWebKey` object. Finally, the `x`
+property specifies the point on the Ed25519 curve that is associated with the
+public key.
+            </p>
+
+            <p>
+The `publicKeyJwk` property MUST NOT contain any property marked as
+"Private" in any registry contained in the JOSE Registries [[JOSE-REGISTRIES]].
+            </p>
+
+            <p>
+The JSON Web Key data model is also capable of encoding <em>secret keys</em>, sometimes
+referred to as <em>private keys</em>.
+            </p>
+
+            <pre class="example nohighlight"
+              title="JSON Web Key encoding of an Ed25519 secret key">
+{
+  "@context": ["https://www.w3.org/ns/security/jwk/v1"],
+  "id": "did:example:123456789abcdefghi#key-1",
+  "type": "JsonWebKey",
+  "controller": "did:example:123456789abcdefghi",
+  "secretKeyJwk": {
+    "kty": "OKP",
+    "alg": "EdDSA"
+    "crv": "Ed25519",
+    "kid": "key-1",
+    "d": "Q6JwjCUdThSnoxfXHSFt5C1nVFycY_ZpW7qVzK644_g",
+    "x": "_1EiHquO2aUx9JARSu0P8jdYT_OVneYxYOnOMAmUcFI",
+  }
+}
+            </pre>
+
+            <p>
+The private key example above is almost identical to the previous example of the
+public key, except that the information is stored in the `secretKeyJwk` property
+(rather than the `publicKeyJwk`), and the private key value is encoded in the `d`
+property thereof (alongside the `x` property, which still specifies the point on
+the Ed25519 curve that is associated with the public key).
+            </p>
+
+          </section>
+
+          <section>
+            <h3>Referring to Verification Methods</h3>
+            <p>
+<a>Verification methods</a> can be embedded in or referenced from properties
+associated with various <a>verification relationships</a> as described in <a
+href="#verification-relationships"></a>. Referencing <a>verification methods</a>
+allows them to be used by more than one <a>verification relationship</a>.
+            </p>
+
+            <p>
+If the value of a <a>verification method</a> property is a <a
+data-cite="INFRA#ordered-map">map</a>, the <a>verification method</a> has been
+embedded and its properties can be accessed directly. However, if the value is a
+URL <a data-cite="INFRA#string">string</a>, the <a>verification method</a> has
+been included by reference and its properties will need to be retrieved from
+elsewhere in the <a>controller document</a> or from another <a>controller document</a>. This
+is done by dereferencing the URL and searching the resulting <a>resource</a> for a
+<a>verification method</a> <a data-cite="INFRA#ordered-map">map</a> with an
+`id` property whose value matches the URL.
+            </p>
+
+            <pre class="example nohighlight"
+            title="Embedding and referencing verification methods">
+    {
+<span class="comment">...</span>
+
+      "authentication": [
+        <span class="comment">// this key is referenced and might be used by</span>
+        <span class="comment">// more than one verification relationship</span>
+        "did:example:123456789abcdefghi#keys-1",
+        <span class="comment">// this key is embedded and may *only* be used for authentication</span>
+        {
+          "id": "did:example:123456789abcdefghi#keys-2",
+          "type": "Multikey", <span class="comment">// external (property value)</span>
+          "controller": "did:example:123456789abcdefghi",
+          "publicKeyMultibase": "z6MkmM42vxfqZQsv4ehtTjFFxQ4sQKS2w6WR7emozFAn5cxu"
+        }
+      ],
+
+<span class="comment">...</span>
+    }
+            </pre>
+          </section>
+        </section>
+
+        <section>
+          <h2>Verification Relationships</h2>
+
+          <p>
+A <a>verification relationship</a> expresses the relationship between the
+<a>controller</a> and a <a>verification method</a>.
+          </p>
+          <p>
+Different <a>verification relationships</a> enable the associated
+<a>verification methods</a> to be used for different purposes. It is up to a
+<em>verifier</em> to ascertain the validity of a verification attempt by
+checking that the <a>verification method</a> used is contained in the
+appropriate <a>verification relationship</a> property of the
+<a>controller document</a>.
+          </p>
+          <p>
+The <a>verification relationship</a> between the <a>controller</a> and the
+<a>verification method</a> is explicit in the <a>controller document</a>.
+<a>Verification methods</a> that are not associated with a particular
+<a>verification relationship</a> cannot be used for that <a>verification
+relationship</a>. For example, a <a>verification method</a> in the value of
+the `<a>authentication</a>` property cannot be used to engage in
+key agreement protocols with the <a>controller</a>&mdash;the value of the
+`<a>keyAgreement</a>` property needs to be used for that.
+          </p>
+          <p>
+The <a>controller document</a> does not express revoked keys using a <a>verification
+relationship</a>. If a referenced verification method is not in the latest
+<a>controller document</a> used to dereference it, then that verification method is
+considered invalid or revoked.
+          </p>
+          <p>
+The following sections define several useful <a>verification relationships</a>.
+A <a>controller document</a> MAY include any of these, or other properties, to
+express a specific <a>verification relationship</a>. In order to maximize global
+interoperability, any such properties used SHOULD be registered in the
+Data Integrity Specification Registries [TBD: DIS-REGISTRIES].
+          </p>
+
+          <section>
+            <h2>Authentication</h2>
+
+            <p>
+The `authentication` <a>verification relationship</a> is used to
+specify how the <a>controller</a> is expected to be <a>authenticated</a>, for
+purposes such as logging into a website or engaging in any sort of
+challenge-response protocol.
+            </p>
+
+            <dl>
+              <dt id="defn-authentication">authentication</dt>
+              <dd>
+The `authentication` property is OPTIONAL. If present, the associated
+value MUST be a <a data-cite="INFRA#ordered-set">set</a> of one or more
+<a>verification methods</a>. Each <a>verification method</a> MAY be embedded or
+referenced.
+              </dd>
+            </dl>
+
+            <pre class="example nohighlight" title="Authentication property
+                          containing three verification methods">
+    {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1"
+      ],
+      "id": "did:example:123456789abcdefghi",
+      <span class="comment">...</span>
+      "authentication": [
+        <span class="comment">// this method can be used to authenticate as did:...fghi</span>
+        "did:example:123456789abcdefghi#keys-1",
+        <span class="comment">// this method is *only* approved for authentication, it may not</span>
+        <span class="comment">// be used for any other proof purpose, so its full description is</span>
+        <span class="comment">// embedded here rather than using only a reference</span>
+        {
+          "id": "did:example:123456789abcdefghi#keys-2",
+          "type": "Multikey",
+          "controller": "did:example:123456789abcdefghi",
+          "publicKeyMultibase": "z6MkmM42vxfqZQsv4ehtTjFFxQ4sQKS2w6WR7emozFAn5cxu"
+        }
+      ],
+      <span class="comment">...</span>
+    }
+            </pre>
+
+            <p>
+If authentication is established, it is up to the application to decide what to
+do with that information.
+            </p>
+            <p>
+This is useful to any <em>authentication verifier</em> that needs to check to
+see if an entity that is attempting to <a>authenticate</a> is, in fact,
+presenting a valid proof of authentication. When a <em>verifier</em> receives
+some data (in some protocol-specific format) that contains a proof that was made
+for the purpose of "authentication", and that says that an entity is identified
+by the `id`, then that <em>verifier</em> checks to ensure that the proof can be
+verified using a <a>verification method</a> (e.g., <a>public key</a>) listed
+under `<a>authentication</a>` in the <a>controller document</a>.
+            </p>
+            <p>
+Note that the <a>verification method</a> indicated by the
+`<a>authentication</a>` property of a <a>controller document</a> can
+only be used to <a>authenticate</a> the <a>controller</a>. To
+<a>authenticate</a> a different <a>controller</a>, the entity associated with
+the value of `controller` needs to <a>authenticate</a> with its
+<em>own</em> <a>controller document</a> and associated
+`<a>authentication</a>` <a>verification relationship</a>.
+            </p>
+          </section>
+
+          <section>
+            <h2>Assertion</h2>
+
+            <p>
+The `assertionMethod` <a>verification relationship</a> is used to
+specify how the <a>controller</a> is expected to express claims, such as for
+the purposes of issuing a Verifiable Credential [[?VC-DATA-MODEL-2.0]].
+            </p>
+
+            <dl>
+              <dt><dfn id="defn-assertionMethod">assertionMethod</dfn></dt>
+              <dd>
+The `assertionMethod` property is OPTIONAL. If present, the
+associated value MUST be a <a data-cite="INFRA#ordered-set">set</a> of
+one or more <a>verification methods</a>. Each <a>verification method</a> MAY be
+embedded or referenced.
+              </dd>
+            </dl>
+
+            <p>
+This property is useful, for example, during the processing of a <a>verifiable
+credential</a> by a verifier. During verification, a verifier checks to see if a
+<a>verifiable credential</a> contains a proof created by the <a>controller</a>
+by checking that the <a>verification method</a> used to assert the proof is
+associated with the `<a>assertionMethod</a>` property in the
+corresponding <a>controller document</a>.
+            </p>
+
+            <pre class="example nohighlight" title="Assertion method property
+                        containing two verification methods">
+    {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1"
+      ],
+      "id": "did:example:123456789abcdefghi",
+      <span class="comment">...</span>
+      "assertionMethod": [
+        <span class="comment">// this method can be used to assert statements as did:...fghi</span>
+        "did:example:123456789abcdefghi#keys-1",
+        <span class="comment">// this method is *only* approved for assertion of statements, it is not</span>
+        <span class="comment">// used for any other verification relationship, so its full description is</span>
+        <span class="comment">// embedded here rather than using a reference</span>
+        {
+          "id": "did:example:123456789abcdefghi#keys-2",
+          "type": "Multikey", <span class="comment">// external (property value)</span>
+          "controller": "did:example:123456789abcdefghi",
+          "publicKeyMultibase": "z6MkmM42vxfqZQsv4ehtTjFFxQ4sQKS2w6WR7emozFAn5cxu"
+        }
+      ],
+      <span class="comment">...</span>
+    }
+            </pre>
+          </section>
+
+          <section>
+            <h2>Key Agreement</h2>
+
+            <p>
+The `keyAgreement` <a>verification relationship</a> is used to
+specify how an entity can generate encryption material in order to transmit
+confidential information intended for the <a>controller</a>, such as for
+the purposes of establishing a secure communication channel with the recipient.
+            </p>
+
+            <dl>
+              <dt><dfn id="defn-keyAgreement">keyAgreement</dfn></dt>
+              <dd>
+The `keyAgreement` property is OPTIONAL. If present, the associated
+value MUST be a <a data-cite="INFRA#ordered-set">set</a> of one or more
+<a>verification methods</a>. Each <a>verification method</a> MAY be embedded or
+referenced.
+              </dd>
+            </dl>
+
+            <p>
+An example of when this property is useful is when encrypting a message intended
+for the <a>controller</a>. In this case, the counterparty uses the
+cryptographic <a>public key</a> information in the <a>verification method</a> to
+wrap a decryption key for the recipient.
+            </p>
+
+            <pre class="example nohighlight" title="Key agreement property
+                          containing two verification methods">
+    {
+      "@context": "https://www.w3.org/ns/did/v1",
+      "id": "did:example:123456789abcdefghi",
+      <span class="comment">...</span>
+      "keyAgreement": [
+        <span class="comment">// this method can be used to perform key agreement as did:...fghi</span>
+        "did:example:123456789abcdefghi#keys-1",
+        <span class="comment">// this method is *only* approved for key agreement usage, it will not</span>
+        <span class="comment">// be used for any other verification relationship, so its full description is</span>
+        <span class="comment">// embedded here rather than using only a reference</span>
+        {
+          "id": "did:example:123#zC9ByQ8aJs8vrNXyDhPHHNNMSHPcaSgNpjjsBYpMMjsTdS",
+          "type": "X25519KeyAgreementKey2019", <span class="comment">// external (property value)</span>
+          "controller": "did:example:123",
+          "publicKeyMultibase": "z6LSn6p3HRxx1ZZk1dT9VwcfTBCYgtNWdzdDMKPZjShLNWG7"
+        }
+      ],
+      <span class="comment">...</span>
+    }
+            </pre>
+          </section>
+
+          <section>
+            <h2>Capability Invocation</h2>
+
+            <p>
+The `capabilityInvocation` <a>verification relationship</a> is used
+to specify a <a>verification method</a> that might be used by the
+<a>controller</a> to invoke a cryptographic capability, such as the
+authorization to update the <a>controller document</a>.
+            </p>
+
+            <dl>
+              <dt><dfn id="defn-capabilityInvocation">capabilityInvocation</dfn></dt>
+              <dd>
+The `capabilityInvocation` property is OPTIONAL. If present, the
+associated value MUST be a <a data-cite="INFRA#ordered-set">set</a> of
+one or more <a>verification methods</a>. Each <a>verification method</a> MAY be
+embedded or referenced.
+              </dd>
+            </dl>
+
+            <p>
+An example of when this property is useful is when a <a>controller</a> needs to
+access a protected HTTP API that requires authorization in order to use it. In
+order to authorize when using the HTTP API, the <a>controller</a>
+uses a capability that is associated with a particular URL that is
+exposed via the HTTP API. The invocation of the capability could be
+expressed in a number of ways, e.g., as a digitally signed
+message that is placed into the HTTP Headers.
+            </p>
+            <p>
+The server providing the HTTP API is the <em>verifier</em> of the capability and
+it would need to verify that the <a>verification method</a> referred to by the
+invoked capability exists in the `<a>capabilityInvocation</a>`
+property of the <a>controller document</a>. The verifier would also check to make sure
+that the action being performed is valid and the capability is appropriate for
+the resource being accessed. If the verification is successful, the server has
+cryptographically determined that the invoker is authorized to access the
+protected resource.
+            </p>
+
+            <pre class="example nohighlight" title="Capability invocation property
+                          containing two verification methods">
+    {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1"
+      ],
+      "id": "did:example:123456789abcdefghi",
+      <span class="comment">...</span>
+      "capabilityInvocation": [
+        <span class="comment">// this method can be used to invoke capabilities as did:...fghi</span>
+        "did:example:123456789abcdefghi#keys-1",
+        <span class="comment">// this method is *only* approved for capability invocation usage, it will not</span>
+        <span class="comment">// be used for any other verification relationship, so its full description is</span>
+        <span class="comment">// embedded here rather than using only a reference</span>
+        {
+        "id": "did:example:123456789abcdefghi#keys-2",
+        "type": "Multikey", <span class="comment">// external (property value)</span>
+        "controller": "did:example:123456789abcdefghi",
+        "publicKeyMultibase": "z6MkmM42vxfqZQsv4ehtTjFFxQ4sQKS2w6WR7emozFAn5cxu"
+        }
+      ],
+      <span class="comment">...</span>
+    }
+            </pre>
+          </section>
+
+          <section>
+            <h2>Capability Delegation</h2>
+
+            <p>
+The `capabilityDelegation` <a>verification relationship</a> is used
+to specify a mechanism that might be used by the <a>controller</a> to delegate
+a cryptographic capability to another party, such as delegating the authority
+to access a specific HTTP API to a subordinate.
+            </p>
+
+            <dl>
+              <dt><dfn class="lint-ignore" id="defn-capabilityDelegation">capabilityDelegation</dfn></dt>
+              <dd>
+The `capabilityDelegation` property is OPTIONAL. If present, the
+associated value MUST be a <a data-cite="INFRA#ordered-set">set</a> of
+one or more <a>verification methods</a>. Each <a>verification method</a> MAY be
+embedded or referenced.
+              </dd>
+            </dl>
+
+            <p>
+An example of when this property is useful is when a <a>controller</a> chooses
+to delegate their capability to access a protected HTTP API to a party other
+than themselves. In order to delegate the capability, the <a>controller</a>
+would use a <a>verification method</a> associated with the
+`capabilityDelegation` <a>verification relationship</a> to
+cryptographically sign the capability over to another <a>controller</a>. The
+delegate would then use the capability in a manner that is similar to the
+example described in <a href="#capability-invocation"></a>.
+            </p>
+
+            <pre class="example nohighlight" title="Capability Delegation property
+                          containing two verification methods">
+    {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1"
+      ],
+      "id": "did:example:123456789abcdefghi",
+      <span class="comment">...</span>
+      "capabilityDelegation": [
+        <span class="comment">// this method can be used to perform capability delegation as did:...fghi</span>
+        "did:example:123456789abcdefghi#keys-1",
+        <span class="comment">// this method is *only* approved for granting capabilities; it will not</span>
+        <span class="comment">// be used for any other verification relationship, so its full description is</span>
+        <span class="comment">// embedded here rather than using only a reference</span>
+        {
+        "id": "did:example:123456789abcdefghi#keys-2",
+        "type": "Multikey", <span class="comment">// external (property value)</span>
+        "controller": "did:example:123456789abcdefghi",
+        "publicKeyMultibase": "z6MkmM42vxfqZQsv4ehtTjFFxQ4sQKS2w6WR7emozFAn5cxu"
+        }
+      ],
+      <span class="comment">...</span>
+    }
+            </pre>
+          </section>
+        </section>
+      </section>
+        <!-- Controller documents end -->
       </section>
     <section class="normative">
       <h2>Protected Header Parameters</h2>
