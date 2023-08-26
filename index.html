@@ -657,7 +657,7 @@ data-cite="INFRA#string">string</a> that conforms to the [[URL]] syntax.
                 </dd>
                 <dt><dfn class="lint-ignore">revoked</dfn></dt>
                 <dd>
-The `revoked` property is OPTIONAL. If provided, it MUST be an [[XMLSCHEMA11-2]]
+The `revoked` property is OPTIONAL. If present, its value MUST be an [[XMLSCHEMA11-2]]
 combined date and time string specifying when the <a>verification method</a>
 SHOULD cease to be used. Once the value is set, it is not expected to be updated, and
 systems depending on the value are expected to not verify any proofs associated
@@ -699,7 +699,7 @@ key. Since a key can't control itself, and the key controller cannot be inferred
 from the <a>controller document</a>, it is necessary to explicitly express the identity
 of the controller of the key. The difference is that the value of
 `controller` for a <a>verification method</a> is <em>not</em>
-necessarily a <a>controller</a>. <a>controllers</a> are expressed
+necessarily a <a>controller</a>. <a>Controllers</a> are expressed
 using the `<a>controller</a>` property at the highest level of the
 <a>controller document</a>.
           </p>
@@ -820,7 +820,7 @@ An example of a Multikey is provided below:
 
             <p>
 In the example above, the `publicKeyMultibase` value starts with the letter `z`,
-which is the [[?MULTIBASE]] header that conveys that the binary data is
+which is the [[?MULTIBASE]] header that indicates that the binary data is
 base58-encoded using the Bitcoin base-encoding alphabet. The decoded binary data
 [[?MULTICODEC]] header is `0xed`, which specifies that the remaining data
 is a 32-byte raw Ed25519 <a>public key</a>.
@@ -878,7 +878,7 @@ include any members of the private information class, such as `d`, as described
 in the <a href="https://tools.ietf.org/html/rfc7517#section-8.1.1">JWK
 Registration Template</a>. It is RECOMMENDED that verification methods that use
 JWKs [[RFC7517]] to represent their <a>public keys</a> use the value of `kid` as
-their fragment identifier. It is RECOMMENDED that JWK `kid` values are set to
+their fragment identifier. It is RECOMMENDED that JWK `kid` values be set to
 the public key fingerprint [[RFC7638]]. See the first key in
 <a href="#example-various-verification-method-types"></a> for an example of a
 public key with a compound key identifier.
@@ -1029,7 +1029,7 @@ The <a>verification relationship</a> between the <a>controller</a> and the
 <a>verification relationship</a> cannot be used for that <a>verification
 relationship</a>. For example, a <a>verification method</a> in the value of
 the `<a>authentication</a>` property cannot be used to engage in
-key agreement protocols with the <a>controller</a>&mdash;the value of the
+key agreement protocols with the <a>controller</a> &mdash; the value of the
 `<a>keyAgreement</a>` property needs to be used for that.
           </p>
           <p>
@@ -1059,7 +1059,7 @@ challenge-response protocol.
             <dl>
               <dt id="defn-authentication">authentication</dt>
               <dd>
-The `authentication` property is OPTIONAL. If present, the associated
+The `authentication` property is OPTIONAL. If present, its
 value MUST be a <a data-cite="INFRA#ordered-set">set</a> of one or more
 <a>verification methods</a>. Each <a>verification method</a> MAY be embedded or
 referenced.
@@ -1098,7 +1098,7 @@ do with that information.
             </p>
             <p>
 This is useful to any <em>authentication verifier</em> that needs to check to
-see if an entity that is attempting to <a>authenticate</a> is, in fact,
+see whether an entity that is attempting to <a>authenticate</a> is, in fact,
 presenting a valid proof of authentication. When a <em>verifier</em> receives
 some data (in some protocol-specific format) that contains a proof that was made
 for the purpose of "authentication", and that says that an entity is identified
@@ -1129,8 +1129,8 @@ the purposes of issuing a Verifiable Credential [[?VC-DATA-MODEL-2.0]].
             <dl>
               <dt><dfn id="defn-assertionMethod">assertionMethod</dfn></dt>
               <dd>
-The `assertionMethod` property is OPTIONAL. If present, the
-associated value MUST be a <a data-cite="INFRA#ordered-set">set</a> of
+The `assertionMethod` property is OPTIONAL. If present, its
+value MUST be a <a data-cite="INFRA#ordered-set">set</a> of
 one or more <a>verification methods</a>. Each <a>verification method</a> MAY be
 embedded or referenced.
               </dd>
@@ -1138,7 +1138,7 @@ embedded or referenced.
 
             <p>
 This property is useful, for example, during the processing of a <a>verifiable
-credential</a> by a verifier. During verification, a verifier checks to see if a
+credential</a> by a verifier. During verification, a verifier checks to see whether a
 <a>verifiable credential</a> contains a proof created by the <a>controller</a>
 by checking that the <a>verification method</a> used to assert the proof is
 associated with the `<a>assertionMethod</a>` property in the
@@ -1185,7 +1185,7 @@ the purposes of establishing a secure communication channel with the recipient.
             <dl>
               <dt><dfn id="defn-keyAgreement">keyAgreement</dfn></dt>
               <dd>
-The `keyAgreement` property is OPTIONAL. If present, the associated
+The `keyAgreement` property is OPTIONAL. If present, its
 value MUST be a <a data-cite="INFRA#ordered-set">set</a> of one or more
 <a>verification methods</a>. Each <a>verification method</a> MAY be embedded or
 referenced.
@@ -1193,7 +1193,7 @@ referenced.
             </dl>
 
             <p>
-An example of when this property is useful is when encrypting a message intended
+This property can be useful, for example, when encrypting a message intended
 for the <a>controller</a>. In this case, the counterparty uses the
 cryptographic <a>public key</a> information in the <a>verification method</a> to
 wrap a decryption key for the recipient.
@@ -1236,28 +1236,28 @@ authorization to update the <a>controller document</a>.
             <dl>
               <dt><dfn id="defn-capabilityInvocation">capabilityInvocation</dfn></dt>
               <dd>
-The `capabilityInvocation` property is OPTIONAL. If present, the
-associated value MUST be a <a data-cite="INFRA#ordered-set">set</a> of
+The `capabilityInvocation` property is OPTIONAL. If present, its
+value MUST be a <a data-cite="INFRA#ordered-set">set</a> of
 one or more <a>verification methods</a>. Each <a>verification method</a> MAY be
 embedded or referenced.
               </dd>
             </dl>
 
             <p>
-An example of when this property is useful is when a <a>controller</a> needs to
+This property can be useful, for example, when a <a>controller</a> needs to
 access a protected HTTP API that requires authorization in order to use it. In
 order to authorize when using the HTTP API, the <a>controller</a>
 uses a capability that is associated with a particular URL that is
 exposed via the HTTP API. The invocation of the capability could be
 expressed in a number of ways, e.g., as a digitally signed
-message that is placed into the HTTP Headers.
+message that is placed into the HTTP headers.
             </p>
             <p>
 The server providing the HTTP API is the <em>verifier</em> of the capability and
 it would need to verify that the <a>verification method</a> referred to by the
 invoked capability exists in the `<a>capabilityInvocation</a>`
 property of the <a>controller document</a>. The verifier would also check to make sure
-that the action being performed is valid and the capability is appropriate for
+that the action being performed is valid and that the capability is appropriate for
 the resource being accessed. If the verification is successful, the server has
 cryptographically determined that the invoker is authorized to access the
 protected resource.
@@ -1303,15 +1303,15 @@ to access a specific HTTP API to a subordinate.
             <dl>
               <dt><dfn class="lint-ignore" id="defn-capabilityDelegation">capabilityDelegation</dfn></dt>
               <dd>
-The `capabilityDelegation` property is OPTIONAL. If present, the
-associated value MUST be a <a data-cite="INFRA#ordered-set">set</a> of
+The `capabilityDelegation` property is OPTIONAL. If present,
+its value MUST be a <a data-cite="INFRA#ordered-set">set</a> of
 one or more <a>verification methods</a>. Each <a>verification method</a> MAY be
 embedded or referenced.
               </dd>
             </dl>
 
             <p>
-An example of when this property is useful is when a <a>controller</a> chooses
+This property can be useful, for example, when a <a>controller</a> chooses
 to delegate their capability to access a protected HTTP API to a party other
 than themselves. In order to delegate the capability, the <a>controller</a>
 would use a <a>verification method</a> associated with the
