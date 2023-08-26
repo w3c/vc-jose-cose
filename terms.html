@@ -18,40 +18,6 @@
     <dd>
   Cryptographic material that can be used to generate digital proofs.
     </dd>
-    <dt><dfn>proof type</dfn></dt>
-    <dd>
-  A specified set of cryptographic primitives bundled together into a
-  <a>cryptographic suite</a> for the purposes of safety and convenience, by
-  cryptographers for developers (see the section on
-  <a href="https://www.w3.org/TR/vc-data-integrity/#cryptographic-suites">cryptographic suites</a>).
-    </dd>
-    <dt><dfn>proof options</dfn></dt>
-    <dd>
-  A set of options that is included in the proof data. These options might
-  include <a>controller</a>, <a>challenge</a>, <a>domain</a>, or other data
-  that is specific to the proof format.
-    </dd>
-    <dt><dfn>proof purpose</dfn></dt>
-    <dd>
-  The specific intent for the proof; the reason why an entity created it. The
-  protected declaration acts as a safeguard to prevent the proof from being
-  misused for a purpose other than the one it was intended for.
-    </dd>
-    <dt><dfn>challenge</dfn></dt>
-    <dd>
-  A random or pseudo-random value used by some authentication protocols to
-  mitigate replay attacks.
-    </dd>
-    <dt><dfn>domain</dfn></dt>
-    <dd>
-  A string value that specifies the operational domain of a digital proof.
-  This could be an Internet domain name like <code>example.com</code>, an
-  ad-hoc value such as <code>mycorp-level3-access</code>, or a very
-  specific transaction value like <code>8zF6T8J34qP3mqP</code>. A signer could
-  include a <a>domain</a> in its digital proof to restrict its use
-  to particular target, identified by the specified <a>domain</a>.
-    </dd>
-  
     <dt><dfn data-lt="authenticated|authenticate">authentication</dfn></dt>
     <dd>
   A process by which an entity can prove to a verifier that it has a specific
