@@ -78,6 +78,16 @@
       postProcess: [window.respecVc.createVcExamples],
       license: "w3c-software-doc",
       xref: true,
+      otherLinks: [{
+        key: "Related Documents",
+        data: [{
+          value: "VC Data Model",
+          href: "https://www.w3.org/TR/vc-data-model-2.0/"
+        }, {
+          value: "DID Core",
+          href: "https://www.w3.org/TR/did-core/"
+        }]
+      }],
       localBiblio:  {
         "SD-JWT": {
           title:    "Selective Disclosure for JWTs (SD-JWT)",
@@ -92,6 +102,20 @@
           authors:  [ 	"Manu Sporny" , "Amy Guy" ],
           status:   "Internet-Draft",
           publisher:  "IETF"
+        },
+        "JOSE-REGISTRIES": {
+          title:    "The JSON Object Signing and Encryption (JOSE) Registries",
+          href:     "https://www.iana.org/assignments/jose",
+          authors:  ["The Internet Assigned Numbers Authority"],
+          status:   "REC",
+          publisher:  "The Internet Assigned Numbers Authority"
+        },
+        "SECURITY-VOCABULARY": {
+          title:    "The Security Vocabulary",
+          href:     "https://w3id.org/security",
+          authors:  ["Ivan Herman", "Manu Sporny","David Longley"],
+          status:   "ED",
+          publisher:  "Verifiable Credentials Working Group"
         },
       }
     };
@@ -184,6 +208,11 @@
       confidentiality of CBOR data by encrypting it with symmetric or
       asymmetric encryption algorithms.
     </p>
+  </section>
+
+  <section class="informative">
+    <h3>Terminology</h3>
+    <div data-include="./terms.html"></div>
   </section>
 
   <section>
@@ -601,7 +630,7 @@ in the Data Integrity Specification Registries [TBD - DIS-REGISTRIES].
               </p>
               <p class="note">
 The `verificationMethod` property is REQUIRED for proofs, unlike controller
-documents, for which it is optional. See section <a href="#proofs"></a>.
+documents, for which it is optional. See section <a data-cite="VC-DATA-INTEGRITY#proofs"></a>.
               </p>
 
               <dl>
