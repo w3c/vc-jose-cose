@@ -209,9 +209,11 @@
       and <a data-cite="VC-DATA-MODEL#presentations">verifiable presentations</a> from other kinds of secured JSON or CBOR.
     </p>
     <p>
-      If a more specific media type is available, it SHOULD be used over the generic media types.
-      For example, instead of using <code>application/sd-jwt</code>, use <code>application/vc+ld+json+sd-jwt</code>, 
-      unless there is a more specific media type that can be used to better identify the secured envelope format.
+      The most specific media type (or subtype) available SHOULD be used, instead of
+      more generic media types (or supertypes). For example, rather than the general
+      <code>application/sd-jwt</code>, <code>application/vc+ld+json+sd-jwt</code>
+      ought to be used, unless there is a more specific media type that would even
+      better identify the secured envelope format.
     </p>
     <section>
       <h2>With JOSE</h2>
