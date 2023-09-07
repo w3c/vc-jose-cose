@@ -425,6 +425,12 @@
       <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
         </p>
         <p>
+      The value of the <a data-cite="VC-DATA-MODEL#issuer">issuer</a> property can either be a string or an object.
+      If <code>issuer</code> value is a string, <code>iss</code> value MUST match <code>issuer</code> value.
+      If <code>issuer</code> value is an object with an <code>id</code> value,
+      <code>iss</code> value MUST match <code>issuer.id</code> value.
+        </p>
+        <p>
       If <code>kid</code> is also present in the
       <a data-cite="RFC7515#section-4.1">Protected Header</a>, it is expected to be useful to
       distinguish the specific key used.
