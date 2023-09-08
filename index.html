@@ -204,6 +204,20 @@
       transformation, while at the same time supporting registered 
       claims that are understood in the context of JOSE and COSE.
     </p>
+    <p>
+      It is RECOMMENDED that media types be used to distinguish <a data-cite="VC-DATA-MODEL#credentials">verifiable credentials</a>
+      and <a data-cite="VC-DATA-MODEL#presentations">verifiable presentations</a> from other kinds of secured JSON or CBOR.
+    </p>
+    <p>
+      The most specific media type (or subtype) available SHOULD be used, instead of
+      more generic media types (or supertypes). For example, rather than the general
+      <code>application/sd-jwt</code>, <code>application/vc+ld+json+sd-jwt</code>
+      ought to be used, unless there is a more specific media type that would even
+      better identify the secured envelope format.
+    </p>
+    <p>
+    If implementations do not know which media type to use, media types defined in this specification MUST be used.
+    </p>
     <section>
       <h2>With JOSE</h2>
       <section>
@@ -215,10 +229,10 @@
         </p>
         <p>[[rfc7515]] MAY be used to secure this media type.</p>
         <p>
-          The <code>typ</code> parameter MUST be <code>vc+ld+json+jwt</code>
+          The <code>typ</code> parameter SHOULD be <code>vc+ld+json+sd-jwt</code>
         </p>
         <p>
-          When present, the <code>cty</code> MUST be
+          When present, the <code>cty</code> SHOULD be
           <code>vc+ld+json</code>
         </p>
         <p>
@@ -256,10 +270,10 @@
           <code>application/vp+ld+json</code> with JOSE.
         </p>
         <p>[[rfc7515]] MAY be used to secure this media type.</p>
-        <p>The <code>typ</code> parameter MUST be
+        <p>The <code>typ</code> parameter SHOULD be
           <code>vp+ld+json+jwt</code>
         </p>
-        <p>When present, the <code>cty</code> parameter MUST be
+        <p>When present, the <code>cty</code> parameter SHOULD be
           <code>vp+ld+json</code>
         </p>
         <p>
@@ -308,7 +322,7 @@
       <p>
         COSE [[rfc9052]] is a common approach to encoding and securing
         information using CBOR [[rfc8949]]. Verifiable credentials MAY
-        be secured using COSE [[rfc9052]] and MUST be identified through
+        be secured using COSE [[rfc9052]] and SHOULD be identified through
         use of content types as outlined in this section.
       </p>
       <section>
@@ -319,7 +333,7 @@
           with COSE.
         </p>
         <p>[[rfc9052]] MAY be used to secure this media type.</p>
-        <p>When using this approach, the <code>type (TBD)</code> MUST be
+        <p>When using this approach, the <code>type (TBD)</code> SHOULD be
           <code>vc+ld+json+cose</code>
         </p>
         <p class="issue">
@@ -327,7 +341,7 @@
           regarding progress towards explicit typing for COSE.
         </p>
         <p>When using this approach, the <code>content type (3)</code>
-          MUST be <code>application/vc+ld+json</code></p>
+          SHOULD be <code>application/vc+ld+json</code></p>
         <p>
           See <a data-cite="rfc9052#section-3.1">Common COSE Header
             Parameters</a> for additional details.
