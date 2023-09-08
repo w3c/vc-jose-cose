@@ -698,17 +698,11 @@ using the `<a>controller</a>` property at the highest level of the
             <h3>Verification Material</h3>
 
             <p>
-Verification material is any information that is used by a process that applies
-a <a>verification method</a>. The `type` of a <a>verification method</a> is
-expected to be used to determine its compatibility with such processes. Examples
-of verification methods include `JsonWebKey` and `Multikey`.
-A <a>cryptographic suite</a> specification is responsible for specifying the
-<a>verification method</a> `type` and its associated verification material
-format. For examples, see
-<a href="https://www.w3.org/TR/vc-di-ecdsa/">the Data Integrity ECDSA
-Cryptosuites</a> and <a href="https://w3c-ccg.github.io/lds-ed25519-2020/">
-the Data Integrity EdDSA Cryptosuites</a>. For a list of <a>verification
-method</a> types, please see the [[?SECURITY-VOCABULARY]].
+Verification material SHOULD be expressed in the <code>publicKeyJwk</code> property
+of a <code>JsonWebKey</code>. This key material is retrieved based on hints in the
+JOSE or COSE message envelopes, such as <code>kid</code> or <code>iss</code>. At
+the time of writing, there is no standard way to retrieve a public key in JWK or
+COSE key from a DID URL or controller document.
             </p>
 
             <p>
