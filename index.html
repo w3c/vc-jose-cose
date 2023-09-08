@@ -795,9 +795,9 @@ In the example above, the `publicKeyJwk` value contains the JSON Web Key.
 The `kty` property encodes the key type of "OKP", which means
 "Octet string key pairs". The `alg` property identifies the algorithm intended
 for use with the public key. Although `alg` is optional, it is RECOMMENDED to be included to avoid security issues arising from using the same key with multiple algorithms. The `crv` property identifies the particular
-curve type of the public key. The `kid` property specifies how the public key
-might be referenced in software systems; if present, the `kid` value SHOULD match the
-`id` property of the encapsulating `JsonWebKey` object. Finally, the `x`
+curve type of the public key. The `kid` property is a hint used to help discover the key; 
+if present, the `kid` value SHOULD match, or be included in the
+`id` property of the encapsulating `JsonWebKey` object, as part of the path, query or fragment of the URL. Finally, the `x`
 property specifies the point on the Ed25519 curve that is associated with the
 public key.
             </p>
