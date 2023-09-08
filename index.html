@@ -1040,56 +1040,6 @@ corresponding <a>controller document</a>.
             </pre>
           </section>
 
-          <section>
-            <h2>Key Agreement</h2>
-
-            <p>
-The `keyAgreement` <a>verification relationship</a> is used to
-specify how an entity can generate encryption material in order to transmit
-confidential information intended for the <a>controller</a>, such as for
-the purposes of establishing a secure communication channel with the recipient.
-            </p>
-
-            <dl>
-              <dt><dfn id="defn-keyAgreement">keyAgreement</dfn></dt>
-              <dd>
-The `keyAgreement` property is OPTIONAL. If present, its
-value MUST be a <a data-cite="INFRA#ordered-set">set</a> of one or more
-<a>verification methods</a>. Each <a>verification method</a> MAY be embedded or
-referenced.
-              </dd>
-            </dl>
-
-            <p>
-This property can be useful, for example, when encrypting a message intended
-for the <a>controller</a>. In this case, the counterparty uses the
-cryptographic <a>public key</a> information in the <a>verification method</a> to
-wrap a decryption key for the recipient.
-            </p>
-
-            <pre class="example nohighlight" title="Key agreement property
-                          containing two verification methods">
-    {
-      "@context": "https://www.w3.org/ns/did/v1",
-      "id": "did:example:123456789abcdefghi",
-      <span class="comment">...</span>
-      "keyAgreement": [
-        <span class="comment">// this method can be used to perform key agreement as did:...fghi</span>
-        "did:example:123456789abcdefghi#keys-1",
-        <span class="comment">// this method is *only* approved for key agreement usage, it will not</span>
-        <span class="comment">// be used for any other verification relationship, so its full description is</span>
-        <span class="comment">// embedded here rather than using only a reference</span>
-        {
-          "id": "did:example:123#zC9ByQ8aJs8vrNXyDhPHHNNMSHPcaSgNpjjsBYpMMjsTdS",
-          "type": "X25519KeyAgreementKey2019", <span class="comment">// external (property value)</span>
-          "controller": "did:example:123",
-          "publicKeyMultibase": "z6LSn6p3HRxx1ZZk1dT9VwcfTBCYgtNWdzdDMKPZjShLNWG7"
-        }
-      ],
-      <span class="comment">...</span>
-    }
-            </pre>
-          </section>
 
 
         </section>
