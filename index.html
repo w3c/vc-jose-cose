@@ -755,9 +755,7 @@ The value of the `type` property MUST contain the string `JsonWebKey`.
               <dd>
 The `publicKeyJwk` property is REQUIRED, and its value MUST
 be a JSON Web Key that conforms to [[RFC7517]].
-include any members of the private information class, such as `d`, as described
-in the <a href="https://tools.ietf.org/html/rfc7517#section-8.1.1">JWK
-Registration Template</a>. It is RECOMMENDED that verification methods that use
+It is RECOMMENDED that verification methods that use
 JWKs [[RFC7517]] to represent their <a>public keys</a> use the value of `kid` as
 their fragment identifier. It is RECOMMENDED that JWK `kid` values be set to
 the public key fingerprint [[RFC7638]]. See the first key in
