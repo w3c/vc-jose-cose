@@ -809,8 +809,7 @@ The value of the `type` property MUST contain the string `JsonWebKey`.
               <dt><dfn class="lint-ignore">publicKeyJwk</dfn></dt>
               <dd>
 The `publicKeyJwk` property is OPTIONAL. If present, its value MUST
-be a <a data-cite="INFRA#ordered-map">map</a> representing a JSON Web Key that
-conforms to [[RFC7517]]. The <a data-cite="INFRA#ordered-map">map</a> MUST NOT
+be a JSON Web Key that conforms to [[RFC7517]].
 include any members of the private information class, such as `d`, as described
 in the <a href="https://tools.ietf.org/html/rfc7517#section-8.1.1">JWK
 Registration Template</a>. It is RECOMMENDED that verification methods that use
