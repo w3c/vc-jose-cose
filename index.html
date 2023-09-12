@@ -340,12 +340,10 @@
           with COSE.
         </p>
         <p>[[rfc9052]] MAY be used to secure this media type.</p>
-        <p>When using this approach, the <code>type (TBD)</code> SHOULD be
-          <code>vc+ld+json+cose</code>
-        </p>
-        <p class="issue">
-          See <a href="https://datatracker.ietf.org/doc/draft-jones-cose-typ-header-parameter/">draft-jones-cose-typ-header-parameter</a>,
-          regarding progress towards explicit typing for COSE.
+        <p>When using this approach, the <code>typ</code> SHOULD be
+          <code>vc+ld+json+cose</code>.
+          See <a href="https://www.ietf.org/archive/id/draft-ietf-cose-typ-header-parameter-00.html/">I-D.ietf-cose-typ-header-parameter</a>
+          for the COSE "<code>typ</code>" (type) header parameter.
         </p>
         <p>When using this approach, the <code>content type (3)</code>
           SHOULD be <code>application/vc+ld+json</code></p>
@@ -357,7 +355,6 @@
             Binary Object Representation (CBOR) Tags</a> for additional
           details.</p>
       </section>
-      <p class="issue" data-number="67"></p>
     </section>
   </section>
   <section class="informative">
