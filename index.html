@@ -427,8 +427,8 @@
         <p>
       The value of the <a data-cite="VC-DATA-MODEL#issuer">issuer</a> property can be either a string or an object.
       When <code>issuer</code> value is a string, <code>iss</code> value, if present, MUST match <code>issuer</code> value.
-      If <code>issuer</code> value is an object with an <code>id</code> value,
-      <code>iss</code> value MUST match <code>issuer.id</code> value.
+      When <code>issuer</code> value is an object with an <code>id</code> value,
+      <code>iss</code> value, if present, MUST match <code>issuer.id</code> value.
         </p>
         <p>
       If <code>kid</code> is also present in the
