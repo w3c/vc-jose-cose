@@ -527,6 +527,13 @@
         <code>exp</code> and <code>cnf</code>.
       </p>
       <p>
+        When the <code>iat</code> and/or <code>exp</code> JWT claims are present,
+        they represent the issuance and expiration time of the signature, respectively.
+        Note that these are different from the <code>validFrom</code> and <code>validUntil</code> properties
+        defined in <a data-cite="VC-DATA-MODEL#validity-period">Validity Period</a>
+        that represent the validity of the data that is being secured.
+      </p>
+      <p>
         The <a href="#registered-claim-names">registered claim</a> names <code>vc</code> and <code>vp</code>
         MUST NOT be present as header parameters.
       </p>
