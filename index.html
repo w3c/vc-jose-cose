@@ -126,52 +126,27 @@
       This specification describes how to secure media types
       expressing Verifiable Credentials and Verifiable Presentations
       as described in the [[VC-DATA-MODEL]], using approaches
-      described by the OAUTH, JOSE, and COSE working groups at IETF. This
-      includes JWTs [[RFC7519]], JWS [[RFC7515]], SD-JWT [[SD-JWT]], and COSE [[RFC9052]],
+      described by the OAuth, JOSE, and COSE working groups at IETF. 
+      This includes SD-JWT [[SD-JWT]] and COSE [[RFC9052]],
       and provides an approach using well-defined content types
       [[RFC6838]] and structured suffixes [[MULTIPLE-SUFFIXES]] 
-      to distinguish the data types of documents conforming to [[VC-DATA-MODEL]]
+      to distinguish the data types of unsecured documents conforming to [[VC-DATA-MODEL]]
       from the data types of secured documents conforming to [[VC-DATA-MODEL]],
       defined in this specification.
     </p>
     <p>
-      JSON Web Signatures (JWS) [[RFC7515]] provide a standardized
+      Selective Disclosure for JWTs (SD-JWT) [[SD-JWT]] provides a standardized
       mechanism for digitally signing JSON documents. It provides a means
-      to ensure the integrity, authenticity, and non-repudiation of
-      the information contained in a JSON document. JWS enables secure
-      communication and trust between parties by adding a
-      cryptographic signature to a payload. This signature is
-      generated using a private key and can be verified using the
-      corresponding public key. JWS enables content integrity, authentication and non repudiation,
-      protecting data from unauthorized modifications. The
-      versatility and wide adoption of JWS make it an essential
-      component for verifying the authenticity and integrity of
-      various application media types, including
-      authentication, authorization, and secure data exchange. These
-      properties make JWS especially well suited to securing the
-      JSON-LD [[VC-DATA-MODEL]] and through this to provide a means of
-      supporting the three party model (issuer, holder, verifier) for
-      exchange of verifiable credentials and verifiable presentations.
+      to ensure the integrity, authenticity, selective disclosure and non-repudiation of
+      the information contained in a JSON document. These
+      properties make SD-JWT especially well suited to securing documents
+      conforming to the JSON-LD [[VC-DATA-MODEL]].
     </p>
-    <p>
-      JSON Web Token (JWT) [[RFC7519]] is a widely-used means of
-      expressing
-      <a data-cite="VC-DATA-MODEL#claims">claims</a>, represented in JSON, to be transferred
-      between two parties. Providing a representation of the
-      [[VC-DATA-MODEL]] for JWT allows existing
-      systems and libraries to participate in the ecosystem described
-      in Section <a data-cite="VC-DATA-MODEL#ecosystem-overview">ecosystem
-        overview</a>. A JWT encodes a set of
-      <a data-cite="VC-DATA-MODEL#claims">claims</a> as a JSON object
-      that is secured via a JSON Web Signature (JWS) [[RFC7515]]
-      and/or JSON Web Encryption (JWE) [[?RFC7516]]. For this
-      specification, the use of JWE is out of scope.
     <p class="issue">
       The working group is discussing how we might comment on recent work, that does make
       use of encryption in <a
         href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html#section-3.2">OpenID for Verifiable
         Presentations</a>.
-    </p>
     </p>
     <p>
       CBOR Object Signing and Encryption (COSE) [[RFC9052]] is a
@@ -276,7 +251,7 @@
         </p>
         <p>[[rfc7515]] MAY be used to secure this media type.</p>
         <p>The <code>typ</code> parameter SHOULD be
-          <code>vp+ld+json+jwt</code>
+          <code>vp+ld+json+sd-jwt</code>
         </p>
         <p>When present, the <code>cty</code> parameter SHOULD be
           <code>vp+ld+json</code>
@@ -563,8 +538,8 @@
           Verifiable Credentials</a> apply to securing
         <code>application/vc+ld+json</code> and
         <code>application/vp+ld+json</code>
-        as <code>application/vc+ld+json+jwt</code> and
-        <code>application/vp+ld+json+jwt</code>.
+        as <code>application/vc+ld+json+sd-jwt</code> and
+        <code>application/vp+ld+json+sd-jwt</code>.
       </p>
       <p>For clarity, these requirements are repeated here:</p>
       <ul>
@@ -655,111 +630,13 @@
 
     <section>
     <h2>Media Types</h2>
-    <section id="vc-ld-jwt-media-type">
-      <h2><code>application/vc+ld+json+jwt</code></h2>
-      <p>
-        This specification registers the
-        <code>application/vc+ld+json+jwt</code> Media Type for
-        identifying a Verifiable Credential that has been secured
-        using a <a data-cite="rfc7519#section-3">JWT</a>.
-      </p>
-      <table>
-        <tr>
-          <td>Type name: </td>
-          <td>application</td>
-        </tr>
-        <tr>
-          <td>Subtype name: </td>
-          <td>vc+ld+json+jwt</td>
-        </tr>
-        <tr>
-          <td>Required parameters: </td>
-          <td>None</td>
-        </tr>
-        <tr>
-          <td>Encoding considerations: </td>
-          <td>
-            <code>application/vc+ld+json+jwt</code> values are encoded as a
-            series of base64url encoded values (some of which may be the
-            empty string) each separated from the next by a single
-            period ('.') character.
-          </td>
-        </tr>
-        <tr>
-          <td>Security considerations: </td>
-          <td>
-            <p>As defined in this specification. See also the security
-              considerations in [[RFC7519]].</p>
-          </td>
-        </tr>
-        <tr>
-          <td>Contact: </td>
-          <td>
-            W3C Verifiable Credentials Working Group <a href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-          </td>
-        </tr>
-      </table>
-    </section>
-    <section id="vp-ld-jwt-media-type">
-      <h2><code>application/vp+ld+json+jwt</code></h2>
-      <p>
-        This specification registers the
-        <code>application/vp+ld+json+jwt</code> Media Type for
-        identifying a Verifiable Presentation that has been secured
-        using a <a data-cite="rfc7519#section-3">JWT</a>.
-      </p>
-      <table>
-        <tr>
-          <td>Type name: </td>
-          <td>application</td>
-        </tr>
-        <tr>
-          <td>Subtype name: </td>
-          <td>vp+ld+json+jwt</td>
-        </tr>
-        <tr>
-          <td>Required parameters: </td>
-          <td>None</td>
-        </tr>
-        <tr>
-          <td>Encoding considerations: </td>
-          <td>
-            <code>application/vp+ld+json+jwt</code> values are encoded as a
-            series of base64url encoded values (some of which may be the
-            empty string) each separated from the next by a single
-            period ('.') character.
-          </td>
-        </tr>
-        <tr>
-          <td>Security considerations: </td>
-          <td>
-            <p>As defined in this specification. See also the security
-              considerations in [[RFC7519]].</p>
-            <p>
-              Be advised, per the [[VC-DATA-MODEL]], verifiable
-              presentations are not required to be secured.
-            </p>
-            <p>
-              This "typ" value might be paired with "alg: none", in
-              headers.
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td>Contact: </td>
-          <td>
-            W3C Verifiable Credentials Working Group <a href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-          </td>
-        </tr>
-      </table>
-    </section>
     <section id="vc-ld-sd-jwt-media-type">
       <h2><code>application/vc+ld+json+sd-jwt</code></h2>
       <p>
         This specification registers the
         <code>application/vc+ld+json+sd-jwt</code> Media Type specifically for
         identifying a <a data-cite="SD-JWT"></a>
-        conforming to the Verifiable Credentials.
+        conforming to the Verifiable Credential Data Model.
       </p>
       <table>
         <tr>
@@ -769,6 +646,50 @@
         <tr>
           <td>Subtype name: </td>
           <td>vc+ld+json+sd-jwt</td>
+        </tr>
+        <tr>
+          <td>Required parameters: </td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Encoding considerations: </td>
+          <td>
+            binary; application/sd-jwt values are a series of base64url-encoded values 
+            (some of which may be the empty string) separated by period ('.') or tilde ('~') characters.
+          </td>
+        </tr>
+        <tr>
+          <td>Security considerations: </td>
+          <td>
+            <p>As defined in this specification. See also the security
+            considerations in <a data-cite="SD-JWT"></a>.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Contact: </td>
+          <td>
+            W3C Verifiable Credentials Working Group <a
+            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+      </table>
+    </section>
+    <section id="vp-ld-sd-jwt-media-type">
+      <h2><code>application/vp+ld+json+sd-jwt</code></h2>
+      <p>
+        This specification registers the
+        <code>application/vp+ld+json+sd-jwt</code> Media Type specifically for
+        identifying a <a data-cite="SD-JWT"></a>
+        conforming to the Verifiable Presentations.
+      </p>
+      <table>
+        <tr>
+          <td>Type name: </td>
+          <td>application</td>
+        </tr>
+        <tr>
+          <td>Subtype name: </td>
+          <td>vp+ld+json+sd-jwt</td>
         </tr>
         <tr>
           <td>Required parameters: </td>
@@ -974,7 +895,7 @@
     <section class="informative">
       <h2>Accessibility</h2>
       <p>
-        When implementing the VC-JWT specification, it is crucial for
+        When implementing this specification, it is crucial for
         technical implementers to consider various accessibility
         factors. Ignoring accessibility concerns renders the information
         unusable for a significant portion of the population. To ensure
@@ -1091,7 +1012,7 @@
     </section>
     <section>
       <h3>Credentials</h3>
-      <pre class="example vc-jose-cose-vc-example" title="A revocable credential with multiple subjects" data-alg="ES256" data-typ="vc+ld+json+jwt" data-cty="vc+ld+json">
+      <pre class="example vc-jose-cose-vc-example" title="A revocable credential with multiple subjects" data-alg="ES256" data-typ="vc+ld+json+sd-jwt" data-cty="vc+ld+json">
 {
   "@context": ["https://www.w3.org/ns/credentials/v2",
     "https://www.w3.org/ns/credentials/examples/v2"
@@ -1147,7 +1068,7 @@
         Presentations
       </h2>
 
-      <pre class="example vc-jose-cose-vp-example" title="Presentation" data-alg="ES256" data-typ="vp+ld+json+jwt" data-cty="vp+ld+json">
+      <pre class="example vc-jose-cose-vp-example" title="Presentation" data-alg="ES256" data-typ="vp+ld+json+sd-jwt" data-cty="vp+ld+json">
 {
   "@context": ["https://www.w3.org/ns/credentials/v2"],
   "type": ["VerifiablePresentation"],
@@ -1165,11 +1086,11 @@
         "id": "https://subject.vendor.example"
       }
     },
-    "https://vendor.example/credentials/42", "did:example:123",
+    "https://vendor.example/credentials/42", 
+    "did:example:123",
     "urn:uuid:01ec9426-c175-4e39-a006-d30050e28214",
     "urn:ietf:params:oauth:jwk-thumbprint:sha-256:_Fpfe27AuGmEljZE9s2lw2UH-qrZLRFNrWbJrWIe4SI",
-    "data:application/vc+ld+json;base64,eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlQ3JlZGVudGlhbCJdLCJpc3N1ZXIiOiJkaWQ6andrOmV5SnJhV1FpT2lKMWNtNDZhV1YwWmpwd1lYSmhiWE02YjJGMWRHZzZhbmRyTFhSb2RXMWljSEpwYm5RNmMyaGhMVEkxTmpwdlFtUm1kbVpET1hoNk1GOUJVWFpSTjNZMU1YbERXbDl6ZUdwNU56VkNUSEpJZWsxT1Jqa3lPV1U0SWl3aWEzUjVJam9pVDB0UUlpd2lZM0oySWpvaVJXUXlOVFV4T1NJc0ltRnNaeUk2SWtWa1JGTkJJaXdpZUNJNklqTmljbU5zYjBJNGFEUk5XbFZJYms5UVVHbGtTbXd0U2pkdVVsRkpXSFJUYUZwM1oyNW1jbHAxVDI4aWZRIiwidmFsaWRGcm9tIjoiMjAyMy0wNi0wN1QyMToxNDoxNC4xNDhaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJodHRwczovL3N1YmplY3QudmVuZG9yLmV4YW1wbGUifX0=",
-    "data:application/vc+ld+json+jwt;base64,ZXlKaGJHY2lPaUpGWkVSVFFTSXNJbWx6Y3lJNkltUnBaRHBxZDJzNlpYbEtjbUZYVVdsUGFVb3hZMjAwTm1GWFZqQmFhbkIzV1ZoS2FHSllUVFppTWtZeFpFZG5ObUZ1WkhKTVdGSnZaRmN4YVdOSVNuQmlibEUyWXpKb2FFeFVTVEZPYW5CMlVXMVNiV1J0V2tSUFdHZzJUVVk1UWxWWVdsSk9NMWt4VFZoc1JGZHNPWHBsUjNBMVRucFdRMVJJU2tsbGF6RlBVbXByZVU5WFZUUkphWGRwWVROU05VbHFiMmxVTUhSUlNXbDNhVmt6U2pKSmFtOXBVbGRSZVU1VVZYaFBVMGx6U1cxR2MxcDVTVFpKYTFaclVrWk9Ra2xwZDJsbFEwazJTV3BPYVdOdFRuTmlNRWswWVVSU1RsZHNWa2xpYXpsUlZVZHNhMU50ZDNSVGFtUjFWV3hHU2xkSVVsUmhSbkF6V2pJMWJXTnNjREZVTWpocFpsRWlMQ0pyYVdRaU9pSWpNQ0lzSW5SNWNDSTZJblpqSzJ4a0sycDNkQ0lzSW1saGRDSTZNVFk0TmpJMU1UVTNOSDAuZXlKQVkyOXVkR1Y0ZENJNld5Sm9kSFJ3Y3pvdkwzZDNkeTUzTXk1dmNtY3Zibk12WTNKbFpHVnVkR2xoYkhNdmRqSWlYU3dpZEhsd1pTSTZXeUpXWlhKcFptbGhZbXhsUTNKbFpHVnVkR2xoYkNKZExDSnBjM04xWlhJaU9pSmthV1E2YW5kck9tVjVTbkpoVjFGcFQybEtNV050TkRaaFYxWXdXbXB3ZDFsWVNtaGlXRTAyWWpKR01XUkhaelpoYm1SeVRGaFNiMlJYTVdsalNFcHdZbTVSTm1NeWFHaE1WRWt4VG1wd2RsRnRVbTFrYlZwRVQxaG9OazFHT1VKVldGcFNUak5aTVUxWWJFUlhiRGw2WlVkd05VNTZWa05VU0VwSlpXc3hUMUpxYTNsUFYxVTBTV2wzYVdFelVqVkphbTlwVkRCMFVVbHBkMmxaTTBveVNXcHZhVkpYVVhsT1ZGVjRUMU5KYzBsdFJuTmFlVWsyU1d0V2ExSkdUa0pKYVhkcFpVTkpOa2xxVG1samJVNXpZakJKTkdGRVVrNVhiRlpKWW1zNVVWVkhiR3RUYlhkMFUycGtkVlZzUmtwWFNGSlVZVVp3TTFveU5XMWpiSEF4VkRJNGFXWlJJaXdpZG1Gc2FXUkdjbTl0SWpvaU1qQXlNeTB3Tmkwd04xUXlNVG94TkRveE5DNHhORGhhSWl3aVkzSmxaR1Z1ZEdsaGJGTjFZbXBsWTNRaU9uc2lhV1FpT2lKb2RIUndjem92TDNOMVltcGxZM1F1ZG1WdVpHOXlMbVY0WVcxd2JHVWlmWDAubmczZlpDQXJyNUYwb1hOS1J1UlFNUXYtdnh4YlozUWJKVkJpcU1QUlVnSEFiSDVkMXptYjhLeUNkNnlVS3IxbmlsZmZiZ2pGUmRpRjFsWUdNRGNhQ0E="
+    "data:application/vc+ld+json;base64,eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlQ3JlZGVudGlhbCJdLCJpc3N1ZXIiOiJkaWQ6andrOmV5SnJhV1FpT2lKMWNtNDZhV1YwWmpwd1lYSmhiWE02YjJGMWRHZzZhbmRyTFhSb2RXMWljSEpwYm5RNmMyaGhMVEkxTmpwdlFtUm1kbVpET1hoNk1GOUJVWFpSTjNZMU1YbERXbDl6ZUdwNU56VkNUSEpJZWsxT1Jqa3lPV1U0SWl3aWEzUjVJam9pVDB0UUlpd2lZM0oySWpvaVJXUXlOVFV4T1NJc0ltRnNaeUk2SWtWa1JGTkJJaXdpZUNJNklqTmljbU5zYjBJNGFEUk5XbFZJYms5UVVHbGtTbXd0U2pkdVVsRkpXSFJUYUZwM1oyNW1jbHAxVDI4aWZRIiwidmFsaWRGcm9tIjoiMjAyMy0wNi0wN1QyMToxNDoxNC4xNDhaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJodHRwczovL3N1YmplY3QudmVuZG9yLmV4YW1wbGUifX0="
   ]
 }
       </pre>
@@ -1178,350 +1099,20 @@
 
     <section>
       <h3>Data URIs</h3>
-      <pre class="example" title="JSON-LD Credential">
+      <pre class="example" title="JSON-LD Verifiable Credential">
 data:application/vc+ld+json;base64,eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlQ3JlZGVudGlhbCJdLCJpc3N1ZXIiOiJkaWQ6andrOmV5SnJhV1FpT2lKMWNtNDZhV1YwWmpwd1lYSmhiWE02YjJGMWRHZzZhbmRyTFhSb2RXMWljSEpwYm5RNmMyaGhMVEkxTmpwdlFtUm1kbVpET1hoNk1GOUJVWFpSTjNZMU1YbERXbDl6ZUdwNU56VkNUSEpJZWsxT1Jqa3lPV1U0SWl3aWEzUjVJam9pVDB0UUlpd2lZM0oySWpvaVJXUXlOVFV4T1NJc0ltRnNaeUk2SWtWa1JGTkJJaXdpZUNJNklqTmljbU5zYjBJNGFEUk5XbFZJYms5UVVHbGtTbXd0U2pkdVVsRkpXSFJUYUZwM1oyNW1jbHAxVDI4aWZRIiwidmFsaWRGcm9tIjoiMjAyMy0wNi0wN1QyMToxNDoxNC4xNDhaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJodHRwczovL3N1YmplY3QudmVuZG9yLmV4YW1wbGUifX0=
-      </pre>
-
-      <pre class="example" title="JWT Credential">
-data:application/vc+ld+json+jwt;base64,ZXlKaGJHY2lPaUpGWkVSVFFTSXNJbWx6Y3lJNkltUnBaRHBxZDJzNlpYbEtjbUZYVVdsUGFVb3hZMjAwTm1GWFZqQmFhbkIzV1ZoS2FHSllUVFppTWtZeFpFZG5ObUZ1WkhKTVdGSnZaRmN4YVdOSVNuQmlibEUyWXpKb2FFeFVTVEZPYW5CMlVXMVNiV1J0V2tSUFdHZzJUVVk1UWxWWVdsSk9NMWt4VFZoc1JGZHNPWHBsUjNBMVRucFdRMVJJU2tsbGF6RlBVbXByZVU5WFZUUkphWGRwWVROU05VbHFiMmxVTUhSUlNXbDNhVmt6U2pKSmFtOXBVbGRSZVU1VVZYaFBVMGx6U1cxR2MxcDVTVFpKYTFaclVrWk9Ra2xwZDJsbFEwazJTV3BPYVdOdFRuTmlNRWswWVVSU1RsZHNWa2xpYXpsUlZVZHNhMU50ZDNSVGFtUjFWV3hHU2xkSVVsUmhSbkF6V2pJMWJXTnNjREZVTWpocFpsRWlMQ0pyYVdRaU9pSWpNQ0lzSW5SNWNDSTZJblpqSzJ4a0sycDNkQ0lzSW1saGRDSTZNVFk0TmpJMU1UVTNOSDAuZXlKQVkyOXVkR1Y0ZENJNld5Sm9kSFJ3Y3pvdkwzZDNkeTUzTXk1dmNtY3Zibk12WTNKbFpHVnVkR2xoYkhNdmRqSWlYU3dpZEhsd1pTSTZXeUpXWlhKcFptbGhZbXhsUTNKbFpHVnVkR2xoYkNKZExDSnBjM04xWlhJaU9pSmthV1E2YW5kck9tVjVTbkpoVjFGcFQybEtNV050TkRaaFYxWXdXbXB3ZDFsWVNtaGlXRTAyWWpKR01XUkhaelpoYm1SeVRGaFNiMlJYTVdsalNFcHdZbTVSTm1NeWFHaE1WRWt4VG1wd2RsRnRVbTFrYlZwRVQxaG9OazFHT1VKVldGcFNUak5aTVUxWWJFUlhiRGw2WlVkd05VNTZWa05VU0VwSlpXc3hUMUpxYTNsUFYxVTBTV2wzYVdFelVqVkphbTlwVkRCMFVVbHBkMmxaTTBveVNXcHZhVkpYVVhsT1ZGVjRUMU5KYzBsdFJuTmFlVWsyU1d0V2ExSkdUa0pKYVhkcFpVTkpOa2xxVG1samJVNXpZakJKTkdGRVVrNVhiRlpKWW1zNVVWVkhiR3RUYlhkMFUycGtkVlZzUmtwWFNGSlVZVVp3TTFveU5XMWpiSEF4VkRJNGFXWlJJaXdpZG1Gc2FXUkdjbTl0SWpvaU1qQXlNeTB3Tmkwd04xUXlNVG94TkRveE5DNHhORGhhSWl3aVkzSmxaR1Z1ZEdsaGJGTjFZbXBsWTNRaU9uc2lhV1FpT2lKb2RIUndjem92TDNOMVltcGxZM1F1ZG1WdVpHOXlMbVY0WVcxd2JHVWlmWDAubmczZlpDQXJyNUYwb1hOS1J1UlFNUXYtdnh4YlozUWJKVkJpcU1QUlVnSEFiSDVkMXptYjhLeUNkNnlVS3IxbmlsZmZiZ2pGUmRpRjFsWUdNRGNhQ0E=
       </pre>
 
       <pre class="example" title="JSON-LD Verifiable Presentation">
 data:application/vp+ld+json+json;base64,eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlQ3JlZGVudGlhbCJdLCJpc3N1ZXIiOiJkaWQ6andrOmV5SnJhV1FpT2lKMWNtNDZhV1YwWmpwd1lYSmhiWE02YjJGMWRHZzZhbmRyTFhSb2RXMWljSEpwYm5RNmMyaGhMVEkxTmpwdlFtUm1kbVpET1hoNk1GOUJVWFpSTjNZMU1YbERXbDl6ZUdwNU56VkNUSEpJZWsxT1Jqa3lPV1U0SWl3aWEzUjVJam9pVDB0UUlpd2lZM0oySWpvaVJXUXlOVFV4T1NJc0ltRnNaeUk2SWtWa1JGTkJJaXdpZUNJNklqTmljbU5zYjBJNGFEUk5XbFZJYms5UVVHbGtTbXd0U2pkdVVsRkpXSFJUYUZwM1oyNW1jbHAxVDI4aWZRIiwidmFsaWRGcm9tIjoiMjAyMy0wNi0wN1QyMToxNDoxNC4xNDhaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJodHRwczovL3N1YmplY3QudmVuZG9yLmV4YW1wbGUifX0=
       </pre>
-
-      <pre class="example" title="JWT Presentation">
-data:application/vp+ld+json+jwt;base64,ZXlKaGJHY2lPaUpGWkVSVFFTSXNJbWx6Y3lJNkltUnBaRHBxZDJzNlpYbEtjbUZYVVdsUGFVb3hZMjAwTm1GWFZqQmFhbkIzV1ZoS2FHSllUVFppTWtZeFpFZG5ObUZ1WkhKTVdGSnZaRmN4YVdOSVNuQmlibEUyWXpKb2FFeFVTVEZPYW5CMlVXMVNiV1J0V2tSUFdHZzJUVVk1UWxWWVdsSk9NMWt4VFZoc1JGZHNPWHBsUjNBMVRucFdRMVJJU2tsbGF6RlBVbXByZVU5WFZUUkphWGRwWVROU05VbHFiMmxVTUhSUlNXbDNhVmt6U2pKSmFtOXBVbGRSZVU1VVZYaFBVMGx6U1cxR2MxcDVTVFpKYTFaclVrWk9Ra2xwZDJsbFEwazJTV3BPYVdOdFRuTmlNRWswWVVSU1RsZHNWa2xpYXpsUlZVZHNhMU50ZDNSVGFtUjFWV3hHU2xkSVVsUmhSbkF6V2pJMWJXTnNjREZVTWpocFpsRWlMQ0pyYVdRaU9pSWpNQ0lzSW5SNWNDSTZJblpqSzJ4a0sycDNkQ0lzSW1saGRDSTZNVFk0TmpJMU1UVTNOSDAuZXlKQVkyOXVkR1Y0ZENJNld5Sm9kSFJ3Y3pvdkwzZDNkeTUzTXk1dmNtY3Zibk12WTNKbFpHVnVkR2xoYkhNdmRqSWlYU3dpZEhsd1pTSTZXeUpXWlhKcFptbGhZbXhsUTNKbFpHVnVkR2xoYkNKZExDSnBjM04xWlhJaU9pSmthV1E2YW5kck9tVjVTbkpoVjFGcFQybEtNV050TkRaaFYxWXdXbXB3ZDFsWVNtaGlXRTAyWWpKR01XUkhaelpoYm1SeVRGaFNiMlJYTVdsalNFcHdZbTVSTm1NeWFHaE1WRWt4VG1wd2RsRnRVbTFrYlZwRVQxaG9OazFHT1VKVldGcFNUak5aTVUxWWJFUlhiRGw2WlVkd05VNTZWa05VU0VwSlpXc3hUMUpxYTNsUFYxVTBTV2wzYVdFelVqVkphbTlwVkRCMFVVbHBkMmxaTTBveVNXcHZhVkpYVVhsT1ZGVjRUMU5KYzBsdFJuTmFlVWsyU1d0V2ExSkdUa0pKYVhkcFpVTkpOa2xxVG1samJVNXpZakJKTkdGRVVrNVhiRlpKWW1zNVVWVkhiR3RUYlhkMFUycGtkVlZzUmtwWFNGSlVZVVp3TTFveU5XMWpiSEF4VkRJNGFXWlJJaXdpZG1Gc2FXUkdjbTl0SWpvaU1qQXlNeTB3Tmkwd04xUXlNVG94TkRveE5DNHhORGhhSWl3aVkzSmxaR1Z1ZEdsaGJGTjFZbXBsWTNRaU9uc2lhV1FpT2lKb2RIUndjem92TDNOMVltcGxZM1F1ZG1WdVpHOXlMbVY0WVcxd2JHVWlmWDAubmczZlpDQXJyNUYwb1hOS1J1UlFNUXYtdnh4YlozUWJKVkJpcU1QUlVnSEFiSDVkMXptYjhLeUNkNnlVS3IxbmlsZmZiZ2pGUmRpRjFsWUdNRGNhQ0E=
-      </pre>
-
-      <pre class="example" title="Nested Unsecured JSON-LD Verifiable Presentation">
-data:application/vp+ld+json;base64,eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiXSwidHlwZSI6WyJWZXJpZmlhYmxlUHJlc2VudGF0aW9uIl0sInZlcmlmaWFibGVDcmVkZW50aWFsIjpbImRhdGE6YXBwbGljYXRpb24vdmMrbGQranNvbjtiYXNlNjQsZXlKQVkyOXVkR1Y0ZENJNld5Sm9kSFJ3Y3pvdkwzZDNkeTUzTXk1dmNtY3Zibk12WTNKbFpHVnVkR2xoYkhNdmRqSWlYU3dpZEhsd1pTSTZXeUpXWlhKcFptbGhZbXhsUTNKbFpHVnVkR2xoYkNKZExDSnBjM04xWlhJaU9pSm9kSFJ3Y3pvdkwybHpjM1ZsY2k1MlpXNWtiM0l1WlhoaGJYQnNaU0lzSW5aaGJHbGtSbkp2YlNJNklqSXdNak10TURZdE1EZFVNakU2TVRRNk1UUXVNVFE0V2lJc0ltTnlaV1JsYm5ScFlXeFRkV0pxWldOMElqcDdJbWxrSWpvaWFIUjBjSE02THk5emRXSnFaV04wTG5abGJtUnZjaTVsZUdGdGNHeGxJbjE5Il19
-      </pre>
-
-      <pre class="example" title="Nested Unsecured JWT">
-data:application/vp+ld+json+jwt;base64,ZXlKaGJHY2lPaUp1YjI1bElpd2lkSGx3SWpvaWRuQXJiR1FyYW5kMEluMC5leUpBWTI5dWRHVjRkQ0k2V3lKb2RIUndjem92TDNkM2R5NTNNeTV2Y21jdmJuTXZZM0psWkdWdWRHbGhiSE12ZGpJaVhTd2lkSGx3WlNJNld5SldaWEpwWm1saFlteGxVSEpsYzJWdWRHRjBhVzl1SWwwc0luWmxjbWxtYVdGaWJHVkRjbVZrWlc1MGFXRnNJanBiSW1SaGRHRTZZWEJ3YkdsallYUnBiMjR2ZG1NcmJHUXJhbmQwTzJKaGMyVTJOQ3hhV0d4TFlVZEtTRmt5YkZCaFZYQXhXV3BKTVdKRmJIQmtNbXhyVTBkNE0xTlhjSFpoVjFKMFZGaEthVkl4Um5sWlZ6VnJUVVZzZFUxRE5XeGxWWEJDVjFSSk5XUlhVa2hXYWxKclVUQnJNbFl6YkV0aU1sSkpWVzVrYW1WdE9USlVSRTVyVFRKU05VNVVUazVsVkZZeVdUSXhhbVJ0U25WVVdGcGFUVEJ3YzFkclpGZGtWMUpJWWtkb2FWTkZNVEphUjNCS1lWWm9WR1F5Ykd0VFIzZ3pWMnhPU2s1c1pEVlRiR1JoVjBWd2QxZHRNWE5oUm14MFpVZDRVazB3Y0hOWGEyUlhaRmRTU0dKSGFHbFJNSEJyVkVWT1MyTkhUWHBVYWtaaFYwVnNjRlF5YkV0aU1sSkpWVzVrYW1WdE9USlVSRXB6WlcxTmVsWnRlR3BoVkZWNVYyeGpNV0V5U1hwVFdGWmhWMGRvYjFsc2FFTmpNWEJVVTFoT1NtSnNjRzlaYTJSellURktkVk51V21sVk1Hc3lVMWR3U21Rd01YRlVXRkpPVWtac01GUlZVbXRXVlRGeFVsUmFUbFpHUlRKVVZsSlNaRlV4VlZWVVVsaGhWV3g2VTFjeFQyVldjRmhWYlhocFlteEtkMWRXWkRSV1IxSllVMjVHWVZZd05IZFRWM0IzVGpCc2RHSkhkRXBoYlRsd1dWVm9VMDFIVGtsVVZGcE5aVlJzTmxwR1pFdGpWbkJZVkdwQ1RXSnNjSE5aYlRGVFpHMU9jRTVYZUd4U01Gb3dXVEJrTkdKRmJIVk5WR3QxSWwxOS4=
-      </pre>
     </section>
 
     <section>
       <h2>
-        Detached Proofs
+        Detached Payload
       </h2>
-
-      <pre class="example" title="Verifiable Credential">
-{
-  "@context": ["https://www.w3.org/ns/credentials/v2"],
-  "type": [
-    "VerifiableCredential"
-  ],
-  "issuer": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:_Fpfe27AuGmEljZE9s2lw2UH-qrZLRFNrWbJrWIe4SI",
-  "validFrom": "2023-06-07T21:14:14.148Z",
-  "credentialSubject": {
-    "id": "https://subject.vendor.example"
-  }
-}
-      </pre>
-
-      <pre class="example" title="Detached Verifiable Credential Proof">
-eyJhbGciOiJFUzM4NCIsInR5cCI6InZjK2xkK2p3dCIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..Z-s5JgWQK91e1bzk-87ofJcRqGrw7wGehepSYH3U18u9-BNi9QOcgHWMFAN72HGNNhmn9xyT7UF59om7Wbb_IQTPAlzjMdPbzfq3bRffutP-Swg_Sz2R1VwpufVJ5Ult
-      </pre>
-
-      <pre class="example" title="Verifiable Presentation">
-{
-  "@context": ["https://www.w3.org/ns/credentials/v2"],
-  "type": [
-    "VerifiablePresentation"
-  ],
-  "holder": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:_Fpfe27AuGmEljZE9s2lw2UH-qrZLRFNrWbJrWIe4SI"
-}
-      </pre>
-
-      <pre class="example" title="Detached Presentation Proof">
-eyJhbGciOiJFUzM4NCIsInR5cCI6InZwK2xkK2p3dCIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..TsKRjY56LWTPPXWKLYfDs-NKmZZHIcrZ2pndwEDtO5DaGiDW3OtABr-esL9y6CdZTxwshoqZCs_RnPRx17-uO8k_SBugAQwnzN8bnulkSN4gXaST0kxk23X4bVmw6sBD
-      </pre>
-
       <p class="issue">TODO add COSE Sign1 detached payload examples</p>
-
-    </section>
-    <section>
-      <h3>Selective Disclosure</h3>
-      <p>The following examples are taken from <a data-cite="SD-JWT#name-example-4b-w3c-verifiable-c"></a>.</p>
-      <p class="issue">These example are from a work in progress draft.</p>
-      <p>
-        An issuer might start with a <code>vc+ld+json</code> claimset, for example:
-      </p>
-      <pre class="example">
-{
-  "@context": [
-    "https://www.w3.org/2018/credentials/v1",
-    "https://w3id.org/vaccination/v1"
-  ],
-  "type": [
-    "VerifiableCredential",
-    "VaccinationCertificate"
-  ],
-  "issuer": "https://example.com/issuer",
-  "issuanceDate": "2023-02-09T11:01:59Z",
-  "expirationDate": "2028-02-08T11:01:59Z",
-  "name": "COVID-19 Vaccination Certificate",
-  "description": "COVID-19 Vaccination Certificate",
-  "credentialSubject": {
-    "vaccine": {
-      "type": "Vaccine",
-      "atcCode": "J07BX03",
-      "medicinalProductName": "COVID-19 Vaccine Moderna",
-      "marketingAuthorizationHolder": "Moderna Biotech"
-    },
-    "nextVaccinationDate": "2021-08-16T13:40:12Z",
-    "countryOfVaccination": "GE",
-    "dateOfVaccination": "2021-06-23T13:40:12Z",
-    "order": "3/3",
-    "recipient": {
-      "type": "VaccineRecipient",
-      "gender": "Female",
-      "birthDate": "1961-08-17",
-      "givenName": "Marion",
-      "familyName": "Mustermann"
-    },
-    "type": "VaccinationEvent",
-    "administeringCentre": "Praxis Sommergarten",
-    "batchNumber": "1626382736",
-    "healthProfessional": "883110000015376"
-  }
-}
-      </pre>
-      <p>
-        The issuer converts this claimset into the SD-JWT payload, and encodes the token, for example:
-      </p>
-      <pre class="example">
-eyJhbGciOiAiRVMyNTYifQ.eyJpc3MiOiAiaHR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1Z
-XIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4cCI6IDE4ODMwMDAwMDAsICJAY29udGV4d
-CI6IFsiaHR0cHM6Ly93d3cudzMub3JnLzIwMTgvY3JlZGVudGlhbHMvdjEiLCAiaHR0c
-HM6Ly93M2lkLm9yZy92YWNjaW5hdGlvbi92MSJdLCAidHlwZSI6IFsiVmVyaWZpYWJsZ
-UNyZWRlbnRpYWwiLCAiVmFjY2luYXRpb25DZXJ0aWZpY2F0ZSJdLCAiaXNzdWVyIjogI
-mh0dHBzOi8vZXhhbXBsZS5jb20vaXNzdWVyIiwgImlzc3VhbmNlRGF0ZSI6ICIyMDIzL
-TAyLTA5VDExOjAxOjU5WiIsICJleHBpcmF0aW9uRGF0ZSI6ICIyMDI4LTAyLTA4VDExO
-jAxOjU5WiIsICJuYW1lIjogIkNPVklELTE5IFZhY2NpbmF0aW9uIENlcnRpZmljYXRlI
-iwgImRlc2NyaXB0aW9uIjogIkNPVklELTE5IFZhY2NpbmF0aW9uIENlcnRpZmljYXRlI
-iwgImNyZWRlbnRpYWxTdWJqZWN0IjogeyJfc2QiOiBbIjFWX0stOGxEUThpRlhCRlhiW
-lk5ZWhxUjRIYWJXQ2k1VDB5Ykl6WlBld3ciLCAiSnpqTGd0UDI5ZFAtQjN0ZDEyUDY3N
-GdGbUsyenk4MUhNdEJnZjZDSk5XZyIsICJSMmZHYmZBMDdaX1lsa3FtTlp5bWExeHl5e
-DFYc3RJaVM2QjFZYmwySlo0IiwgIlRDbXpybDdLMmdldl9kdTdwY01JeXpSTEhwLVllZ
-y1GbF9jeHRyVXZQeGciLCAiVjdrSkJMSzc4VG1WRE9tcmZKN1p1VVBIdUtfMmNjN3laU
-mE0cVYxdHh3TSIsICJiMGVVc3ZHUC1PRERkRm9ZNE5semxYYzN0RHNsV0p0Q0pGNzVOd
-zhPal9nIiwgInpKS19lU01YandNOGRYbU1aTG5JOEZHTTA4ekozX3ViR2VFTUotNVRCe
-TAiXSwgInZhY2NpbmUiOiB7Il9zZCI6IFsiMWNGNWhMd2toTU5JYXFmV0pyWEk3Tk1XZ
-WRMLTlmNlkyUEE1MnlQalNaSSIsICJIaXk2V1d1ZUxENWJuMTYyOTh0UHY3R1hobWxkT
-URPVG5CaS1DWmJwaE5vIiwgIkxiMDI3cTY5MWpYWGwtakM3M3ZpOGViT2o5c214M0MtX
-29nN2dBNFRCUUUiXSwgInR5cGUiOiAiVmFjY2luZSJ9LCAicmVjaXBpZW50IjogeyJfc
-2QiOiBbIjFsU1FCTlkyNHEwVGg2T0d6dGhxLTctNGw2Y0FheHJZWE9HWnBlV19sbkEiL
-CAiM256THE4MU0yb04wNndkdjFzaEh2T0VKVnhaNUtMbWREa0hFREpBQldFSSIsICJQb
-jFzV2kwNkc0TEpybm4tX1JUMFJiTV9IVGR4blBKUXVYMmZ6V3ZfSk9VIiwgImxGOXV6Z
-HN3N0hwbEdMYzcxNFRyNFdPN01HSnphN3R0N1FGbGVDWDRJdHciXSwgInR5cGUiOiAiV
-mFjY2luZVJlY2lwaWVudCJ9LCAidHlwZSI6ICJWYWNjaW5hdGlvbkV2ZW50In0sICJfc
-2RfYWxnIjogInNoYS0yNTYifQ.5jJEqiRViN_DJ4VMxHQIN4KK-Cdfn30nY3nRe5jGxS
-5Pths5G7mF1GWy9TawYuyFwCze7qiCIx_MhJ68Uu5zeQ~WyIyR0xDNDJzS1F2ZUNmR2Z
-yeU5STjl3IiwgImF0Y0NvZGUiLCAiSjA3QlgwMyJd~WyJlbHVWNU9nM2dTTklJOEVZbn
-N4QV9BIiwgIm1lZGljaW5hbFByb2R1Y3ROYW1lIiwgIkNPVklELTE5IFZhY2NpbmUgTW
-9kZXJuYSJd~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBIiwgIm1hcmtldGluZ0F1dGhvc
-ml6YXRpb25Ib2xkZXIiLCAiTW9kZXJuYSBCaW90ZWNoIl0~WyJlSThaV205UW5LUHBOU
-GVOZW5IZGhRIiwgIm5leHRWYWNjaW5hdGlvbkRhdGUiLCAiMjAyMS0wOC0xNlQxMzo0M
-DoxMloiXQ~WyJRZ19PNjR6cUF4ZTQxMmExMDhpcm9BIiwgImNvdW50cnlPZlZhY2Npbm
-F0aW9uIiwgIkdFIl0~WyJBSngtMDk1VlBycFR0TjRRTU9xUk9BIiwgImRhdGVPZlZhY2
-NpbmF0aW9uIiwgIjIwMjEtMDYtMjNUMTM6NDA6MTJaIl0~WyJQYzMzSk0yTGNoY1VfbE
-hnZ3ZfdWZRIiwgIm9yZGVyIiwgIjMvMyJd~WyJHMDJOU3JRZmpGWFE3SW8wOXN5YWpBI
-iwgImdlbmRlciIsICJGZW1hbGUiXQ~WyJsa2x4RjVqTVlsR1RQVW92TU5JdkNBIiwgIm
-JpcnRoRGF0ZSIsICIxOTYxLTA4LTE3Il0~WyJuUHVvUW5rUkZxM0JJZUFtN0FuWEZBIi
-wgImdpdmVuTmFtZSIsICJNYXJpb24iXQ~WyI1YlBzMUlxdVpOYTBoa2FGenp6Wk53Iiw
-gImZhbWlseU5hbWUiLCAiTXVzdGVybWFubiJd~WyI1YTJXMF9OcmxFWnpmcW1rXzdQcS
-13IiwgImFkbWluaXN0ZXJpbmdDZW50cmUiLCAiUHJheGlzIFNvbW1lcmdhcnRlbiJd~W
-yJ5MXNWVTV3ZGZKYWhWZGd3UGdTN1JRIiwgImJhdGNoTnVtYmVyIiwgIjE2MjYzODI3M
-zYiXQ~WyJIYlE0WDhzclZXM1FEeG5JSmRxeU9BIiwgImhlYWx0aFByb2Zlc3Npb25hbC
-IsICI4ODMxMTAwMDAwMTUzNzYiXQ~
-      </pre>
-      <p>
-        Notice that, in the case of sd-jwt, the decoded payload 
-        is different from the input claimset:
-      </p>
-      <pre class="example">
-{
-  "iss": "https://example.com/issuer",
-  "iat": 1683000000,
-  "exp": 1883000000,
-  "@context": [
-    "https://www.w3.org/2018/credentials/v1",
-    "https://w3id.org/vaccination/v1"
-  ],
-  "type": [
-    "VerifiableCredential",
-    "VaccinationCertificate"
-  ],
-  "issuer": "https://example.com/issuer",
-  "issuanceDate": "2023-02-09T11:01:59Z",
-  "expirationDate": "2028-02-08T11:01:59Z",
-  "name": "COVID-19 Vaccination Certificate",
-  "description": "COVID-19 Vaccination Certificate",
-  "credentialSubject": {
-    "_sd": [
-      "1V_K-8lDQ8iFXBFXbZY9ehqR4HabWCi5T0ybIzZPeww",
-      "JzjLgtP29dP-B3td12P674gFmK2zy81HMtBgf6CJNWg",
-      "R2fGbfA07Z_YlkqmNZyma1xyyx1XstIiS6B1Ybl2JZ4",
-      "TCmzrl7K2gev_du7pcMIyzRLHp-Yeg-Fl_cxtrUvPxg",
-      "V7kJBLK78TmVDOmrfJ7ZuUPHuK_2cc7yZRa4qV1txwM",
-      "b0eUsvGP-ODDdFoY4NlzlXc3tDslWJtCJF75Nw8Oj_g",
-      "zJK_eSMXjwM8dXmMZLnI8FGM08zJ3_ubGeEMJ-5TBy0"
-    ],
-    "vaccine": {
-      "_sd": [
-        "1cF5hLwkhMNIaqfWJrXI7NMWedL-9f6Y2PA52yPjSZI",
-        "Hiy6WWueLD5bn16298tPv7GXhmldMDOTnBi-CZbphNo",
-        "Lb027q691jXXl-jC73vi8ebOj9smx3C-_og7gA4TBQE"
-      ],
-      "type": "Vaccine"
-    },
-    "recipient": {
-      "_sd": [
-        "1lSQBNY24q0Th6OGzthq-7-4l6cAaxrYXOGZpeW_lnA",
-        "3nzLq81M2oN06wdv1shHvOEJVxZ5KLmdDkHEDJABWEI",
-        "Pn1sWi06G4LJrnn-_RT0RbM_HTdxnPJQuX2fzWv_JOU",
-        "lF9uzdsw7HplGLc714Tr4WO7MGJza7tt7QFleCX4Itw"
-      ],
-      "type": "VaccineRecipient"
-    },
-    "type": "VaccinationEvent"
-  },
-  "_sd_alg": "sha-256"
-}        
-      </pre>
-      <pre>
-{
-  "@context": [
-    "https://www.w3.org/2018/credentials/v1",
-    "https://w3id.org/vaccination/v1"
-  ],
-  "type": [
-    "VerifiableCredential",
-    "VaccinationCertificate"
-  ],
-  "issuer": "https://example.com/issuer",
-  "issuanceDate": "2023-02-09T11:01:59Z",
-  "expirationDate": "2028-02-08T11:01:59Z",
-  "name": "COVID-19 Vaccination Certificate",
-  "description": "COVID-19 Vaccination Certificate",
-  "credentialSubject": {
-    "vaccine": {
-      "type": "Vaccine",
-      "medicinalProductName": "COVID-19 Vaccine Moderna",
-      "atcCode": "J07BX03"
-    },
-    "recipient": {
-      "type": "VaccineRecipient"
-    },
-    "type": "VaccinationEvent",
-    "order": "3/3",
-    "dateOfVaccination": "2021-06-23T13:40:12Z"
-  },
-  "_sd_alg": "sha-256",
-  "cnf": {
-    "jwk": {
-      "kty": "EC",
-      "crv": "P-256",
-      "x": "TCAER19Zvu3OHF4j4W4vfSVoHIP1ILilDls7vCeGemc",
-      "y": "ZxjiWWbZMQGHVWKVQ4hbSIirsVfuecCE6t4jT9F2HZQ"
-    }
-  }
-}
-      </pre>
-      <p>
-        See <a data-cite="SD-JWT#name-example-4b-w3c-verifiable-c"></a> 
-        for a detailed explanation of each disclosable claim, 
-        and the mandatory to disclose claims.
-      </p>
-      <p>
-        The holder, converts the issued sd-jwt to its presentation form, 
-        redacting any fields they don't wish to disclose to the verifier, 
-        for example:
-      </p>
-      <pre class="example">
-eyJhbGciOiAiRVMyNTYifQ.eyJpc3MiOiAiaHR0cHM6Ly9leGFtcGxlLmNvbS9pc3N1Z
-XIiLCAiaWF0IjogMTY4MzAwMDAwMCwgImV4cCI6IDE4ODMwMDAwMDAsICJAY29udGV4d
-CI6IFsiaHR0cHM6Ly93d3cudzMub3JnLzIwMTgvY3JlZGVudGlhbHMvdjEiLCAiaHR0c
-HM6Ly93M2lkLm9yZy92YWNjaW5hdGlvbi92MSJdLCAidHlwZSI6IFsiVmVyaWZpYWJsZ
-UNyZWRlbnRpYWwiLCAiVmFjY2luYXRpb25DZXJ0aWZpY2F0ZSJdLCAiaXNzdWVyIjogI
-mh0dHBzOi8vZXhhbXBsZS5jb20vaXNzdWVyIiwgImlzc3VhbmNlRGF0ZSI6ICIyMDIzL
-TAyLTA5VDExOjAxOjU5WiIsICJleHBpcmF0aW9uRGF0ZSI6ICIyMDI4LTAyLTA4VDExO
-jAxOjU5WiIsICJuYW1lIjogIkNPVklELTE5IFZhY2NpbmF0aW9uIENlcnRpZmljYXRlI
-iwgImRlc2NyaXB0aW9uIjogIkNPVklELTE5IFZhY2NpbmF0aW9uIENlcnRpZmljYXRlI
-iwgImNyZWRlbnRpYWxTdWJqZWN0IjogeyJfc2QiOiBbIjFWX0stOGxEUThpRlhCRlhiW
-lk5ZWhxUjRIYWJXQ2k1VDB5Ykl6WlBld3ciLCAiSnpqTGd0UDI5ZFAtQjN0ZDEyUDY3N
-GdGbUsyenk4MUhNdEJnZjZDSk5XZyIsICJSMmZHYmZBMDdaX1lsa3FtTlp5bWExeHl5e
-DFYc3RJaVM2QjFZYmwySlo0IiwgIlRDbXpybDdLMmdldl9kdTdwY01JeXpSTEhwLVllZ
-y1GbF9jeHRyVXZQeGciLCAiVjdrSkJMSzc4VG1WRE9tcmZKN1p1VVBIdUtfMmNjN3laU
-mE0cVYxdHh3TSIsICJiMGVVc3ZHUC1PRERkRm9ZNE5semxYYzN0RHNsV0p0Q0pGNzVOd
-zhPal9nIiwgInpKS19lU01YandNOGRYbU1aTG5JOEZHTTA4ekozX3ViR2VFTUotNVRCe
-TAiXSwgInZhY2NpbmUiOiB7Il9zZCI6IFsiMWNGNWhMd2toTU5JYXFmV0pyWEk3Tk1XZ
-WRMLTlmNlkyUEE1MnlQalNaSSIsICJIaXk2V1d1ZUxENWJuMTYyOTh0UHY3R1hobWxkT
-URPVG5CaS1DWmJwaE5vIiwgIkxiMDI3cTY5MWpYWGwtakM3M3ZpOGViT2o5c214M0MtX
-29nN2dBNFRCUUUiXSwgInR5cGUiOiAiVmFjY2luZSJ9LCAicmVjaXBpZW50IjogeyJfc
-2QiOiBbIjFsU1FCTlkyNHEwVGg2T0d6dGhxLTctNGw2Y0FheHJZWE9HWnBlV19sbkEiL
-CAiM256THE4MU0yb04wNndkdjFzaEh2T0VKVnhaNUtMbWREa0hFREpBQldFSSIsICJQb
-jFzV2kwNkc0TEpybm4tX1JUMFJiTV9IVGR4blBKUXVYMmZ6V3ZfSk9VIiwgImxGOXV6Z
-HN3N0hwbEdMYzcxNFRyNFdPN01HSnphN3R0N1FGbGVDWDRJdHciXSwgInR5cGUiOiAiV
-mFjY2luZVJlY2lwaWVudCJ9LCAidHlwZSI6ICJWYWNjaW5hdGlvbkV2ZW50In0sICJfc
-2RfYWxnIjogInNoYS0yNTYifQ.5jJEqiRViN_DJ4VMxHQIN4KK-Cdfn30nY3nRe5jGxS
-5Pths5G7mF1GWy9TawYuyFwCze7qiCIx_MhJ68Uu5zeQ~WyJQYzMzSk0yTGNoY1VfbEh
-nZ3ZfdWZRIiwgIm9yZGVyIiwgIjMvMyJd~WyJBSngtMDk1VlBycFR0TjRRTU9xUk9BIi
-wgImRhdGVPZlZhY2NpbmF0aW9uIiwgIjIwMjEtMDYtMjNUMTM6NDA6MTJaIl0~WyIyR0
-xDNDJzS1F2ZUNmR2ZyeU5STjl3IiwgImF0Y0NvZGUiLCAiSjA3QlgwMyJd~WyJlbHVWN
-U9nM2dTTklJOEVZbnN4QV9BIiwgIm1lZGljaW5hbFByb2R1Y3ROYW1lIiwgIkNPVklEL
-TE5IFZhY2NpbmUgTW9kZXJuYSJd~
-      </pre>
-      <p>
-      After validation, the Verifier will have the following data for further processing:
-      </p>
-      <p class="note">
-        One benefit of using <code>vc+ld+json+jwt</code> and <code>vc+ld+json+sd-jwt</code> 
-        is that they both produce <code>vc+ld+json</code> which 
-        can be further processed as RDF by a verifier.
-      </p>
-      <p class="issue">
-        The working group is still discussing the relevance of the JWT BCP, 
-        and distinguishing vc+ld+json+sd-jwt from vc+sd-jwt via <code>type</code>.
-      </p>
-      <pre class="example">
-{
-  "iss": "https://example.com/issuer",
-  "iat": 1683000000,
-  "exp": 1883000000,
-  "@context": [
-    "https://www.w3.org/2018/credentials/v1",
-    "https://w3id.org/vaccination/v1"
-  ],
-  "type": [
-    "VerifiableCredential",
-    "VaccinationCertificate"
-  ],
-  "issuer": "https://example.com/issuer",
-  "issuanceDate": "2023-02-09T11:01:59Z",
-  "expirationDate": "2028-02-08T11:01:59Z",
-  "name": "COVID-19 Vaccination Certificate",
-  "description": "COVID-19 Vaccination Certificate",
-  "credentialSubject": {
-    "vaccine": {
-      "type": "Vaccine",
-      "atcCode": "J07BX03",
-      "medicinalProductName": "COVID-19 Vaccine Moderna"
-    },
-    "recipient": {
-      "type": "VaccineRecipient"
-    },
-    "type": "VaccinationEvent",
-    "order": "3/3",
-    "dateOfVaccination": "2021-06-23T13:40:12Z"
-  },
-  "_sd_alg": "sha-256"
-}
-      </pre>
     </section>
   </section>
   </section>
