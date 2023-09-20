@@ -368,8 +368,6 @@
       <p class="issue" data-number="31"></p>
       <p class="issue" data-number="30"></p>
       <p class="issue" data-number="15"></p>
-      <p class="issue" data-number="117"></p>
-      <p class="issue" data-number="117"></p>
       <p>
     In order to complete the <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process, 
     a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> needs to obtain the cryptographic keys used to secure the 
@@ -402,8 +400,12 @@
         <p>
       If <code>kid</code> is present in the <a data-cite="RFC7515#section-4.1">Protected Header</a>,
       a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
-      to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the 
-      <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
+      as a hint indicating which key was used to secure the verifiable credential, when performing a
+      <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process as defined in <a data-cite="RFC7515#section-4.1.4">RFC7515</a>.
+        </p>
+        <p>
+          <code>kid</code> MUST be present when the key of the <a data-cite="VC-DATA-MODEL#dfn-issuers">issuer</a>
+          or <a data-cite="VC-DATA-MODEL#dfn-subjects">subject</a> is expressed as a DID URL.
         </p>
       </section>
       <section>
