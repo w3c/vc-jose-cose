@@ -319,14 +319,13 @@
           for the COSE "<code>typ</code>" (type) header parameter.
         </p>
         <p>When using this approach, the <code>content type (3)</code>
-          SHOULD be <code>application/vc+ld+json</code></p>
+          SHOULD be <code>application/vc+ld+json</code>.</p>
         <p>
           See <a data-cite="rfc9052#section-3.1">Common COSE Header
             Parameters</a> for additional details.
         </p>
-        <p>See <a href="https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml">Concise
-            Binary Object Representation (CBOR) Tags</a> for additional
-          details.</p>
+        <p>See the IANA <a href="https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml">Concise Binary Object Representation (CBOR) Tags</a> registry
+	  for additional details.</p>
       </section>
     </section>
   </section>
@@ -381,24 +380,24 @@
 
 
     <section>
-      <h2>Registered Claim Names</h2>
+      <h2>Registered Header Parameter and Claim Names</h2>
       <p>
-      When found in the <a data-cite="RFC7515#section-4.1">Protected Header</a>, or 
-      the <a data-cite="RFC7519#section-4.1.1">Protected Claimset</a>, members present in
-      <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">IANA Assignments for JSON Web Token (JWT)</a> and 
-      <a href="https://www.iana.org/assignments/jose/jose.xhtml">IANA Assignments for JSON Object Signing and Encryption (JOSE)</a>
-      are to be interpreted according to the associated specifications referenced by IANA.
+      When present in
+      the <a data-cite="RFC7515#section-4">JOSE Header</a> or
+      the <a data-cite="RFC7519#section-4">JWT Claims Set</a>
+      members registered in
+      the IANA <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">JSON Web Token Claims</a> registry or
+      the IANA <a href="https://www.iana.org/assignments/jose/jose.xhtml">JSON Web Signature and Encryption Header Parameters</a> registry
+      are to be interpreted as defined by the specifications referenced in the registries.
       </p>
       <p>
-      <a href="#registered-claim-names">Registered claims</a> that are present in either
-      the <a data-cite="RFC7515#section-4.1">Protected Header</a>
-      or the <a data-cite="RFC7519#section-4.1.1">Claimset</a> can be used to help
+      These parameters and claims can be used to help
       <a data-cite="VC-DATA-MODEL#dfn-verifier">verifiers</a> discover verification keys.
       </p>
       <section>
         <h2>kid</h2>
         <p>
-      If <code>kid</code> is present in the <a data-cite="RFC7515#section-4.1">Protected Header</a>,
+      If <code>kid</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>,
       a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
       as a hint indicating which key was used to secure the verifiable credential, when performing a
       <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process as defined in <a data-cite="RFC7515#section-4.1.4">RFC7515</a>.
@@ -411,7 +410,7 @@
       <section>
         <h2>iss</h2>
         <p>
-      If <code>iss</code> is present in the <a data-cite="RFC7515#section-4.1">Protected Header</a>
+      If <code>iss</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>
       or the <a data-cite="RFC7519#section-4.1.1">JWT Claims </a>,
       a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
       to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the 
@@ -425,7 +424,7 @@
         </p>
         <p>
       If <code>kid</code> is also present in the
-      <a data-cite="RFC7515#section-4.1">Protected Header</a>, it is expected to be useful to
+      <a data-cite="RFC7515#section-4.1">JOSE Header</a>, it is expected to be useful to
       distinguish the specific key used.
         </p>
       <p class="issue"  data-number="31">
@@ -437,7 +436,7 @@
       <section>
         <h2>cnf</h2>
         <p>
-      If <code>cnf</code> is present in the <a data-cite="RFC7515#section-4.1">Protected Header</a>
+      If <code>cnf</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>
       or the <a data-cite="RFC7519#section-4.1.1">JWT Claims </a>,
       a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> MAY use this parameter
       to identify a proof-of-possesion key in the manner described in [[rfc7800]] for use in the
@@ -468,7 +467,7 @@
       </section>
 
     <section class="normative">
-      <h2>Protected Header Parameters</h2>
+      <h2>JOSE Header Parameters</h2>
       <p>
         The normative statements in <a data-cite="RFC7515#section-4.1">Registered Header Parameter
           Names</a>
@@ -479,7 +478,7 @@
         apply to securing credentials and presentations.
       </p>
       <p>
-        The data model for the protected header is JSON
+        The data model for the JOSE Header is JSON
         (application/json), not JSON-LD (application/ld+json).
       </p>
       <p>
@@ -488,15 +487,15 @@
         apply to securing claims about a credential subject.
       </p>
       <p>
-        When replicating claims from the claimset to the header, it is
-        RECOMMENDED to use [[RFC7519]], <a href="https://www.iana.org/assignments/jose/jose.xhtml">IANA
-          Assignments for Header Parameters</a>, and <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">IANA
-          Assignments for JSON Web Token (JWT)</a>
-        to identify any reserved claims that might be confused with
-        members of the [[VC-DATA-MODEL]. This includes but is not
+        When replicating claims from the JWT Claims Set to Header Parameters, it is
+        RECOMMENDED to use [[RFC7519]],
+	the IANA <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">JSON Web Token Claims</a> registry, and
+	the IANA <a href="https://www.iana.org/assignments/jose/jose.xhtml">JSON Web Signature and Encryption Header Parameters</a> registry
+        to identify any claims that might be confused with
+        members defined by the [[VC-DATA-MODEL]. These include but are not
         limited to: <code>iss</code>, <code>kid</code>,
         <code>alg</code>, <code>iat</code>,
-        <code>exp</code> and <code>cnf</code>.
+        <code>exp</code>, and <code>cnf</code>.
       </p>
       <p>
         When the <code>iat</code> and/or <code>exp</code> JWT claims are present,
@@ -506,19 +505,17 @@
         that represent the validity of the data that is being secured.
       </p>
       <p>
-        The <a href="#registered-claim-names">registered claim</a> names <code>vc</code> and <code>vp</code>
+        The JWT Claim Names <code>vc</code> and <code>vp</code>
         MUST NOT be present as header parameters.
       </p>
       <p>
         When present, members of the header are to be interpreted and
-        processed according to
-        <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">IANA
-          Assignments for JSON Web Token (JWT)</a> and
-        <a href="https://www.iana.org/assignments/jose/jose.xhtml">IANA
-          Assignments for JSON Object Signing and Encryption (JOSE)</a>.
+        processed according to the corresponding definitions found in
+	the IANA <a href="https://www.iana.org/assignments/jose/jose.xhtml">JSON Web Signature and Encryption Header Parameters</a> registry and
+	the IANA <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">JSON Web Token Claims</a> registry.
       </p>
       <p>
-        Additional members may be present, if they are not understood,
+        Additional members may be present. If they are not understood,
         they MUST be ignored.
       </p>
     </section>
@@ -528,7 +525,7 @@
     <section class="normative">
       <h2>Securing Verifiable Credentials</h2>
       <p>The <a data-cite="VC-DATA-MODEL#proof-formats"></a> describes the approach taken by JSON Web
-        Tokens to secure claimsets as <i>applying an
+        Tokens to secure JWT Claims Sets as <i>applying an
         <code>external proof</code></i>.
       </p>
       <p>The normative statements in <a data-cite="VC-DATA-MODEL#securing-verifiable-credentials">Securing
@@ -592,23 +589,23 @@
           Requirements</a>.
       </p>
       <p>
-        Accordingly, Issuers, Holders and Verifiers MUST understand the
+        Accordingly, Issuers, Holders, and Verifiers MUST understand the
         JSON Web Token header parameter
         <code>"alg": "none"</code> when securing the [[VC-DATA-MODEL]]
         with JSON Web Tokens.
       </p>
       <p>
         When content types from the [[VC-DATA-MODEL]] are secured using
-        JSON Web Tokens, the header parameter <code>"alg":
-        "none"</code>, MUST be used to communicate that a claimset (a
+        JSON Web Tokens, the header parameter <code>"alg": "none"</code>,
+	MUST be used to communicate that a JWT Claims Set (a
         Verifiable Credential or a Verifiable Presentation) has no
         integrity protection.
       </p>
       <p>
-        When a JSON Web Token claimset (a Verifiable Credential or a
+        When a JWT Claims Set (a Verifiable Credential or a
         Verifiable Presentation) contains
         <code>proof</code>, and the JSON Web Token header contains
-        <code>"alg": "none"</code>, the claimset MUST be considered to
+        <code>"alg": "none"</code>, the JWT Claims Set MUST be considered to
         have no integrity protection.
       </p>
       <p class="advisement">
@@ -616,7 +613,7 @@
         required to be secured or integrity protected or to contain a
         <code>proof</code> member.
       </p>
-      <p>Issuers, Holders and Verifiers MUST ignore all claimsets that
+      <p>Issuers, Holders, and Verifiers MUST ignore all JWT Claims Sets that
         have no integrity protection.</p>
     </section>
   
