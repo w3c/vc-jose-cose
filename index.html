@@ -578,6 +578,8 @@
         </section>
         <section class="informative">
         <h3>Controller Documents</h3>
+    
+        <p class="issue" data-number="160"></p>
 
         <p>
 A <a>controller document</a> is a set of data that specifies one or more
@@ -895,10 +897,7 @@ The <a>verification relationship</a> between the <a>controller</a> and the
 <a>verification method</a> is explicit in the <a>controller document</a>.
 <a>Verification methods</a> that are not associated with a particular
 <a>verification relationship</a> cannot be used for that <a>verification
-relationship</a>. For example, a <a>verification method</a> in the value of
-the `<a>authentication</a>` property cannot be used to engage in
-key agreement protocols with the <a>controller</a> &mdash; the value of the
-`<a>keyAgreement</a>` property needs to be used for that.
+relationship</a>.
           </p>
           <p>
 The <a>controller document</a> does not express revoked keys using a <a>verification
@@ -985,7 +984,7 @@ the purposes of issuing a Verifiable Credential [[?VC-DATA-MODEL-2.0]].
             </p>
 
             <dl>
-              <dt><dfn id="defn-assertionMethod">assertionMethod</dfn></dt>
+              <dt>assertionMethod</dt>
               <dd>
 The `assertionMethod` property is OPTIONAL. If present, its
 value MUST be a <a data-cite="INFRA#ordered-set">set</a> of
@@ -1601,8 +1600,7 @@ credential</a> by a verifier.
     }
   }],
   "authentication": ["#subject-authenticaton"],
-  "assertionMethod": ["#credential-issuance"],
-  "keyAgreement": ["#key-agreement"]
+  "assertionMethod": ["#credential-issuance"]
 }
       </pre>
 
