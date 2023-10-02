@@ -244,26 +244,37 @@
           for additional details regarding usage of <code>typ</code> and
           <code>cty</code>.
         </p>
-        <pre class="example vc-jose-cose-vc-example" data-alg="ES384" title="Example Credential">
+        
+        <pre class="example vc-jose-cose" title="A simple example of a verifiable credential">
 {
-  "@context": ["https://www.w3.org/ns/credentials/v2",
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
     "https://www.w3.org/ns/credentials/examples/v2"
   ],
-  "id": "http://example.edu/credentials/3732",
-  "type": ["VerifiableCredential",
-    "UniversityDegreeCredential"
-  ],
-  "issuer": "https://example.edu/issuers/14",
-  "issuanceDate": "2010-01-01T19:23:24Z",
+  "id": "http://university.example/credentials/1872",
+  "type": ["VerifiableCredential", "ExampleAlumniCredential"],
+  "issuer": "https://university.example/issuers/565049",
+  "validFrom": "2010-01-01T19:23:24Z",
   "credentialSubject": {
-    "id": "did:example:123",
-    "degree": {
-      "type": "BachelorDegree",
-      "name": "Bachelor of Science and Arts"
+    "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+    "alumniOf": {
+      "id": "did:example:c276e12ec21ebfeb1f712ebc6f1",
+      "name": "Example University"
     }
+  },
+  "proof": {
+    "type": "DataIntegrityProof",
+    "cryptosuite": "eddsa-2022",
+    "created": "2023-06-18T21:19:10Z",
+    "proofPurpose": "assertionMethod",
+    "verificationMethod": "https://university.example/issuers/565049#key-123",
+    "proofValue": "zQeVbY4oey5q2M3XKaxup3tmzN4DRFTLVqpLMweBrSxMY2xHX5XTYV8nQApmEcqaqA3Q1gVHMrXFkXJeV6doDwLWx"
   }
 }
         </pre>
+        <p>
+          See <a data-cite="VC-DATA-MODEL-2.0#example-a-simple-example-of-a-verifiable-credential"></a> for more details regarding this example.
+        </p>
       </section>
       <section>
         <h2>Securing JSON-LD Verifiable Presentations with JOSE</h2>
@@ -284,39 +295,54 @@
           for additional details regarding usage of <code>typ</code> and
           <code>cty</code>.
         </p>
-        <pre class="example vc-jose-cose-vp-example" data-alg="none" title="The minimal unsecured verifiable presentation">
+        
+    <pre class="example vc-jose-cose" title="A simple example of a verifiable presentation">
 {
-  "@context": ["https://www.w3.org/ns/credentials/v2"],
-  "type": ["VerifiablePresentation"]
-}
-        </pre>
-        <pre class="example vc-jose-cose-vp-example" title="The minimal secured verifiable presentation">
-{
-  "@context": ["https://www.w3.org/ns/credentials/v2"],
-  "type": ["VerifiablePresentation"]
-}
-        </pre>
-
-        <pre class="example vc-jose-cose-vp-example" title="A secured verifiable presentation with a holder identifier">
-{
-  "@context": ["https://www.w3.org/ns/credentials/v2",
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
     "https://www.w3.org/ns/credentials/examples/v2"
   ],
-  "type": ["VerifiablePresentation"],
-  "holder": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs"
-}
-        </pre>
-        <pre class="example vc-jose-cose-vp-example" title="A secured verifiable presentation with a holder graph node">
-{
-  "@context": ["https://www.w3.org/ns/credentials/v2"],
-  "type": ["VerifiablePresentation"],
-  "holder": {
-    "id": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs",
-    "type": "Organization",
-    "name": "Contoso"
+  "type": "VerifiablePresentation",
+  "verifiableCredential": [{
+    "@context": [
+      "https://www.w3.org/ns/credentials/v2",
+      "https://www.w3.org/ns/credentials/examples/v2"
+    ],
+    "id": "http://university.example/credentials/1872",
+    "type": ["VerifiableCredential", "ExampleAlumniCredential"],
+    "issuer": "https://university.example/issuers/565049",
+    "validFrom": "2010-01-01T19:23:24Z",
+    "credentialSubject": {
+      "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+      "alumniOf": {
+        "id": "did:example:c276e12ec21ebfeb1f712ebc6f1",
+        "name": "Example University"
+      }
+    },
+    "proof": {
+      "type": "DataIntegrityProof",
+      "cryptosuite": "eddsa-2022",
+      "created": "2023-06-18T21:19:10Z",
+      "proofPurpose": "assertionMethod",
+      "verificationMethod": "https://university.example/issuers/565049#key-1",
+      "proofValue": "zQeVbY4oey5q2M3XKaxup3tmzN4DRFTLVqpLMweBrSxMY2xHX5XTYV8nQApmEcqaqA3Q1gVHMrXFkXJeV6doDwLWx"
+    }
+  }],
+  "proof": {
+    "type": "DataIntegrityProof",
+    "cryptosuite": "eddsa-2022",
+    "created": "2018-09-14T21:19:10Z",
+    "proofPurpose": "authentication",
+    "verificationMethod": "did:example:ebfeb1f712ebc6f1c276e12ec21#keys-1",
+    "challenge": "1f44d55f-f161-4938-a659-f8026467f126",
+    "domain": "4jt78h47fh47",
+    "proofValue": "zqpLMweBrSxMY2xHX5XTYV8nQAJeV6doDwLWxQeVbY4oey5q2pmEcqaqA3Q1gVHMrXFkXM3XKaxup3tmzN4DRFTLV"
   }
 }
-        </pre>
+      </pre>
+      <p>
+        See <a data-cite="VC-DATA-MODEL-2.0#example-a-simple-example-of-a-verifiable-presentation"></a> for more details regarding this example.
+      </p>
       </section>
     </section>
     <section>
