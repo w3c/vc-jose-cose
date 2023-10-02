@@ -460,14 +460,18 @@
 </pre>
 
       <!-- REGULAR URLS via "iss" -->
-      <p class="issue" title="(AT RISK) Feature depends on demonstration of independent implementations">
-        This feature is at risk and will be removed from the specification if at least
-        two independent, interoperable implementations are not demonstrated.
-      </p>
+      
       <p>
         When <a href="iss">iss</a> is a [[URL]], 
         the <a href="#kid">kid</a> MUST match a key discovered via <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-00#name-jwt-issuer-metadata">JWT Issuer Metadata Request</a>
       </p>
+
+      <p class="issue" title="(AT RISK) Feature depends on demonstration of independent implementations">
+        This normative statement depends on a -00 IETF OAUTH WG Adopted draft.
+        This feature is at risk and will be removed from the specification if at least
+        two independent, interoperable implementations are not demonstrated.
+      </p>
+
       <p>
     In order to complete the <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process, 
     a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> needs to obtain the cryptographic keys used to secure the 
