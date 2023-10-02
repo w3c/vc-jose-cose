@@ -5,8 +5,8 @@
   <meta charset="utf-8" />
   <title>Securing Verifiable Credentials using JOSE and COSE</title>
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"></script>
-  <script class="remove"
-    src="https://cdn.jsdelivr.net/gh/transmute-industries/respec-vc-jwt@0.0.12/dist/main.js"></script>
+  <script src='./respec-plugins/vc-jose-cose.js'></script>
+  <link rel="stylesheet" href="./respec-plugins/vc-jose-cose.css">
   <script class="remove">
     // See https://github.com/w3c/respec/wiki/ for how to configure
     // ReSpec
@@ -75,7 +75,7 @@
 
       maxTocLevel: 2,
       inlineCSS: true,
-      postProcess: [window.respecVc.createVcExamples],
+      postProcess: [postProcessWithWorker],
       license: "w3c-software-doc",
       xref: true,
       otherLinks: [{
