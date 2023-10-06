@@ -387,7 +387,8 @@
 
       <!-- DID URLS via "issuer" and "holder" -->
       <p>
-        When the <a data-cite="VC-DATA-MODEL#dfn-issuers">issuer</a> is identified as a <a data-cite="DID-CORE#did-subject">DID Subject</a>, 
+        When <a href="iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL#dfn-issuers">issuer</a> 
+        is identified as a <a data-cite="DID-CORE#did-subject">DID Subject</a>, 
         the <a href="#kid">kid</a> MUST be an absolute <a data-cite="DID-CORE#relative-did-urls">DID URL</a>.
       </p>
 <pre class="example" title="An issuer identified by a DID">
@@ -403,7 +404,8 @@
 }
 </pre>
       <p>
-        When the <a data-cite="VC-DATA-MODEL#dfn-holders">holder</a> is identified as a <a data-cite="DID-CORE#did-subject">DID Subject</a>, 
+        When <a href="iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL#dfn-holders">holder</a> 
+        is identified as a <a data-cite="DID-CORE#did-subject">DID Subject</a>, 
         the <a href="#kid">kid</a> MUST be an absolute <a data-cite="DID-CORE#relative-did-urls">DID URL</a>.
       </p>
 <pre class="example" title="A holder identified by a DID">
@@ -421,7 +423,7 @@
 
       <!-- REGULAR URLS via "issuer" and "holder" -->
       <p>
-        When the <a data-cite="VC-DATA-MODEL#dfn-issuers">issuer</a> is identified as a [[URL]], 
+        When <a href="iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL#dfn-issuers">issuer</a> is identified as a [[URL]],
         the <a href="#kid">kid</a> MUST be an absolute [[URL]] to a verification method listed in a controller document.
       </p>
 
@@ -442,6 +444,7 @@
 
       <p>
         When the <a data-cite="VC-DATA-MODEL#dfn-holders">holder</a> is identified as a [[URL]], 
+        and <a href="iss">iss</a> is absent,
         the <a href="#kid">kid</a> MUST be an absolute [[URL]] to a verification method listed in a controller document.
       </p>
 <pre class="example" title="A holder identified by a controller document identifier">
@@ -462,7 +465,7 @@
       <!-- REGULAR URLS via "iss" -->
       
       <p>
-        When <a href="iss">iss</a> is a [[URL]], 
+        When <a href="iss">iss</a> is a present, and is a [[URL]], 
         the <a href="#kid">kid</a> MUST match a key discovered via <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-00#name-jwt-issuer-metadata">JWT Issuer Metadata Request</a>
       </p>
 
