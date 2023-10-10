@@ -1401,6 +1401,51 @@ credential</a> by a verifier.
     <h3>Appendix</h3>
     <section>
       <h2>Controllers</h2>
+
+      <pre class="example" title="A minimal controller document">
+        {
+          "id": "https://vendor.example",
+        }
+      </pre>
+
+      <pre class="example" title="A controller document with verification method">
+        {
+          "id": "https://university.example/issuers/565049",
+          "verificationMethod": [{
+            "id": "https://university.example/issuers/565049#key-123",
+            "type": "JsonWebKey",
+            "controller": "https://university.example/issuers/565049",
+            "publicKeyJwk": {
+              "kty": "EC",
+              "crv": "P-384",
+              "alg": "ES384",
+              "x": "PxgAmVYOQvSNcMYL2tOzoLwSWn4Ta3tIMPEUKR8pxeb-gmR11-DyKHBoIiY-2LhM",
+              "y": "BZEBTkImVdpwvxR9THIRw16eblnj5-tZa7m-ww5uVd4kyPJNRoWUn2aT9ZuarAe-"
+            }
+          }]
+        }
+      </pre>
+
+      <pre class="example" title="A controller document with verification relationships">
+        {
+          "id": "https://university.example/issuers/565049",
+          "verificationMethod": [{
+            "id": "https://university.example/issuers/565049#key-123",
+            "type": "JsonWebKey",
+            "controller": "https://university.example/issuers/565049",
+            "publicKeyJwk": {
+              "kty": "EC",
+              "crv": "P-384",
+              "alg": "ES384",
+              "x": "PxgAmVYOQvSNcMYL2tOzoLwSWn4Ta3tIMPEUKR8pxeb-gmR11-DyKHBoIiY-2LhM",
+              "y": "BZEBTkImVdpwvxR9THIRw16eblnj5-tZa7m-ww5uVd4kyPJNRoWUn2aT9ZuarAe-"
+            }
+          }],
+          "authentication": ["https://university.example/issuers/565049#key-123"],
+          "assertionMethod": ["https://university.example/issuers/565049#key-123"]
+        }
+      </pre>
+
       <pre class="example" title="A verifiable credential controller document">
 {
   "@context": ["https://www.w3.org/ns/did/v1", {
