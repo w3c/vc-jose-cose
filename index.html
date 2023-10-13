@@ -5,8 +5,8 @@
   <meta charset="utf-8" />
   <title>Securing Verifiable Credentials using JOSE and COSE</title>
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"></script>
-  <script class="remove"
-    src="https://cdn.jsdelivr.net/gh/transmute-industries/respec-vc-jwt@0.0.12/dist/main.js"></script>
+  <script src='./respec-plugins/vc-jose-cose.js'></script>
+  <link rel="stylesheet" href="./respec-plugins/vc-jose-cose.css">
   <script class="remove">
     // See https://github.com/w3c/respec/wiki/ for how to configure
     // ReSpec
@@ -75,7 +75,7 @@
 
       maxTocLevel: 2,
       inlineCSS: true,
-      postProcess: [window.respecVc.createVcExamples],
+      postProcess: [postProcessWithWorker],
       license: "w3c-software-doc",
       xref: true,
       otherLinks: [{
@@ -244,30 +244,33 @@
           for additional details regarding usage of <code>typ</code> and
           <code>cty</code>.
         </p>
-        <pre class="example vc-jose-cose-vc-example" data-alg="ES384" title="Example Credential">
+        
+        <pre class="example vc-jose-cose" title="A simple example of a verifiable credential">
 {
-  "@context": ["https://www.w3.org/ns/credentials/v2",
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
     "https://www.w3.org/ns/credentials/examples/v2"
   ],
-  "id": "http://example.edu/credentials/3732",
-  "type": ["VerifiableCredential",
-    "UniversityDegreeCredential"
-  ],
-  "issuer": "https://example.edu/issuers/14",
-  "issuanceDate": "2010-01-01T19:23:24Z",
+  "id": "http://university.example/credentials/1872",
+  "type": ["VerifiableCredential", "ExampleAlumniCredential"],
+  "issuer": "https://university.example/issuers/565049",
+  "validFrom": "2010-01-01T19:23:24Z",
+  "credentialSchema": {
+    "id": "https://example.org/examples/degree.json",
+    "type": "JsonSchema"
+  },
   "credentialSubject": {
     "id": "did:example:123",
     "degree": {
       "type": "BachelorDegree",
       "name": "Bachelor of Science and Arts"
     },
-   "credentialSchema": {
-     "id": "https://example.org/examples/degree.json",
-     "type": "JsonSchema"
-    }
   }
 }
         </pre>
+        <p>
+          See <a data-cite="VC-DATA-MODEL-2.0#example-a-simple-example-of-a-verifiable-credential"></a> for more details regarding this example.
+        </p>
       </section>
       <section>
         <h2>Securing JSON-LD Verifiable Presentations with JOSE</h2>
@@ -288,39 +291,37 @@
           for additional details regarding usage of <code>typ</code> and
           <code>cty</code>.
         </p>
-        <pre class="example vc-jose-cose-vp-example" data-alg="none" title="The minimal unsecured verifiable presentation">
+        
+    <pre class="example vc-jose-cose" title="A simple example of a verifiable presentation">
 {
-  "@context": ["https://www.w3.org/ns/credentials/v2"],
-  "type": ["VerifiablePresentation"]
-}
-        </pre>
-        <pre class="example vc-jose-cose-vp-example" title="The minimal secured verifiable presentation">
-{
-  "@context": ["https://www.w3.org/ns/credentials/v2"],
-  "type": ["VerifiablePresentation"]
-}
-        </pre>
-
-        <pre class="example vc-jose-cose-vp-example" title="A secured verifiable presentation with a holder identifier">
-{
-  "@context": ["https://www.w3.org/ns/credentials/v2",
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
     "https://www.w3.org/ns/credentials/examples/v2"
   ],
-  "type": ["VerifiablePresentation"],
-  "holder": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs"
-}
-        </pre>
-        <pre class="example vc-jose-cose-vp-example" title="A secured verifiable presentation with a holder graph node">
-{
-  "@context": ["https://www.w3.org/ns/credentials/v2"],
-  "type": ["VerifiablePresentation"],
-  "holder": {
-    "id": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs",
-    "type": "Organization",
-    "name": "Contoso"
+  "type": "VerifiablePresentation",
+  "verifiableCredential": [{
+    "@context": [
+      "https://www.w3.org/ns/credentials/v2",
+      "https://www.w3.org/ns/credentials/examples/v2"
+    ],
+    "id": "http://university.example/credentials/1872",
+    "type": ["VerifiableCredential", "ExampleAlumniCredential"],
+    "issuer": "https://university.example/issuers/565049",
+    "validFrom": "2010-01-01T19:23:24Z",
+    "credentialSubject": {
+      "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+      "alumniOf": {
+        "id": "did:example:c276e12ec21ebfeb1f712ebc6f1",
+        "name": "Example University"
+      }
+    }
+  }]
   }
 }
-        </pre>
+      </pre>
+      <p>
+        See <a data-cite="VC-DATA-MODEL-2.0#example-a-simple-example-of-a-verifiable-presentation"></a> for more details regarding this example.
+      </p>
       </section>
     </section>
     <section>
@@ -1604,7 +1605,7 @@ credential</a> by a verifier.
     </section>
     <section>
       <h3>Credentials</h3>
-      <pre class="example vc-jose-cose-vc-example" title="A revocable credential with multiple subjects" data-alg="ES256" data-typ="vc+ld+json+sd-jwt" data-cty="vc+ld+json">
+      <pre class="example vc-jose-cose" title="A revocable credential with multiple subjects">
 {
   "@context": ["https://www.w3.org/ns/credentials/v2",
     "https://www.w3.org/ns/credentials/examples/v2"
@@ -1632,7 +1633,7 @@ credential</a> by a verifier.
 }
       </pre>
 
-      <pre class="example vc-jose-cose-vc-example" title="A credential with a schema">
+      <pre class="example vc-jose-cose" title="A credential with a schema">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
@@ -1660,7 +1661,7 @@ credential</a> by a verifier.
         Presentations
       </h2>
 
-      <pre class="example vc-jose-cose-vp-example" title="Presentation" data-alg="ES256" data-typ="vp+ld+json+sd-jwt" data-cty="vp+ld+json">
+      <pre class="example vc-jose-cose" title="Presentation">
 {
   "@context": ["https://www.w3.org/ns/credentials/v2"],
   "type": ["VerifiablePresentation"],
