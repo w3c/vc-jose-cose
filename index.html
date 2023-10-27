@@ -437,7 +437,7 @@ to ensure any addition JSON members are understood consistently.
   // ...
 }
 </pre>
-<pre class="example" title="An kid as an absolute DID URL">
+<pre class="example" title="A kid as an absolute DID URL">
 {
   "alg": "ES384",
   "kid": "did:example:abc#key-456
@@ -488,12 +488,12 @@ to ensure any addition JSON members are understood consistently.
       <!-- REGULAR URLS via "iss" -->
       
       <p>
-        When <a href="iss">iss</a> is a present, and is a [[URL]], 
+        When <a href="iss">iss</a> is present, and is a [[URL]], 
         the <a href="#kid">kid</a> MUST match a key discovered via <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-00#name-jwt-issuer-metadata">JWT Issuer Metadata Request</a>
       </p>
 
       <p class="issue" title="(AT RISK) Feature depends on demonstration of independent implementations">
-        This normative statement depends on a -00 IETF OAUTH WG Adopted draft.
+        This normative statement depends on a <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-00#name-jwt-issuer-metadata">-00 IETF OAUTH WG Adopted</a>a draft.
         This feature is at risk and will be removed from the specification if at least
         two independent, interoperable implementations are not demonstrated.
       </p>
@@ -795,7 +795,7 @@ An example of an object that conforms to this data model is provided below:
             </p>
 
             <pre class="example nohighlight"
-              title="JSON Web Key encoding of an secp384r1 (P-384) public key">
+              title="JSON Web Key encoding of a secp384r1 (P-384) public key">
 {
   "id": "did:example:123456789abcdefghi#key-1",
   "type": "JsonWebKey",
