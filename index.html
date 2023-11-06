@@ -814,12 +814,12 @@ An example of an object that conforms to this data model is provided below:
 In the example above, the `publicKeyJwk` value contains the JSON Web Key.
 The `kty` property encodes the key type of "OKP", which means
 "Octet string key pairs". The `alg` property identifies the algorithm intended
-for use with the public key. Although `alg` is optional, it is RECOMMENDED to
-be included to avoid security issues arising from using the same key with multiple
+for use with the public key. Although optional, it is RECOMMENDED that `alg`
+be included, to avoid security issues arising from using the same key with multiple
 algorithms. The `crv` property identifies the particular curve type of the
 public key. The `kid` property is a hint used to help discover the key; if present,
-the `kid` value SHOULD match, or be included in the `id` property of the
-encapsulating `JsonWebKey` object, as part of the path, query or fragment of the
+the `kid` value SHOULD match, or be included in, the `id` property of the
+encapsulating `JsonWebKey` object, as part of the path, query, or fragment of the
 URL. Finally, the `x` property specifies the point on the Ed25519 curve that is
 associated with the public key.
             </p>
@@ -1082,9 +1082,9 @@ credential</a> by a verifier.
         When present, members of the header are to be interpreted and
         processed according to the corresponding definitions found in
 	the IANA <a href="https://www.iana.org/assignments/jose/jose.xhtml">JSON Web
-  Signature and Encryption Header Parameters</a> registry and
+	Signature and Encryption Header Parameters</a> registry and
 	the IANA <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">JSON Web
-  Token Claims</a> registry.
+	Token Claims</a> registry.
       </p>
       <p>
         Additional members may be present. If they are not understood,
