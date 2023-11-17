@@ -1070,7 +1070,7 @@ credential</a> by a verifier.
       </p>
       <p>
         The JWT Claim Names <code>vc</code> and <code>vp</code>
-        MUST NOT be present as header or payload parameters.
+        MUST NOT be present as header parameters.
       </p>
       <p>
         When present, members of the header are to be interpreted and
@@ -1179,8 +1179,14 @@ credential</a> by a verifier.
         required to be secured or integrity protected or to contain a
         <code>proof</code> member.
       </p>
-      <p>Issuers, Holders, and Verifiers MUST ignore all JWT Claims Sets that
-        have no integrity protection.</p>
+      <p>
+        Issuers, Holders, and Verifiers MUST ignore all JWT Claims Sets that
+        have no integrity protection.
+      </p>
+      <p>
+        The JWT Claim Names <code>vc</code> and <code>vp</code>
+        MUST NOT be present as claims.
+      </p>
     </section>
   
 </section>
