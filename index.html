@@ -67,7 +67,7 @@
           company: "Mesur.io", companyURL: "https://mesur.io/",
           w3cid: 130636
         },
-	{
+	      {
           name: "Gabe Cohen",
           url: "https://github.com/decentralgabe",
           company: "Block",
@@ -138,7 +138,7 @@
       and CBOR Object Signing and Encryption (COSE) [[RFC9052]].
 
       This enables the Verifiable Credential data model
-      [[VC-DATA-MODEL]]to be implemented with standards
+      [[VC-DATA-MODEL]] to be implemented with standards
       for signing and encryption that are widely adopted.
     </p>
   </section>
@@ -166,7 +166,7 @@
       properties make SD-JWT especially well suited to securing documents
       conforming to the JSON-LD [[VC-DATA-MODEL]].
     </p>
-    <p class="issue">
+    <p class="issue" data-number="175">
       The working group is discussing how we might comment on recent work, that does make
       use of encryption in <a
         href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html#section-3.2">OpenID for Verifiable
@@ -288,7 +288,7 @@
           This section details how to use JOSE to secure verifiable presentations conforming
           to the [[VC-DATA-MODEL]].
         </p>
-        <p>[[rfc7515]] MAY be used to secure this media type.</p>
+        <p>[[RFC7515]] MAY be used to secure this media type.</p>
         <p>The <code>typ</code> parameter SHOULD be
           <code>vp+ld+json+sd-jwt</code>
         </p>
@@ -345,9 +345,9 @@ to ensure any addition JSON members are understood consistently.
     <section>
       <h2>With COSE</h2>
       <p>
-        COSE [[rfc9052]] is a common approach to encoding and securing
-        information using CBOR [[rfc8949]]. Verifiable credentials MAY
-        be secured using COSE [[rfc9052]] and SHOULD be identified through
+        COSE [[RFC9052]] is a common approach to encoding and securing
+        information using CBOR [[RFC8949]]. Verifiable credentials MAY
+        be secured using COSE [[RFC9052]] and SHOULD be identified through
         use of content types as outlined in this section.
       </p>
       <section>
@@ -357,7 +357,7 @@ to ensure any addition JSON members are understood consistently.
           <code>application/vc+ld+json</code>
           with COSE.
         </p>
-        <p>[[rfc9052]] MAY be used to secure this media type.</p>
+        <p>[[RFC9052]] MAY be used to secure this media type.</p>
         <p>When using this approach, the <code>typ</code> SHOULD be
           <code>vc+ld+json+cose</code>.
           See <a href="https://www.ietf.org/archive/id/draft-ietf-cose-typ-header-parameter-00.html/">I-D.ietf-cose-typ-header-parameter</a>
@@ -404,13 +404,13 @@ to ensure any addition JSON members are understood consistently.
   </section> 
   <section class="normative">
     <h2>Key Discovery</h2>
-      <p class="issue">
+      <p class="issue" data-number="160">
         The working group is still discussing how to close many related issues.
       </p>
 
       <!-- DID URLS via "issuer" and "holder" -->
       <p>
-        When <a href="iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL#dfn-issuers">issuer</a> 
+        When <a href="#iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL#dfn-issuers">issuer</a> 
         is identified as a <a data-cite="DID-CORE#did-subject">DID Subject</a>, 
         the <a href="#kid">kid</a> MUST be an absolute <a data-cite="DID-CORE#relative-did-urls">DID URL</a>.
       </p>
@@ -427,7 +427,7 @@ to ensure any addition JSON members are understood consistently.
 }
 </pre>
       <p>
-        When <a href="iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL#dfn-holders">holder</a> 
+        When <a href="#iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL#dfn-holders">holder</a> 
         is identified as a <a data-cite="DID-CORE#did-subject">DID Subject</a>, 
         the <a href="#kid">kid</a> MUST be an absolute <a data-cite="DID-CORE#relative-did-urls">DID URL</a>.
       </p>
@@ -446,7 +446,7 @@ to ensure any addition JSON members are understood consistently.
 
       <!-- REGULAR URLS via "issuer" and "holder" -->
       <p>
-        When <a href="iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL#dfn-issuers">issuer</a> is identified as a [[URL]],
+        When <a href="#iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL#dfn-issuers">issuer</a> is identified as a [[URL]],
         the <a href="#kid">kid</a> MUST be an absolute [[URL]] to a verification method listed in a controller document.
       </p>
 
@@ -467,7 +467,7 @@ to ensure any addition JSON members are understood consistently.
 
       <p>
         When the <a data-cite="VC-DATA-MODEL#dfn-holders">holder</a> is identified as a [[URL]], 
-        and <a href="iss">iss</a> is absent,
+        and <a href="#iss">iss</a> is absent,
         the <a href="#kid">kid</a> MUST be an absolute [[URL]] to a verification method listed in a controller document.
       </p>
 <pre class="example" title="A holder identified by a controller document identifier">
@@ -488,12 +488,12 @@ to ensure any addition JSON members are understood consistently.
       <!-- REGULAR URLS via "iss" -->
       
       <p>
-        When <a href="iss">iss</a> is present, and is a [[URL]], 
+        When <a href="#iss">iss</a> is present, and is a [[URL]], 
         the <a href="#kid">kid</a> MUST match a key discovered via <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-00#name-jwt-issuer-metadata">JWT Issuer Metadata Request</a>
       </p>
 
-      <p class="issue" title="(AT RISK) Feature depends on demonstration of independent implementations">
-        This normative statement depends on a <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-00#name-jwt-issuer-metadata">-00 IETF OAUTH WG Adopted</a>a draft.
+      <p class="issue" title="(AT RISK) Feature depends on demonstration of independent implementations" data-number="160">
+        This normative statement depends on an <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-00#name-jwt-issuer-metadata">IETF OAUTH WG Adopted</a> draft.
         This feature is at risk and will be removed from the specification if at least
         two independent, interoperable implementations are not demonstrated.
       </p>
@@ -558,10 +558,6 @@ to ensure any addition JSON members are understood consistently.
       <a data-cite="RFC7515#section-4.1">JOSE Header</a>, it is expected to be useful to
       distinguish the specific key used.
         </p>
-      <p class="issue"  data-number="31">
-        There are a few issues related to clarification of optionality and behavior of 
-        registered claims.  
-      </p>
       </section>
       
       <section>
@@ -578,7 +574,7 @@ to ensure any addition JSON members are understood consistently.
       
       <section>
       <h2>Well Known URIs</h2>
-      <p class="issue">
+      <p class="issue" data-number="160">
       The working group is currently exploring how 
       <a data-cite="RFC5785#section-3">Defining Well-Known Uniform Resource Identifiers (URIs)</a>
       could be leveraged to assist a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> in discovering verification keys for 
@@ -597,21 +593,18 @@ to ensure any addition JSON members are understood consistently.
         </section>
         <section class="informative">
         <h3>Controller Documents</h3>
-    
-        <p class="issue" data-number="160"></p>
-
-        <p>
+          <p>
 A <a>controller document</a> is a set of data that specifies one or more
 relationships between a <a>controller</a> and a set of data, such as a set of
 public cryptographic keys. The <a>controller document</a> SHOULD
 contain <a>verification relationships</a> that explicitly permit the use of
 certain <a>verification methods</a> for specific purposes.
-        </p>
+          </p>
 
 
         <section>
           <h2>Verification Methods</h2>
-          <p>
+            <p>
 A <a>controller document</a> can express <a>verification methods</a>, such as
 cryptographic <a>public keys</a>, which can be used to <a>authenticate</a> or
 authorize interactions with the <a>controller</a> or associated parties. For
@@ -621,7 +614,7 @@ the signer could use the associated cryptographic private key. <a>Verification
 methods</a> might take many parameters. An example of this is a set of five
 cryptographic keys from which any three are required to contribute to a
 cryptographic threshold signature.
-          </p>
+            </p>
 
           <dl>
             <dt><dfn class="lint-ignore">verificationMethod</dfn></dt>
@@ -727,9 +720,9 @@ An example of a <a>controller document</a> containing <a>verification
 methods</a> using both properties above is shown below.
             </p>
 
-            <pre id="example-various-verification-method-types"
+        <pre id="example-various-verification-method-types"
               class="example nohighlight"
-              title="Verification methods using publicKeyJwk">
+              title="Verification method using publicKeyJwk">
     {
       "@context": [
         "https://www.w3.org/ns/did/v1",
@@ -737,17 +730,19 @@ methods</a> using both properties above is shown below.
       ]
       "id": "did:example:123456789abcdefghi",
       <span class="comment">...</span>
-      "verificationMethod": [{
-        "id": "did:example:123#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
-        "type": "JsonWebKey", <span class="comment">// external (property value)</span>
-        "controller": "did:example:123",
-        "publicKeyJwk": {
-          "crv": "Ed25519", <span class="comment">// external (property name)</span>
-          "x": "VCpo2LMLhn6iWku8MKvSLg2ZAoC-nlOyPVQaO3FxVeQ", <span class="comment">// external (property name)</span>
-          "kty": "OKP", <span class="comment">// external (property name)</span>
-          "kid": "_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A" <span class="comment">// external (property name)</span>
+      "verificationMethod": [
+        {
+          "id": "did:example:123#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
+          "type": "JsonWebKey", <span class="comment">// external (property value)</span>
+          "controller": "did:example:123",
+          "publicKeyJwk": {
+            "crv": "Ed25519", <span class="comment">// external (property name)</span>
+            "x": "VCpo2LMLhn6iWku8MKvSLg2ZAoC-nlOyPVQaO3FxVeQ", <span class="comment">// external (property name)</span>
+            "kty": "OKP", <span class="comment">// external (property name)</span>
+            "kid": "_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A" <span class="comment">// external (property name)</span>
+          }
         }
-      }],
+      ],
       <span class="comment">...</span>
     }
             </pre>
@@ -778,9 +773,8 @@ be a JSON Web Key that conforms to [[RFC7517]].
 It is RECOMMENDED that verification methods that use
 JWKs [[RFC7517]] to represent their <a>public keys</a> use the value of `kid` as
 their fragment identifier. It is RECOMMENDED that JWK `kid` values be set to
-the public key fingerprint [[RFC7638]]. See the first key in
-<a href="#example-various-verification-method-types"></a> for an example of a
-public key with a compound key identifier.
+the public key fingerprint [[RFC7638]]. See the first key in the example below
+for an instancee of a public key with a compound key identifier.
               </dd>
               <dt><dfn class="lint-ignore">secretKeyJwk</dfn></dt>
               <dd>
@@ -794,8 +788,7 @@ to [[RFC7517]].
 An example of an object that conforms to this data model is provided below:
             </p>
 
-            <pre class="example nohighlight"
-              title="JSON Web Key encoding of a secp384r1 (P-384) public key">
+            <pre class="example nohighlight" title="JSON Web Key encoding of a secp384r1 (P-384) public key">
 {
   "id": "did:example:123456789abcdefghi#key-1",
   "type": "JsonWebKey",
@@ -815,12 +808,14 @@ An example of an object that conforms to this data model is provided below:
 In the example above, the `publicKeyJwk` value contains the JSON Web Key.
 The `kty` property encodes the key type of "OKP", which means
 "Octet string key pairs". The `alg` property identifies the algorithm intended
-for use with the public key. Although `alg` is optional, it is RECOMMENDED to be included to avoid security issues arising from using the same key with multiple algorithms. The `crv` property identifies the particular
-curve type of the public key. The `kid` property is a hint used to help discover the key; 
-if present, the `kid` value SHOULD match, or be included in the
-`id` property of the encapsulating `JsonWebKey` object, as part of the path, query or fragment of the URL. Finally, the `x`
-property specifies the point on the Ed25519 curve that is associated with the
-public key.
+for use with the public key. Although optional, it is RECOMMENDED that `alg`
+be included, to avoid security issues arising from using the same key with multiple
+algorithms. The `crv` property identifies the particular curve type of the
+public key. The `kid` property is a hint used to help discover the key; if present,
+the `kid` value SHOULD match, or be included in, the `id` property of the
+encapsulating `JsonWebKey` object, as part of the path, query, or fragment of the
+URL. Finally, the `x` property specifies the point on the Ed25519 curve that is
+associated with the public key.
             </p>
 
             <p>
@@ -929,9 +924,8 @@ The following sections define several useful <a>verification relationships</a>.
 A <a>controller document</a> MAY include any of these, or other properties, to
 express a specific <a>verification relationship</a>. In order to maximize global
 interoperability, any such properties used SHOULD be registered in the
-Data Integrity Specification Registries [TBD: DIS-REGISTRIES].
+<a href="https://w3c.github.io/vc-specs-dir/#proof">VC Specifications Directory</a>.
           </p>
-
           <section>
             <h2>Authentication</h2>
 
@@ -1032,9 +1026,6 @@ credential</a> by a verifier.
     }
             </pre>
           </section>
-
-
-
         </section>
       </section>
       </section>
@@ -1065,7 +1056,7 @@ credential</a> by a verifier.
 	the IANA <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">JSON Web Token Claims</a> registry, and
 	the IANA <a href="https://www.iana.org/assignments/jose/jose.xhtml">JSON Web Signature and Encryption Header Parameters</a> registry
         to identify any claims that might be confused with
-        members defined by the [[VC-DATA-MODEL]. These include but are not
+        members defined by the [[VC-DATA-MODEL]]. These include but are not
         limited to: <code>iss</code>, <code>kid</code>,
         <code>alg</code>, <code>iat</code>,
         <code>exp</code>, and <code>cnf</code>.
@@ -1084,8 +1075,10 @@ credential</a> by a verifier.
       <p>
         When present, members of the header are to be interpreted and
         processed according to the corresponding definitions found in
-	the IANA <a href="https://www.iana.org/assignments/jose/jose.xhtml">JSON Web Signature and Encryption Header Parameters</a> registry and
-	the IANA <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">JSON Web Token Claims</a> registry.
+	the IANA <a href="https://www.iana.org/assignments/jose/jose.xhtml">JSON Web
+	Signature and Encryption Header Parameters</a> registry and
+	the IANA <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">JSON Web
+	Token Claims</a> registry.
       </p>
       <p>
         Additional members may be present. If they are not understood,
@@ -1287,69 +1280,6 @@ credential</a> by a verifier.
     </section>
   </section>
   
-
-  <section id="json-web-token-claim-registrations">
-    <h3>Registered Claims</h3>
-    <p>
-      This section retains deprecated registered claim names 
-      that were previously submitted to the Internet Engineering Steering
-      Group (IESG) for review, approval, and registration with IANA in the
-      "JSON Web Token Claims Registry".
-    </p>
-
-    <p class="issue" data-number="119"></p>
-    
-      <section id="vc-json-web-token-claim">
-        <h4>`vc`</h4>
-        <table>
-          <tr>
-            <th>Claim Name: </th>
-            <td>"vc" </td>
-          </tr>
-          <tr>
-            <th>Claim Description: </th>
-            <td>Verifiable Credential</td>
-          </tr>
-          <tr>
-            <th>Change Controller:  </th>
-            <td>W3C</td>
-          </tr>
-          <tr>
-            <th>Specification Document(s): </th>
-            <td>
-            <a href="https://www.w3.org/TR/vc-data-model/">Section 6.3.1.2: JSON Web Token
-              Extensions of Verifiable Credentials Data Model 1.0</a>
-            </td>
-          </tr>
-        </table>
-      </section>
-
-      <section id="vp-json-web-token-claim">
-        <h4>`vp`</h4>
-        <table>
-          <tr>
-            <th>Claim Name: </th>
-            <td>"vp"</td>
-          </tr>
-          <tr>
-            <th>Claim Description: </th>
-            <td>Verifiable Presentation</td>
-          </tr>
-          <tr>
-            <th>Change Controller: </th>
-            <td>W3C</td>
-          </tr>
-          <tr>
-            <th>Specification Document(s):</th>
-            <td>
-              <a href="https://www.w3.org/TR/vc-data-model/">Section 6.3.1.2: JSON Web Token
-                Extensions of Verifiable Credentials Data Model 1.0</a>
-            </td>
-          </tr>
-        </table>
-      </section>
-    </section>
-  </section>
 </section>
   <section>
     <h3>Other Considerations</h3>
@@ -1478,27 +1408,6 @@ credential</a> by a verifier.
         considerations called out in the [[VC-DATA-MODEL]].
       </p>
     </section>
-
-
-    <section class="informative">
-      <h2>Internationalization</h2>
-      <p>
-        Implementers should take into account several
-        internationalization considerations when publishing data
-        described in this specification. Disregarding
-        internationalization hampers the production and consumption of
-        data across diverse languages and societies, thereby restricting
-        the applicability and significantly reducing the value of the
-        specification as a standard.
-      </p>
-      <p>
-        Implementers are advised to note and abide by all
-        internationalization considerations called out in the
-        [[VC-DATA-MODEL]], see also <a href="https://www.w3.org/standards/webdesign/i18n">i18n</a>,
-        <a href="https://url.spec.whatwg.org">URL Standard</a>
-      </p>
-    </section>
-
   </section>
 
 
@@ -1723,7 +1632,9 @@ data:application/vp+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvO
       <h2>
         Detached Payload
       </h2>
-      <p class="issue">TODO add COSE Sign1 detached payload examples</p>
+      <p class="issue" data-number="174">
+TODO add COSE Sign1 detached payload examples
+      </p>
     </section>
   </section>
   </section>
