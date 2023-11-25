@@ -80,7 +80,7 @@
       // required. Same format as editors.
       authors: [],
 
-      maxTocLevel: 2,
+      maxTocLevel: 3,
       inlineCSS: true,
       postProcess: [postProcessWithWorker],
       license: "w3c-software-doc",
@@ -133,12 +133,11 @@
   <section id="abstract">
     <p>
       This specification defines how to secure credentials and presentations
-      conforming to the [[VC-DATA-MODEL]],
-      with JSON Object Signing and Encryption (<a href="https://datatracker.ietf.org/wg/jose/about/">JOSE</a>),
+      conforming to [[VC-DATA-MODEL-2.0]]
+      with JSON Object Signing and Encryption (<a href="https://datatracker.ietf.org/wg/jose/about/">JOSE</a>)
       and CBOR Object Signing and Encryption (COSE) [[RFC9052]].
-
       This enables the Verifiable Credential data model
-      [[VC-DATA-MODEL]] to be implemented with standards
+      [[VC-DATA-MODEL-2.0]] to be implemented with standards
       for signing and encryption that are widely adopted.
     </p>
   </section>
@@ -149,14 +148,14 @@
     <p>
       This specification describes how to secure media types
       expressing Verifiable Credentials and Verifiable Presentations
-      as described in the [[VC-DATA-MODEL]], using approaches
-      described by the OAuth, JOSE, and COSE working groups at IETF. 
+      as described in [[VC-DATA-MODEL-2.0]] using approaches
+      defined by the OAuth, JOSE, and COSE working groups at the IETF.
       This includes SD-JWT [[SD-JWT]] and COSE [[RFC9052]],
       and provides an approach using well-defined content types
       [[RFC6838]] and structured suffixes [[MULTIPLE-SUFFIXES]] 
-      to distinguish the data types of unsecured documents conforming to [[VC-DATA-MODEL]]
-      from the data types of secured documents conforming to [[VC-DATA-MODEL]],
-      defined in this specification.
+      to distinguish the data types of unsecured documents conforming to [[VC-DATA-MODEL-2.0]]
+      from the data types of secured documents conforming to [[VC-DATA-MODEL-2.0]],
+      as defined in this specification.
     </p>
     <p>
       Selective Disclosure for JWTs (SD-JWT) [[SD-JWT]] provides a standardized
@@ -164,13 +163,7 @@
       to ensure the integrity, authenticity, selective disclosure and non-repudiation of
       the information contained in a JSON document. These
       properties make SD-JWT especially well suited to securing documents
-      conforming to the JSON-LD [[VC-DATA-MODEL]].
-    </p>
-    <p class="issue" data-number="175">
-      The working group is discussing how we might comment on recent work, that does make
-      use of encryption in <a
-        href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html#section-3.2">OpenID for Verifiable
-        Presentations</a>.
+      conforming to the JSON-LD [[VC-DATA-MODEL-2.0]].
     </p>
     <p>
       CBOR Object Signing and Encryption (COSE) [[RFC9052]] is a
@@ -192,7 +185,7 @@
     </p>
   </section>
 
-  <section class="informative">
+  <section>
     <h3>Terminology</h3>
     <div data-include="./terms.html"></div>
   </section>
@@ -201,23 +194,23 @@
     <h2>Securing the VC Data Model</h2>
     <p>
       This section outlines how to secure documents conforming
-      to the [[VC-DATA-MODEL]] using JOSE and COSE.
+      to [[VC-DATA-MODEL-2.0]] using JOSE and COSE.
     </p>
     <p>
-      Documents conforming to the [[VC-DATA-MODEL]], 
+      Documents conforming to [[VC-DATA-MODEL-2.0]],
       and their associated media types, rely on
-      JSON-LD, which is a flexible and extensible format for describing
-      linked data, see <a href="https://www.w3.org/TR/json-ld11/#relationship-to-rdf">JSON-LD Relationship to RDF</a>.
+      JSON-LD, which is an extensible format for describing
+      linked data; see <a href="https://www.w3.org/TR/json-ld11/#relationship-to-rdf">JSON-LD Relationship to RDF</a>.
     </p>
     <p>
       A benefit to this approach is that payloads can be made to conform
-      directly to the [[VC-DATA-MODEL]] without any mappings or
+      directly to [[VC-DATA-MODEL-2.0]] without any mappings or
       transformation, while at the same time supporting registered 
-      claims that are understood in the context of JOSE and COSE.
+      header parameters and claims that are understood in the context of JOSE and COSE.
     </p>
     <p>
-      It is RECOMMENDED that media types be used to distinguish <a data-cite="VC-DATA-MODEL#credentials">verifiable credentials</a>
-      and <a data-cite="VC-DATA-MODEL#presentations">verifiable presentations</a> from other kinds of secured JSON or CBOR.
+      It is RECOMMENDED that media types be used to distinguish <a data-cite="VC-DATA-MODEL-2.0#credentials">verifiable credentials</a>
+      and <a data-cite="VC-DATA-MODEL-2.0#presentations">verifiable presentations</a> from other kinds of secured JSON or CBOR.
     </p>
     <p>
       The most specific media type (or subtype) available SHOULD be used, instead of
@@ -235,19 +228,13 @@
         <h2>Securing JSON-LD Verifiable Credentials with JOSE</h2>
         <p>
           This section details how to use JOSE to secure verifiable credentials conforming
-          to the [[VC-DATA-MODEL]].
-        </p>
-        <p>[[rfc7515]] MAY be used to secure this media type.</p>
-        <p>
-          The <code>typ</code> parameter SHOULD be <code>vc+ld+json+sd-jwt</code>
+          to [[VC-DATA-MODEL-2.0]].
         </p>
         <p>
-          When present, the <code>cty</code> SHOULD be
-          <code>vc+ld+json</code>
-        </p>
-        <p>
-          See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header
-            Parameters</a>
+          [[RFC7515]] MAY be used to secure this media type.
+          The <code>typ</code> header parameter SHOULD be <code>vc+ld+json+sd-jwt</code>.
+          When present, the <code>cty</code> header parameter SHOULD be <code>vc+ld+json</code>.
+          See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
           for additional details regarding usage of <code>typ</code> and
           <code>cty</code>.
         </p>
@@ -282,26 +269,22 @@
           See <a data-cite="VC-DATA-MODEL-2.0#example-a-simple-example-of-a-verifiable-credential"></a> for more details regarding this example.
         </p>
       </section>
+
       <section>
         <h2>Securing JSON-LD Verifiable Presentations with JOSE</h2>
         <p>
           This section details how to use JOSE to secure verifiable presentations conforming
-          to the [[VC-DATA-MODEL]].
-        </p>
-        <p>[[RFC7515]] MAY be used to secure this media type.</p>
-        <p>The <code>typ</code> parameter SHOULD be
-          <code>vp+ld+json+sd-jwt</code>
-        </p>
-        <p>When present, the <code>cty</code> parameter SHOULD be
-          <code>vp+ld+json</code>
+          to [[VC-DATA-MODEL-2.0]].
         </p>
         <p>
-          See <a data-cite="rfc7515#section-4.1.10">Common JOSE Header
-            Parameters</a>
+          [[RFC7515]] MAY be used to secure this media type.
+          The <code>typ</code> header parameter SHOULD be <code>vp+ld+json+sd-jwt</code>.
+	  When present, the <code>cty</code> header parameter SHOULD be <code>vp+ld+json</code>.
+          See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
           for additional details regarding usage of <code>typ</code> and
           <code>cty</code>.
         </p>
-        
+
     <pre class="example vc-jose-cose" title="A simple example of a verifiable presentation">
 {
   "@context": [
@@ -335,8 +318,6 @@
       <p>
 To improve interoperability, implementations SHOULD support the compact serialization (<code>application/sd-jwt</code>),
 and MAY support the JSON serialization (<code>application/sd-jwt+json</code>).
-      </p>
-      <p>
 If the JSON serialization is used, it is RECOMMENDED that a profile be defined, 
 to ensure any addition JSON members are understood consistently.
       </p>
@@ -350,58 +331,137 @@ to ensure any addition JSON members are understood consistently.
         be secured using COSE [[RFC9052]] and SHOULD be identified through
         use of content types as outlined in this section.
       </p>
+
       <section>
-        <h2>Securing JSON-LD VCs with COSE</h2>
+        <h2>Securing JSON-LD Verifiable Credentials with COSE</h2>
         <p>
           This section details how to secure data with the type
           <code>application/vc+ld+json</code>
           with COSE.
         </p>
-        <p>[[RFC9052]] MAY be used to secure this media type.</p>
-        <p>When using this approach, the <code>typ</code> SHOULD be
-          <code>vc+ld+json+cose</code>.
-          See <a href="https://www.ietf.org/archive/id/draft-ietf-cose-typ-header-parameter-00.html/">I-D.ietf-cose-typ-header-parameter</a>
-          for the COSE "<code>typ</code>" (type) header parameter.
-        </p>
-        <p>When using this approach, the <code>content type (3)</code>
-          SHOULD be <code>application/vc+ld+json</code>.</p>
         <p>
-          See <a data-cite="rfc9052#section-3.1">Common COSE Header
-            Parameters</a> for additional details.
+          [[RFC9052]] MAY be used to secure this media type.
+          The <code>typ</code> header parameter SHOULD be <code>application/vc+ld+json+cose</code>.
+          See <a href="https://www.ietf.org/archive/id/draft-ietf-cose-typ-header-parameter-01.html">I-D.ietf-cose-typ-header-parameter</a>
+          for the COSE "<code>typ</code>" (type) header parameter.
+          When present, the <code>content type (3)</code> header parameter
+          SHOULD be <code>application/vc+ld+json</code>.
+          See <a data-cite="RFC9052#section-3.1">Common COSE Header Parameters</a> for additional details.
         </p>
-        <p>See the IANA <a href="https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml">Concise Binary Object Representation (CBOR) Tags</a> registry
-	  for additional details.</p>
       </section>
+
+      <section>
+        <h2>Securing JSON-LD Verifiable Presentations with COSE</h2>
+        <p>
+          This section details how to use COSE to secure verifiable presentations conforming
+          to [[VC-DATA-MODEL-2.0]].
+        </p>
+        <p>
+          [[RFC9052]] MAY be used to secure this media type.
+          The <code>typ</code> header parameter SHOULD be <code>application/vp+ld+json+sd-jwt</code>.
+	  When present, the <code>cty</code> header parameter SHOULD be <code>application/vp+ld+json</code>.
+          See <a data-cite="RFC9052#section-3.1">Common COSE Header Parameters</a> for additional details.
+        </p>
+
     </section>
   </section>
-  <section class="informative">
-    <h2>Wallets</h2>
-    <p>
-    <a data-cite="VC-DATA-MODEL#dfn-issuers">Issuers</a>,
-    <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a> and 
-    <a data-cite="VC-DATA-MODEL#dfn-verifier">verifiers</a> might rely on clients, 
-    as defined in <a href="https://datatracker.ietf.org/doc/html/rfc4949">RFC4949</a>.
-    Such clients are often referred to as <i>wallets</i> or <i>digital credential wallets</i>,
-    when they support storing and presenting digital credentials.
-    </p>
-    <p>
-    In order to meet <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> requirements, some
-    <a data-cite="VC-DATA-MODEL#dfn-issuers">issuers</a> might need to assess the quality of a wallet used by a 
-    <a data-cite="VC-DATA-MODEL#dfn-holders">holder</a>, prior to issuing and
-    delivering credentials to a <a data-cite="VC-DATA-MODEL#dfn-holders">holder</a>.
-    </p>
-    <p>
-    For example, some <a data-cite="VC-DATA-MODEL#dfn-verifier">verifiers</a> might require that cryptographic material 
-    associated with a <a data-cite="VC-DATA-MODEL#dfn-holders">holder</a>, be protected at specific 
-    assurance levels.
-    (See <a href="https://pages.nist.gov/800-63-3-Implementation-Resources/63B/AAL/">NIST 800-63-3: Authenticator Assurance Levels</a>.)
-    </p>
-    <p class="note">
-      Also see <a href="https://datatracker.ietf.org/doc/draft-looker-oauth-attestation-based-client-auth/">
-        OAuth 2.0 Attestation-Based Client Authentication
-      </a>.
-    </p>
-  </section> 
+
+    <section class="normative">
+      <h2>JOSE Header Parameters and JWT Claims</h2>
+
+      <p>
+      When present in
+      the <a data-cite="RFC7515#section-4">JOSE Header</a> or
+      the <a data-cite="RFC7519#section-4">JWT Claims Set</a>,
+      members registered in
+      the IANA <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">JSON Web Token Claims</a> registry or
+      the IANA <a href="https://www.iana.org/assignments/jose/jose.xhtml">JSON Web Signature and Encryption Header Parameters</a> registry
+      are to be interpreted as defined by the specifications referenced in the registries.
+      </p>
+      <p>
+        The normative statements in
+	<a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>,
+        <a data-cite="RFC7519#section-5">JOSE Header</a>, and
+	<a data-cite="RFC7519#section-5.3">Replicating Claims as Header Parameters</a>
+        apply to securing credentials and presentations.
+      </p>
+      <p>
+        The unencoded JOSE Header is JSON
+        (`application/json`), not JSON-LD (`application/ld+json`).
+      </p>
+      <p>
+        It is RECOMMENDED to use
+	the IANA <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">JSON Web Token Claims</a> registry and
+	the IANA <a href="https://www.iana.org/assignments/jose/jose.xhtml">JSON Web Signature and Encryption Header Parameters</a> registry
+        to identify any claims and header parameters that might be confused with
+        members defined by [[VC-DATA-MODEL-2.0]]. These include but are not
+        limited to: <code>iss</code>, <code>kid</code>,
+        <code>alg</code>, <code>iat</code>,
+        <code>exp</code>, and <code>cnf</code>.
+      </p>
+      <p>
+        When the <code>iat</code> and/or <code>exp</code> JWT claims are present,
+        they represent the issuance and expiration time of the signature, respectively.
+        Note that these are different from the <code>validFrom</code> and <code>validUntil</code> properties
+        defined in <a data-cite="VC-DATA-MODEL-2.0#validity-period">Validity Period</a>,
+        which represent the validity of the data that is being secured.
+      </p>
+      <p>
+        The JWT Claim Names <code>vc</code> and <code>vp</code>
+        MUST NOT be present.
+      </p>
+      <p>
+        Additional members may be present as header parameters and claims.
+	If they are not understood, they MUST be ignored.
+      </p>
+    </section>
+  </section>
+
+    <section class="normative">
+      <h2>COSE Header Parameters and CWT Claims</h2>
+
+      <p>
+      When present in
+      the <a data-cite="RFC9052#section-3.1">COSE Header</a> or
+      as <a data-cite="RFC8392#section-3">CWT Claims</a>,
+      members registered in
+      the IANA <a href="https://www.iana.org/assignments/cwt/cwt.xhtml">CBOR Web Token (CWT) Claims</a> registry or
+      the IANA <a href="https://www.iana.org/assignments/cose/cose.xhtml">COSE Header Parameters</a> registry
+      are to be interpreted as defined by the specifications referenced in the registries.
+      CWT Claims MAY be included in a COSE header parameter, as specified in
+      <a href="https://www.ietf.org/archive/id/draft-ietf-cose-cwt-claims-in-headers-09.html">I-D.ietf-cose-cwt-claims-in-headers</a>.
+      </p>
+      <p>
+        The normative statements in
+	<a data-cite="RFC9052#section-3.1.1">Registered Header Parameter Names</a>,
+        <a data-cite="RFC8392#section-3">Claims</a>, and
+	<a href="https://www.ietf.org/archive/id/draft-ietf-cose-cwt-claims-in-headers-09.html">CBOR Web Token (CWT) Claims in COSE Headers</a>
+        apply to securing credentials and presentations.
+      </p>
+      <p>
+        It is RECOMMENDED to use
+	the IANA <a href="https://www.iana.org/assignments/cwt/cwt.xhtml">CBOR Web Token Claims</a> registry and
+	the IANA <a href="https://www.iana.org/assignments/cose/cose.xhtml">COSE Header Parameters</a> registry
+        to identify any claims and header parameters that might be confused with
+        members defined by [[VC-DATA-MODEL-2.0]]. These include but are not
+        limited to: <code>iss</code>, <code>kid</code>,
+        <code>alg</code>, <code>iat</code>,
+        <code>exp</code>, and <code>cnf</code>.
+      </p>
+      <p>
+        When the <code>iat</code> and/or <code>exp</code> CWT claims are present,
+        they represent the issuance and expiration time of the signature, respectively.
+        Note that these are different from the <code>validFrom</code> and <code>validUntil</code> properties
+        defined in <a data-cite="VC-DATA-MODEL-2.0#validity-period">Validity Period</a>,
+        which represent the validity of the data that is being secured.
+      </p>
+      <p>
+        Additional members may be present as header parameters and claims.
+	If they are not understood, they MUST be ignored.
+      </p>
+    </section>
+  </section>
+
   <section class="normative">
     <h2>Key Discovery</h2>
       <p class="issue" data-number="160">
@@ -410,7 +470,7 @@ to ensure any addition JSON members are understood consistently.
 
       <!-- DID URLS via "issuer" and "holder" -->
       <p>
-        When <a href="#iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL#dfn-issuers">issuer</a> 
+        When <a href="#iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">issuer</a>
         is identified as a <a data-cite="DID-CORE#did-subject">DID Subject</a>, 
         the <a href="#kid">kid</a> MUST be an absolute <a data-cite="DID-CORE#relative-did-urls">DID URL</a>.
       </p>
@@ -427,8 +487,8 @@ to ensure any addition JSON members are understood consistently.
 }
 </pre>
       <p>
-        When <a href="#iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL#dfn-holders">holder</a> 
-        is identified as a <a data-cite="DID-CORE#did-subject">DID Subject</a>, 
+        When <a href="#iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL-2.0#dfn-holders">holder</a>
+        is identified as a <a data-cite="DID-CORE#did-subject">DID Subject</a>,
         the <a href="#kid">kid</a> MUST be an absolute <a data-cite="DID-CORE#relative-did-urls">DID URL</a>.
       </p>
 <pre class="example" title="A holder identified by a DID">
@@ -446,7 +506,7 @@ to ensure any addition JSON members are understood consistently.
 
       <!-- REGULAR URLS via "issuer" and "holder" -->
       <p>
-        When <a href="#iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL#dfn-issuers">issuer</a> is identified as a [[URL]],
+        When <a href="#iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">issuer</a> is identified as a [[URL]],
         the <a href="#kid">kid</a> MUST be an absolute [[URL]] to a verification method listed in a controller document.
       </p>
 
@@ -466,7 +526,7 @@ to ensure any addition JSON members are understood consistently.
 </pre>
 
       <p>
-        When the <a data-cite="VC-DATA-MODEL#dfn-holders">holder</a> is identified as a [[URL]], 
+        When the <a data-cite="VC-DATA-MODEL-2.0#dfn-holders">holder</a> is identified as a [[URL]],
         and <a href="#iss">iss</a> is absent,
         the <a href="#kid">kid</a> MUST be an absolute [[URL]] to a verification method listed in a controller document.
       </p>
@@ -499,43 +559,34 @@ to ensure any addition JSON members are understood consistently.
       </p>
 
       <p>
-    In order to complete the <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process, 
-    a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> needs to obtain the cryptographic keys used to secure the 
-    <a data-cite="VC-DATA-MODEL#dfn-credential">credential</a>.
+    To complete the <a data-cite="VC-DATA-MODEL-2.0#dfn-verify">verification</a> process,
+    a <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">verifier</a> needs to obtain the cryptographic keys used to secure the
+    <a data-cite="VC-DATA-MODEL-2.0#dfn-credential">credential</a>.
       </p>
       <p>
     There are several different ways to discover the verification keys of
-    the <a data-cite="VC-DATA-MODEL#dfn-issuers">issuers</a>
-    and <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a>.
+    the <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">issuers</a>
+    and <a data-cite="VC-DATA-MODEL-2.0#dfn-holders">holders</a>.
       </p>
 
 
     <section>
-      <h2>Registered Header Parameter and Claim Names</h2>
+      <h2>Using Header Parameters and Claims for Key Discovery</h2>
       <p>
-      When present in
-      the <a data-cite="RFC7515#section-4">JOSE Header</a> or
-      the <a data-cite="RFC7519#section-4">JWT Claims Set</a>
-      members registered in
-      the IANA <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">JSON Web Token Claims</a> registry or
-      the IANA <a href="https://www.iana.org/assignments/jose/jose.xhtml">JSON Web Signature and Encryption Header Parameters</a> registry
-      are to be interpreted as defined by the specifications referenced in the registries.
-      </p>
-      <p>
-      These parameters and claims can be used to help
-      <a data-cite="VC-DATA-MODEL#dfn-verifier">verifiers</a> discover verification keys.
+      These JOSE header parameters and JWT claims can be used by
+      <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">verifiers</a> to discover verification keys.
       </p>
       <section>
         <h2>kid</h2>
         <p>
       If <code>kid</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>,
-      a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
+      a <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">verifier</a> can use this parameter
       as a hint indicating which key was used to secure the verifiable credential, when performing a
-      <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process as defined in <a data-cite="RFC7515#section-4.1.4">RFC7515</a>.
+      <a data-cite="VC-DATA-MODEL-2.0#dfn-verify">verification</a> process as defined in <a data-cite="RFC7515#section-4.1.4">RFC7515</a>.
         </p>
         <p>
-          <code>kid</code> MUST be present when the key of the <a data-cite="VC-DATA-MODEL#dfn-issuers">issuer</a>
-          or <a data-cite="VC-DATA-MODEL#dfn-subjects">subject</a> is expressed as a DID URL.
+          <code>kid</code> MUST be present when the key of the <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">issuer</a>
+          or <a data-cite="VC-DATA-MODEL-2.0#dfn-subjects">subject</a> is expressed as a DID URL.
         </p>
       </section>
       <section>
@@ -543,19 +594,19 @@ to ensure any addition JSON members are understood consistently.
         <p>
       If <code>iss</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>
       or the <a data-cite="RFC7519#section-4.1.1">JWT Claims </a>,
-      a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> can use this parameter
+      a <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">verifier</a> can use this parameter
       to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the 
-      <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
+      <a data-cite="VC-DATA-MODEL-2.0#dfn-verify">verification</a> process.
         </p>
         <p>
-      The value of the <a data-cite="VC-DATA-MODEL#issuer">issuer</a> property can be either a string or an object.
+      The value of the <a data-cite="VC-DATA-MODEL-2.0#issuer">issuer</a> property can be either a string or an object.
       When <code>issuer</code> value is a string, <code>iss</code> value, if present, MUST match <code>issuer</code> value.
       When <code>issuer</code> value is an object with an <code>id</code> value,
       <code>iss</code> value, if present, MUST match <code>issuer.id</code> value.
         </p>
         <p>
       If <code>kid</code> is also present in the
-      <a data-cite="RFC7515#section-4.1">JOSE Header</a>, it is expected to be useful to
+      <a data-cite="RFC7515#section-4.1">JOSE Header</a>, it is used to
       distinguish the specific key used.
         </p>
       </section>
@@ -565,9 +616,9 @@ to ensure any addition JSON members are understood consistently.
         <p>
       If <code>cnf</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>
       or the <a data-cite="RFC7519#section-4.1.1">JWT Claims </a>,
-      a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> MAY use this parameter
-      to identify a proof-of-possession key in the manner described in [[rfc7800]] for use in the
-      <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
+      a <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">verifier</a> MAY use this parameter
+      to identify a proof-of-possession key in the manner described in [[RFC7800]] for use in the
+      <a data-cite="VC-DATA-MODEL-2.0#dfn-verify">verification</a> process.
         </p>
       </section>
       </section>
@@ -577,9 +628,9 @@ to ensure any addition JSON members are understood consistently.
       <p class="issue" data-number="160">
       The working group is currently exploring how 
       <a data-cite="RFC5785#section-3">Defining Well-Known Uniform Resource Identifiers (URIs)</a>
-      could be leveraged to assist a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> in discovering verification keys for 
-      <a data-cite="VC-DATA-MODEL#dfn-issuers">issuers</a> 
-      and <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a>.
+      could be leveraged to assist a <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">verifier</a> in discovering verification keys for
+      <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">issuers</a>
+      and <a data-cite="VC-DATA-MODEL-2.0#dfn-holders">holders</a>.
       </p>
       
       <section>
@@ -591,7 +642,7 @@ to ensure any addition JSON members are understood consistently.
             </p>
           </section>
         </section>
-        <section class="informative">
+        <section>
         <h3>Controller Documents</h3>
           <p>
 A <a>controller document</a> is a set of data that specifies one or more
@@ -700,7 +751,7 @@ using the `<a>controller</a>` property at the highest level of the
             <h3>Verification Material</h3>
 
             <p>
-Verification material SHOULD be expressed in the <code>publicKeyJwk</code> property
+Verification material MUST be expressed in the <code>publicKeyJwk</code> property
 of a <code>JsonWebKey</code>. This key material is retrieved based on hints in the
 JOSE or COSE message envelopes, such as <code>kid</code> or <code>iss</code>. At
 the time of writing, there is no standard way to retrieve a public key in JWK or
@@ -712,7 +763,7 @@ COSE key from a DID URL or controller document.
 A <a>verification method</a> MUST NOT contain multiple verification material
 properties for the same material. For example, expressing key material in a
 <a>verification method</a> using both `publicKeyJwk` and
-`publicKeyMultibase` at the same time is prohibited.
+another representtion is prohibited.
             </p>
 
             <p>
@@ -752,7 +803,7 @@ methods</a> using both properties above is shown below.
           <section>
             <h3>JsonWebKey</h3>
             <p>
-The JSON Web Key (JWK) data model is a specific type of <a>verification method</a>
+The JSON Web Key (JWK) is a specific type of <a>verification method</a>
 that uses the JWK specification [[RFC7517]] to encode key types into a
 set of parameters.
             </p>
@@ -774,18 +825,19 @@ It is RECOMMENDED that verification methods that use
 JWKs [[RFC7517]] to represent their <a>public keys</a> use the value of `kid` as
 their fragment identifier. It is RECOMMENDED that JWK `kid` values be set to
 the public key fingerprint [[RFC7638]]. See the first key in the example below
-for an instancee of a public key with a compound key identifier.
+for an instance of a public key with a compound key identifier.
               </dd>
               <dt><dfn class="lint-ignore">secretKeyJwk</dfn></dt>
               <dd>
 The `secretKeyJwk` property is OPTIONAL. If present, its value MUST be a <a
 data-cite="INFRA#ordered-map">map</a> representing a JSON Web Key that conforms
 to [[RFC7517]].
+It MUST NOT be used if the data structure containing it is public or may be revealed to parties other than the legitimate holders of the secret key.
               </dd>
             </dl>
 
             <p>
-An example of an object that conforms to this data model is provided below:
+An example of an object that conforms to `JsonWebKey` is provided below:
             </p>
 
             <pre class="example nohighlight" title="JSON Web Key encoding of a secp384r1 (P-384) public key">
@@ -820,11 +872,11 @@ associated with the public key.
 
             <p>
 The `publicKeyJwk` property MUST NOT contain any property marked as
-"Private" in any registry contained in the JOSE Registries [[JOSE-REGISTRIES]], including "d".
+"Private" or "Secret" in any registry contained in the JOSE Registries [[JOSE-REGISTRIES]], including "d".
             </p>
 
             <p>
-The JSON Web Key data model is also capable of encoding <em>secret keys</em>, sometimes
+JSON Web Key is also capable of encoding <em>secret keys</em>, sometimes
 referred to as <em>private keys</em>.
             </p>
 
@@ -922,7 +974,7 @@ considered invalid or revoked.
           <p>
 The following sections define several useful <a>verification relationships</a>.
 A <a>controller document</a> MAY include any of these, or other properties, to
-express a specific <a>verification relationship</a>. In order to maximize global
+express a specific <a>verification relationship</a>. To maximize global
 interoperability, any such properties used SHOULD be registered in the
 <a href="https://w3c.github.io/vc-specs-dir/#proof">VC Specifications Directory</a>.
           </p>
@@ -1030,71 +1082,14 @@ credential</a> by a verifier.
       </section>
       </section>
 
-    <section class="normative">
-      <h2>JOSE Header Parameters</h2>
-      <p>
-        The normative statements in <a data-cite="RFC7515#section-4.1">Registered Header Parameter
-          Names</a>
-        apply to securing credentials and presentations.
-      </p>
-      <p>
-        The normative statements in <a data-cite="RFC7519#section-5">JOSE Header</a>
-        apply to securing credentials and presentations.
-      </p>
-      <p>
-        The data model for the JOSE Header is JSON
-        (`application/json`), not JSON-LD (`application/ld+json`).
-      </p>
-      <p>
-        The normative statements in <a data-cite="RFC7519#section-5.3">Replicating Claims as Header
-          Parameters</a>
-        apply to securing claims about a credential subject.
-      </p>
-      <p>
-        When replicating claims from the JWT Claims Set to Header Parameters, it is
-        RECOMMENDED to use [[RFC7519]],
-	the IANA <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">JSON Web Token Claims</a> registry, and
-	the IANA <a href="https://www.iana.org/assignments/jose/jose.xhtml">JSON Web Signature and Encryption Header Parameters</a> registry
-        to identify any claims that might be confused with
-        members defined by the [[VC-DATA-MODEL]]. These include but are not
-        limited to: <code>iss</code>, <code>kid</code>,
-        <code>alg</code>, <code>iat</code>,
-        <code>exp</code>, and <code>cnf</code>.
-      </p>
-      <p>
-        When the <code>iat</code> and/or <code>exp</code> JWT claims are present,
-        they represent the issuance and expiration time of the signature, respectively.
-        Note that these are different from the <code>validFrom</code> and <code>validUntil</code> properties
-        defined in <a data-cite="VC-DATA-MODEL#validity-period">Validity Period</a>
-        that represent the validity of the data that is being secured.
-      </p>
-      <p>
-        The JWT Claim Names <code>vc</code> and <code>vp</code>
-        MUST NOT be present as header parameters.
-      </p>
-      <p>
-        When present, members of the header are to be interpreted and
-        processed according to the corresponding definitions found in
-	the IANA <a href="https://www.iana.org/assignments/jose/jose.xhtml">JSON Web
-	Signature and Encryption Header Parameters</a> registry and
-	the IANA <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">JSON Web
-	Token Claims</a> registry.
-      </p>
-      <p>
-        Additional members may be present. If they are not understood,
-        they MUST be ignored.
-      </p>
-    </section>
-  </section>
-
   <section id="conformance">
     <section class="normative">
       <h2>Securing Verifiable Credentials</h2>
-      <p>The <a data-cite="VC-DATA-MODEL#proof-formats"></a> describes the approach taken by JSON Web
+      <p>The <a data-cite="VC-DATA-MODEL-2.0#proof-formats"></a> describes the approach taken by JSON Web
         Tokens to secure JWT Claims Sets as <i>applying an
         <code>external proof</code></i>.
       </p>
-      <p>The normative statements in <a data-cite="VC-DATA-MODEL#securing-verifiable-credentials">Securing
+      <p>The normative statements in <a data-cite="VC-DATA-MODEL-2.0#securing-verifiable-credentials">Securing
           Verifiable Credentials</a> apply to securing
         <code>application/vc+ld+json</code> and
         <code>application/vp+ld+json</code>
@@ -1157,17 +1152,13 @@ credential</a> by a verifier.
       <p>
         Accordingly, Issuers, Holders, and Verifiers MUST understand the
         JSON Web Token header parameter
-        <code>"alg": "none"</code> when securing the [[VC-DATA-MODEL]]
+        <code>"alg": "none"</code> when securing [[VC-DATA-MODEL-2.0]]
         with JSON Web Tokens.
-      </p>
-      <p>
-        When content types from the [[VC-DATA-MODEL]] are secured using
+        When content types from [[VC-DATA-MODEL-2.0]] are secured using
         JSON Web Tokens, the header parameter <code>"alg": "none"</code>,
 	MUST be used to communicate that a JWT Claims Set (a
         Verifiable Credential or a Verifiable Presentation) has no
         integrity protection.
-      </p>
-      <p>
         When a JWT Claims Set (a Verifiable Credential or a
         Verifiable Presentation) contains
         <code>proof</code>, and the JSON Web Token header contains
@@ -1188,8 +1179,37 @@ credential</a> by a verifier.
         MUST NOT be present in any JWT Claims Set.
       </p>
     </section>
-  
-</section>
+
+  </section>
+
+  <section class="informative">
+    <h2>Wallets</h2>
+    <p>
+    <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">Issuers</a>,
+    <a data-cite="VC-DATA-MODEL-2.0#dfn-holders">Holders</a> and
+    <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">Verifiers</a> might rely on clients,
+    as defined in <a href="https://datatracker.ietf.org/doc/html/rfc4949">RFC4949</a>.
+    Such clients are often referred to as <i>wallets</i> or <i>digital credential wallets</i>,
+    when they support storing and presenting digital credentials.
+    </p>
+    <p>
+    To meet <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">Verifier</a> requirements, some
+    <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">Issuers</a> might need to assess the quality of a wallet used by a
+    <a data-cite="VC-DATA-MODEL-2.0#dfn-holders">Holder</a>, prior to issuing and
+    delivering credentials to a <a data-cite="VC-DATA-MODEL-2.0#dfn-holders">Holder</a>.
+    </p>
+    <p>
+    For example, some <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">Verifiers</a> might require that cryptographic material
+    associated with a <a data-cite="VC-DATA-MODEL-2.0#dfn-holders">Holder</a>, be protected at specific
+    assurance levels.
+    (See <a href="https://pages.nist.gov/800-63-3-Implementation-Resources/63B/AAL/">NIST 800-63-3: Authenticator Assurance Levels</a>.)
+    </p>
+    <p class="note">
+      Also see <a href="https://datatracker.ietf.org/doc/draft-looker-oauth-attestation-based-client-auth/">
+        OAuth 2.0 Attestation-Based Client Authentication
+      </a>.
+    </p>
+  </section>
 
   <section class="normative">
     <h2>IANA Considerations</h2>
@@ -1300,7 +1320,7 @@ credential</a> by a verifier.
       </p>
       <p>
         Implementers are advised to note and abide by all privacy
-        considerations called out in the [[VC-DATA-MODEL]].
+        considerations called out in [[VC-DATA-MODEL-2.0]].
       </p>
       <p>
         Implementers are additionally advised to reference the
@@ -1310,7 +1330,7 @@ credential</a> by a verifier.
       </p>
       <p>
         In addition to the privacy recommendations in the
-        [[VC-DATA-MODEL]], the following considerations are given:
+        [[VC-DATA-MODEL-2.0]], the following considerations are given:
       <ul>
         <li>
           <p>
@@ -1344,7 +1364,7 @@ credential</a> by a verifier.
         These considerations are not exhaustive, and implementers and
         users are advised to consult additional privacy resources and
         best practices to ensure the privacy and security of Verifiable
-        Credentials implemented using VC-JWT.
+        Credentials implemented using this specification.
       </p>
     </section>
     <section>
@@ -1353,10 +1373,10 @@ credential</a> by a verifier.
         This section outlines security considerations for implementers
         and users of this specification. It is important to carefully
         consider these factors to ensure the security and integrity of
-        Verifiable Credentials when implemented using JWTs.
+        Verifiable Credentials when implemented using JOSE or COSE.
       </p>
       <p>
-        When implementing VC-JWTs, it is essential to address all
+        When implementing this specification, it is essential to address all
         security issues relevant to broad cryptographic applications.
         This especially includes protecting the user's asymmetric
         private and symmetric secret keys, as well as employing
@@ -1373,8 +1393,8 @@ credential</a> by a verifier.
         any vulnerabilities or threats.
       </p>
       <p>
-        Follow all security considerations outlined in [[rfc7515]] and
-        [[rfc7519]].
+        Follow all security considerations outlined in [[RFC7515]] and
+        [[RFC7519]].
       </p>
       <p>
         When utilizing JSON-LD, take special care around remote
@@ -1382,14 +1402,14 @@ credential</a> by a verifier.
         considerations noted in [[json-ld11]].
       </p>
       <p>
-        As noted in [[rfc7515]] when utilizing JSON [[rfc7159]], strict
+        As noted in [[RFC7515]] when utilizing JSON [[RFC7159]], strict
         validation is a security requirement. If malformed JSON is
         received, it may be impossible to reliably interpret the
         producer's intent, potentially leading to ambiguous or
         exploitable situations. To prevent these risks, it is essential
         to use a JSON parser that strictly validates the syntax of all
         input data. It is essential that any JSON inputs that do not
-        conform to the JSON-text syntax defined in [[rfc7159]] be
+        conform to the JSON-text syntax defined in [[RFC7159]] be
         rejected in their entirety by JSON parsers. Failure to reject
         invalid input could compromise the security and integrity of
         Verifiable Credentials.
@@ -1411,7 +1431,7 @@ credential</a> by a verifier.
       </p>
       <p>
         Implementers are advised to note and abide by all accessibility
-        considerations called out in the [[VC-DATA-MODEL]].
+        considerations called out in [[VC-DATA-MODEL-2.0]].
       </p>
     </section>
   </section>
