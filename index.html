@@ -1179,8 +1179,14 @@ credential</a> by a verifier.
         required to be secured or integrity protected or to contain a
         <code>proof</code> member.
       </p>
-      <p>Issuers, Holders, and Verifiers MUST ignore all JWT Claims Sets that
-        have no integrity protection.</p>
+      <p>
+        Issuers, Holders, and Verifiers MUST ignore all JWT Claims Sets that
+        have no integrity protection.
+      </p>
+      <p>
+        The JWT Claim Names <code>vc</code> and <code>vp</code>
+        MUST NOT be present in any JWT Claims Set.
+      </p>
     </section>
   
 </section>
