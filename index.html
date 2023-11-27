@@ -1641,6 +1641,24 @@ data:application/vp+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvO
       <p class="issue" data-number="174">
 TODO add COSE Sign1 detached payload examples
       </p>
+
+      <pre class="example" title="A COSE Sign 1 with a Detached Payload">
+18(                                 / COSE Sign 1                   /
+    [
+      h'a4013822...3a343536',       / Protected                     /
+      {                             / Unprotected                   /
+        -333: [                     / Receipts (1)                  /
+          h'd284584e...6b6f3c77'    / Receipt 1                     /
+        ]
+      },
+      nil,                          / Detached payload              /
+      h'09772c7f...5c4e736f'        / Signature                     /
+    ]
+)
+      </pre>
+
+      The detached payload can be either a credential or presentation as described in 
+      <a data-cite="VC-DATA-MODEL-2.0#securing-verifiable-credentials">Securing Verifiable Credentials</a>.
     </section>
   </section>
   </section>
