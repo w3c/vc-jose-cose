@@ -222,7 +222,7 @@
     <p>
       The most specific media type (or subtype) available SHOULD be used, instead of
       more generic media types (or supertypes). For example, rather than the general
-      <code>application/sd-jwt</code>, <code>application/vc+ld+json+sd-jwt</code>
+      <code>application/sd-jwt</code>, <code>application/vc2+sd-jwt</code>
       ought to be used, unless there is a more specific media type that would even
       better identify the secured envelope format.
     </p>
@@ -239,7 +239,7 @@
         </p>
         <p>[[rfc7515]] MAY be used to secure this media type.</p>
         <p>
-          The <code>typ</code> parameter SHOULD be <code>vc+ld+json+sd-jwt</code>
+          The <code>typ</code> parameter SHOULD be present and understood by issuers and verifiers.
         </p>
         <p>
           When present, the <code>cty</code> SHOULD be
@@ -289,8 +289,7 @@
           to the [[VC-DATA-MODEL]].
         </p>
         <p>[[RFC7515]] MAY be used to secure this media type.</p>
-        <p>The <code>typ</code> parameter SHOULD be
-          <code>vp+ld+json+sd-jwt</code>
+        <p>The <code>typ</code> parameter SHOULD be present and understood by issuers and verifiers.
         </p>
         <p>When present, the <code>cty</code> parameter SHOULD be
           <code>vp+ld+json</code>
@@ -1097,9 +1096,7 @@ credential</a> by a verifier.
       <p>The normative statements in <a data-cite="VC-DATA-MODEL#securing-verifiable-credentials">Securing
           Verifiable Credentials</a> apply to securing
         <code>application/vc+ld+json</code> and
-        <code>application/vp+ld+json</code>
-        as <code>application/vc+ld+json+sd-jwt</code> and
-        <code>application/vp+ld+json+sd-jwt</code>.
+        <code>application/vp+ld+json</code>.
       </p>
       <p>For clarity, these requirements are repeated here:</p>
       <ul>
@@ -1192,98 +1189,7 @@ credential</a> by a verifier.
 </section>
 
   <section class="normative">
-    <h2>IANA Considerations</h2>
-
-    <section>
-    <h2>Media Types</h2>
-    <section id="vc-ld-sd-jwt-media-type">
-      <h2><code>application/vc+ld+json+sd-jwt</code></h2>
-      <p>
-        This specification registers the
-        <code>application/vc+ld+json+sd-jwt</code> Media Type specifically for
-        identifying a <a data-cite="SD-JWT"></a>
-        conforming to the Verifiable Credential Data Model.
-      </p>
-      <table>
-        <tr>
-          <td>Type name: </td>
-          <td>`application`</td>
-        </tr>
-        <tr>
-          <td>Subtype name: </td>
-          <td>`vc+ld+json+sd-jwt`</td>
-        </tr>
-        <tr>
-          <td>Required parameters: </td>
-          <td>None</td>
-        </tr>
-        <tr>
-          <td>Encoding considerations: </td>
-          <td>
-            binary; `application/sd-jwt` values are a series of base64url-encoded values 
-            (some of which may be the empty string) separated by period ('.') or tilde ('~') characters.
-          </td>
-        </tr>
-        <tr>
-          <td>Security considerations: </td>
-          <td>
-            <p>As defined in this specification. See also the security
-            considerations in <a data-cite="SD-JWT"></a>.</p>
-          </td>
-        </tr>
-        <tr>
-          <td>Contact: </td>
-          <td>
-            W3C Verifiable Credentials Working Group <a
-            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-          </td>
-        </tr>
-      </table>
-    </section>
-    <section id="vp-ld-sd-jwt-media-type">
-      <h2><code>application/vp+ld+json+sd-jwt</code></h2>
-      <p>
-        This specification registers the
-        <code>application/vp+ld+json+sd-jwt</code> Media Type specifically for
-        identifying a <a data-cite="SD-JWT"></a>
-        conforming to the Verifiable Presentations.
-      </p>
-      <table>
-        <tr>
-          <td>Type name: </td>
-          <td>application</td>
-        </tr>
-        <tr>
-          <td>Subtype name: </td>
-          <td>vp+ld+json+sd-jwt</td>
-        </tr>
-        <tr>
-          <td>Required parameters: </td>
-          <td>None</td>
-        </tr>
-        <tr>
-          <td>Encoding considerations: </td>
-          <td>
-            binary; `application/sd-jwt` values are a series of base64url-encoded values 
-            (some of which may be the empty string) separated by period ('.') or tilde ('~') characters.
-          </td>
-        </tr>
-        <tr>
-          <td>Security considerations: </td>
-          <td>
-            <p>As defined in this specification. See also the security
-            considerations in <a data-cite="SD-JWT"></a>.</p>
-          </td>
-        </tr>
-        <tr>
-          <td>Contact: </td>
-          <td>
-            W3C Verifiable Credentials Working Group <a
-            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-          </td>
-        </tr>
-      </table>
-    </section>
+    <h2>IANA Considerations</h2>  
   </section>
   
 </section>
@@ -1616,7 +1522,7 @@ credential</a> by a verifier.
     "did:example:123",
     "urn:uuid:01ec9426-c175-4e39-a006-d30050e28214",
     "urn:ietf:params:oauth:jwk-thumbprint:sha-256:_Fpfe27AuGmEljZE9s2lw2UH-qrZLRFNrWbJrWIe4SI",
-    "data:application/vc+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT09OUFFVQUw3RWdaLWtJNl94ajlvUkV2WDF4T3ciLCJ0eXAiOiJ2YytsZCtqc29uK3NkLWp3dCIsImN0eSI6InZjK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaXNzdWVyIjoiaHR0cHM6Ly91bml2ZXJzaXR5LmV4YW1wbGUvaXNzdWVycy81NjUwNDkiLCJ2YWxpZEZyb20iOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTY2hlbWEiOnsiX3NkIjpbIkU3dU1sSWFyS29iYXJTdEZGRjctZm5qaV9sQVdnM3BGMkV5dVc4dWFYakUiLCJYelRaSVgyNGdDSWxSQVFHclFoNU5FRm1XWkQtZ3Z3dkIybzB5Y0FwNFZzIl19LCJjcmVkZW50aWFsU3ViamVjdCI6eyJkZWdyZWUiOnsibmFtZSI6IkJhY2hlbG9yIG9mIFNjaWVuY2UgYW5kIEFydHMiLCJfc2QiOlsiT3oxUEZIMG0tWk9TdEhwUVZyeGlmVlpKRzhvNmlQQmNnLVZ2SXQwd2plcyJdfSwiX3NkIjpbIkVZQ1daMTZZMHB5X1VNNzRHU3NVYU9zT19mdDExTlVSaFFUTS1TT1lFTVEiXX0sIl9zZCI6WyJqT055NnZUbGNvVlAzM25oSTdERGN3ekVka3d2R3VVRXlLUjdrWEVLd3VVIiwid21BdHpwc0dRbDJveS1PY2JrSEVZcE8xb3BoX3VYcWVWVTRKekF0aFFibyJdLCJfc2RfYWxnIjoic2hhLTI1NiIsImlzcyI6Imh0dHBzOi8vdW5pdmVyc2l0eS5leGFtcGxlL2lzc3VlcnMvNTY1MDQ5IiwiaWF0IjoxNjk3Mjg5OTk2LCJleHAiOjE3Mjg5MTIzOTYsImNuZiI6eyJqd2siOnsia3R5IjoiRUMiLCJjcnYiOiJQLTM4NCIsImFsZyI6IkVTMzg0IiwieCI6InZFdV84WGxZT0ZFU2hTcVRpZ2JSYWduZ0ZGM1p5U0xrclNHekh3azFBT1loanhlazVhV21HY2UwZU05S0pWOEIiLCJ5IjoiRUpNY2czWXBzUTB3M2RLNHlVa25QczE1Z0lsY2Yyay03dzFKLTNlYlBiOERENmQtUkhBeGUwMDkzSWpfdTRCOSJ9fX0.rYzbxb6j1dwop8_s491iArVVJNm6A6C3b742gOm_qYO3zdkyQU4_VxxOSJ8ECcmWj2r5KyiCNC1ojfO4Yms-zBsjt7PoMYpYWBplsqXpiIvnehmM7D0eOLi40uHXki0X~WyJSWTg1YTZNMmEwX3VDWlFTVGZmTFdRIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~WyJMeG5GYTBXVm8wRUluVy1QdS1fd1dRIiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyJUQVdrakpCaVpxdC1rVU54X1EweUJBIiwgImlkIiwgImh0dHBzOi8vZXhhbXBsZS5vcmcvZXhhbXBsZXMvZGVncmVlLmpzb24iXQ~WyJTd2xuZFpPZzZEZ1ZERFp5X0RvYVFBIiwgInR5cGUiLCAiSnNvblNjaGVtYSJd~WyJuSnJlU3E1Nzg3RGZMSDJCbU03cXFRIiwgImlkIiwgImRpZDpleGFtcGxlOjEyMyJd~WyIxMjNNd3hNcHRiek02YUk2aW03ME1RIiwgInR5cGUiLCAiQmFjaGVsb3JEZWdyZWUiXQ"
+    "data:application/sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT09OUFFVQUw3RWdaLWtJNl94ajlvUkV2WDF4T3ciLCJ0eXAiOiJ2YytsZCtqc29uK3NkLWp3dCIsImN0eSI6InZjK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaXNzdWVyIjoiaHR0cHM6Ly91bml2ZXJzaXR5LmV4YW1wbGUvaXNzdWVycy81NjUwNDkiLCJ2YWxpZEZyb20iOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTY2hlbWEiOnsiX3NkIjpbIkU3dU1sSWFyS29iYXJTdEZGRjctZm5qaV9sQVdnM3BGMkV5dVc4dWFYakUiLCJYelRaSVgyNGdDSWxSQVFHclFoNU5FRm1XWkQtZ3Z3dkIybzB5Y0FwNFZzIl19LCJjcmVkZW50aWFsU3ViamVjdCI6eyJkZWdyZWUiOnsibmFtZSI6IkJhY2hlbG9yIG9mIFNjaWVuY2UgYW5kIEFydHMiLCJfc2QiOlsiT3oxUEZIMG0tWk9TdEhwUVZyeGlmVlpKRzhvNmlQQmNnLVZ2SXQwd2plcyJdfSwiX3NkIjpbIkVZQ1daMTZZMHB5X1VNNzRHU3NVYU9zT19mdDExTlVSaFFUTS1TT1lFTVEiXX0sIl9zZCI6WyJqT055NnZUbGNvVlAzM25oSTdERGN3ekVka3d2R3VVRXlLUjdrWEVLd3VVIiwid21BdHpwc0dRbDJveS1PY2JrSEVZcE8xb3BoX3VYcWVWVTRKekF0aFFibyJdLCJfc2RfYWxnIjoic2hhLTI1NiIsImlzcyI6Imh0dHBzOi8vdW5pdmVyc2l0eS5leGFtcGxlL2lzc3VlcnMvNTY1MDQ5IiwiaWF0IjoxNjk3Mjg5OTk2LCJleHAiOjE3Mjg5MTIzOTYsImNuZiI6eyJqd2siOnsia3R5IjoiRUMiLCJjcnYiOiJQLTM4NCIsImFsZyI6IkVTMzg0IiwieCI6InZFdV84WGxZT0ZFU2hTcVRpZ2JSYWduZ0ZGM1p5U0xrclNHekh3azFBT1loanhlazVhV21HY2UwZU05S0pWOEIiLCJ5IjoiRUpNY2czWXBzUTB3M2RLNHlVa25QczE1Z0lsY2Yyay03dzFKLTNlYlBiOERENmQtUkhBeGUwMDkzSWpfdTRCOSJ9fX0.rYzbxb6j1dwop8_s491iArVVJNm6A6C3b742gOm_qYO3zdkyQU4_VxxOSJ8ECcmWj2r5KyiCNC1ojfO4Yms-zBsjt7PoMYpYWBplsqXpiIvnehmM7D0eOLi40uHXki0X~WyJSWTg1YTZNMmEwX3VDWlFTVGZmTFdRIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~WyJMeG5GYTBXVm8wRUluVy1QdS1fd1dRIiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyJUQVdrakpCaVpxdC1rVU54X1EweUJBIiwgImlkIiwgImh0dHBzOi8vZXhhbXBsZS5vcmcvZXhhbXBsZXMvZGVncmVlLmpzb24iXQ~WyJTd2xuZFpPZzZEZ1ZERFp5X0RvYVFBIiwgInR5cGUiLCAiSnNvblNjaGVtYSJd~WyJuSnJlU3E1Nzg3RGZMSDJCbU03cXFRIiwgImlkIiwgImRpZDpleGFtcGxlOjEyMyJd~WyIxMjNNd3hNcHRiek02YUk2aW03ME1RIiwgInR5cGUiLCAiQmFjaGVsb3JEZWdyZWUiXQ"
   ]
 }
       </pre>
@@ -1626,11 +1532,11 @@ credential</a> by a verifier.
     <section>
       <h3>Data URIs</h3>
       <pre class="example" title="A simple URI-encoded Verifiable Credential">
-data:application/vc+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT09OUFFVQUw3RWdaLWtJNl94ajlvUkV2WDF4T3ciLCJ0eXAiOiJ2YytsZCtqc29uK3NkLWp3dCIsImN0eSI6InZjK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaXNzdWVyIjoiaHR0cHM6Ly91bml2ZXJzaXR5LmV4YW1wbGUvaXNzdWVycy81NjUwNDkiLCJ2YWxpZEZyb20iOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTY2hlbWEiOnsiX3NkIjpbIkU3dU1sSWFyS29iYXJTdEZGRjctZm5qaV9sQVdnM3BGMkV5dVc4dWFYakUiLCJYelRaSVgyNGdDSWxSQVFHclFoNU5FRm1XWkQtZ3Z3dkIybzB5Y0FwNFZzIl19LCJjcmVkZW50aWFsU3ViamVjdCI6eyJkZWdyZWUiOnsibmFtZSI6IkJhY2hlbG9yIG9mIFNjaWVuY2UgYW5kIEFydHMiLCJfc2QiOlsiT3oxUEZIMG0tWk9TdEhwUVZyeGlmVlpKRzhvNmlQQmNnLVZ2SXQwd2plcyJdfSwiX3NkIjpbIkVZQ1daMTZZMHB5X1VNNzRHU3NVYU9zT19mdDExTlVSaFFUTS1TT1lFTVEiXX0sIl9zZCI6WyJqT055NnZUbGNvVlAzM25oSTdERGN3ekVka3d2R3VVRXlLUjdrWEVLd3VVIiwid21BdHpwc0dRbDJveS1PY2JrSEVZcE8xb3BoX3VYcWVWVTRKekF0aFFibyJdLCJfc2RfYWxnIjoic2hhLTI1NiIsImlzcyI6Imh0dHBzOi8vdW5pdmVyc2l0eS5leGFtcGxlL2lzc3VlcnMvNTY1MDQ5IiwiaWF0IjoxNjk3Mjg5OTk2LCJleHAiOjE3Mjg5MTIzOTYsImNuZiI6eyJqd2siOnsia3R5IjoiRUMiLCJjcnYiOiJQLTM4NCIsImFsZyI6IkVTMzg0IiwieCI6InZFdV84WGxZT0ZFU2hTcVRpZ2JSYWduZ0ZGM1p5U0xrclNHekh3azFBT1loanhlazVhV21HY2UwZU05S0pWOEIiLCJ5IjoiRUpNY2czWXBzUTB3M2RLNHlVa25QczE1Z0lsY2Yyay03dzFKLTNlYlBiOERENmQtUkhBeGUwMDkzSWpfdTRCOSJ9fX0.rYzbxb6j1dwop8_s491iArVVJNm6A6C3b742gOm_qYO3zdkyQU4_VxxOSJ8ECcmWj2r5KyiCNC1ojfO4Yms-zBsjt7PoMYpYWBplsqXpiIvnehmM7D0eOLi40uHXki0X~WyJSWTg1YTZNMmEwX3VDWlFTVGZmTFdRIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~WyJMeG5GYTBXVm8wRUluVy1QdS1fd1dRIiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyJUQVdrakpCaVpxdC1rVU54X1EweUJBIiwgImlkIiwgImh0dHBzOi8vZXhhbXBsZS5vcmcvZXhhbXBsZXMvZGVncmVlLmpzb24iXQ~WyJTd2xuZFpPZzZEZ1ZERFp5X0RvYVFBIiwgInR5cGUiLCAiSnNvblNjaGVtYSJd~WyJuSnJlU3E1Nzg3RGZMSDJCbU03cXFRIiwgImlkIiwgImRpZDpleGFtcGxlOjEyMyJd~WyIxMjNNd3hNcHRiek02YUk2aW03ME1RIiwgInR5cGUiLCAiQmFjaGVsb3JEZWdyZWUiXQ
+data:application/sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT09OUFFVQUw3RWdaLWtJNl94ajlvUkV2WDF4T3ciLCJ0eXAiOiJ2YytsZCtqc29uK3NkLWp3dCIsImN0eSI6InZjK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaXNzdWVyIjoiaHR0cHM6Ly91bml2ZXJzaXR5LmV4YW1wbGUvaXNzdWVycy81NjUwNDkiLCJ2YWxpZEZyb20iOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTY2hlbWEiOnsiX3NkIjpbIkU3dU1sSWFyS29iYXJTdEZGRjctZm5qaV9sQVdnM3BGMkV5dVc4dWFYakUiLCJYelRaSVgyNGdDSWxSQVFHclFoNU5FRm1XWkQtZ3Z3dkIybzB5Y0FwNFZzIl19LCJjcmVkZW50aWFsU3ViamVjdCI6eyJkZWdyZWUiOnsibmFtZSI6IkJhY2hlbG9yIG9mIFNjaWVuY2UgYW5kIEFydHMiLCJfc2QiOlsiT3oxUEZIMG0tWk9TdEhwUVZyeGlmVlpKRzhvNmlQQmNnLVZ2SXQwd2plcyJdfSwiX3NkIjpbIkVZQ1daMTZZMHB5X1VNNzRHU3NVYU9zT19mdDExTlVSaFFUTS1TT1lFTVEiXX0sIl9zZCI6WyJqT055NnZUbGNvVlAzM25oSTdERGN3ekVka3d2R3VVRXlLUjdrWEVLd3VVIiwid21BdHpwc0dRbDJveS1PY2JrSEVZcE8xb3BoX3VYcWVWVTRKekF0aFFibyJdLCJfc2RfYWxnIjoic2hhLTI1NiIsImlzcyI6Imh0dHBzOi8vdW5pdmVyc2l0eS5leGFtcGxlL2lzc3VlcnMvNTY1MDQ5IiwiaWF0IjoxNjk3Mjg5OTk2LCJleHAiOjE3Mjg5MTIzOTYsImNuZiI6eyJqd2siOnsia3R5IjoiRUMiLCJjcnYiOiJQLTM4NCIsImFsZyI6IkVTMzg0IiwieCI6InZFdV84WGxZT0ZFU2hTcVRpZ2JSYWduZ0ZGM1p5U0xrclNHekh3azFBT1loanhlazVhV21HY2UwZU05S0pWOEIiLCJ5IjoiRUpNY2czWXBzUTB3M2RLNHlVa25QczE1Z0lsY2Yyay03dzFKLTNlYlBiOERENmQtUkhBeGUwMDkzSWpfdTRCOSJ9fX0.rYzbxb6j1dwop8_s491iArVVJNm6A6C3b742gOm_qYO3zdkyQU4_VxxOSJ8ECcmWj2r5KyiCNC1ojfO4Yms-zBsjt7PoMYpYWBplsqXpiIvnehmM7D0eOLi40uHXki0X~WyJSWTg1YTZNMmEwX3VDWlFTVGZmTFdRIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~WyJMeG5GYTBXVm8wRUluVy1QdS1fd1dRIiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyJUQVdrakpCaVpxdC1rVU54X1EweUJBIiwgImlkIiwgImh0dHBzOi8vZXhhbXBsZS5vcmcvZXhhbXBsZXMvZGVncmVlLmpzb24iXQ~WyJTd2xuZFpPZzZEZ1ZERFp5X0RvYVFBIiwgInR5cGUiLCAiSnNvblNjaGVtYSJd~WyJuSnJlU3E1Nzg3RGZMSDJCbU03cXFRIiwgImlkIiwgImRpZDpleGFtcGxlOjEyMyJd~WyIxMjNNd3hNcHRiek02YUk2aW03ME1RIiwgInR5cGUiLCAiQmFjaGVsb3JEZWdyZWUiXQ
       </pre>
 
       <pre class="example" title="A simple URI-encoded Verifiable Presentation">
-data:application/vp+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT09OUFFVQUw3RWdaLWtJNl94ajlvUkV2WDF4T3ciLCJ0eXAiOiJ2YytsZCtqc29uK3NkLWp3dCIsImN0eSI6InZjK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaXNzdWVyIjoiaHR0cHM6Ly91bml2ZXJzaXR5LmV4YW1wbGUvaXNzdWVycy81NjUwNDkiLCJ2YWxpZEZyb20iOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTY2hlbWEiOnsiX3NkIjpbIkU3dU1sSWFyS29iYXJTdEZGRjctZm5qaV9sQVdnM3BGMkV5dVc4dWFYakUiLCJYelRaSVgyNGdDSWxSQVFHclFoNU5FRm1XWkQtZ3Z3dkIybzB5Y0FwNFZzIl19LCJjcmVkZW50aWFsU3ViamVjdCI6eyJkZWdyZWUiOnsibmFtZSI6IkJhY2hlbG9yIG9mIFNjaWVuY2UgYW5kIEFydHMiLCJfc2QiOlsiT3oxUEZIMG0tWk9TdEhwUVZyeGlmVlpKRzhvNmlQQmNnLVZ2SXQwd2plcyJdfSwiX3NkIjpbIkVZQ1daMTZZMHB5X1VNNzRHU3NVYU9zT19mdDExTlVSaFFUTS1TT1lFTVEiXX0sIl9zZCI6WyJqT055NnZUbGNvVlAzM25oSTdERGN3ekVka3d2R3VVRXlLUjdrWEVLd3VVIiwid21BdHpwc0dRbDJveS1PY2JrSEVZcE8xb3BoX3VYcWVWVTRKekF0aFFibyJdLCJfc2RfYWxnIjoic2hhLTI1NiIsImlzcyI6Imh0dHBzOi8vdW5pdmVyc2l0eS5leGFtcGxlL2lzc3VlcnMvNTY1MDQ5IiwiaWF0IjoxNjk3Mjg5OTk2LCJleHAiOjE3Mjg5MTIzOTYsImNuZiI6eyJqd2siOnsia3R5IjoiRUMiLCJjcnYiOiJQLTM4NCIsImFsZyI6IkVTMzg0IiwieCI6InZFdV84WGxZT0ZFU2hTcVRpZ2JSYWduZ0ZGM1p5U0xrclNHekh3azFBT1loanhlazVhV21HY2UwZU05S0pWOEIiLCJ5IjoiRUpNY2czWXBzUTB3M2RLNHlVa25QczE1Z0lsY2Yyay03dzFKLTNlYlBiOERENmQtUkhBeGUwMDkzSWpfdTRCOSJ9fX0.rYzbxb6j1dwop8_s491iArVVJNm6A6C3b742gOm_qYO3zdkyQU4_VxxOSJ8ECcmWj2r5KyiCNC1ojfO4Yms-zBsjt7PoMYpYWBplsqXpiIvnehmM7D0eOLi40uHXki0X~WyJTd2xuZFpPZzZEZ1ZERFp5X0RvYVFBIiwgInR5cGUiLCAiSnNvblNjaGVtYSJd~WyIxMjNNd3hNcHRiek02YUk2aW03ME1RIiwgInR5cGUiLCAiQmFjaGVsb3JEZWdyZWUiXQ~WyJMeG5GYTBXVm8wRUluVy1QdS1fd1dRIiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyJSWTg1YTZNMmEwX3VDWlFTVGZmTFdRIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~eyJhbGciOiJFUzM4NCIsInR5cCI6ImtiK2p3dCJ9.eyJub25jZSI6IkVmeTROTFJPX3ZvSkszdDIzcUNfQlEiLCJhdWQiOiJodHRwczovL3ZlcmlmaWVyLmV4YW1wbGUiLCJpYXQiOjE2OTcyODk5OTZ9.6G-1nVcrDKFzR6BdbcFHcbtassEb8NZ7ZavTYz3SJ-e4pXleXs0tNcCkUCwMI70gsuOY0AXzeDPbHjp5GKyLDVuNWgWCt3Wo2VSaCwUkyfLyvhkCsmkF9kvFhMIOhp1i
+data:application/sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT09OUFFVQUw3RWdaLWtJNl94ajlvUkV2WDF4T3ciLCJ0eXAiOiJ2YytsZCtqc29uK3NkLWp3dCIsImN0eSI6InZjK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaXNzdWVyIjoiaHR0cHM6Ly91bml2ZXJzaXR5LmV4YW1wbGUvaXNzdWVycy81NjUwNDkiLCJ2YWxpZEZyb20iOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTY2hlbWEiOnsiX3NkIjpbIkU3dU1sSWFyS29iYXJTdEZGRjctZm5qaV9sQVdnM3BGMkV5dVc4dWFYakUiLCJYelRaSVgyNGdDSWxSQVFHclFoNU5FRm1XWkQtZ3Z3dkIybzB5Y0FwNFZzIl19LCJjcmVkZW50aWFsU3ViamVjdCI6eyJkZWdyZWUiOnsibmFtZSI6IkJhY2hlbG9yIG9mIFNjaWVuY2UgYW5kIEFydHMiLCJfc2QiOlsiT3oxUEZIMG0tWk9TdEhwUVZyeGlmVlpKRzhvNmlQQmNnLVZ2SXQwd2plcyJdfSwiX3NkIjpbIkVZQ1daMTZZMHB5X1VNNzRHU3NVYU9zT19mdDExTlVSaFFUTS1TT1lFTVEiXX0sIl9zZCI6WyJqT055NnZUbGNvVlAzM25oSTdERGN3ekVka3d2R3VVRXlLUjdrWEVLd3VVIiwid21BdHpwc0dRbDJveS1PY2JrSEVZcE8xb3BoX3VYcWVWVTRKekF0aFFibyJdLCJfc2RfYWxnIjoic2hhLTI1NiIsImlzcyI6Imh0dHBzOi8vdW5pdmVyc2l0eS5leGFtcGxlL2lzc3VlcnMvNTY1MDQ5IiwiaWF0IjoxNjk3Mjg5OTk2LCJleHAiOjE3Mjg5MTIzOTYsImNuZiI6eyJqd2siOnsia3R5IjoiRUMiLCJjcnYiOiJQLTM4NCIsImFsZyI6IkVTMzg0IiwieCI6InZFdV84WGxZT0ZFU2hTcVRpZ2JSYWduZ0ZGM1p5U0xrclNHekh3azFBT1loanhlazVhV21HY2UwZU05S0pWOEIiLCJ5IjoiRUpNY2czWXBzUTB3M2RLNHlVa25QczE1Z0lsY2Yyay03dzFKLTNlYlBiOERENmQtUkhBeGUwMDkzSWpfdTRCOSJ9fX0.rYzbxb6j1dwop8_s491iArVVJNm6A6C3b742gOm_qYO3zdkyQU4_VxxOSJ8ECcmWj2r5KyiCNC1ojfO4Yms-zBsjt7PoMYpYWBplsqXpiIvnehmM7D0eOLi40uHXki0X~WyJTd2xuZFpPZzZEZ1ZERFp5X0RvYVFBIiwgInR5cGUiLCAiSnNvblNjaGVtYSJd~WyIxMjNNd3hNcHRiek02YUk2aW03ME1RIiwgInR5cGUiLCAiQmFjaGVsb3JEZWdyZWUiXQ~WyJMeG5GYTBXVm8wRUluVy1QdS1fd1dRIiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyJSWTg1YTZNMmEwX3VDWlFTVGZmTFdRIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~eyJhbGciOiJFUzM4NCIsInR5cCI6ImtiK2p3dCJ9.eyJub25jZSI6IkVmeTROTFJPX3ZvSkszdDIzcUNfQlEiLCJhdWQiOiJodHRwczovL3ZlcmlmaWVyLmV4YW1wbGUiLCJpYXQiOjE2OTcyODk5OTZ9.6G-1nVcrDKFzR6BdbcFHcbtassEb8NZ7ZavTYz3SJ-e4pXleXs0tNcCkUCwMI70gsuOY0AXzeDPbHjp5GKyLDVuNWgWCt3Wo2VSaCwUkyfLyvhkCsmkF9kvFhMIOhp1i
       </pre>
     </section>
 
