@@ -98,14 +98,14 @@
       localBiblio:  {
         "SD-JWT": {
           title:    "Selective Disclosure for JWTs (SD-JWT)",
-          href:     "https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-05",
+          href:     "https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt",
           authors:  [ "Daniel Fett" , "Kristina Yasuda" , "Brian Campbell"],
           status:   "Internet-Draft",
           publisher:  "IETF"
         },
         "SD-JWT-VC": {
           title:    "SD-JWT-based Verifiable Credentials (SD-JWT VC)",
-          href:     "https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-00",
+          href:     "https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc",
           authors:  [ "Oliver Terbu", "Daniel Fett" ],
           status:   "Internet-Draft",
           publisher:  "IETF"
@@ -237,7 +237,7 @@
           This section details how to use JOSE to secure verifiable credentials conforming
           to the [[VC-DATA-MODEL]].
         </p>
-        <p>[[rfc7515]] MAY be used to secure this media type.</p>
+        <p>[[RFC7515]] MAY be used to secure this media type.</p>
         <p>
           The <code>typ</code> parameter SHOULD be <code>vc+ld+json+sd-jwt</code>
         </p>
@@ -380,7 +380,7 @@ to ensure any addition JSON members are understood consistently.
     <a data-cite="VC-DATA-MODEL#dfn-issuers">Issuers</a>,
     <a data-cite="VC-DATA-MODEL#dfn-holders">holders</a> and 
     <a data-cite="VC-DATA-MODEL#dfn-verifier">verifiers</a> might rely on clients, 
-    as defined in <a href="https://datatracker.ietf.org/doc/html/rfc4949">RFC4949</a>.
+    as defined in [[RFC4949]].
     Such clients are often referred to as <i>wallets</i> or <i>digital credential wallets</i>,
     when they support storing and presenting digital credentials.
     </p>
@@ -397,7 +397,7 @@ to ensure any addition JSON members are understood consistently.
     (See <a href="https://pages.nist.gov/800-63-3-Implementation-Resources/63B/AAL/">NIST 800-63-3: Authenticator Assurance Levels</a>.)
     </p>
     <p class="note">
-      Also see <a href="https://datatracker.ietf.org/doc/draft-looker-oauth-attestation-based-client-auth/">
+      Also see <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-attestation-based-client-auth">
         OAuth 2.0 Attestation-Based Client Authentication
       </a>.
     </p>
@@ -489,11 +489,11 @@ to ensure any addition JSON members are understood consistently.
       
       <p>
         When <a href="#iss">iss</a> is present, and is a [[URL]], 
-        the <a href="#kid">kid</a> MUST match a key discovered via <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-00#name-jwt-issuer-metadata">JWT Issuer Metadata Request</a>
+        the <a href="#kid">kid</a> MUST match a key discovered via <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc#name-jwt-issuer-metadata">JWT Issuer Metadata Request</a>.
       </p>
 
       <p class="issue" title="(AT RISK) Feature depends on demonstration of independent implementations" data-number="160">
-        This normative statement depends on an <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-00#name-jwt-issuer-metadata">IETF OAUTH WG Adopted</a> draft.
+        This normative statement depends on an <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc">IETF OAUTH working group adopted</a> draft.
         This feature is at risk and will be removed from the specification if at least
         two independent, interoperable implementations are not demonstrated.
       </p>
@@ -566,7 +566,7 @@ to ensure any addition JSON members are understood consistently.
       If <code>cnf</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>
       or the <a data-cite="RFC7519#section-4.1.1">JWT Claims </a>,
       a <a data-cite="VC-DATA-MODEL#dfn-verifier">verifier</a> MAY use this parameter
-      to identify a proof-of-possession key in the manner described in [[rfc7800]] for use in the
+      to identify a proof-of-possession key in the manner described in [[RFC7800]] for use in the
       <a data-cite="VC-DATA-MODEL#dfn-verify">verification</a> process.
         </p>
       </section>
@@ -1373,8 +1373,8 @@ credential</a> by a verifier.
         any vulnerabilities or threats.
       </p>
       <p>
-        Follow all security considerations outlined in [[rfc7515]] and
-        [[rfc7519]].
+        Follow all security considerations outlined in [[RFC7515]] and
+        [[RFC7519]].
       </p>
       <p>
         When utilizing JSON-LD, take special care around remote
@@ -1382,14 +1382,14 @@ credential</a> by a verifier.
         considerations noted in [[json-ld11]].
       </p>
       <p>
-        As noted in [[rfc7515]] when utilizing JSON [[rfc7159]], strict
+        As noted in [[RFC7515]] when utilizing JSON [[RFC7159]], strict
         validation is a security requirement. If malformed JSON is
         received, it may be impossible to reliably interpret the
         producer's intent, potentially leading to ambiguous or
         exploitable situations. To prevent these risks, it is essential
         to use a JSON parser that strictly validates the syntax of all
         input data. It is essential that any JSON inputs that do not
-        conform to the JSON-text syntax defined in [[rfc7159]] be
+        conform to the JSON-text syntax defined in [[RFC7159]] be
         rejected in their entirety by JSON parsers. Failure to reject
         invalid input could compromise the security and integrity of
         Verifiable Credentials.
