@@ -59,7 +59,7 @@
         {
           name: "Michael Jones",
           url: "https://self-issued.info/",
-          company: "independent",
+          company: "Self-Issued Consulting",
           w3cid: 38745,
         },
         {
@@ -98,14 +98,14 @@
       localBiblio:  {
         "SD-JWT": {
           title:    "Selective Disclosure for JWTs (SD-JWT)",
-          href:     "https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-05",
+          href:     "https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt",
           authors:  [ "Daniel Fett" , "Kristina Yasuda" , "Brian Campbell"],
           status:   "Internet-Draft",
           publisher:  "IETF"
         },
         "SD-JWT-VC": {
           title:    "SD-JWT-based Verifiable Credentials (SD-JWT VC)",
-          href:     "https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-00",
+          href:     "https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc",
           authors:  [ "Oliver Terbu", "Daniel Fett" ],
           status:   "Internet-Draft",
           publisher:  "IETF"
@@ -470,7 +470,7 @@ to ensure any addition JSON members are understood consistently.
 
       <!-- DID URLS via "issuer" and "holder" -->
       <p>
-        When <a href="#iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">issuer</a>
+        When <a href="#iss">iss</a> is absent and the <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">issuer</a>
         is identified as a <a data-cite="DID-CORE#did-subject">DID Subject</a>, 
         the <a href="#kid">kid</a> MUST be an absolute <a data-cite="DID-CORE#relative-did-urls">DID URL</a>.
       </p>
@@ -548,12 +548,12 @@ to ensure any addition JSON members are understood consistently.
       <!-- REGULAR URLS via "iss" -->
       
       <p>
-        When <a href="#iss">iss</a> is present, and is a [[URL]], 
-        the <a href="#kid">kid</a> MUST match a key discovered via <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-00#name-jwt-issuer-metadata">JWT Issuer Metadata Request</a>
+        When <a href="#iss">iss</a> is present and is a [[URL]], 
+        the <a href="#kid">kid</a> MUST match a key discovered via <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc#name-jwt-issuer-metadata">JWT Issuer Metadata Request</a>.
       </p>
 
       <p class="issue" title="(AT RISK) Feature depends on demonstration of independent implementations" data-number="160">
-        This normative statement depends on an <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc-00#name-jwt-issuer-metadata">IETF OAUTH WG Adopted</a> draft.
+        This normative statement depends on an <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc">IETF OAUTH working group adopted</a> draft.
         This feature is at risk and will be removed from the specification if at least
         two independent, interoperable implementations are not demonstrated.
       </p>
@@ -1188,7 +1188,7 @@ credential</a> by a verifier.
     <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">Issuers</a>,
     <a data-cite="VC-DATA-MODEL-2.0#dfn-holders">Holders</a> and
     <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">Verifiers</a> might rely on clients,
-    as defined in <a href="https://datatracker.ietf.org/doc/html/rfc4949">RFC4949</a>.
+    as defined in [[RFC4949]].
     Such clients are often referred to as <i>wallets</i> or <i>digital credential wallets</i>,
     when they support storing and presenting digital credentials.
     </p>
@@ -1205,7 +1205,7 @@ credential</a> by a verifier.
     (See <a href="https://pages.nist.gov/800-63-3-Implementation-Resources/63B/AAL/">NIST 800-63-3: Authenticator Assurance Levels</a>.)
     </p>
     <p class="note">
-      Also see <a href="https://datatracker.ietf.org/doc/draft-looker-oauth-attestation-based-client-auth/">
+      Also see <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-attestation-based-client-auth">
         OAuth 2.0 Attestation-Based Client Authentication
       </a>.
     </p>
