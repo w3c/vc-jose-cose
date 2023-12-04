@@ -1656,10 +1656,61 @@ data:application/vp+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvO
 
     <section>
       <h2>
-        Detached Payload
+        COSE Examples
       </h2>
-      <p class="issue" data-number="174">
-TODO add COSE Sign1 detached payload examples
+      <p>
+These examples rely on <a data-cite="RFC7049#section-6">CBOR Diagnostic Notation</a>.
+Remember that all actual interchange always happens in the binary format.
+      </p>
+
+      <pre class="example" title="A COSE Sign 1 Protected Header for a Verifiable Credential">
+{                                   / Protected                     /
+  1: -35,                           / Algorithm                     /
+  3: application/vc+ld+json,        / Content type                  /
+  4: h'177f12cb...1933d554',        / Key identifier                /
+  15: {                             / CWT Claims                    /
+    1: urn:example:123,             / Issuer                        /
+    2: urn:example:456,             / Subject                       /
+  },
+}
+        </pre>
+
+        <pre class="example" title="A COSE Sign 1 Protected Header for a Verifiable Presentation">
+{                                   / Protected                     /
+  1: -35,                           / Algorithm                     /
+  3: application/vp+ld+json,        / Content type                  /
+  4: h'177f12cb...1933d554',        / Key identifier                /
+  15: {                             / CWT Claims                    /
+    1: urn:example:123,             / Issuer                        /
+    2: urn:example:456,             / Subject                       /
+  },
+}
+          </pre>
+        
+        <pre class="example" title="A COSE Sign 1 with an attached payload">
+18(                                 / COSE Sign 1                   /
+    [
+      h'a4013822...3a343536',       / Protected Header              /
+      {}                            / Unprotected Header            /
+      h'0fbe22a0...3a009118',       / Attached payload              /
+      h'09772c7f...5c4e736f'        / Signature                     /
+    ]
+)
+      </pre>
+        
+      <pre class="example" title="A COSE Sign 1 with a detached payload">
+18(                                 / COSE Sign 1                   /
+    [
+      h'a4013822...3a343536',       / Protected Header              /
+      {}                            / Unprotected Header            /
+      nil,                          / Detached payload              /
+      h'09772c7f...5c4e736f'        / Signature                     /
+    ]
+)
+      </pre>
+      <p>
+The payload can be either a credential or presentation as described in 
+<a data-cite="VC-DATA-MODEL-2.0#securing-verifiable-credentials">Securing Verifiable Credentials</a>.
       </p>
     </section>
   </section>
