@@ -1715,6 +1715,72 @@ The payload can be either a credential or presentation as described in
     </section>
   </section>
   </section>
+
+  <section>
+    <h2>Verification Algorithm</h2>
+    <p>
+This specification might be used with many different key discovery protocols.
+As such, discovery of verification keys is described in a different section of this document, 
+and is assumed to have succeeded prior to beginning the verification process.
+    </p>
+    <p>
+As a general rule, verifiers SHOULD strive to minimize the processing of untrusted data.
+This includes minimizing any processing of the protected header, unprotected header, or payload as part of the key discovery procedures.
+    </p>
+
+    <p>
+When verifying a credential or presentation secured with SD-JWT, the algorithm defined in 
+<a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-06#name-verification-of-the-sd-jwt">
+  Verification of the SD-JWT
+</a> MUST be followed.
+    </p>
+
+    <p>
+When verifying a credential or presentation secured with COSE_Sign1, the algorithm defined in 
+<a data-cite="RFC9052#section-4.4">
+Signing and Verification Process
+</a> MUST be followed.
+    </p>
+
+    <p>
+After verification has succeeded, additional validation checks SHOULD be performed.
+    </p>
+
+  </section>
+
+  <section>
+    <h2>Validation Algorithm</h2>
+
+    <p>
+All claims expected for the <code>typ</code> MUST be present.
+All claims that are understood MUST be evaluated according the verifier's validation policies.
+All claims that are not understood MUST be ignored.
+    </p>
+
+    <p>
+The verified payload MUST be a well formed compact JSON-LD document, as described in 
+<a data-cite="VC-DATA-MODEL-2.0/#conformance">Verifiable Credentials Data Model v2.0</a>.
+    </p>
+
+    <p>
+Schema extension mechanisms such as <code>credentialSchema</code> SHOULD be checked.
+If the extension mechanism <code>type</code> is not understood, 
+this property MUST be ignored.
+    </p>
+
+    <p>
+Status extension mechanisms such as <code>credentialStatus</code> SHOULD be checked.
+If the extension mechanism <code>type</code> is not understood, 
+this property MUST be ignored.
+    </p>
+
+    <p>
+Based on the validation policy of the verifier and the type of credentials and type of securing mechanism, 
+additional validation checks might be applied. For example, dependencies between multiple credentials, 
+ordering or timing information associated with multiple credentials, and/or multiple presentations
+could cause an otherwise valid credential or presentation to be considered invalid.
+    </p>
+  </section>
 </body>
 
 </html>
