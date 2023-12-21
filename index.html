@@ -549,11 +549,12 @@ to ensure any addition JSON members are understood consistently.
       
       <p>
         When <a href="#iss">iss</a> is present and is a [[URL]], 
-        the <a href="#kid">kid</a> MUST match a key discovered via <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc#name-jwt-issuer-metadata">JWT Issuer Metadata Request</a>.
+        the <a href="#kid">kid</a> MUST match a key discovered via a JWT Issuer Metadata Request,
+	as described in [[SD-JWT-VC]].
       </p>
 
       <p class="issue" title="(AT RISK) Feature depends on demonstration of independent implementations" data-number="160">
-        This normative statement depends on an <a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc">IETF OAUTH working group adopted</a> draft.
+        This normative statement depends on the IETF OAUTH working group adopted draft [[SD-JWT-VC]].
         This feature is at risk and will be removed from the specification if at least
         two independent, interoperable implementations are not demonstrated.
       </p>
@@ -638,7 +639,7 @@ to ensure any addition JSON members are understood consistently.
             <p>
               When the issuer value is a URL using the HTTPS scheme,
               issuer metadata including the issuer's public keys can be retrieved using the mechanism
-              defined in <a data-cite="SD-JWT-VC"></a>.
+              defined in [[SD-JWT-VC]].
             </p>
           </section>
         </section>
@@ -1730,9 +1731,9 @@ This includes minimizing any processing of the protected header, unprotected hea
 
     <p>
 When verifying a credential or presentation secured with SD-JWT, the algorithm defined in 
-<a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt-06#name-verification-of-the-sd-jwt">
+[[SD-JWT] for
   Verification of the SD-JWT
-</a> MUST be followed.
+MUST be followed.
     </p>
 
     <p>
