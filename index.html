@@ -194,7 +194,7 @@
     <h2>Securing the VC Data Model</h2>
     <p>
       This section outlines how to secure documents conforming
-      to [[VC-DATA-MODEL-2.0]] using JOSE and COSE.
+      to [[VC-DATA-MODEL-2.0]] using SD-JWT and COSE.
     </p>
     <p>
       Documents conforming to [[VC-DATA-MODEL-2.0]],
@@ -223,16 +223,17 @@
     If implementations do not know which media type to use, media types defined in this specification MUST be used.
     </p>
     <section>
-      <h2>With JOSE</h2>
+      <h2>With SD-JWT</h2>
       <section>
-        <h2>Securing JSON-LD Verifiable Credentials with JOSE</h2>
+        <h2>Securing JSON-LD Verifiable Credentials with SD-JWT</h2>
         <p>
-          This section details how to use JOSE to secure verifiable credentials conforming
+          This section details how to use SD-JWT to secure verifiable credentials conforming
           to [[VC-DATA-MODEL-2.0]].
         </p>
         <p>
-          [[RFC7515]] MAY be used to secure this media type.
-          The <code>typ</code> header parameter SHOULD be <code>vc+ld+json+sd-jwt</code>.
+          [[SD-JWT]] MAY be used to secure this media type.
+          The <code>typ</code> header parameter SHOULD be <code>vc+ld+json+sd-jwt</code>. See
+          <a data-cite="SD-JWT#section-11.12">Explicit Typing</a>.
           When present, the <code>cty</code> header parameter SHOULD be <code>vc+ld+json</code>.
           See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
           for additional details regarding usage of <code>typ</code> and
@@ -265,6 +266,51 @@
   }
 }
         </pre>
+NOTE TO EDITORS. Please leave the example from the Latest Published Version here as is.
+    <p>
+    Example 1 depicts a simple alumni verifiable credential. 
+    </p>
+NOTE TO EDITORS. Please insert the 5 tabbed example from the editors draft here.
+    <p>
+    The tab labelled "Committed" indicates that the properties <code>id</code>, <code>type</code>, 
+    <code>credentialSchema.id</code>, <code>credentialSchema.type</code>,
+    <code>credentialSubject.id</code> and <code>credentialSubject.degree.type</code> 
+    will be selectively disclosable. The properties <code>@context</code>, <code>issuer</code>, 
+    <code>validFrom</code> and <code>credentialSubject.degree.name</code> will always be disclosed.
+   </p>
+
+   <p> 
+     The tab labelled "Issued" depicts the SD-JWT that the issuer has produced for the holder. 
+     It contains the JWT header (in red), the JWT body (in green), the JWT signature (in blue) and 
+     six disclosures (in purple), one disclosure for each of the <code>!sd</code> properties in the
+     Committed tab. The JWT body contains the contents of the Committed tab with the six <code>!sd</code> 
+     properties replaced by their hashed equivalents. It also contains the <code>_sd_alg</code>, 
+     <code>iss</code>, <code>iat</code>, <code>exp</code> and <code>cnf</code> properties, the latter
+      holding the public key of the holder.
+    </p>
+
+    <p>
+    The tab labelled "Disclosed" contains....?? It is unclear what this represents since it has two id
+     fields set to False. This explanation needs adding please.
+    </p>
+
+    <p>
+    The tab labelled "Presented" contains the SD-JWT that the holder presents to the verifier. This 
+    contains the SD-JWT that was originally issued by the issuer, except that only four of the original 6
+    disclosures are presented. The <code>credentialSubject.id</code> and <code>credentialSchema.id</code>
+    disclosures have been omitted from the presentation. In addition the last component, after the final 
+    tilde  ('~'), contains a key binding JWT for the holder. This allows the verifier to confirm that the 
+    SD-JWT was issued to the holder.
+     </p>
+
+NOTE. The key binding JWT is not conformant to the latest SD-JWT specification as it omits the mandatory sd_hash property.
+
+     <p>
+     The tab labelled "Verified" depicts the presented SD-JWT after the verifier has verified the key 
+     binding JWT and disclosed the four presented disclosures. The <code>cnf</code> property is the public
+     key of the holder.
+     </p>
+
         <p>
           See <a data-cite="VC-DATA-MODEL-2.0#example-a-simple-example-of-a-verifiable-credential"></a> for more details regarding this example.
         </p>
