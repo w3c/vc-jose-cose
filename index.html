@@ -281,12 +281,12 @@ NOTE TO EDITORS. Please insert the 5 tabbed example from the editors draft here.
 
    <p> 
      The tab labelled "Issued" depicts the SD-JWT that the issuer has produced for the holder. 
-     It contains the JWT header (in red), the JWT body (in green), the JWT signature (in blue) and 
-     six disclosures (in purple), one disclosure for each of the <code>!sd</code> properties in the
-     Committed tab. The JWT body contains the contents of the Committed tab with the six <code>!sd</code> 
-     properties replaced by their hashed equivalents. It also contains the <code>_sd_alg</code>, 
-     <code>iss</code>, <code>iat</code>, <code>exp</code> and <code>cnf</code> properties, the latter
-      holding the public key of the holder.
+     It contains the JWT header (in red), the JWT body (in green), the JWT signature (in blue), and 
+     (in purple) one disclosure for each of the <code>!sd</code> properties in the Committed tab; six
+     disclosures in all. The JWT body contains the contents of the Committed tab with the six <code>!sd</code> 
+     properties replaced by their hashed equivalents. The JWT body also contains the <code>_sd_alg</code>, 
+     <code>iss</code>, <code>iat</code>, <code>exp</code>, and <code>cnf</code> properties. The 
+      <code>cnf</code> property of the JWT body holds the public key of the holder.
     </p>
 
     <p>
