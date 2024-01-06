@@ -296,11 +296,11 @@ NOTE TO EDITORS. Please insert the 5 tabbed example from the editors draft here.
 
     <p>
     The tab labelled "Presented" contains the SD-JWT that the holder presents to the verifier. This 
-    contains the SD-JWT that was originally issued by the issuer, except that only four of the original 6
-    disclosures are presented. The <code>credentialSubject.id</code> and <code>credentialSchema.id</code>
-    disclosures have been omitted from the presentation. In addition the last component, after the final 
-    tilde  ('~'), contains a key binding JWT for the holder. This allows the verifier to confirm that the 
-    SD-JWT was issued to the holder.
+    contains the SD-JWT that was originally issued by the issuer, except that only four of the original six
+    disclosures are presented; the <code>credentialSubject.id</code> and <code>credentialSchema.id</code>
+    disclosures have been omitted from the presentation. In addition, the last component, after the final 
+    tilde ('~'), contains a key binding JWT for the holder. This allows the verifier to confirm that the 
+    SD-JWT was issued to the presenting holder.
      </p>
 
 NOTE. The key binding JWT is not conformant to the latest SD-JWT specification as it omits the mandatory sd_hash property.
