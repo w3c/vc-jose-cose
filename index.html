@@ -850,6 +850,7 @@ The value of the `type` property MUST contain the string `JsonWebKey`.
               </dd>
               <dt><dfn class="lint-ignore">publicKeyJwk</dfn></dt>
               <dd>
+                <p>
 The `publicKeyJwk` property is REQUIRED, and its value MUST
 be a JSON Web Key that conforms to [[RFC7517]].
 It is RECOMMENDED that verification methods that use
@@ -857,6 +858,17 @@ JWKs [[RFC7517]] to represent their <a>public keys</a> use the value of `kid` as
 their fragment identifier. It is RECOMMENDED that JWK `kid` values be set to
 the public key fingerprint [[RFC7638]]. See the first key in the example below
 for an instance of a public key with a compound key identifier.
+                </p>
+                <p>
+The `alg` property identifies the algorithm intended
+for use with the public key. Although optional, it is RECOMMENDED that `alg`
+be included, to avoid security issues arising from using the same key with multiple
+algorithms. If describing a key using an elliptic curve, the `crv` property is used
+to identify the particular curve type of the public key. The `kid` property is a hint
+used to help discover the key; if present, the `kid` value SHOULD match, or be included 
+in, the `id` property of the encapsulating `JsonWebKey` object, as part of the path, query, 
+or fragment of the URL.
+                </p>
               </dd>
               <dt><dfn class="lint-ignore">secretKeyJwk</dfn></dt>
               <dd>
@@ -891,14 +903,9 @@ An example of an object that conforms to `JsonWebKey` is provided below:
 In the example above, the `publicKeyJwk` value contains the JSON Web Key.
 The `kty` property encodes the key type of "OKP", which means
 "Octet string key pairs". The `alg` property identifies the algorithm intended
-for use with the public key. Although optional, it is RECOMMENDED that `alg`
-be included, to avoid security issues arising from using the same key with multiple
-algorithms. The `crv` property identifies the particular curve type of the
-public key. The `kid` property is a hint used to help discover the key; if present,
-the `kid` value SHOULD match, or be included in, the `id` property of the
-encapsulating `JsonWebKey` object, as part of the path, query, or fragment of the
-URL. Finally, the `x` property specifies the point on the Ed25519 curve that is
-associated with the public key.
+for use with the public key, which in this case is `ES384`. The `crv` property identifies
+the particular curve type of the public key, `P-384`. The `x` property specifies
+the point on the P-384 curve that is associated with the public key.
             </p>
 
             <p>
