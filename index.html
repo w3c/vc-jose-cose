@@ -1104,55 +1104,6 @@ credential</a> by a verifier.
         as <code>application/vc+ld+json+sd-jwt</code> and
         <code>application/vp+ld+json+sd-jwt</code>.
       </p>
-      <p>For clarity, these requirements are repeated here:</p>
-      <ul>
-        <li>
-          <p>
-            At least one securing mechanism, and the details necessary
-            to evaluate it, MUST be expressed for a credential or
-            presentation to be a verifiable credential or verifiable
-            presentation; that is, to be verifiable.
-          </p>
-        </li>
-        <li>
-          <p>
-            Methods of securing credentials or presentations that embed
-            a proof in the data model MUST use the proof property.
-          </p>
-        </li>
-        <li>
-          <p>
-            Methods of securing credentials or presentations that use an
-            external proof MAY use the proof property.
-          </p>
-        </li>
-        <li>
-          <p>
-            One or more cryptographic proofs that can be used to detect
-            tampering and verify the authorship of a credential or
-            presentation. The specific method used for an embedded proof
-            MUST be included using the type property.
-          </p>
-        </li>
-      </ul>
-      <p class="advisement">
-        The type <code>VerifiableCredential</code> and
-        <code>VerifiablePresentation</code> are RDF Classes.
-        <br /><br />
-        The presence of the word "Verifiable" does not convey a
-        cryptographic verification capability exists.
-        <br /><br />
-        The presence of the JSON <code>proof</code> member does not
-        convey a cryptographic verification capability exists.
-        <br /><br />
-        The presence of the JSON <code>proof</code> member is
-        optional in both <code>VerifiableCredential</code> and
-        <code>VerifiablePresentation</code>.
-        <br /><br />
-        The presence of the JSON <code>proof</code> member is
-        optional in both <code>application/vc+ld+json</code> and
-        <code>application/vp+ld+json</code>.
-      </p>
       <p>
         JSON Web Token implementers are advised to review <a data-cite="RFC7519#section-8">Implementation
           Requirements</a>.
