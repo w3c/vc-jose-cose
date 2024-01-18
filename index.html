@@ -61,7 +61,7 @@
           company: "Mesur.io", companyURL: "https://mesur.io/",
           w3cid: 130636
         },
-	      {
+        {
           name: "Gabe Cohen",
           url: "https://github.com/decentralgabe",
           company: "Block",
@@ -103,17 +103,24 @@
           status:   "Internet-Draft",
           publisher:  "IETF"
         },
+        "COSE-Sign-1": {
+          title:    "CBOR Object Signing and Encryption (COSE): Structures and Process",
+          href:     "https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt",
+          authors:  [ "Jim Schaad" ],
+          status:   "Internet Standard",
+          publisher:  "IETF"
+        },
         "SD-JWT-VC": {
           title:    "SD-JWT-based Verifiable Credentials (SD-JWT VC)",
           href:     "https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc",
-          authors:  [ "Oliver Terbu", "Daniel Fett" ],
+          authors:  [ "Oliver Terbu", "Daniel Fett", "Brian Campbell" ],
           status:   "Internet-Draft",
           publisher:  "IETF"
         },
         "MULTIPLE-SUFFIXES": {
           title:    "Media Types with Multiple Suffixes",
           href:     "https://datatracker.ietf.org/doc/draft-ietf-mediaman-suffixes/",
-          authors:  [ 	"Manu Sporny" , "Amy Guy" ],
+          authors:  [   "Manu Sporny" , "Amy Guy" ],
           status:   "Internet-Draft",
           publisher:  "IETF"
         },
@@ -279,7 +286,7 @@
         <p>
           [[RFC7515]] MAY be used to secure this media type.
           The <code>typ</code> header parameter SHOULD be <code>vp+ld+json+sd-jwt</code>.
-	  When present, the <code>cty</code> header parameter SHOULD be <code>vp+ld+json</code>.
+    When present, the <code>cty</code> header parameter SHOULD be <code>vp+ld+json</code>.
           See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
           for additional details regarding usage of <code>typ</code> and
           <code>cty</code>.
@@ -359,7 +366,7 @@ to ensure any addition JSON members are understood consistently.
         <p>
           [[RFC9052]] MAY be used to secure this media type.
           The <code>typ</code> header parameter SHOULD be <code>application/vp+ld+json+sd-jwt</code>.
-	  When present, the <code>cty</code> header parameter SHOULD be <code>application/vp+ld+json</code>.
+    When present, the <code>cty</code> header parameter SHOULD be <code>application/vp+ld+json</code>.
           See <a data-cite="RFC9052#section-3.1">Common COSE Header Parameters</a> for additional details.
         </p>
 
@@ -380,9 +387,9 @@ to ensure any addition JSON members are understood consistently.
       </p>
       <p>
         The normative statements in
-	<a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>,
+  <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>,
         <a data-cite="RFC7519#section-5">JOSE Header</a>, and
-	<a data-cite="RFC7519#section-5.3">Replicating Claims as Header Parameters</a>
+  <a data-cite="RFC7519#section-5.3">Replicating Claims as Header Parameters</a>
         apply to securing credentials and presentations.
       </p>
       <p>
@@ -391,8 +398,8 @@ to ensure any addition JSON members are understood consistently.
       </p>
       <p>
         It is RECOMMENDED to use
-	the IANA <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">JSON Web Token Claims</a> registry and
-	the IANA <a href="https://www.iana.org/assignments/jose/jose.xhtml">JSON Web Signature and Encryption Header Parameters</a> registry
+  the IANA <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">JSON Web Token Claims</a> registry and
+  the IANA <a href="https://www.iana.org/assignments/jose/jose.xhtml">JSON Web Signature and Encryption Header Parameters</a> registry
         to identify any claims and header parameters that might be confused with
         members defined by [[VC-DATA-MODEL-2.0]]. These include but are not
         limited to: <code>iss</code>, <code>kid</code>,
@@ -412,7 +419,7 @@ to ensure any addition JSON members are understood consistently.
       </p>
       <p>
         Additional members may be present as header parameters and claims.
-	If they are not understood, they MUST be ignored.
+  If they are not understood, they MUST be ignored.
       </p>
     </section>
   </section>
@@ -433,15 +440,15 @@ to ensure any addition JSON members are understood consistently.
       </p>
       <p>
         The normative statements in
-	<a data-cite="RFC9052#section-3.1.1">Registered Header Parameter Names</a>,
+  <a data-cite="RFC9052#section-3.1.1">Registered Header Parameter Names</a>,
         <a data-cite="RFC8392#section-3">Claims</a>, and
-	<a href="https://www.ietf.org/archive/id/draft-ietf-cose-cwt-claims-in-headers-09.html">CBOR Web Token (CWT) Claims in COSE Headers</a>
+  <a href="https://www.ietf.org/archive/id/draft-ietf-cose-cwt-claims-in-headers-09.html">CBOR Web Token (CWT) Claims in COSE Headers</a>
         apply to securing credentials and presentations.
       </p>
       <p>
         It is RECOMMENDED to use
-	the IANA <a href="https://www.iana.org/assignments/cwt/cwt.xhtml">CBOR Web Token Claims</a> registry and
-	the IANA <a href="https://www.iana.org/assignments/cose/cose.xhtml">COSE Header Parameters</a> registry
+  the IANA <a href="https://www.iana.org/assignments/cwt/cwt.xhtml">CBOR Web Token Claims</a> registry and
+  the IANA <a href="https://www.iana.org/assignments/cose/cose.xhtml">COSE Header Parameters</a> registry
         to identify any claims and header parameters that might be confused with
         members defined by [[VC-DATA-MODEL-2.0]]. These include but are not
         limited to: <code>iss</code>, <code>kid</code>,
@@ -457,7 +464,7 @@ to ensure any addition JSON members are understood consistently.
       </p>
       <p>
         Additional members may be present as header parameters and claims.
-	If they are not understood, they MUST be ignored.
+  If they are not understood, they MUST be ignored.
       </p>
     </section>
   </section>
@@ -550,7 +557,7 @@ to ensure any addition JSON members are understood consistently.
       <p>
         When <a href="#iss">iss</a> is present and is a [[URL]], 
         the <a href="#kid">kid</a> MUST match a key discovered via a JWT Issuer Metadata Request,
-	as described in [[SD-JWT-VC]].
+  as described in [[SD-JWT-VC]].
       </p>
 
       <p class="issue" title="(AT RISK) Feature depends on demonstration of independent implementations" data-number="160">
@@ -1157,7 +1164,7 @@ credential</a> by a verifier.
         with JSON Web Tokens.
         When content types from [[VC-DATA-MODEL-2.0]] are secured using
         JSON Web Tokens, the header parameter <code>"alg": "none"</code>,
-	MUST be used to communicate that a JWT Claims Set (a
+  MUST be used to communicate that a JWT Claims Set (a
         Verifiable Credential or a Verifiable Presentation) has no
         integrity protection.
         When a JWT Claims Set (a Verifiable Credential or a
@@ -1294,6 +1301,105 @@ credential</a> by a verifier.
           <td>
             <p>As defined in this specification. See also the security
             considerations in <a data-cite="SD-JWT"></a>.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Contact: </td>
+          <td>
+            W3C Verifiable Credentials Working Group <a
+            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+      </table>
+    </section>
+    
+    <section id="vc-ld-json-cose-media-type">
+      <h2><code>application/vc+ld+json+cose</code></h2>
+      <p>
+        This specification registers the
+        <code>application/vc+ld+json+cose</code> Media Type specifically for
+        identifying a cose-sign1, as described in <a data-cite="COSE-Sign-1"></a>
+        conforming to the Verifiable Credential Data Model.
+      </p>
+      <p class="advisement">
+        Remove this note before publishing, see this similar example:
+        <a href="https://datatracker.ietf.org/doc/html/draft-ietf-anima-constrained-voucher#section-16.2.1">
+          application/voucher+cose
+        </a>
+      </p>
+      <table>
+        <tr>
+          <td>Type name: </td>
+          <td>`application`</td>
+        </tr>
+        <tr>
+          <td>Subtype name: </td>
+          <td>`vc+ld+json+cose`</td>
+        </tr>
+        <tr>
+          <td>Required parameters: </td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Encoding considerations: </td>
+          <td>
+            binary (CBOR)
+          </td>
+        </tr>
+        <tr>
+          <td>Security considerations: </td>
+          <td>
+            <p>As defined in this specification. See also the security
+            considerations in <a data-cite="COSE-Sign-1"></a>.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Contact: </td>
+          <td>
+            W3C Verifiable Credentials Working Group <a
+            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+      </table>
+    </section>
+    <section id="vp-ld-json-cose-media-type">
+      <h2><code>application/vp+ld+json+cose</code></h2>
+      <p>
+        This specification registers the
+        <code>application/vp+ld+json+cose</code> Media Type specifically for
+        identifying a cose-sign1, as described in <a data-cite="COSE-Sign-1"></a>
+        conforming to the Verifiable Credential Data Model.
+      </p>
+      <p class="advisement">
+        Remove this note before publishing, see this similar example:
+        <a href="https://datatracker.ietf.org/doc/html/draft-ietf-anima-constrained-voucher#section-16.2.1">
+          application/voucher+cose
+        </a>
+      </p>
+      <table>
+        <tr>
+          <td>Type name: </td>
+          <td>`application`</td>
+        </tr>
+        <tr>
+          <td>Subtype name: </td>
+          <td>`vp+ld+json+cose`</td>
+        </tr>
+        <tr>
+          <td>Required parameters: </td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Encoding considerations: </td>
+          <td>
+            binary (CBOR)
+          </td>
+        </tr>
+        <tr>
+          <td>Security considerations: </td>
+          <td>
+            <p>As defined in this specification. See also the security
+            considerations in <a data-cite="COSE-Sign-1"></a>.</p>
           </td>
         </tr>
         <tr>
