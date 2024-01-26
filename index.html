@@ -833,8 +833,8 @@ for an instance of a public key with a compound key identifier.
 The `alg` property identifies the algorithm intended
 for use with the public key, and is
 included to prevent security issues that can arise when using the same key with multiple
-algorithms. If describing a key using an elliptic curve, the OPTIONAL `crv` property is used
-to identify the particular curve type of the public key. The OPTIONAL `kid` property is a hint
+algorithms. If describing a key using an elliptic curve, the `crv` property is used
+to identify the particular curve type of the public key. The `kid` property is a hint
 used to help discover the key; if present, the `kid` value SHOULD match, or be included 
 in, the `id` property of the encapsulating `JsonWebKey` object, as part of the path, query, 
 or fragment of the URL.
