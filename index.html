@@ -113,7 +113,7 @@
         "MULTIPLE-SUFFIXES": {
           title:    "Media Types with Multiple Suffixes",
           href:     "https://datatracker.ietf.org/doc/draft-ietf-mediaman-suffixes/",
-          authors:  [ 	"Manu Sporny" , "Amy Guy" ],
+          authors:  [ "Manu Sporny" , "Amy Guy" ],
           status:   "Internet-Draft",
           publisher:  "IETF"
         },
@@ -1615,7 +1615,14 @@ credential</a> by a verifier.
         Presentations
       </h2>
 
-      <pre class="example vc-jose-cose" title="Presentation">
+      <p>
+        Following are two examples of the same <a data-cite="VC-DATA-MODEL-2.0/#presentations-0">verifiable presentation</a>
+        secured using this specification. The first example represents a [[SD-JWT]] secured presentation. The second shows
+        the presentation itself containing an 
+        <a data-cite="VC-DATA-MODEL-2.0/#defn-EnvelopedVerifiableCredential">Enveloped Verifiable Credential</a>.
+      </p>
+      <p>
+        <pre class="example vc-jose-cose" title="SD-JWT Secured Verifiable Presentation containing an Enveloped Verifiable Credential SD-JWT">
 {
   "@context": ["https://www.w3.org/ns/credentials/v2"],
   "type": ["VerifiablePresentation"],
@@ -1624,13 +1631,28 @@ credential</a> by a verifier.
     {
       "@context": ["https://www.w3.org/ns/credentials/v2"],
       "type": ["EnvelopedVerifiableCredential"],
-      
       "id": "data:application/vc+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT09OUFFVQUw3RWdaLWtJNl94ajlvUkV2WDF4T3ciLCJ0eXAiOiJ2YytsZCtqc29uK3NkLWp3dCIsImN0eSI6InZjK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaXNzdWVyIjoiaHR0cHM6Ly91bml2ZXJzaXR5LmV4YW1wbGUvaXNzdWVycy81NjUwNDkiLCJ2YWxpZEZyb20iOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTY2hlbWEiOnsiX3NkIjpbIkU3dU1sSWFyS29iYXJTdEZGRjctZm5qaV9sQVdnM3BGMkV5dVc4dWFYakUiLCJYelRaSVgyNGdDSWxSQVFHclFoNU5FRm1XWkQtZ3Z3dkIybzB5Y0FwNFZzIl19LCJjcmVkZW50aWFsU3ViamVjdCI6eyJkZWdyZWUiOnsibmFtZSI6IkJhY2hlbG9yIG9mIFNjaWVuY2UgYW5kIEFydHMiLCJfc2QiOlsiT3oxUEZIMG0tWk9TdEhwUVZyeGlmVlpKRzhvNmlQQmNnLVZ2SXQwd2plcyJdfSwiX3NkIjpbIkVZQ1daMTZZMHB5X1VNNzRHU3NVYU9zT19mdDExTlVSaFFUTS1TT1lFTVEiXX0sIl9zZCI6WyJqT055NnZUbGNvVlAzM25oSTdERGN3ekVka3d2R3VVRXlLUjdrWEVLd3VVIiwid21BdHpwc0dRbDJveS1PY2JrSEVZcE8xb3BoX3VYcWVWVTRKekF0aFFibyJdLCJfc2RfYWxnIjoic2hhLTI1NiIsImlzcyI6Imh0dHBzOi8vdW5pdmVyc2l0eS5leGFtcGxlL2lzc3VlcnMvNTY1MDQ5IiwiaWF0IjoxNjk3Mjg5OTk2LCJleHAiOjE3Mjg5MTIzOTYsImNuZiI6eyJqd2siOnsia3R5IjoiRUMiLCJjcnYiOiJQLTM4NCIsImFsZyI6IkVTMzg0IiwieCI6InZFdV84WGxZT0ZFU2hTcVRpZ2JSYWduZ0ZGM1p5U0xrclNHekh3azFBT1loanhlazVhV21HY2UwZU05S0pWOEIiLCJ5IjoiRUpNY2czWXBzUTB3M2RLNHlVa25QczE1Z0lsY2Yyay03dzFKLTNlYlBiOERENmQtUkhBeGUwMDkzSWpfdTRCOSJ9fX0.rYzbxb6j1dwop8_s491iArVVJNm6A6C3b742gOm_qYO3zdkyQU4_VxxOSJ8ECcmWj2r5KyiCNC1ojfO4Yms-zBsjt7PoMYpYWBplsqXpiIvnehmM7D0eOLi40uHXki0X~WyJSWTg1YTZNMmEwX3VDWlFTVGZmTFdRIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~WyJMeG5GYTBXVm8wRUluVy1QdS1fd1dRIiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyJUQVdrakpCaVpxdC1rVU54X1EweUJBIiwgImlkIiwgImh0dHBzOi8vZXhhbXBsZS5vcmcvZXhhbXBsZXMvZGVncmVlLmpzb24iXQ~WyJTd2xuZFpPZzZEZ1ZERFp5X0RvYVFBIiwgInR5cGUiLCAiSnNvblNjaGVtYSJd~WyJuSnJlU3E1Nzg3RGZMSDJCbU03cXFRIiwgImlkIiwgImRpZDpleGFtcGxlOjEyMyJd~WyIxMjNNd3hNcHRiek02YUk2aW03ME1RIiwgInR5cGUiLCAiQmFjaGVsb3JEZWdyZWUiXQ"
     }
   ]
 }
-      </pre>
-
+        </pre>
+      <p>
+      <p>
+        <pre class="example" title="Verifiable Presentation containing an Enveloped Verifiable Credential SD-JWT">
+{
+  "@context": ["https://www.w3.org/ns/credentials/v2"],
+  "type": ["VerifiablePresentation"],
+  "holder": "urn:ietf:params:oauth:jwk-thumbprint:sha-256:_Fpfe27AuGmEljZE9s2lw2UH-qrZLRFNrWbJrWIe4SI",
+  "verifiableCredential": [
+    {
+      "@context": ["https://www.w3.org/ns/credentials/v2"],
+      "type": ["EnvelopedVerifiableCredential"],
+      "id": "data:application/vc+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT09OUFFVQUw3RWdaLWtJNl94ajlvUkV2WDF4T3ciLCJ0eXAiOiJ2YytsZCtqc29uK3NkLWp3dCIsImN0eSI6InZjK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaXNzdWVyIjoiaHR0cHM6Ly91bml2ZXJzaXR5LmV4YW1wbGUvaXNzdWVycy81NjUwNDkiLCJ2YWxpZEZyb20iOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTY2hlbWEiOnsiX3NkIjpbIkU3dU1sSWFyS29iYXJTdEZGRjctZm5qaV9sQVdnM3BGMkV5dVc4dWFYakUiLCJYelRaSVgyNGdDSWxSQVFHclFoNU5FRm1XWkQtZ3Z3dkIybzB5Y0FwNFZzIl19LCJjcmVkZW50aWFsU3ViamVjdCI6eyJkZWdyZWUiOnsibmFtZSI6IkJhY2hlbG9yIG9mIFNjaWVuY2UgYW5kIEFydHMiLCJfc2QiOlsiT3oxUEZIMG0tWk9TdEhwUVZyeGlmVlpKRzhvNmlQQmNnLVZ2SXQwd2plcyJdfSwiX3NkIjpbIkVZQ1daMTZZMHB5X1VNNzRHU3NVYU9zT19mdDExTlVSaFFUTS1TT1lFTVEiXX0sIl9zZCI6WyJqT055NnZUbGNvVlAzM25oSTdERGN3ekVka3d2R3VVRXlLUjdrWEVLd3VVIiwid21BdHpwc0dRbDJveS1PY2JrSEVZcE8xb3BoX3VYcWVWVTRKekF0aFFibyJdLCJfc2RfYWxnIjoic2hhLTI1NiIsImlzcyI6Imh0dHBzOi8vdW5pdmVyc2l0eS5leGFtcGxlL2lzc3VlcnMvNTY1MDQ5IiwiaWF0IjoxNjk3Mjg5OTk2LCJleHAiOjE3Mjg5MTIzOTYsImNuZiI6eyJqd2siOnsia3R5IjoiRUMiLCJjcnYiOiJQLTM4NCIsImFsZyI6IkVTMzg0IiwieCI6InZFdV84WGxZT0ZFU2hTcVRpZ2JSYWduZ0ZGM1p5U0xrclNHekh3azFBT1loanhlazVhV21HY2UwZU05S0pWOEIiLCJ5IjoiRUpNY2czWXBzUTB3M2RLNHlVa25QczE1Z0lsY2Yyay03dzFKLTNlYlBiOERENmQtUkhBeGUwMDkzSWpfdTRCOSJ9fX0.rYzbxb6j1dwop8_s491iArVVJNm6A6C3b742gOm_qYO3zdkyQU4_VxxOSJ8ECcmWj2r5KyiCNC1ojfO4Yms-zBsjt7PoMYpYWBplsqXpiIvnehmM7D0eOLi40uHXki0X~WyJSWTg1YTZNMmEwX3VDWlFTVGZmTFdRIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~WyJMeG5GYTBXVm8wRUluVy1QdS1fd1dRIiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyJUQVdrakpCaVpxdC1rVU54X1EweUJBIiwgImlkIiwgImh0dHBzOi8vZXhhbXBsZS5vcmcvZXhhbXBsZXMvZGVncmVlLmpzb24iXQ~WyJTd2xuZFpPZzZEZ1ZERFp5X0RvYVFBIiwgInR5cGUiLCAiSnNvblNjaGVtYSJd~WyJuSnJlU3E1Nzg3RGZMSDJCbU03cXFRIiwgImlkIiwgImRpZDpleGFtcGxlOjEyMyJd~WyIxMjNNd3hNcHRiek02YUk2aW03ME1RIiwgInR5cGUiLCAiQmFjaGVsb3JEZWdyZWUiXQ"
+    }
+  ]
+}
+        </pre> 
+      </p>
     </section>
 
     <section>
@@ -1720,7 +1742,7 @@ This includes minimizing any processing of the protected header, unprotected hea
 
     <p>
 When verifying a credential or presentation secured with SD-JWT, the algorithm defined in 
-[[SD-JWT] for
+[[SD-JWT]] for
   Verification of the SD-JWT
 MUST be followed.
     </p>
