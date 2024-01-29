@@ -418,12 +418,21 @@ to ensure any addition JSON members are understood consistently.
         which represent the validity of the data that is being secured.
       </p>
       <p>
+        The claims and security provided by this specification are independent of the data 
+        secured and semantics provided by the [[VC-DATA-MODEL-2.0]]. This means that while the security
+        features of this specification ensure data integrity and authenticity, they do
+        not dictate the interpretation of claim data.
+        
+        Implementers are RECOMMENDED to avoid conflicting values, especially with claims such as
+        `issuer` with `iss`, `id` with `jti`, and `credentialSubject.id` with `sub`.
+      </p>
+      <p>
         The JWT Claim Names <code>vc</code> and <code>vp</code>
         MUST NOT be present.
       </p>
       <p>
         Additional members may be present as header parameters and claims.
-  If they are not understood, they MUST be ignored.
+        If they are not understood, they MUST be ignored.
       </p>
     </section>
   </section>
