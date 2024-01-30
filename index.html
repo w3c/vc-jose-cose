@@ -728,7 +728,8 @@ with the <a>verification method</a> at or after the time of revocation.
     {
       "@context": [
         "https://www.w3.org/ns/did/v1",
-        "https://www.w3.org/ns/credentials/v2"
+        "https://www.w3.org/ns/credentials/v2",
+        "https://w3id.org/security/jwk/v1"
       ]
       "id": "did:example:123456789abcdefghi",
       <span class="comment">...</span>
@@ -785,7 +786,8 @@ methods</a> using both properties above is shown below.
     {
       "@context": [
         "https://www.w3.org/ns/did/v1",
-        "https://www.w3.org/ns/credentials/v2"
+        "https://www.w3.org/ns/credentials/v2",
+        "https://w3id.org/security/jwk/v1"
       ]
       "id": "did:example:123456789abcdefghi",
       <span class="comment">...</span>
@@ -1546,9 +1548,13 @@ credential</a> by a verifier.
 
       <pre class="example" title="A verifiable credential controller document">
 {
-  "@context": ["https://www.w3.org/ns/did/v1", {
-    "@vocab": "https://vendor.example#"
-  }],
+  "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/jwk/v1",
+        {
+            "@vocab": "https://vendor.example#"
+        }
+  ],
   "id": "did:web:vendor.example",
   "alsoKnownAs": ["https://vendor.example",
     "did:jwk:eyJraWQiOiJ1cm46aWV0ZjpwYXJhbXM6b2F1dGg6andrLXRodW1icHJpbnQ6c2hhLTI1NjpGZk1iek9qTW1RNGVmVDZrdndUSUpqZWxUcWpsMHhqRUlXUTJxb2JzUk1NIiwia3R5IjoiT0tQIiwiY3J2IjoiRWQyNTUxOSIsImFsZyI6IkVkRFNBIiwieCI6IkFOUmpIX3p4Y0tCeHNqUlBVdHpSYnA3RlNWTEtKWFE5QVBYOU1QMWo3azQifQ"
