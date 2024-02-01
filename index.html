@@ -422,9 +422,11 @@ to ensure any addition JSON members are understood consistently.
         secured and semantics provided by the [[VC-DATA-MODEL-2.0]]. This means that while the security
         features of this specification ensure data integrity and authenticity, they do
         not dictate the interpretation of claim data.
-        
-        Implementers are RECOMMENDED to avoid conflicting values, especially with claims such as
-        `issuer` with `iss`, `id` with `jti`, and `credentialSubject.id` with `sub`.
+      </p>
+      <p>
+        Implementers SHOULD avoid setting JWT claims to values that conflict with
+        verifiable credential properties, especially with pairs such as
+        `iss` and `issuer`, `jti` and `id`, and `sub` and `credentialSubject.id`.
       </p>
       <p>
         The JWT Claim Names <code>vc</code> and <code>vp</code>
