@@ -830,14 +830,16 @@ the public key fingerprint [[RFC7638]]. See the first key in the example below
 for an instance of a public key with a compound key identifier.
                 </p>
                 <p>
-The `alg` property identifies the algorithm intended
-for use with the public key, and is
-included to prevent security issues that can arise when using the same key with multiple
-algorithms. If describing a key using an elliptic curve, the `crv` property is used
-to identify the particular curve type of the public key. The `kid` property is a hint
-used to help discover the key; if present, the `kid` value SHOULD match, or be included 
-in, the `id` property of the encapsulating `JsonWebKey` object, as part of the path, query, 
-or fragment of the URL.
+As specified in <a data-cite="RFC7517#section-4.4">Section 4.4 of the JWK specification</a>,
+the `alg` property identifies the algorithm intended for use with the public key, 
+and is included to prevent security issues that can arise when using the same
+key with multiple algorithms. As specified in <a data-cite="RFC7518#section-6.2.1.1">
+Section 6.2.1.1 of the JWA specification</a>, describing a key using an elliptic curve, 
+the `crv` property is used to identify the particular curve type of the public key. 
+As specified in <a data-cite="RFC7515#section-4.1.4">Section 4.1.4 of the JWS specification</a>,
+the `kid` property is a hint used to help discover the key; if present, the `kid` value SHOULD
+match, or be included in, the `id` property of the encapsulating `JsonWebKey` object,
+as part of the path, query, or fragment of the URL.
                 </p>
               </dd>
               <dt><dfn class="lint-ignore">secretKeyJwk</dfn></dt>
