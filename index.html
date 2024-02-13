@@ -198,7 +198,7 @@
     "MUST" statements in Section <a href="secure-with-jose"></a>.
     </p>
     <p>
-    A <dfn>conforming CWT</dfn> is one that conforms to all of the
+    A <dfn>conforming CWT document</dfn> is one that conforms to all of the
     "MUST" statements in Section <a href="secure-with-cose"></a>.
     </p>
     <p>
@@ -211,13 +211,13 @@
     [=conforming JWS documents=] as described in [[RFC7515]].
     </p>
     <p>
-    A <dfn>conforming COSE issuer implementation</dfn> produces
-    [=conforming COSE documents=] and MUST secure them as described in Section
+    A <dfn>conforming CWT issuer implementation</dfn> produces
+    [=conforming CWT documents=] and MUST secure them as described in Section
     <a href="secure-with-cose"></a>.
     </p>
     <p>
-    A <dfn>conforming COSE verifier implementation</dfn>  verifies
-    [=conforming COSE documents=] as described in [[RFC9052]].
+    A <dfn>conforming CWT verifier implementation</dfn>  verifies
+    [=conforming CWT documents=] as described in [[RFC9052]].
     </p>
     </section>
   </section>
@@ -373,7 +373,7 @@ to ensure any addition JSON members are understood consistently.
           with COSE.
         </p>
         <p>
-          A [=conforming COSE issuer implementation=] MUST use [[RFC9052]] to secure this media type.
+          A [=conforming CWT issuer implementation=] MUST use [[RFC9052]] to secure this media type.
           The <code>typ</code> header parameter SHOULD be <code>application/vc+ld+json+cose</code>.
           See <a href="https://www.ietf.org/archive/id/draft-ietf-cose-typ-header-parameter-01.html">I-D.ietf-cose-typ-header-parameter</a>
           for the COSE "<code>typ</code>" (type) header parameter.
@@ -390,7 +390,7 @@ to ensure any addition JSON members are understood consistently.
           to [[VC-DATA-MODEL-2.0]].
         </p>
         <p>
-        A [=conforming COSE issuer implementation=] MUST use [[RFC9052]] to secure this media type.
+        A [=conforming CWT issuer implementation=] MUST use [[RFC9052]] to secure this media type.
           The <code>typ</code> header parameter SHOULD be <code>application/vp+ld+json+sd-jwt</code>.
           When present, the <code>cty</code> header parameter SHOULD be <code>application/vp+ld+json</code>.
           See <a data-cite="RFC9052#section-3.1">Common COSE Header Parameters</a> for additional details.
