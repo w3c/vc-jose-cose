@@ -190,6 +190,37 @@
       confidentiality of CBOR data by encrypting it with symmetric or
       asymmetric encryption algorithms.
     </p>
+
+    <section id=""conformance" class="normative">
+    <h2>Conformance</h2>
+    <p>
+    A <dfn>conforming JWS document</dfn> is one that conforms to all of the
+    "MUST" statements in Section <a href="secure-with-jose"></a>.
+    </p>
+    <p>
+    A <dfn>conforming CWT</dfn> is one that conforms to all of the
+    "MUST" statements in Section <a href="secure-with-cose"></a>.
+    </p>
+    <p>
+    A <dfn>conforming JWS issuer implementation</dfn> produces
+    [=conforming JWS documents=] and MUST secure them as described in Section
+    <a href="secure-with-jose"></a>.
+    </p>
+    <p>
+    A <dfn>conforming JWS verifier implementation</dfn> verifies
+    [=conforming JWS documents=] as described in [[RFC7515]].
+    </p>
+    <p>
+    A <dfn>conforming COSE issuer implementation</dfn> produces
+    [=conforming COSE documents=] and MUST secure them as described in Section
+    <a href="secure-with-cose"></a>.
+    </p>
+    <p>
+    A <dfn>conforming COSE verifier implementation</dfn>  verifies
+    [=conforming COSE documents=] as described in Section
+    <a href="secure-with-cose"></a>.
+    </p>
+    </section>
   </section>
 
   <section>
@@ -229,7 +260,7 @@
     <p>
     If implementations do not know which media type to use, media types defined in this specification MUST be used.
     </p>
-    <section>
+    <section id="secure-with-jose">
       <h2>With JOSE</h2>
       <section>
         <h2>Securing JSON-LD Verifiable Credentials with JOSE</h2>
@@ -238,7 +269,7 @@
           to [[VC-DATA-MODEL-2.0]].
         </p>
         <p>
-          [[RFC7515]] MAY be used to secure this media type.
+          A [=conforming JWS issuer implementation=] MUST use [[RFC7515]] to secure this media type.
           The <code>typ</code> header parameter SHOULD be <code>vc+ld+json+sd-jwt</code>.
           When present, the <code>cty</code> header parameter SHOULD be <code>vc+ld+json</code>.
           See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
@@ -284,7 +315,7 @@
           to [[VC-DATA-MODEL-2.0]]. 
         </p>
         <p>
-          [[RFC7515]] MAY be used to secure this media type.
+        A [=conforming JWS issuer implementation=] MUST use [[RFC7515]] to secure this media type.
           The <code>typ</code> header parameter SHOULD be <code>vp+ld+json+sd-jwt</code>.
     When present, the <code>cty</code> header parameter SHOULD be <code>vp+ld+json</code>.
           See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
@@ -326,7 +357,7 @@ to ensure any addition JSON members are understood consistently.
       </p>
       </section>
     </section>
-    <section>
+    <section id="secure-with-cose">
       <h2>With COSE</h2>
       <p>
         COSE [[RFC9052]] is a common approach to encoding and securing
@@ -343,7 +374,7 @@ to ensure any addition JSON members are understood consistently.
           with COSE.
         </p>
         <p>
-          [[RFC9052]] MAY be used to secure this media type.
+          A [=conforming COSE issuer implementation=] MUST use [[RFC9052]] to secure this media type.
           The <code>typ</code> header parameter SHOULD be <code>application/vc+ld+json+cose</code>.
           See <a href="https://www.ietf.org/archive/id/draft-ietf-cose-typ-header-parameter-01.html">I-D.ietf-cose-typ-header-parameter</a>
           for the COSE "<code>typ</code>" (type) header parameter.
@@ -360,7 +391,7 @@ to ensure any addition JSON members are understood consistently.
           to [[VC-DATA-MODEL-2.0]].
         </p>
         <p>
-          [[RFC9052]] MAY be used to secure this media type.
+        A [=conforming COSE issuer implementation=] MUST use [[RFC9052]] to secure this media type.
           The <code>typ</code> header parameter SHOULD be <code>application/vp+ld+json+sd-jwt</code>.
           When present, the <code>cty</code> header parameter SHOULD be <code>application/vp+ld+json</code>.
           See <a data-cite="RFC9052#section-3.1">Common COSE Header Parameters</a> for additional details.
