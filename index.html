@@ -192,6 +192,8 @@
     </p>
 
     <section id="conformance" class="normative">
+    <h2>Conformance Classes</h2>
+
     <p>
     A <dfn>conforming JWS document</dfn> is one that conforms to all of the
     "MUST" statements in Section <a href="secure-with-jose"></a>.
@@ -379,7 +381,7 @@ to ensure any addition JSON members are understood consistently.
           with COSE.
         </p>
         <p>
-          A [=conforming CWT issuer implementation=] MUST use [[RFC9052]] to secure this media type.
+          A [=conforming CWT issuer implementation=] MUST use COSE_Sign1 as specified in [[RFC9052]] to secure this media type.
           The <code>typ</code> header parameter SHOULD be <code>application/vc+ld+json+cose</code>.
           See <a href="https://www.ietf.org/archive/id/draft-ietf-cose-typ-header-parameter-01.html">I-D.ietf-cose-typ-header-parameter</a>
           for the COSE "<code>typ</code>" (type) header parameter.
@@ -388,7 +390,7 @@ to ensure any addition JSON members are understood consistently.
           See <a data-cite="RFC9052#section-3.1">Common COSE Header Parameters</a> for additional details.
         </p>
         <p>
-        A [=conforming CWT verifier implementation=] MUST use [[RFC9052]] to verify [=conforming CWT documents=] that use this media type.
+        A [=conforming CWT verifier implementation=] MUST use COSE_Sign1 as specified in [[RFC9052]] to verify [=conforming CWT documents=] that use this media type.
         </p>
       </section>
 
@@ -399,13 +401,13 @@ to ensure any addition JSON members are understood consistently.
           to [[VC-DATA-MODEL-2.0]].
         </p>
         <p>
-        A [=conforming CWT issuer implementation=] MUST use [[RFC9052]] to secure this media type.
+        A [=conforming CWT issuer implementation=] MUST use COSE_Sign1 as specified in [[RFC9052]] to secure this media type.
           The <code>typ</code> header parameter SHOULD be <code>application/vp+ld+json+sd-jwt</code>.
           When present, the <code>cty</code> header parameter SHOULD be <code>application/vp+ld+json</code>.
           See <a data-cite="RFC9052#section-3.1">Common COSE Header Parameters</a> for additional details.
         </p>
         <p>
-        A [=conforming CWT verifier implementation=] MUST use [[RFC9052]] to verify [=conforming CWT documents=] that use this media type.
+        A [=conforming CWT verifier implementation=] MUST use COSE_Sign1 as specified in [[RFC9052]] to verify [=conforming CWT documents=] that use this media type.
         </p>
         <p>
           Credentials in verifiable presentations MUST use the <a data-cite="VC-DATA-MODEL-2.0/#defn-EnvelopedVerifiableCredential">Enveloped Verifiable Credential</a>
