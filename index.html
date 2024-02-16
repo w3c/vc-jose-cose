@@ -425,8 +425,11 @@ to ensure any addition JSON members are understood consistently.
       </p>
       <p>
         Implementers SHOULD avoid setting JWT claims to values that conflict with
-        verifiable credential properties, especially with pairs such as
+        the values of verifiable credential properties when a claim and property 
+        pair refer to the same conceptual entity, especially with pairs such as
         `iss` and `issuer`, `jti` and `id`, and `sub` and `credentialSubject.id`.
+        For example, JWK claim `iss` should not be set to a value which conflicts
+        with the value of verifiable credential property `issuer`.
       </p>
       <p>
         The JWT Claim Names <code>vc</code> and <code>vp</code>
