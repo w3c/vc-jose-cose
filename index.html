@@ -1206,6 +1206,96 @@ credential</a> by a verifier.
 
     <section>
     <h2>Media Types</h2>
+
+    <section id="vc-ld-jwt-media-type">
+      <h2><code>application/vc+ld+json+jwt</code></h2>
+      <p>
+        This specification registers the
+        <code>application/vc+ld+json+jwt</code> Media Type specifically for
+        identifying a <a data-cite="JWT"></a>
+        conforming to the Verifiable Credential Data Model.
+      </p>
+      <table>
+        <tr>
+          <td>Type name: </td>
+          <td>`application`</td>
+        </tr>
+        <tr>
+          <td>Subtype name: </td>
+          <td>`vc+ld+json+jwt`</td>
+        </tr>
+        <tr>
+          <td>Required parameters: </td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Encoding considerations: </td>
+          <td>
+            binary; `application/jwt` values are a series of base64url-encoded values
+            (some of which may be the empty string) separated by period ('.').
+          </td>
+        </tr>
+        <tr>
+          <td>Security considerations: </td>
+          <td>
+            <p>As defined in this specification. See also the security
+            considerations in <a data-cite="JWT"></a>.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Contact: </td>
+          <td>
+            W3C Verifiable Credentials Working Group <a
+            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+      </table>
+    </section>
+    <section id="vp-ld-jwt-media-type">
+      <h2><code>application/vp+ld+json+jwt</code></h2>
+      <p>
+        This specification registers the
+        <code>application/vp+ld+json+jwt</code> Media Type specifically for
+        identifying a <a data-cite="JWT"></a>
+        conforming to the Verifiable Presentations.
+      </p>
+      <table>
+        <tr>
+          <td>Type name: </td>
+          <td>application</td>
+        </tr>
+        <tr>
+          <td>Subtype name: </td>
+          <td>vp+ld+json+jwt</td>
+        </tr>
+        <tr>
+          <td>Required parameters: </td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Encoding considerations: </td>
+          <td>
+            binary; `application/jwt` values are a series of base64url-encoded values
+            (some of which may be the empty string) separated by period ('.').
+          </td>
+        </tr>
+        <tr>
+          <td>Security considerations: </td>
+          <td>
+            <p>As defined in this specification. See also the security
+            considerations in <a data-cite="JWT"></a>.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Contact: </td>
+          <td>
+            W3C Verifiable Credentials Working Group <a
+            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+      </table>
+    </section>
+
     <section id="vc-ld-sd-jwt-media-type">
       <h2><code>application/vc+ld+json+sd-jwt</code></h2>
       <p>
