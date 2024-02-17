@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <title>Securing Verifiable Credentials using JOSE and COSE</title>
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"></script>
-  <script src="https://cdn.jsdelivr.net/gh/decentralgabe/respec-vc-jose-cose/dist/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/w3c/vc-jose-cose/plugin/dist/main.js"></script>
   <script class="remove">
     // See https://github.com/w3c/respec/wiki/ for how to configure
     // ReSpec
@@ -15,13 +15,13 @@
       // specification status (e.g., WD, NOTE, etc.). If in doubt use
       // ED.
       specStatus: "WD",
-      
+
       // the specification's short name, as in
       // http://www.w3.org/TR/short-name/
       shortName: "vc-jose-cose",
 
       // if you wish the publication date to be other than today, set
-      // this 
+      // this
       // publishDate: "2023-07-20",
 
       // implementationReportURI:
@@ -31,7 +31,7 @@
 
       // if there is a previously published draft, uncomment this and
       // set its YYYY-MM-DD date and its maturity status
-      previousPublishDate:  "2023-07-10", 
+      previousPublishDate:  "2023-07-10",
       previousMaturity:  "WD",
 
       // extend the bibliography entries localBiblio: vcwg.localBiblio,
@@ -158,7 +158,7 @@
       defined by the OAuth, JOSE, and COSE working groups at the IETF.
       This includes SD-JWT [[SD-JWT]] and COSE [[RFC9052]],
       and provides an approach using well-defined content types
-      [[RFC6838]] and structured suffixes [[MULTIPLE-SUFFIXES]] 
+      [[RFC6838]] and structured suffixes [[MULTIPLE-SUFFIXES]]
       to distinguish the data types of unsecured documents conforming to [[VC-DATA-MODEL-2.0]]
       from the data types of secured documents conforming to [[VC-DATA-MODEL-2.0]],
       as defined in this specification.
@@ -211,7 +211,7 @@
     <p>
       A benefit to this approach is that payloads can be made to conform
       directly to [[VC-DATA-MODEL-2.0]] without any mappings or
-      transformation, while at the same time supporting registered 
+      transformation, while at the same time supporting registered
       header parameters and claims that are understood in the context of JOSE and COSE.
     </p>
     <p>
@@ -244,7 +244,7 @@
           for additional details regarding usage of <code>typ</code> and
           <code>cty</code>.
         </p>
-        
+
         <pre class="example vc-jose-cose" title="A simple example of a verifiable credential">
 {
   "@context": [
@@ -280,7 +280,7 @@
         <h2>Securing JSON-LD Verifiable Presentations with JOSE</h2>
         <p>
           This section details how to use JOSE to secure verifiable presentations conforming
-          to [[VC-DATA-MODEL-2.0]]. 
+          to [[VC-DATA-MODEL-2.0]].
         </p>
         <p>
           [[RFC7515]] MAY be used to secure this media type.
@@ -320,7 +320,7 @@
       <p>
 To improve interoperability, implementations SHOULD support the compact serialization (<code>application/sd-jwt</code>),
 and MAY support the JSON serialization (<code>application/sd-jwt+json</code>).
-If the JSON serialization is used, it is RECOMMENDED that a profile be defined, 
+If the JSON serialization is used, it is RECOMMENDED that a profile be defined,
 to ensure any addition JSON members are understood consistently.
       </p>
       </section>
@@ -417,7 +417,7 @@ to ensure any addition JSON members are understood consistently.
         which represent the validity of the data that is being secured.
       </p>
       <p>
-        The claims and security provided by this specification are independent of the data 
+        The claims and security provided by this specification are independent of the data
         secured and semantics provided by the [[VC-DATA-MODEL-2.0]]. This means that while the security
         features of this specification ensure data integrity and authenticity, they do
         not dictate the interpretation of claim data.
@@ -492,7 +492,7 @@ to ensure any addition JSON members are understood consistently.
       <!-- DID URLS via "issuer" and "holder" -->
       <p>
         When <a href="#iss">iss</a> is absent and the <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">issuer</a>
-        is identified as a <a data-cite="DID-CORE#did-subject">DID Subject</a>, 
+        is identified as a <a data-cite="DID-CORE#did-subject">DID Subject</a>,
         the <a href="#kid">kid</a> MUST be an absolute <a data-cite="DID-CORE#relative-did-urls">DID URL</a>.
       </p>
 <pre class="example" title="An issuer identified by a DID">
@@ -567,9 +567,9 @@ to ensure any addition JSON members are understood consistently.
 </pre>
 
       <!-- REGULAR URLS via "iss" -->
-      
+
       <p>
-        When <a href="#iss">iss</a> is present and is a [[URL]], 
+        When <a href="#iss">iss</a> is present and is a [[URL]],
         the <a href="#kid">kid</a> MUST match a key discovered via a JWT Issuer Metadata Request,
   as described in [[SD-JWT-VC]].
       </p>
@@ -617,7 +617,7 @@ to ensure any addition JSON members are understood consistently.
       If <code>iss</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>
       or the <a data-cite="RFC7519#section-4.1.1">JWT Claims </a>,
       a <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">verifier</a> can use this parameter
-      to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the 
+      to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the
       <a data-cite="VC-DATA-MODEL-2.0#dfn-verify">verification</a> process.
         </p>
         <p>
@@ -632,7 +632,7 @@ to ensure any addition JSON members are understood consistently.
       distinguish the specific key used.
         </p>
       </section>
-      
+
       <section>
         <h2>cnf</h2>
         <p>
@@ -644,17 +644,17 @@ to ensure any addition JSON members are understood consistently.
         </p>
       </section>
       </section>
-      
+
       <section>
       <h2>Well Known URIs</h2>
       <p class="issue" data-number="160">
-      The working group is currently exploring how 
+      The working group is currently exploring how
       <a data-cite="RFC5785#section-3">Defining Well-Known Uniform Resource Identifiers (URIs)</a>
       could be leveraged to assist a <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">verifier</a> in discovering verification keys for
       <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">issuers</a>
       and <a data-cite="VC-DATA-MODEL-2.0#dfn-holders">holders</a>.
       </p>
-      
+
       <section>
         <h2>JWT Issuer</h2>
             <p>
@@ -793,7 +793,7 @@ another representtion is prohibited.
 Implementations MAY convert keys between formats as desired for operational purposes or
 to interface with cryptographic libraries. As an internal implementation detail, such
 conversion MUST NOT affect the external representation of key material.
-            </p> 
+            </p>
 
             <p>
 An example of a <a>controller document</a> containing <a>verification
@@ -860,11 +860,11 @@ for an instance of a public key with a compound key identifier.
                 </p>
                 <p>
 As specified in <a data-cite="RFC7517#section-4.4">Section 4.4 of the JWK specification</a>,
-the OPTIONAL `alg` property identifies the algorithm intended for use with the public key, 
+the OPTIONAL `alg` property identifies the algorithm intended for use with the public key,
 and SHOULD be included to prevent security issues that can arise when using the same
 key with multiple algorithms. As specified in <a data-cite="RFC7518#section-6.2.1.1">
-Section 6.2.1.1 of the JWA specification</a>, describing a key using an elliptic curve, 
-the REQUIRED `crv` property is used to identify the particular curve type of the public key. 
+Section 6.2.1.1 of the JWA specification</a>, describing a key using an elliptic curve,
+the REQUIRED `crv` property is used to identify the particular curve type of the public key.
 As specified in <a data-cite="RFC7515#section-4.1.4">Section 4.1.4 of the JWS specification</a>,
 the OPTIONAL `kid` property is a hint used to help discover the key; if present, the `kid` value SHOULD
 match, or be included in, the `id` property of the encapsulating `JsonWebKey` object,
@@ -1230,7 +1230,7 @@ credential</a> by a verifier.
         <tr>
           <td>Encoding considerations: </td>
           <td>
-            binary; `application/sd-jwt` values are a series of base64url-encoded values 
+            binary; `application/sd-jwt` values are a series of base64url-encoded values
             (some of which may be the empty string) separated by period ('.') or tilde ('~') characters.
           </td>
         </tr>
@@ -1274,7 +1274,7 @@ credential</a> by a verifier.
         <tr>
           <td>Encoding considerations: </td>
           <td>
-            binary; `application/sd-jwt` values are a series of base64url-encoded values 
+            binary; `application/sd-jwt` values are a series of base64url-encoded values
             (some of which may be the empty string) separated by period ('.') or tilde ('~') characters.
           </td>
         </tr>
@@ -1294,7 +1294,7 @@ credential</a> by a verifier.
         </tr>
       </table>
     </section>
-    
+
     <section id="vc-ld-json-cose-media-type">
       <h2><code>application/vc+ld+json+cose</code></h2>
       <p>
@@ -1394,7 +1394,7 @@ credential</a> by a verifier.
       </table>
     </section>
   </section>
-  
+
 </section>
   <section>
     <h3>Other Considerations</h3>
@@ -1725,7 +1725,7 @@ credential</a> by a verifier.
         "id": "https://subject.vendor.example"
       }
     },
-    "https://vendor.example/credentials/42", 
+    "https://vendor.example/credentials/42",
     "did:example:123",
     "urn:uuid:01ec9426-c175-4e39-a006-d30050e28214",
     "urn:ietf:params:oauth:jwk-thumbprint:sha-256:_Fpfe27AuGmEljZE9s2lw2UH-qrZLRFNrWbJrWIe4SI",
@@ -1779,7 +1779,7 @@ Remember that all actual interchange always happens in the binary format.
   },
 }
           </pre>
-        
+
         <pre class="example" title="A COSE Sign 1 with an attached payload">
 18(                                 / COSE Sign 1                   /
     [
@@ -1790,7 +1790,7 @@ Remember that all actual interchange always happens in the binary format.
     ]
 )
       </pre>
-        
+
       <pre class="example" title="A COSE Sign 1 with a detached payload">
 18(                                 / COSE Sign 1                   /
     [
@@ -1802,7 +1802,7 @@ Remember that all actual interchange always happens in the binary format.
 )
       </pre>
       <p>
-The payload can be either a credential or presentation as described in 
+The payload can be either a credential or presentation as described in
 <a data-cite="VC-DATA-MODEL-2.0#securing-verifiable-credentials">Securing Verifiable Credentials</a>.
       </p>
     </section>
@@ -1822,14 +1822,14 @@ This includes minimizing any processing of the protected header, unprotected hea
     </p>
 
     <p>
-When verifying a credential or presentation secured with SD-JWT, the algorithm defined in 
+When verifying a credential or presentation secured with SD-JWT, the algorithm defined in
 [[SD-JWT] for
   Verification of the SD-JWT
 MUST be followed.
     </p>
 
     <p>
-When verifying a credential or presentation secured with COSE_Sign1, the algorithm defined in 
+When verifying a credential or presentation secured with COSE_Sign1, the algorithm defined in
 <a data-cite="RFC9052#section-4.4">
 Signing and Verification Process
 </a> MUST be followed.
@@ -1851,25 +1851,25 @@ All claims that are not understood MUST be ignored.
     </p>
 
     <p>
-The verified payload MUST be a well formed compact JSON-LD document, as described in 
+The verified payload MUST be a well formed compact JSON-LD document, as described in
 <a data-cite="VC-DATA-MODEL-2.0/#conformance">Verifiable Credentials Data Model v2.0</a>.
     </p>
 
     <p>
 Schema extension mechanisms such as <code>credentialSchema</code> SHOULD be checked.
-If the extension mechanism <code>type</code> is not understood, 
+If the extension mechanism <code>type</code> is not understood,
 this property MUST be ignored.
     </p>
 
     <p>
 Status extension mechanisms such as <code>credentialStatus</code> SHOULD be checked.
-If the extension mechanism <code>type</code> is not understood, 
+If the extension mechanism <code>type</code> is not understood,
 this property MUST be ignored.
     </p>
 
     <p>
-Based on the validation policy of the verifier and the type of credentials and type of securing mechanism, 
-additional validation checks might be applied. For example, dependencies between multiple credentials, 
+Based on the validation policy of the verifier and the type of credentials and type of securing mechanism,
+additional validation checks might be applied. For example, dependencies between multiple credentials,
 ordering or timing information associated with multiple credentials, and/or multiple presentations
 could cause an otherwise valid credential or presentation to be considered invalid.
     </p>
