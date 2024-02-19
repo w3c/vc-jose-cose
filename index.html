@@ -775,12 +775,11 @@ using the `<a>controller</a>` property at the highest level of the
 
             <p>
 Verification material MUST be expressed in the <code>publicKeyJwk</code> property
-of a <code>JsonWebKey</code> or as a <code>COSE_Key</code>. This key material is retrieved based on hints in the
+of a <code>JsonWebKey</code>. This key material is retrieved based on hints in the
 JOSE or COSE message envelopes, such as <code>kid</code> or <code>iss</code>. At
-the time of writing, there is no standard way to retrieve a public key in JWK or
-COSE_Key from a DID URL or controller document.
+the time of writing, there is no standard way to retrieve a public key in JWK format
+from a DID URL or controller document.
             </p>
-
 
             <p>
 A <a>verification method</a> MUST NOT contain multiple verification material
