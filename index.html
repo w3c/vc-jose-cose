@@ -189,6 +189,7 @@
       confidentiality of CBOR data by encrypting it with symmetric or
       asymmetric encryption algorithms.
     </p>
+
   </section>
 
   <section>
@@ -228,7 +229,7 @@
     <p>
     If implementations do not know which media type to use, media types defined in this specification MUST be used.
     </p>
-    <section>
+    <section id="secure-with-jose">
       <h2>With JOSE</h2>
       <section>
         <h2>Securing JSON-LD Verifiable Credentials with JOSE</h2>
@@ -237,14 +238,16 @@
           to [[VC-DATA-MODEL-2.0]].
         </p>
         <p>
-          [[RFC7515]] MAY be used to secure this media type.
+          A [=conforming JWS issuer implementation=] MUST use [[RFC7515]] to secure this media type.
           The <code>typ</code> header parameter SHOULD be <code>vc+ld+json+sd-jwt</code>.
           When present, the <code>cty</code> header parameter SHOULD be <code>vc+ld+json</code>.
           See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
           for additional details regarding usage of <code>typ</code> and
           <code>cty</code>.
         </p>
-
+        <p>
+        A [=conforming JWS verifier implementation=] MUST use [[RFC7515]] to verify [=conforming JWS documents=] that use this media type.
+        </p>
         <pre class="example vc-jose-cose" title="A simple example of a verifiable credential">
 {
   "@context": [
@@ -283,12 +286,15 @@
           to [[VC-DATA-MODEL-2.0]].
         </p>
         <p>
-          [[RFC7515]] MAY be used to secure this media type.
+        A [=conforming JWS issuer implementation=] MUST use [[RFC7515]] to secure this media type.
           The <code>typ</code> header parameter SHOULD be <code>vp+ld+json+sd-jwt</code>.
     When present, the <code>cty</code> header parameter SHOULD be <code>vp+ld+json</code>.
           See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
           for additional details regarding usage of <code>typ</code> and
           <code>cty</code>.
+        </p>
+        <p>
+        A [=conforming JWS verifier implementation=] MUST use [[RFC7515]] to verify [=conforming JWS documents=] that use this media type.
         </p>
         <p>
           Credentials in verifiable presentations MUST use the <a data-cite="VC-DATA-MODEL-2.0/#defn-EnvelopedVerifiableCredential">Enveloped Verifiable Credential</a>
@@ -325,7 +331,7 @@ to ensure any addition JSON members are understood consistently.
       </p>
       </section>
     </section>
-    <section>
+    <section id="secure-with-cose">
       <h2>With COSE</h2>
       <p>
         COSE [[RFC9052]] is a common approach to encoding and securing
@@ -342,13 +348,16 @@ to ensure any addition JSON members are understood consistently.
           with COSE.
         </p>
         <p>
-          [[RFC9052]] MAY be used to secure this media type.
+          A [=conforming CWT issuer implementation=] MUST use COSE_Sign1 as specified in [[RFC9052]] to secure this media type.
           The <code>typ</code> header parameter SHOULD be <code>application/vc+ld+json+cose</code>.
           See <a href="https://www.ietf.org/archive/id/draft-ietf-cose-typ-header-parameter-01.html">I-D.ietf-cose-typ-header-parameter</a>
           for the COSE "<code>typ</code>" (type) header parameter.
           When present, the <code>content type (3)</code> header parameter
           SHOULD be <code>application/vc+ld+json</code>.
           See <a data-cite="RFC9052#section-3.1">Common COSE Header Parameters</a> for additional details.
+        </p>
+        <p>
+        A [=conforming CWT verifier implementation=] MUST use COSE_Sign1 as specified in [[RFC9052]] to verify [=conforming CWT documents=] that use this media type.
         </p>
       </section>
 
@@ -359,10 +368,13 @@ to ensure any addition JSON members are understood consistently.
           to [[VC-DATA-MODEL-2.0]].
         </p>
         <p>
-          [[RFC9052]] MAY be used to secure this media type.
+        A [=conforming CWT issuer implementation=] MUST use COSE_Sign1 as specified in [[RFC9052]] to secure this media type.
           The <code>typ</code> header parameter SHOULD be <code>application/vp+ld+json+sd-jwt</code>.
           When present, the <code>cty</code> header parameter SHOULD be <code>application/vp+ld+json</code>.
           See <a data-cite="RFC9052#section-3.1">Common COSE Header Parameters</a> for additional details.
+        </p>
+        <p>
+        A [=conforming CWT verifier implementation=] MUST use COSE_Sign1 as specified in [[RFC9052]] to verify [=conforming CWT documents=] that use this media type.
         </p>
         <p>
           Credentials in verifiable presentations MUST use the <a data-cite="VC-DATA-MODEL-2.0/#defn-EnvelopedVerifiableCredential">Enveloped Verifiable Credential</a>
@@ -1121,6 +1133,37 @@ credential</a> by a verifier.
       </section>
 
   <section id="conformance">
+    <section class="normative">
+      <h2>Conformance Classes</h2>
+      <p>
+      A <dfn>conforming JWS document</dfn> is one that conforms to all of the
+      "MUST" statements in Section <a href="secure-with-jose"></a>.
+      </p>
+      <p>
+      A <dfn>conforming CWT document</dfn> is one that conforms to all of the
+      "MUST" statements in Section <a href="secure-with-cose"></a>.
+      </p>
+      <p>
+      A <dfn>conforming JWS issuer implementation</dfn> produces
+      [=conforming JWS documents=] and MUST secure them as described in Section
+      <a href="secure-with-jose"></a>.
+      </p>
+      <p>
+      A <dfn>conforming JWS verifier implementation</dfn> verifies
+      [=conforming JWS documents=] as described in Section
+      <a href="secure-with-jose"></a>.
+      </p>
+      <p>
+      A <dfn>conforming CWT issuer implementation</dfn> produces
+      [=conforming CWT documents=] and MUST secure them as described in Section
+      <a href="secure-with-cose"></a>.
+      </p>
+      <p>
+      A <dfn>conforming CWT verifier implementation</dfn>  verifies
+      [=conforming CWT documents=] as described in Section
+      <a href="secure-with-cose"></a>.
+      </p>
+    </section>
     <section class="normative">
       <h2>Securing Verifiable Credentials</h2>
       <p>The <a data-cite="VC-DATA-MODEL-2.0#proof-formats"></a> describes the approach taken by JSON Web
