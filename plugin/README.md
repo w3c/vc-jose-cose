@@ -1,15 +1,15 @@
 # Verifiable Credential Service Worker Plugin for ReSpec
 
-But with support for v2, and no JSON-LD processing.
+Builds upon [respec-vc](https://github.com/w3c/respec-vc), but with support for v2, and no JSON-LD processing.
 
 # Usage
 
 To use this extension, add the `respec-plugins` directory to your spec,
-then configure respect to use the worker to post process like so:
+then configure ReSpec to use the worker to post-process like so:
 
 ```html
 <head>
-  <title>Respec Service Worker Plugin Test</title>
+  <title>ReSpec Service Worker Plugin Test</title>
   <meta http-equiv='Content-Type' content='text/html;charset=utf-8' />
   <script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove'></script>
   <script src="https://cdn.jsdelivr.net/gh/w3c/vc-jose-cose/plugin/dist/main.js"></script>
