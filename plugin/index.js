@@ -1,6 +1,4 @@
-
-import {getHtml} from './src/getHtml';
-
+import { getHtml } from './src/getHtml';
 import { getPrivateKey } from './src/exampleKey';
 import { getCoseExample } from './src/exampleCose';
 import { getJwtExample } from './src/exampleJwt';
