@@ -1,5 +1,3 @@
-
-
 export const getHtml = ({ index, coseExample, jwtExample, sdJwtExample })=>{
     return `
 <div class="vc-jose-cose-tabbed">
