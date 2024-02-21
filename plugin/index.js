@@ -1,22 +1,19 @@
-import SD from '@transmute/vc-jwt-sd';
-import {
-    getExampleMetadata,
-    generateIssuerClaims,
-    generateHolderDisclosure,
-    issueAndVerifyWithSdJWt
-} from './src/sdJwt';
+
 import {getHtml} from './src/getHtml';
+
+import { getPrivateKey } from './src/exampleKey';
+import { getCoseExample } from './src/exampleCose';
+import { getJwtExample } from './src/exampleJwt';
+import { getSdJwtExample } from './src/exampleSdJwt';
 
 async function processVcJoseCose() {
     // add styling for examples
     addVcJoseStyles();
-
     const examples = Array.from(document.querySelectorAll(".vc-jose-cose")).filter((e) => !!e.innerText)
     for (const index in examples) {
         const example = examples[index]
-        const alg = example.getAttribute('data-alg') || 'ES384'
         const json = JSON.parse(example.innerText.replace(/\/\/ .*$/gm, ''))
-        const processedData = await processCredential(index, alg, json);
+        const processedData = await processExample(index, json);
         example.outerHTML = processedData.html
     }
 }
@@ -25,9 +22,13 @@ function addVcJoseStyles() {
     const styles = document.createElement('style');
 
     styles.innerHTML += `
-    .vc-jose-cose-tabbed {
+  .vc-jose-cose-tabbed {
     overflow-x: hidden;
     margin: 0 0;
+  }
+
+  .vc-jose-cose-tabbed h1 {
+    font-size: 1em;
   }
   
   .vc-jose-cose-tabbed [type="radio"] {
@@ -73,9 +74,7 @@ function addVcJoseStyles() {
   
   .vc-jose-cose-tabbed [type="radio"]:nth-of-type(1):checked~.vc-jose-cose-tabs .vc-jose-cose-tab:nth-of-type(1) label,
   .vc-jose-cose-tabbed [type="radio"]:nth-of-type(2):checked~.vc-jose-cose-tabs .vc-jose-cose-tab:nth-of-type(2) label,
-  .vc-jose-cose-tabbed [type="radio"]:nth-of-type(3):checked~.vc-jose-cose-tabs .vc-jose-cose-tab:nth-of-type(3) label,
-  .vc-jose-cose-tabbed [type="radio"]:nth-of-type(4):checked~.vc-jose-cose-tabs .vc-jose-cose-tab:nth-of-type(4) label,
-  .vc-jose-cose-tabbed [type="radio"]:nth-of-type(5):checked~.vc-jose-cose-tabs .vc-jose-cose-tab:nth-of-type(5) label {
+  .vc-jose-cose-tabbed [type="radio"]:nth-of-type(3):checked~.vc-jose-cose-tabs .vc-jose-cose-tab:nth-of-type(3) label {
     border-bottom-color: #fff;
     background: #fff;
     color: #222;
@@ -83,24 +82,18 @@ function addVcJoseStyles() {
   
   .vc-jose-cose-tabbed [type="radio"]:nth-of-type(1):checked~.vc-jose-cose-tab-content:nth-of-type(1),
   .vc-jose-cose-tabbed [type="radio"]:nth-of-type(2):checked~.vc-jose-cose-tab-content:nth-of-type(2),
-  .vc-jose-cose-tabbed [type="radio"]:nth-of-type(3):checked~.vc-jose-cose-tab-content:nth-of-type(3),
-  .vc-jose-cose-tabbed [type="radio"]:nth-of-type(4):checked~.vc-jose-cose-tab-content:nth-of-type(4),
-  .vc-jose-cose-tabbed [type="radio"]:nth-of-type(5):checked~.vc-jose-cose-tab-content:nth-of-type(5) {
+  .vc-jose-cose-tabbed [type="radio"]:nth-of-type(3):checked~.vc-jose-cose-tab-content:nth-of-type(3) {
     display: block;
   }
   
-  .sd-jwt-header {
+  .sd-jwt-header, .jwt-header {
     color: red
   }
-  .sd-jwt-payload {
+  .sd-jwt-payload, .jwt-payload {
     color: green
   }
   
-  .sd-jwt-payload-verified{
-    color: purple
-  }
-  
-  .sd-jwt-signature {
+  .sd-jwt-signature, .jwt-signature {
     color: blue
   }
   
@@ -108,24 +101,25 @@ function addVcJoseStyles() {
     color: purple
   }
   
-  .sd-jwt-compact {
+  .sd-jwt-compact, .jwt-compact {
     background-color: rgba(0,0,0,.03);
+  }
+
+  .cose-text, .jose-text {
+    font-family: monospace;
+    color: green;
   }`;
 
     document.head.appendChild(styles);
 }
 
-export async function processCredential(index, alg, json) {
-    const credentialMetadata = await getExampleMetadata({alg, json});
-    const claims = generateIssuerClaims(json);
-    const disclosure = generateHolderDisclosure(json);
-    const {vc, vp, verified} = await issueAndVerifyWithSdJWt({
-        ...credentialMetadata,
-        claims: SD.YAML.load(claims),
-        disclosure: SD.YAML.load(disclosure)
-    });
-    const html = getHtml({index, vc, vp, verified, claims, disclosure});
-    return {html}; // Return the HTML or other data directly
+export async function processExample(index, json) {
+    const privateKey = await getPrivateKey();
+    const coseExample = await getCoseExample(privateKey, json);
+    const jwtExample = await getJwtExample(privateKey, json);
+    const sdJwtExample = await getSdJwtExample(privateKey, json);
+    const html = getHtml({index, coseExample, jwtExample, sdJwtExample});
+    return {html};
 }
 
 window.respecVcJoseCose = {

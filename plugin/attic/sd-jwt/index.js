@@ -1,8 +1,7 @@
-
 import yaml from 'yaml'
 import moment from 'moment';
 import SD from '@transmute/vc-jwt-sd'
-import { base64url, calculateJwkThumbprint } from 'jose';
+import {base64url, calculateJwkThumbprint} from 'jose';
 
 const digestName = 'sha-256'
 
@@ -12,8 +11,7 @@ const isVP = (json) => json.type.includes('VerifiablePresentation')
 const salter = () => {
     const array = new Uint8Array(16);
     crypto.getRandomValues(array);
-    const encoded = base64url.encode(array);
-    return encoded
+    return base64url.encode(array)
 }
 
 const digester = {
@@ -26,8 +24,7 @@ const digester = {
 }
 
 export const generateIssuerClaims = (example)=> {
-    const generatedClaimsYaml = yaml.stringify(example).replace(/id\: /g, '!sd id: ').replace(/type\:/g, '!sd type:')
-    return generatedClaimsYaml
+    return yaml.stringify(example).replace(/id\: /g, '!sd id: ').replace(/type\:/g, '!sd type:')
 }
 
 export const generateHolderDisclosure = (example) => {
@@ -37,8 +34,7 @@ export const generateHolderDisclosure = (example) => {
     // disclose types
     const edited2 = edited1.replace(/\!sd type\:/g, `type:`)
     // redact remaining ids
-    const edited3 = edited2.replace(/\!sd id\:/g, `id:`)
-    return edited3
+    return edited2.replace(/\!sd id\:/g, `id:`)
 }
 
 export const getExampleMetadata = async ({ alg, json }) => {
