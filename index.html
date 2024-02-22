@@ -248,7 +248,33 @@
         <p>
         A [=conforming JWS verifier implementation=] MUST use [[RFC7515]] to verify [=conforming JWS documents=] that use this media type.
         </p>
-        <pre class="example vc-jose-cose-jwt" title="A simple example of a verifiable credential">
+        <pre class="example vc-jose-cose-jwt" title="A simple example of a verifiable credential secured with JOSE">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "id": "http://university.example/credentials/1872",
+  "type": [
+    "VerifiableCredential",
+    "ExampleAlumniCredential"
+  ],
+  "issuer": "https://university.example/issuers/565049",
+  "validFrom": "2010-01-01T19:23:24Z",
+  "credentialSchema": {
+    "id": "https://example.org/examples/degree.json",
+    "type": "JsonSchema"
+  },
+  "credentialSubject": {
+    "id": "did:example:123",
+    "degree": {
+      "type": "BachelorDegree",
+      "name": "Bachelor of Science and Arts"
+    }
+  }
+}
+        </pre>
+        <pre class="example vc-jose-cose-sd-jwt" title="A simple example of a verifiable credential secured with SD-JWT">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
@@ -305,7 +331,21 @@
           be secured using JOSE.
         <p>
 
-    <pre class="example vc-jose-cose-jwt" title="A simple example of a verifiable presentation">
+    <pre class="example vc-jose-cose-jwt" title="A simple example of a verifiable presentation secured with COSE">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "type": "VerifiablePresentation",
+  "verifiableCredential": [{
+    "@context": "https://www.w3.org/ns/credentials/v2",
+    "type": "EnvelopedVerifiableCredential",
+    "id": "data:application/vc+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlVRTV9fblE0UzZCTzhuUTRuT05YeHB4aHRob3lOeGI1M0xZZ1l6LTJBQnMiLCJ0eXAiOiJ2cCtsZCtqc29uK3NkLWp3dCIsImN0eSI6InZwK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwidmVyaWZpYWJsZUNyZWRlbnRpYWwiOlt7IkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy9leGFtcGxlcy92MiJdLCJpc3N1ZXIiOiJodHRwczovL3VuaXZlcnNpdHkuZXhhbXBsZS9pc3N1ZXJzLzU2NTA0OSIsInZhbGlkRnJvbSI6IjIwMTAtMDEtMDFUMTk6MjM6MjRaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiYWx1bW5pT2YiOnsibmFtZSI6IkV4YW1wbGUgVW5pdmVyc2l0eSIsIl9zZCI6WyJoek9LRzU2cDI5c1ByTGFDNUE4RndFdUczVU05dUlZU1p1cU9YczJlVGJBIl19LCJfc2QiOlsiWVdXVmVDRndxQmk4WDBqSF9jV0NWWU16STNhOHBjTEVYRWZicFNSQVlndyJdfSwiX3NkIjpbIjJJZjhhaUs4REZwVWJ4dEc1cGMwel9SaFJzbm1ybGFRMEhzcTk4WFNyYWsiLCJUeDZ4ZWZMVUdUZUpfYWtVUFdGeHNvbUhobGtWVnpfNzVoaVZ6eWpyYmVzIl19XSwiX3NkIjpbIjd2anl0VVN3ZEJ0MXQ5RktlOVFfS3JIRXhFWGxrTEFaTzBKM0Jpd200dlkiXSwiX3NkX2FsZyI6InNoYS0yNTYiLCJpYXQiOjE3MDY1NjI4NDksImV4cCI6MTczODE4NTI0OSwiY25mIjp7Imp3ayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0IiwiYWxnIjoiRVMzODQiLCJ4IjoidWtEd1U2ZzlQUVRFUWhYaEgyckRZNndMQlg3UHFlUjZBcGlhVHBEUXowcl8tdDl6UXNxem54Z0hEcE5oekZlQyIsInkiOiJMQnhVYnBVdFNGMVVKVTVpYnJIdkpINjBUSG5YMk1xa0xHZGltU1l0UGR4RlkxOEdhcldiS3FZV0djUkZHVE9BIn19fQ.kYD63YtBNYnLUTw6Szf1vs_Ug3UBXhPwCyqpNmPnPDa3rXZQhQLdB1BgaoO8zgQ-c3B41fxaXMnLHYV9-B20uboSpJP0B-2Vre917eQt1cSDswDGA_Ytvn4BSqYVBB2J~WyJFMkFsRzhsY2p0QVFrcllIbjlIbnVRIiwgInR5cGUiLCAiVmVyaWZpYWJsZVByZXNlbnRhdGlvbiJd~WyI5NldYMDRneno4cVZzOVZLU2wwYTVnIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~WyJaekU2VFVaamtHMW1DWXBKMEhnc0l3IiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyItQ3NsS25GZGFYb2JiQWsyU0JBVGR3IiwgImlkIiwgImRpZDpleGFtcGxlOmViZmViMWY3MTJlYmM2ZjFjMjc2ZTEyZWMyMSJd~WyJuRm1OWl9IczB3WWNoOFdkeTdnQUNRIiwgImlkIiwgImRpZDpleGFtcGxlOmMyNzZlMTJlYzIxZWJmZWIxZjcxMmViYzZmMSJd"
+  }]
+}
+      </pre>
+      <pre class="example vc-jose-cose-sd-jwt" title="A simple example of a verifiable presentation secured with SD-JWT">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
@@ -359,8 +399,36 @@ to ensure any addition JSON members are understood consistently.
         <p>
         A [=conforming CWT verifier implementation=] MUST use COSE_Sign1 as specified in [[RFC9052]] to verify [=conforming CWT documents=] that use this media type.
         </p>
+        <pre class="example vc-jose-cose-cose" title="A simple example of a verifiable credential secured with COSE">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "id": "http://university.example/credentials/1872",
+  "type": [
+    "VerifiableCredential",
+    "ExampleAlumniCredential"
+  ],
+  "issuer": "https://university.example/issuers/565049",
+  "validFrom": "2010-01-01T19:23:24Z",
+  "credentialSchema": {
+    "id": "https://example.org/examples/degree.json",
+    "type": "JsonSchema"
+  },
+  "credentialSubject": {
+    "id": "did:example:123",
+    "degree": {
+      "type": "BachelorDegree",
+      "name": "Bachelor of Science and Arts"
+    }
+  }
+}
+        </pre>
+        <p>
+          See <a data-cite="VC-DATA-MODEL-2.0#example-a-simple-example-of-a-verifiable-credential"></a> for more details regarding this example.
+        </p>
       </section>
-
       <section>
         <h2>Securing JSON-LD Verifiable Presentations with COSE</h2>
         <p>
@@ -384,7 +452,23 @@ to ensure any addition JSON members are understood consistently.
           Credentials in verifiable presentations MUST be secured. These credentials MAY
           be secured using COSE.
         <p>
-
+        <pre class="example vc-jose-cose-cose" title="A simple example of a verifiable presentation secured with COSE">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "type": "VerifiablePresentation",
+  "verifiableCredential": [{
+    "@context": "https://www.w3.org/ns/credentials/v2",
+    "type": "EnvelopedVerifiableCredential",
+    "id": "data:application/vc+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlVRTV9fblE0UzZCTzhuUTRuT05YeHB4aHRob3lOeGI1M0xZZ1l6LTJBQnMiLCJ0eXAiOiJ2cCtsZCtqc29uK3NkLWp3dCIsImN0eSI6InZwK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwidmVyaWZpYWJsZUNyZWRlbnRpYWwiOlt7IkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy9leGFtcGxlcy92MiJdLCJpc3N1ZXIiOiJodHRwczovL3VuaXZlcnNpdHkuZXhhbXBsZS9pc3N1ZXJzLzU2NTA0OSIsInZhbGlkRnJvbSI6IjIwMTAtMDEtMDFUMTk6MjM6MjRaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiYWx1bW5pT2YiOnsibmFtZSI6IkV4YW1wbGUgVW5pdmVyc2l0eSIsIl9zZCI6WyJoek9LRzU2cDI5c1ByTGFDNUE4RndFdUczVU05dUlZU1p1cU9YczJlVGJBIl19LCJfc2QiOlsiWVdXVmVDRndxQmk4WDBqSF9jV0NWWU16STNhOHBjTEVYRWZicFNSQVlndyJdfSwiX3NkIjpbIjJJZjhhaUs4REZwVWJ4dEc1cGMwel9SaFJzbm1ybGFRMEhzcTk4WFNyYWsiLCJUeDZ4ZWZMVUdUZUpfYWtVUFdGeHNvbUhobGtWVnpfNzVoaVZ6eWpyYmVzIl19XSwiX3NkIjpbIjd2anl0VVN3ZEJ0MXQ5RktlOVFfS3JIRXhFWGxrTEFaTzBKM0Jpd200dlkiXSwiX3NkX2FsZyI6InNoYS0yNTYiLCJpYXQiOjE3MDY1NjI4NDksImV4cCI6MTczODE4NTI0OSwiY25mIjp7Imp3ayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0IiwiYWxnIjoiRVMzODQiLCJ4IjoidWtEd1U2ZzlQUVRFUWhYaEgyckRZNndMQlg3UHFlUjZBcGlhVHBEUXowcl8tdDl6UXNxem54Z0hEcE5oekZlQyIsInkiOiJMQnhVYnBVdFNGMVVKVTVpYnJIdkpINjBUSG5YMk1xa0xHZGltU1l0UGR4RlkxOEdhcldiS3FZV0djUkZHVE9BIn19fQ.kYD63YtBNYnLUTw6Szf1vs_Ug3UBXhPwCyqpNmPnPDa3rXZQhQLdB1BgaoO8zgQ-c3B41fxaXMnLHYV9-B20uboSpJP0B-2Vre917eQt1cSDswDGA_Ytvn4BSqYVBB2J~WyJFMkFsRzhsY2p0QVFrcllIbjlIbnVRIiwgInR5cGUiLCAiVmVyaWZpYWJsZVByZXNlbnRhdGlvbiJd~WyI5NldYMDRneno4cVZzOVZLU2wwYTVnIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~WyJaekU2VFVaamtHMW1DWXBKMEhnc0l3IiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyItQ3NsS25GZGFYb2JiQWsyU0JBVGR3IiwgImlkIiwgImRpZDpleGFtcGxlOmViZmViMWY3MTJlYmM2ZjFjMjc2ZTEyZWMyMSJd~WyJuRm1OWl9IczB3WWNoOFdkeTdnQUNRIiwgImlkIiwgImRpZDpleGFtcGxlOmMyNzZlMTJlYzIxZWJmZWIxZjcxMmViYzZmMSJd"
+  }]
+}
+      </pre>
+        <p>
+          See <a data-cite="VC-DATA-MODEL-2.0#example-a-simple-example-of-a-verifiable-presentation"></a> for more details regarding this example.
+        </p>
     </section>
   </section>
 
