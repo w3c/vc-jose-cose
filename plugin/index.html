@@ -2,8 +2,8 @@
 <html>
 
 <head>
-    <title>ReSpec Service Worker Plugin Test</title>
-    <meta http-equiv='Content-Type' content='text/html;charset=utf-8' />
+    <title>Respec Service Worker Plugin Test</title>
+    <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
     <script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove'></script>
     <script src='./dist/main.js'></script>
     <script type="text/javascript" class="remove">
@@ -35,7 +35,9 @@
                 ],
             maxTocLevel: 2,
             inlineCSS: true,
-            postProcess: [window.respecVcJoseCose.processVcJoseCose]
+            postProcess: [
+                window.respecVcJoseCose.processVcJoseCose
+            ]
         };
     </script>
 </head>
@@ -50,7 +52,64 @@
 <section>
     <h2>Credential</h2>
     <a href="https://w3c.github.io/vc-data-model/#example-a-simple-example-of-a-verifiable-credential">Example 1</a>
-    <pre class="example vc-jose-cose" title="A Verifiable Credential">
+    <pre class="example vc-jose-cose" title="A Verifiable Credential with all 3 types">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "id": "http://university.example/credentials/1872",
+  "type": ["VerifiableCredential", "ExampleAlumniCredential"],
+  "issuer": "https://university.example/issuers/565049",
+  "validFrom": "2010-01-01T19:23:24Z",
+  "credentialSubject": {
+    "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+    "alumniOf": {
+      "id": "did:example:c276e12ec21ebfeb1f712ebc6f1",
+      "name": "Example University"
+    }
+  }
+}
+      </pre>
+    <pre class="example vc-jose-cose-jwt" title="A Verifiable Credential with JWT">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "id": "http://university.example/credentials/1872",
+  "type": ["VerifiableCredential", "ExampleAlumniCredential"],
+  "issuer": "https://university.example/issuers/565049",
+  "validFrom": "2010-01-01T19:23:24Z",
+  "credentialSubject": {
+    "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+    "alumniOf": {
+      "id": "did:example:c276e12ec21ebfeb1f712ebc6f1",
+      "name": "Example University"
+    }
+  }
+}
+      </pre>
+    <pre class="example vc-jose-cose-sd-jwt" title="A Verifiable Credential with SD-JWT">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "id": "http://university.example/credentials/1872",
+  "type": ["VerifiableCredential", "ExampleAlumniCredential"],
+  "issuer": "https://university.example/issuers/565049",
+  "validFrom": "2010-01-01T19:23:24Z",
+  "credentialSubject": {
+    "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+    "alumniOf": {
+      "id": "did:example:c276e12ec21ebfeb1f712ebc6f1",
+      "name": "Example University"
+    }
+  }
+}
+      </pre>
+    <pre class="example vc-jose-cose-cose" title="A Verifiable Credential with COSE">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
@@ -74,7 +133,85 @@
 <section>
     <h2>Presentation</h2>
     <a href="https://w3c.github.io/vc-data-model/#example-a-simple-example-of-a-verifiable-presentation">Example 2</a>
-    <pre class="example vc-jose-cose" title="A Verifiable Presentation">
+    <pre class="example vc-jose-cose" title="A Verifiable Presentation with all 3 types">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "type": "VerifiablePresentation",
+  "verifiableCredential": [
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+cose;base64url,QzVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    },
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+jwt;eyVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    },
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+sd-jwt;eyVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    }
+  ]
+}
+      </pre>
+    <pre class="example vc-jose-cose-jwt" title="A Verifiable Presentation with JWT">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "type": "VerifiablePresentation",
+  "verifiableCredential": [
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+cose;base64url,QzVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    },
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+jwt;eyVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    },
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+sd-jwt;eyVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    }
+  ]
+}
+      </pre>
+    <pre class="example vc-jose-cose-sd-jwt" title="A Verifiable Presentation with SD-JWT">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "type": "VerifiablePresentation",
+  "verifiableCredential": [
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+cose;base64url,QzVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    },
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+jwt;eyVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    },
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+sd-jwt;eyVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    }
+  ]
+}
+      </pre>
+    <pre class="example vc-jose-cose-cose" title="A Verifiable Presentation with COSE">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",

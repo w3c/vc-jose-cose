@@ -72,7 +72,6 @@ export const getCoseExample = async (privateKey, messageJson) => {
     const messageHex = buf2hex(message)
     const messageDiag = await cose.cbor.diagnose(message)
     return `
-
 <h1>${messageType.replace('+cose', '')}</h1>
 <pre>
 ${JSON.stringify(messageJson, null, 2)}
