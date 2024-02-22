@@ -3,7 +3,8 @@
 The
 **[Verifiable Credential Service Worker Plugin for ReSpec](https://github.com/w3c/vc-jose-cose/tree/main/plugin)**
 is basically the **[Verifiable Credential extensions to ReSpec](https://github.com/w3c/respec-vc)**,
-but with support for VCDM v2, and without JSON-LD processing.
+but with support for the [VCDM v2](https://www.w3.org/TR/vc-data-model-2.0), and
+removing JSON-LD processing.
 
 # Usage
 
