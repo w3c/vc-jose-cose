@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <title>Securing Verifiable Credentials using JOSE and COSE</title>
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"></script>
-  <script src="https://cdn.jsdelivr.net/gh/w3c/vc-jose-cose@2ba03be02a2a96a2362dd25e585ad343e2dd2362/plugin/dist/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/w3c/vc-jose-cose@206aac2e84847fa8f5c9601e11974e26ace4f9ac/plugin/dist/main.js"></script>
   <script type="text/javascript" class="remove">
     // See https://github.com/w3c/respec/wiki/ for how to configure
     // ReSpec
@@ -248,7 +248,7 @@
         <p>
         A [=conforming JWS verifier implementation=] MUST use [[RFC7515]] to verify [=conforming JWS documents=] that use this media type.
         </p>
-        <pre class="example vc-jose-cose" title="A simple example of a verifiable credential">
+        <pre class="example vc-jose-cose-jwt" title="A simple example of a verifiable credential">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
@@ -305,7 +305,7 @@
           be secured using JOSE.
         <p>
 
-    <pre class="example vc-jose-cose" title="A simple example of a verifiable presentation">
+    <pre class="example vc-jose-cose-jwt" title="A simple example of a verifiable presentation">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
