@@ -54,8 +54,9 @@ function addVcJoseStyles() {
   margin: 0 0;
 }
 
-.vc-jose-cose-tabbed h2, .vc-jose-cose-jwt-tabbed h2, .vc-jose-cose-sd-jwt-tabbed h2, .vc-jose-cose-cose-tabbed h2 {
+.vc-jose-cose-tabbed h1, .vc-jose-cose-jwt-tabbed h1, .vc-jose-cose-sd-jwt-tabbed h1, .vc-jose-cose-cose-tabbed h1 {
   font-size: 1em;
+  margin: 0 0;
 }
 
 .vc-jose-cose-tabbed [type="radio"], .vc-jose-cose-tabbed-jwt [type="radio"], .vc-jose-cose-tabbed-sd-jwt [type="radio"], .vc-jose-cose-tabbed-cose [type="radio"] {
@@ -71,7 +72,7 @@ function addVcJoseStyles() {
 }
 
 li.vc-jose-cose-tab, li.vc-jose-cose-jwt-tab, li.vc-jose-cose-sd-jwt-tab, li.vc-jose-cose-cose-tab {
-  margin: unset;
+  margin: 0 0;
   margin-left: 8px;
 }
 
