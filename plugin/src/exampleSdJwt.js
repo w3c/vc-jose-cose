@@ -87,18 +87,18 @@ export const getSdJwtExample = async (privateKey, messageJson) => {
 
 // const decodedHeader = jose.decodeProtectedHeader(messageEncoded.split('~')[0])
 // Not displaying protected header to save space
-// <h1>Protected</h1>
+// <h2>Protected</h2>
 // <pre>
 // ${JSON.stringify(decodedHeader, null, 2)}
 // </pre>
     return `
 
-<h1>${messageType2}</h1>
+<h2>${messageType2}</h2>
 <div>
 ${getDisclosabilityHtml(issuerClaims)}
 </div>
 
-<h1>${messageType}</h1>
+<h2>${messageType}</h2>
 <div class="jose-text">
 ${getSdHtml(messageEncoded)}
 </div>

@@ -75,16 +75,16 @@ export const getJwtExample = async (privateKey, messageJson) => {
     const messageEncoded = new TextDecoder().decode(message)
     // const decodedHeader = jose.decodeProtectedHeader(messageEncoded)
     // Not displaying protected header to save space
-    // <h1>Protected</h1>
+    // <h2>Protected</h2>
     // <pre>
     // ${JSON.stringify(decodedHeader, null, 2)}
     // </pre>
     return `
-<h1>${messageType.replace('+jwt', '')}</h1>
+<h2>${messageType.replace('+jwt', '')}</h2>
 <pre>
 ${JSON.stringify(messageJson, null, 2)}
 </pre>
-<h1>${messageType}</h1>
+<h2>${messageType}</h2>
 <div class="jose-text">
 ${getJwtHtml(messageEncoded)}
 </div>
