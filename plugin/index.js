@@ -54,7 +54,7 @@ function addVcJoseStyles() {
   margin: 0 0;
 }
 
-.vc-jose-cose-tabbed h2, .vc-jose-cose-jwt-tabbed h2, .vc-jose-cose-sd-jwt-tabbed h2, .vc-jose-cose-cose-tabbed h2 {
+.vc-jose-cose-tabbed h1, .vc-jose-cose-jwt-tabbed h1, .vc-jose-cose-sd-jwt-tabbed h1, .vc-jose-cose-cose-tabbed h1 {
   font-size: 1em;
 }
 
