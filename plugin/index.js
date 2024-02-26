@@ -71,7 +71,7 @@ function addVcJoseStyles() {
 }
 
 li.vc-jose-cose-tab, li.vc-jose-cose-jwt-tab, li.vc-jose-cose-sd-jwt-tab, li.vc-jose-cose-cose-tab {
-  margin: unset;
+  margin: 0 0;
   margin-left: 8px;
 }
 
