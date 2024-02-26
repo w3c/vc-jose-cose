@@ -140,7 +140,8 @@
     <p>
       This specification defines how to secure credentials and presentations
       conforming to the Verifiable Credential data model [[VC-DATA-MODEL-2.0]]
-      with JSON Object Signing and Encryption (<a href="https://datatracker.ietf.org/wg/jose/about/">JOSE</a>)
+      with JSON Object Signing and Encryption (<a href="https://datatracker.ietf.org/wg/jose/about/">JOSE</a>),
+      Selective Disclosure for JWTs [[SD-JWT]],
       and CBOR Object Signing and Encryption (COSE) [[RFC9052]].
       This enables the Verifiable Credential data model
       [[VC-DATA-MODEL-2.0]] to be implemented with standards
@@ -152,38 +153,43 @@
   <section id="introduction">
     <h2>Introduction</h2>
     <p>
-      This specification describes how to secure media types
+      This specification defines how to secure media types
       expressing Verifiable Credentials and Verifiable Presentations
       as described in [[VC-DATA-MODEL-2.0]] using approaches
-      defined by the OAuth, JOSE, and COSE working groups at the IETF.
-      This includes SD-JWT [[SD-JWT]] and COSE [[RFC9052]],
-      and provides an approach using well-defined content types
-      [[RFC6838]] and structured suffixes [[MULTIPLE-SUFFIXES]]
-      to distinguish the data types of unsecured documents conforming to [[VC-DATA-MODEL-2.0]]
-      from the data types of secured documents conforming to [[VC-DATA-MODEL-2.0]],
-      as defined in this specification.
+      defined by the JOSE, OAuth, and COSE working groups at the IETF.
+      This includes JSON Web Signature (JWS) [[RFC7515]],
+      Selective Disclosure for JWTs [[SD-JWT]],
+      and CBOR Object Signing and Encryption (COSE) [[RFC9052]].
+      It uses content types [[RFC6838]] and structured suffixes [[MULTIPLE-SUFFIXES]]
+      to distinguish between the data types of unsecured documents
+      conforming to [[VC-DATA-MODEL-2.0]]
+      and the data types of secured documents conforming to [[VC-DATA-MODEL-2.0]].
     </p>
     <p>
-      Selective Disclosure for JWTs (SD-JWT) [[SD-JWT]] provides a standardized
-      mechanism for digitally signing JSON documents. It provides a means
-      to ensure the integrity, authenticity, selective disclosure and non-repudiation of
-      the information contained in a JSON document. These
-      properties make SD-JWT especially well suited to securing documents
-      conforming to the JSON-LD [[VC-DATA-MODEL-2.0]].
+      JSON Web Signature (JWS) [[RFC7515]] defines a standard means of
+      digitally signing documents, including JSON documents,
+      using JSON-based data structures.
+      It provides a means to ensure the integrity, authenticity,
+      and non-repudiation of the information contained in the document.
+      Selective Disclosure for JWTs (SD-JWT) [[SD-JWT]] builds on JWS by also
+      providing a mechanism enabling selective disclosure of document elements.
+      These properties make JWS and SD-JWT especially well suited to
+      securing documents conforming to [[VC-DATA-MODEL-2.0]].
     </p>
     <p>
-      CBOR Object Signing and Encryption (COSE) [[RFC9052]] is a
-      specification that defines a framework for representing signed and
-      encrypted data using (Concise Binary Object Representation) [RFC8949]
-      data structures. COSE provides a standardized way to secure the
-      integrity, authenticity, and confidentiality of CBOR-encoded
-      information. It offers a flexible and extensible set of
+      CBOR Object Signing and Encryption (COSE) [[RFC9052]] defines
+      a standard means of representing digitally signed data structures
+      using Concise Binary Object Representation (CBOR) [[RFC8949]].
+      Like JWS, COSE provides a standardized way to secure the
+      integrity, authenticity, and confidentiality of information.
+      It offers a flexible and extensible set of
       cryptographic options, allowing for a wide range of algorithms
       to be used for signing and encryption.
-
+    </p>
+    <p>
       COSE supports two main operations: signing and encryption. For
       signing, COSE allows the creation of digital signatures over
-      CBOR data using various algorithms such as HMAC, RSA, ECDSA, or
+      CBOR data using various algorithms such as RSA, ECDSA, and
       EdDSA. These signatures provide assurance of data integrity and
       authenticity. COSE also supports encryption, enabling the
       confidentiality of CBOR data by encrypting it with symmetric or
@@ -201,7 +207,7 @@
     <h2>Securing the VC Data Model</h2>
     <p>
       This section outlines how to secure documents conforming
-      to [[VC-DATA-MODEL-2.0]] using JOSE and COSE.
+      to [[VC-DATA-MODEL-2.0]] using JOSE, SD-JWT, and COSE.
     </p>
     <p>
       Documents conforming to [[VC-DATA-MODEL-2.0]],
@@ -213,7 +219,7 @@
       A benefit to this approach is that payloads can be made to conform
       directly to [[VC-DATA-MODEL-2.0]] without any mappings or
       transformation, while at the same time supporting registered
-      header parameters and claims that are understood in the context of JOSE and COSE.
+      header parameters and claims that are understood in the context of JOSE, SD-JWT, and COSE.
     </p>
     <p>
       It is RECOMMENDED that media types be used to distinguish <a data-cite="VC-DATA-MODEL-2.0#credentials">verifiable credentials</a>
@@ -223,13 +229,15 @@
       The most specific media type (or subtype) available SHOULD be used, instead of
       more generic media types (or supertypes). For example, rather than the general
       <code>application/sd-jwt</code>, <code>application/vc+ld+json+sd-jwt</code>
-      ought to be used, unless there is a more specific media type that would even
+      SHOULD be used, unless there is a more specific media type that would even
       better identify the secured envelope format.
     </p>
     <p>
     If implementations do not know which media type to use, media types defined in this specification MUST be used.
     </p>
+
     <section id="secure-with-jose">
+
       <h2>With JOSE</h2>
       <section>
         <h2>Securing JSON-LD Verifiable Credentials with JOSE</h2>
@@ -239,14 +247,17 @@
         </p>
         <p>
           A [=conforming JWS issuer implementation=] MUST use [[RFC7515]] to secure this media type.
-          The <code>typ</code> header parameter SHOULD be <code>vc+ld+json+sd-jwt</code>.
+	  The unsecured verifiable credential is the unencoded JWS payload.
+	</p>
+	<p>
+          The <code>typ</code> header parameter SHOULD be <code>vc+ld+json+jwt</code>.
           When present, the <code>cty</code> header parameter SHOULD be <code>vc+ld+json</code>.
           See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
           for additional details regarding usage of <code>typ</code> and
           <code>cty</code>.
         </p>
         <p>
-        A [=conforming JWS verifier implementation=] MUST use [[RFC7515]] to verify [=conforming JWS documents=] that use this media type.
+          A [=conforming JWS verifier implementation=] MUST use [[RFC7515]] to verify [=conforming JWS documents=] that use this media type.
         </p>
         <pre class="example vc-jose-cose" title="A simple example of a verifiable credential">
 {
@@ -286,23 +297,26 @@
           to [[VC-DATA-MODEL-2.0]].
         </p>
         <p>
-        A [=conforming JWS issuer implementation=] MUST use [[RFC7515]] to secure this media type.
-          The <code>typ</code> header parameter SHOULD be <code>vp+ld+json+sd-jwt</code>.
-    When present, the <code>cty</code> header parameter SHOULD be <code>vp+ld+json</code>.
+	  A [=conforming JWS issuer implementation=] MUST use [[RFC7515]] to secure this media type.
+	  The unsecured verifiable presentation is the unencoded JWS payload.
+	</p>
+	<p>
+          The <code>typ</code> header parameter SHOULD be <code>vp+ld+json+jwt</code>.
+	  When present, the <code>cty</code> header parameter SHOULD be <code>vp+ld+json</code>.
           See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
           for additional details regarding usage of <code>typ</code> and
           <code>cty</code>.
         </p>
         <p>
-        A [=conforming JWS verifier implementation=] MUST use [[RFC7515]] to verify [=conforming JWS documents=] that use this media type.
+          A [=conforming JWS verifier implementation=] MUST use [[RFC7515]] to verify [=conforming JWS documents=] that use this media type.
         </p>
         <p>
           Credentials in verifiable presentations MUST use the <a data-cite="VC-DATA-MODEL-2.0/#defn-EnvelopedVerifiableCredential">Enveloped Verifiable Credential</a>
           type defined by the [[VC-DATA-MODEL-2.0]].
         </p>
         <p>
-          Credentials in verifiable presentations MUST be secured. These credentials MAY
-          be secured using JOSE.
+          Credentials in verifiable presentations MUST be secured.
+	  These credentials are secured using JWS in this case.
         <p>
 
     <pre class="example vc-jose-cose" title="A simple example of a verifiable presentation">
@@ -324,13 +338,122 @@
       </p>
 
       <p>
-To improve interoperability, implementations SHOULD support the compact serialization (<code>application/sd-jwt</code>),
-and MAY support the JSON serialization (<code>application/sd-jwt+json</code>).
-If the JSON serialization is used, it is RECOMMENDED that a profile be defined,
-to ensure any addition JSON members are understood consistently.
+	Implementations MUST support the JWS compact serialization.
+	Use of the JWS JSON serialization is NOT RECOMMENDED.
       </p>
       </section>
     </section>
+
+    <section id="secure-with-sd-jwt">
+      <h2>With SD-JWT</h2>
+      <section>
+        <h2>Securing JSON-LD Verifiable Credentials with SD-JWT</h2>
+        <p>
+          This section details how to use JOSE to secure verifiable credentials conforming
+          to [[VC-DATA-MODEL-2.0]].
+        </p>
+        <p>
+          A [=conforming SD-JWT issuer implementation=] MUST use [[SD-JWT] to secure this media type.
+	  The unsecured verifiable credential is the unencoded SD-JWT payload.
+	</p>
+	<p>
+          The <code>typ</code> header parameter SHOULD be <code>vc+ld+json+sd-jwt</code>.
+          When present, the <code>cty</code> header parameter SHOULD be <code>vc+ld+json</code>.
+          See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
+          for additional details regarding usage of <code>typ</code> and
+          <code>cty</code>.
+        </p>
+        <p>
+          A [=conforming SD-JWT verifier implementation=] MUST use [[SD-JWT] to verify [=conforming JWS documents=] that use this media type.
+        </p>
+
+        <pre class="example vc-jose-cose" title="A simple example of a verifiable credential">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "id": "http://university.example/credentials/1872",
+  "type": [
+    "VerifiableCredential",
+    "ExampleAlumniCredential"
+  ],
+  "issuer": "https://university.example/issuers/565049",
+  "validFrom": "2010-01-01T19:23:24Z",
+  "credentialSchema": {
+    "id": "https://example.org/examples/degree.json",
+    "type": "JsonSchema"
+  },
+  "credentialSubject": {
+    "id": "did:example:123",
+    "degree": {
+      "type": "BachelorDegree",
+      "name": "Bachelor of Science and Arts"
+    }
+  }
+}
+        </pre>
+        <p>
+          See <a data-cite="VC-DATA-MODEL-2.0#example-a-simple-example-of-a-verifiable-credential"></a> for more details regarding this example.
+        </p>
+      </section>
+
+      <section>
+        <h2>Securing JSON-LD Verifiable Presentations with SD-JWT</h2>
+        <p>
+          This section details how to use SD-JWT to secure verifiable presentations conforming
+          to [[VC-DATA-MODEL-2.0]].
+        </p>
+        <p>
+	  A [=conforming SD-JWT issuer implementation=] MUST use [[SD-JWT]] to secure this media type.
+	  The unsecured verifiable presentation is the unencoded SD-JWT payload.
+	</p>
+	<p>
+          The <code>typ</code> header parameter SHOULD be <code>vp+ld+json+sd-jwt</code>.
+    When present, the <code>cty</code> header parameter SHOULD be <code>vp+ld+json</code>.
+          See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
+          for additional details regarding usage of <code>typ</code> and
+          <code>cty</code>.
+        </p>
+        <p>
+          A [=conforming SD-JWT verifier implementation=] MUST use [[SD-JWT]] to verify [=conforming JWS documents=] that use this media type.
+        </p>
+        <p>
+          Credentials in verifiable presentations MUST use the <a data-cite="VC-DATA-MODEL-2.0/#defn-EnvelopedVerifiableCredential">Enveloped Verifiable Credential</a>
+          type defined by the [[VC-DATA-MODEL-2.0]].
+        </p>
+        <p>
+          Credentials in verifiable presentations MUST be secured.
+	  These credentials are secured using SD-JWT in this case.
+        <p>
+
+    <pre class="example vc-jose-cose" title="A simple example of a verifiable presentation">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "type": "VerifiablePresentation",
+  "verifiableCredential": [{
+    "@context": ["https://www.w3.org/ns/credentials/v2"],
+    "type": ["EnvelopedVerifiableCredential"],
+    "id": "data:application/vc+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlVRTV9fblE0UzZCTzhuUTRuT05YeHB4aHRob3lOeGI1M0xZZ1l6LTJBQnMiLCJ0eXAiOiJ2cCtsZCtqc29uK3NkLWp3dCIsImN0eSI6InZwK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwidmVyaWZpYWJsZUNyZWRlbnRpYWwiOlt7IkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy9leGFtcGxlcy92MiJdLCJpc3N1ZXIiOiJodHRwczovL3VuaXZlcnNpdHkuZXhhbXBsZS9pc3N1ZXJzLzU2NTA0OSIsInZhbGlkRnJvbSI6IjIwMTAtMDEtMDFUMTk6MjM6MjRaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiYWx1bW5pT2YiOnsibmFtZSI6IkV4YW1wbGUgVW5pdmVyc2l0eSIsIl9zZCI6WyJoek9LRzU2cDI5c1ByTGFDNUE4RndFdUczVU05dUlZU1p1cU9YczJlVGJBIl19LCJfc2QiOlsiWVdXVmVDRndxQmk4WDBqSF9jV0NWWU16STNhOHBjTEVYRWZicFNSQVlndyJdfSwiX3NkIjpbIjJJZjhhaUs4REZwVWJ4dEc1cGMwel9SaFJzbm1ybGFRMEhzcTk4WFNyYWsiLCJUeDZ4ZWZMVUdUZUpfYWtVUFdGeHNvbUhobGtWVnpfNzVoaVZ6eWpyYmVzIl19XSwiX3NkIjpbIjd2anl0VVN3ZEJ0MXQ5RktlOVFfS3JIRXhFWGxrTEFaTzBKM0Jpd200dlkiXSwiX3NkX2FsZyI6InNoYS0yNTYiLCJpYXQiOjE3MDY1NjI4NDksImV4cCI6MTczODE4NTI0OSwiY25mIjp7Imp3ayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0IiwiYWxnIjoiRVMzODQiLCJ4IjoidWtEd1U2ZzlQUVRFUWhYaEgyckRZNndMQlg3UHFlUjZBcGlhVHBEUXowcl8tdDl6UXNxem54Z0hEcE5oekZlQyIsInkiOiJMQnhVYnBVdFNGMVVKVTVpYnJIdkpINjBUSG5YMk1xa0xHZGltU1l0UGR4RlkxOEdhcldiS3FZV0djUkZHVE9BIn19fQ.kYD63YtBNYnLUTw6Szf1vs_Ug3UBXhPwCyqpNmPnPDa3rXZQhQLdB1BgaoO8zgQ-c3B41fxaXMnLHYV9-B20uboSpJP0B-2Vre917eQt1cSDswDGA_Ytvn4BSqYVBB2J~WyJFMkFsRzhsY2p0QVFrcllIbjlIbnVRIiwgInR5cGUiLCAiVmVyaWZpYWJsZVByZXNlbnRhdGlvbiJd~WyI5NldYMDRneno4cVZzOVZLU2wwYTVnIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~WyJaekU2VFVaamtHMW1DWXBKMEhnc0l3IiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyItQ3NsS25GZGFYb2JiQWsyU0JBVGR3IiwgImlkIiwgImRpZDpleGFtcGxlOmViZmViMWY3MTJlYmM2ZjFjMjc2ZTEyZWMyMSJd~WyJuRm1OWl9IczB3WWNoOFdkeTdnQUNRIiwgImlkIiwgImRpZDpleGFtcGxlOmMyNzZlMTJlYzIxZWJmZWIxZjcxMmViYzZmMSJd"
+  }]
+}
+      </pre>
+      <p>
+        See <a data-cite="VC-DATA-MODEL-2.0#example-a-simple-example-of-a-verifiable-presentation"></a> for more details regarding this example.
+      </p>
+
+      <p>
+	Implementations MUST support the compact serialization (<code>application/sd-jwt</code>)
+	and MAY support the JSON serialization (<code>application/sd-jwt+json</code>).
+	If the JSON serialization is used, it is RECOMMENDED that a profile be defined
+	to ensure any additional JSON members are understood consistently.
+      </p>
+      </section>
+    </section>
+
     <section id="secure-with-cose">
       <h2>With COSE</h2>
       <p>
@@ -348,7 +471,10 @@ to ensure any addition JSON members are understood consistently.
           with COSE.
         </p>
         <p>
-          A [=conforming CWT issuer implementation=] MUST use COSE_Sign1 as specified in [[RFC9052]] to secure this media type.
+          A [=conforming COSE issuer implementation=] MUST use COSE_Sign1 as specified in [[RFC9052]] to secure this media type.
+	  The unsecured verifiable credential is the unencoded COSE_Sign1 payload.
+	</p>
+	<p>
           The <code>typ</code> header parameter SHOULD be <code>application/vc+ld+json+cose</code>.
           See <a href="https://www.ietf.org/archive/id/draft-ietf-cose-typ-header-parameter-01.html">I-D.ietf-cose-typ-header-parameter</a>
           for the COSE "<code>typ</code>" (type) header parameter.
@@ -357,7 +483,7 @@ to ensure any addition JSON members are understood consistently.
           See <a data-cite="RFC9052#section-3.1">Common COSE Header Parameters</a> for additional details.
         </p>
         <p>
-        A [=conforming CWT verifier implementation=] MUST use COSE_Sign1 as specified in [[RFC9052]] to verify [=conforming CWT documents=] that use this media type.
+        A [=conforming COSE verifier implementation=] MUST use COSE_Sign1 as specified in [[RFC9052]] to verify [=conforming COSE documents=] that use this media type.
         </p>
       </section>
 
@@ -368,23 +494,26 @@ to ensure any addition JSON members are understood consistently.
           to [[VC-DATA-MODEL-2.0]].
         </p>
         <p>
-        A [=conforming CWT issuer implementation=] MUST use COSE_Sign1 as specified in [[RFC9052]] to secure this media type.
-          The <code>typ</code> header parameter SHOULD be <code>application/vp+ld+json+sd-jwt</code>.
+          A [=conforming COSE issuer implementation=] MUST use COSE_Sign1 as specified in [[RFC9052]] to secure this media type.
+	  The unsecured verifiable presentation is the unencoded COSE_Sign1 payload.
+	</p>
+	<p>
+          The <code>typ</code> header parameter SHOULD be <code>application/vp+ld+json+cose</code>.
           When present, the <code>cty</code> header parameter SHOULD be <code>application/vp+ld+json</code>.
           See <a data-cite="RFC9052#section-3.1">Common COSE Header Parameters</a> for additional details.
         </p>
         <p>
-        A [=conforming CWT verifier implementation=] MUST use COSE_Sign1 as specified in [[RFC9052]] to verify [=conforming CWT documents=] that use this media type.
+          A [=conforming COSE verifier implementation=] MUST use COSE_Sign1 as specified in [[RFC9052]] to verify [=conforming COSE documents=] that use this media type.
         </p>
         <p>
           Credentials in verifiable presentations MUST use the <a data-cite="VC-DATA-MODEL-2.0/#defn-EnvelopedVerifiableCredential">Enveloped Verifiable Credential</a>
           type defined by the [[VC-DATA-MODEL-2.0]].
         </p>
         <p>
-          Credentials in verifiable presentations MUST be secured. These credentials MAY
-          be secured using COSE.
+          Credentials in verifiable presentations MUST be secured.
+	  These credentials are secured using COSE in this case.
         <p>
-
+      </section>
     </section>
   </section>
 
@@ -451,7 +580,6 @@ to ensure any addition JSON members are understood consistently.
         If they are not understood, they MUST be ignored.
       </p>
     </section>
-  </section>
 
     <section class="normative">
       <h2>COSE Header Parameters and CWT Claims</h2>
@@ -1143,27 +1271,39 @@ credential</a> by a verifier.
       "MUST" statements in Section <a href="secure-with-jose"></a>.
       </p>
       <p>
-      A <dfn>conforming CWT document</dfn> is one that conforms to all of the
-      "MUST" statements in Section <a href="secure-with-cose"></a>.
-      </p>
-      <p>
       A <dfn>conforming JWS issuer implementation</dfn> produces
       [=conforming JWS documents=] and MUST secure them as described in Section
       <a href="secure-with-jose"></a>.
-      </p>
       <p>
       A <dfn>conforming JWS verifier implementation</dfn> verifies
       [=conforming JWS documents=] as described in Section
       <a href="secure-with-jose"></a>.
       </p>
       <p>
-      A <dfn>conforming CWT issuer implementation</dfn> produces
-      [=conforming CWT documents=] and MUST secure them as described in Section
+      A <dfn>conforming SD-JWT document</dfn> is one that conforms to all of the
+      "MUST" statements in Section <a href="secure-with-sd-jwt"></a>.
+      </p>
+      <p>
+      A <dfn>conforming SD-JWT issuer implementation</dfn> produces
+      [=conforming SD-JWT documents=] and MUST secure them as described in Section
+      <a href="secure-with-sd-jwt"></a>.
+      <p>
+      A <dfn>conforming SD-JWT verifier implementation</dfn> verifies
+      [=conforming SD-JWT documents=] as described in Section
+      <a href="secure-with-sd-jwt"></a>.
+      </p>
+      <p>
+      A <dfn>conforming COSE document</dfn> is one that conforms to all of the
+      "MUST" statements in Section <a href="secure-with-cose"></a>.
+      </p>
+      <p>
+      A <dfn>conforming COSE issuer implementation</dfn> produces
+      [=conforming COSE documents=] and MUST secure them as described in Section
       <a href="secure-with-cose"></a>.
       </p>
       <p>
-      A <dfn>conforming CWT verifier implementation</dfn>  verifies
-      [=conforming CWT documents=] as described in Section
+      A <dfn>conforming COSE verifier implementation</dfn> verifies
+      [=conforming COSE documents=] as described in Section
       <a href="secure-with-cose"></a>.
       </p>
     </section>
