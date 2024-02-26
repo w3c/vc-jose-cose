@@ -56,6 +56,7 @@ function addVcJoseStyles() {
 
 .vc-jose-cose-tabbed h2, .vc-jose-cose-jwt-tabbed h2, .vc-jose-cose-sd-jwt-tabbed h2, .vc-jose-cose-cose-tabbed h2 {
   font-size: 1em;
+  margin: 0 0;
 }
 
 .vc-jose-cose-tabbed [type="radio"], .vc-jose-cose-tabbed-jwt [type="radio"], .vc-jose-cose-tabbed-sd-jwt [type="radio"], .vc-jose-cose-tabbed-cose [type="radio"] {
