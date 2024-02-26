@@ -93,12 +93,12 @@ export const getSdJwtExample = async (privateKey, messageJson) => {
 // </pre>
     return `
 
-<h2>${messageType2}</h2>
+<h2 id="sd-jwt-example">${messageType2}</h2>
 <div>
 ${getDisclosabilityHtml(issuerClaims)}
 </div>
 
-<h2>${messageType}</h2>
+<h2 id="sd-jwt-example">${messageType}</h2>
 <div class="jose-text">
 ${getSdHtml(messageEncoded)}
 </div>

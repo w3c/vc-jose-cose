@@ -80,11 +80,11 @@ export const getJwtExample = async (privateKey, messageJson) => {
     // ${JSON.stringify(decodedHeader, null, 2)}
     // </pre>
     return `
-<h2>${messageType.replace('+jwt', '')}</h2>
+<h2 id="jwt-example">${messageType.replace('+jwt', '')}</h2>
 <pre>
 ${JSON.stringify(messageJson, null, 2)}
 </pre>
-<h2>${messageType}</h2>
+<h2 id="jwt-example">${messageType}</h2>
 <div class="jose-text">
 ${getJwtHtml(messageEncoded)}
 </div>
