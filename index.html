@@ -2,11 +2,11 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
+  <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
   <title>Securing Verifiable Credentials using JOSE and COSE</title>
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"></script>
-  <script src="https://cdn.jsdelivr.net/gh/w3c/vc-jose-cose@206aac2e84847fa8f5c9601e11974e26ace4f9ac/plugin/dist/main.js"></script>
-  <script type="text/javascript" class="remove">
+  <script src="https://cdn.jsdelivr.net/gh/w3c/vc-jose-cose@f2ecf4f7004dcd9524727a27f7671577c2e28cf4/plugin/dist/main.js"></script>
+  <script class="remove">
     // See https://github.com/w3c/respec/wiki/ for how to configure
     // ReSpec
     var respecConfig = {
@@ -667,7 +667,6 @@
         Additional members may be present as header parameters and claims.
   If they are not understood, they MUST be ignored.
       </p>
-    </section>
   </section>
 
   <section id="key_discovery" class="normative">
@@ -1738,7 +1737,6 @@ credential</a> by a verifier.
           </p>
         </li>
       </ul>
-      </p>
       <p>
         These considerations are not exhaustive, and implementers and
         users are advised to consult additional privacy resources and
@@ -2097,8 +2095,6 @@ The payload can be either a credential or presentation as described in
       </p>
     </section>
   </section>
-  </section>
-
   <section>
     <h2>Verification Algorithm</h2>
     <p>
