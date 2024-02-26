@@ -1,15 +1,19 @@
-# Verifiable Credential Service Worker Plugin for ReSpec
+# Verifiable Credential Service Plugin for ReSpec
 
-But with support for v2, and no JSON-LD processing.
+The
+**[Verifiable Credential Service Worker Plugin for ReSpec](https://github.com/w3c/vc-jose-cose/tree/main/plugin)**
+is basically the **[Verifiable Credential extensions to ReSpec](https://github.com/w3c/respec-vc)**,
+but adding support for the [VCDM v2](https://www.w3.org/TR/vc-data-model-2.0), and
+removing JSON-LD processing.
 
 # Usage
 
 To use this extension, add the `respec-plugins` directory to your spec,
-then configure respect to use the worker to post process like so:
+then configure ReSpec to use the worker to post-process like so:
 
 ```html
 <head>
-  <title>Respec Service Worker Plugin Test</title>
+  <title>ReSpec Service Worker Plugin Test</title>
   <meta http-equiv='Content-Type' content='text/html;charset=utf-8' />
   <script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove'></script>
   <script src="https://cdn.jsdelivr.net/gh/w3c/vc-jose-cose/plugin/dist/main.js"></script>
@@ -22,6 +26,12 @@ then configure respect to use the worker to post process like so:
 </head>
 ```
 
+You can choose to display `COSE`, `JWT`, and `SD-JWT` examples together, or individually using the following tags:
+- Together: `vc-jose-cose`
+- COSE: `vc-jose-cose-cose`
+- JWT: `vc-jose-cose-jwt`
+- SD-JWT: `vc-jose-cose-sd-jwt`
+- 
 ### Credits
 
 Based on https://github.com/transmute-industries/respec-vc-jwt, which was based

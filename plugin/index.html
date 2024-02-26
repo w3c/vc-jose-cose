@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Respec Service Worker Plugin Test</title>
+    <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
+    <script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove'></script>
+    <script src='./dist/main.js'></script>
+    <script type="text/javascript" class="remove">
+        var respecConfig = {
+            group: "vc",
+            specStatus: "unofficial",
+            subtitle: "Test of ReSpec VC",
+            edDraftURI: "https://decentralgabe.github.io/respec-vc-jose-cose/",
+            latestVersion: "https://decentralgabe.github.io/respec-vc-jose-cose/",
+            doJsonLd: false,
+            github: "https://github.com/transmute-industries/respec-vc-jose-cose",
+            includePermalinks: false,
+            editors: [
+                {
+                    name: "Gabe Cohen", url: "https://www.linkedin.com/in/cohengabe/",
+                    company: "Transmute", companyURL: "http://decentralgabe.xyz/"
+                },
+                {
+                    name: "Orie Steele", url: "https://www.linkedin.com/in/or13b/",
+                    company: "Transmute", companyURL: "http://transmute.industries/"
+                }
+            ],
+            authors:
+                [
+                    {
+                        name: "Orie Steele", url: "https://www.linkedin.com/in/or13b/",
+                        company: "Transmute", companyURL: "http://transmute.industries/"
+                    }
+                ],
+            maxTocLevel: 2,
+            inlineCSS: true,
+            postProcess: [
+                window.respecVcJoseCose.processVcJoseCose
+            ]
+        };
+    </script>
+</head>
+
+<body>
+<div id="bench"></div>
+<section id="abstract">
+    <p>Hello respec-plugin!</p>
+
+
+</section>
+<section>
+    <h2>Credential</h2>
+    <a href="https://w3c.github.io/vc-data-model/#example-a-simple-example-of-a-verifiable-credential">Example 1</a>
+    <pre class="example vc-jose-cose" title="A Verifiable Credential with all 3 types">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "id": "http://university.example/credentials/1872",
+  "type": ["VerifiableCredential", "ExampleAlumniCredential"],
+  "issuer": "https://university.example/issuers/565049",
+  "validFrom": "2010-01-01T19:23:24Z",
+  "credentialSubject": {
+    "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+    "alumniOf": {
+      "id": "did:example:c276e12ec21ebfeb1f712ebc6f1",
+      "name": "Example University"
+    }
+  }
+}
+      </pre>
+    <pre class="example vc-jose-cose-jwt" title="A Verifiable Credential with JWT">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "id": "http://university.example/credentials/1872",
+  "type": ["VerifiableCredential", "ExampleAlumniCredential"],
+  "issuer": "https://university.example/issuers/565049",
+  "validFrom": "2010-01-01T19:23:24Z",
+  "credentialSubject": {
+    "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+    "alumniOf": {
+      "id": "did:example:c276e12ec21ebfeb1f712ebc6f1",
+      "name": "Example University"
+    }
+  }
+}
+      </pre>
+    <pre class="example vc-jose-cose-sd-jwt" title="A Verifiable Credential with SD-JWT">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "id": "http://university.example/credentials/1872",
+  "type": ["VerifiableCredential", "ExampleAlumniCredential"],
+  "issuer": "https://university.example/issuers/565049",
+  "validFrom": "2010-01-01T19:23:24Z",
+  "credentialSubject": {
+    "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+    "alumniOf": {
+      "id": "did:example:c276e12ec21ebfeb1f712ebc6f1",
+      "name": "Example University"
+    }
+  }
+}
+      </pre>
+    <pre class="example vc-jose-cose-cose" title="A Verifiable Credential with COSE">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "id": "http://university.example/credentials/1872",
+  "type": ["VerifiableCredential", "ExampleAlumniCredential"],
+  "issuer": "https://university.example/issuers/565049",
+  "validFrom": "2010-01-01T19:23:24Z",
+  "credentialSubject": {
+    "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+    "alumniOf": {
+      "id": "did:example:c276e12ec21ebfeb1f712ebc6f1",
+      "name": "Example University"
+    }
+  }
+}
+      </pre>
+</section>
+
+<section>
+    <h2>Presentation</h2>
+    <a href="https://w3c.github.io/vc-data-model/#example-a-simple-example-of-a-verifiable-presentation">Example 2</a>
+    <pre class="example vc-jose-cose" title="A Verifiable Presentation with all 3 types">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "type": "VerifiablePresentation",
+  "verifiableCredential": [
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+cose;base64url,QzVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    },
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+jwt;eyVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    },
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+sd-jwt;eyVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    }
+  ]
+}
+      </pre>
+    <pre class="example vc-jose-cose-jwt" title="A Verifiable Presentation with JWT">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "type": "VerifiablePresentation",
+  "verifiableCredential": [
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+cose;base64url,QzVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    },
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+jwt;eyVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    },
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+sd-jwt;eyVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    }
+  ]
+}
+      </pre>
+    <pre class="example vc-jose-cose-sd-jwt" title="A Verifiable Presentation with SD-JWT">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "type": "VerifiablePresentation",
+  "verifiableCredential": [
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+cose;base64url,QzVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    },
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+jwt;eyVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    },
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+sd-jwt;eyVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    }
+  ]
+}
+      </pre>
+    <pre class="example vc-jose-cose-cose" title="A Verifiable Presentation with COSE">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "type": "VerifiablePresentation",
+  "verifiableCredential": [
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+cose;base64url,QzVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    },
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+jwt;eyVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    },
+    {
+      "@context": "https://www.w3.org/ns/credentials/v2",
+      "id": "data:application/vc+ld+json+sd-jwt;eyVjV...RMjU",
+      "type": "EnvelopedVerifiableCredential"
+    }
+  ]
+}
+      </pre>
+</section>
+</body>
+
+</html>

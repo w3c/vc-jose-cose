@@ -1,6 +1,6 @@
 {
   "name": "respec-vc-jose-cose",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "main": "index.js",
   "scripts": {
     "start": "http-server .",
@@ -20,7 +20,9 @@
   },
   "homepage": "https://github.com/w3c/vc-jose-cose#readme",
   "dependencies": {
+    "@transmute/cose": "^0.1.1",
     "@transmute/vc-jwt-sd": "^0.0.5",
+    "@transmute/verifiable-credentials": "^0.2.0",
     "jose": "^4.15.1",
     "moment": "^2.29.4",
     "yaml": "^2.3.2"
