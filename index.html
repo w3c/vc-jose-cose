@@ -102,13 +102,6 @@
           status:   "Internet-Draft",
           publisher:  "IETF"
         },
-        "COSE-Sign-1": {
-          title:    "CBOR Object Signing and Encryption (COSE): Structures and Process",
-          href:     "https://datatracker.ietf.org/doc/html/draft-ietf-oauth-selective-disclosure-jwt",
-          authors:  [ "Jim Schaad" ],
-          status:   "Internet Standard",
-          publisher:  "IETF"
-        },
         "SD-JWT-VC": {
           title:    "SD-JWT-based Verifiable Credentials (SD-JWT VC)",
           href:     "https://datatracker.ietf.org/doc/html/draft-ietf-oauth-sd-jwt-vc",
@@ -126,6 +119,13 @@
         "JOSE-REGISTRIES": {
           title:    "The JSON Object Signing and Encryption (JOSE) Registries",
           href:     "https://www.iana.org/assignments/jose",
+          authors:  ["The Internet Assigned Numbers Authority"],
+          status:   "REC",
+          publisher:  "The Internet Assigned Numbers Authority"
+        },
+        "IANA-STRUCTURED-SUFFIX": {
+          title:    "Structured Syntax Suffixes",
+          href:     "https://www.iana.org/assignments/media-type-structured-suffix/",
           authors:  ["The Internet Assigned Numbers Authority"],
           status:   "REC",
           publisher:  "The Internet Assigned Numbers Authority"
@@ -1412,6 +1412,7 @@ credential</a> by a verifier.
         This specification registers the
         <code>application/vc+ld+json+jwt</code> Media Type specifically for
         identifying a <a data-cite="JWT"></a>
+	with a payload
         conforming to the Verifiable Credential Data Model.
       </p>
       <table>
@@ -1450,13 +1451,15 @@ credential</a> by a verifier.
         </tr>
       </table>
     </section>
+
     <section id="vp-ld-jwt-media-type">
       <h2><code>application/vp+ld+json+jwt</code></h2>
       <p>
         This specification registers the
         <code>application/vp+ld+json+jwt</code> Media Type specifically for
         identifying a <a data-cite="JWT"></a>
-        conforming to the Verifiable Presentations.
+	with a payload
+        conforming to Verifiable Presentations.
       </p>
       <table>
         <tr>
@@ -1501,6 +1504,7 @@ credential</a> by a verifier.
         This specification registers the
         <code>application/vc+ld+json+sd-jwt</code> Media Type specifically for
         identifying a <a data-cite="SD-JWT"></a>
+	with a payload
         conforming to the Verifiable Credential Data Model.
       </p>
       <table>
@@ -1539,13 +1543,15 @@ credential</a> by a verifier.
         </tr>
       </table>
     </section>
+
     <section id="vp-ld-sd-jwt-media-type">
       <h2><code>application/vp+ld+json+sd-jwt</code></h2>
       <p>
         This specification registers the
         <code>application/vp+ld+json+sd-jwt</code> Media Type specifically for
         identifying a <a data-cite="SD-JWT"></a>
-        conforming to the Verifiable Presentations.
+	with a payload
+        conforming to Verifiable Presentations.
       </p>
       <table>
         <tr>
@@ -1589,14 +1595,9 @@ credential</a> by a verifier.
       <p>
         This specification registers the
         <code>application/vc+ld+json+cose</code> Media Type specifically for
-        identifying a cose-sign1, as described in <a data-cite="COSE-Sign-1"></a>
+        identifying a COSE object [[RFC9052]]
+	with a payload
         conforming to the Verifiable Credential Data Model.
-      </p>
-      <p class="advisement">
-        Remove this note before publishing, see this similar example:
-        <a href="https://datatracker.ietf.org/doc/html/draft-ietf-anima-constrained-voucher#section-16.2.1">
-          application/voucher+cose
-        </a>
       </p>
       <table>
         <tr>
@@ -1621,7 +1622,7 @@ credential</a> by a verifier.
           <td>Security considerations: </td>
           <td>
             <p>As defined in this specification. See also the security
-            considerations in <a data-cite="COSE-Sign-1"></a>.</p>
+            considerations in [[RFC9052]]</a>.</p>
           </td>
         </tr>
         <tr>
@@ -1633,19 +1634,15 @@ credential</a> by a verifier.
         </tr>
       </table>
     </section>
+
     <section id="vp-ld-json-cose-media-type">
       <h2><code>application/vp+ld+json+cose</code></h2>
       <p>
         This specification registers the
         <code>application/vp+ld+json+cose</code> Media Type specifically for
-        identifying a cose-sign1, as described in <a data-cite="COSE-Sign-1"></a>
-        conforming to the Verifiable Credential Data Model.
-      </p>
-      <p class="advisement">
-        Remove this note before publishing, see this similar example:
-        <a href="https://datatracker.ietf.org/doc/html/draft-ietf-anima-constrained-voucher#section-16.2.1">
-          application/voucher+cose
-        </a>
+        identifying a COSE object [[RFC9052]]
+	with a payload
+        conforming to Verifiable Presentations.
       </p>
       <table>
         <tr>
@@ -1670,7 +1667,7 @@ credential</a> by a verifier.
           <td>Security considerations: </td>
           <td>
             <p>As defined in this specification. See also the security
-            considerations in <a data-cite="COSE-Sign-1"></a>.</p>
+            considerations in [[RFC9052]]</a>.</p>
           </td>
         </tr>
         <tr>
@@ -1682,6 +1679,332 @@ credential</a> by a verifier.
         </tr>
       </table>
     </section>
+
+    <section>
+    <h2>Structured Syntax Suffixeses</h2>
+
+    <section id="ld-json-jwt-suffix">
+      <h2><code>+ld+json+jwt</code></h2>
+      <p>
+        This specification registers the
+        <code>+ld+json+jwt</code> Structured Suffix
+	in the IANA "Structured Syntax Suffixes" registry [[IANA-STRUCTURED-SUFFIX]]
+	for indicating that the media type is encoded as
+	a <a data-cite="JWT"></a>
+        with a JSON-LD payload.
+      </p>
+      <table>
+        <tr>
+          <td>Name: </td>
+          <td>`ld+json+jwt`</td>
+        </tr>
+        <tr>
+          <td>+suffix: </td>
+          <td>`+ld+json+jwt`</td>
+        </tr>
+        <tr>
+          <td>References: </td>
+          <td>this specification</td>
+        </tr>
+        <tr>
+          <td>Encoding considerations: </td>
+          <td>
+            binary; `jwt` values are a series of base64url-encoded values
+            (some of which may be the empty string) separated by period ('.').
+          </td>
+        </tr>
+        <tr>
+          <td>Security considerations: </td>
+          <td>
+            <p>As defined in this specification. See also the security
+            considerations in <a data-cite="JWT"></a> and [[json-ld11]].</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Contact: </td>
+          <td>
+            W3C Verifiable Credentials Working Group <a
+            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+        <tr>
+          <td>Author/Change Controller: </td>
+          <td>
+            W3C Verifiable Credentials Working Group <a
+            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="json-jwt-suffix">
+      <h2><code>+json+jwt</code></h2>
+      <p>
+        This specification registers the
+        <code>+json+jwt</code> Structured Suffix
+	in the IANA "Structured Syntax Suffixes" registry [[IANA-STRUCTURED-SUFFIX]]
+	for indicating that the media type is encoded as
+	a <a data-cite="JWT"></a>
+        with a JSON payload.
+      </p>
+      <table>
+        <tr>
+          <td>Name: </td>
+          <td>json+jwt</td>
+        </tr>
+        <tr>
+          <td>+suffix: </td>
+          <td>`+json+jwt`</td>
+        </tr>
+        <tr>
+          <td>References: </td>
+          <td>this specification</td>
+        </tr>
+        <tr>
+          <td>Encoding considerations: </td>
+          <td>
+            binary; `jwt` values are a series of base64url-encoded values
+            (some of which may be the empty string) separated by period ('.').
+          </td>
+        </tr>
+        <tr>
+          <td>Security considerations: </td>
+          <td>
+            <p>As defined in this specification. See also the security
+            considerations in <a data-cite="JWT"></a>.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Contact: </td>
+          <td>
+            W3C Verifiable Credentials Working Group <a
+            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+        <tr>
+          <td>Author/Change Controller: </td>
+          <td>
+            W3C Verifiable Credentials Working Group <a
+            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="ld-json-sd-jwt-suffix">
+      <h2><code>+ld+json+sd-jwt</code></h2>
+      <p>
+        This specification registers the
+        <code>+ld+json+sd-jwt</code> Structured Suffix
+	in the IANA "Structured Syntax Suffixes" registry [[IANA-STRUCTURED-SUFFIX]]
+	for indicating that the media type is encoded as
+	an <a data-cite="SD-JWT"></a>
+        with a JSON-LD payload.
+      </p>
+      <table>
+        <tr>
+          <td>Name: </td>
+          <td>`ld+json+sd-jwt`</td>
+        </tr>
+        <tr>
+          <td>+suffix: </td>
+          <td>`+ld+json+sd-jwt`</td>
+        </tr>
+        <tr>
+          <td>References: </td>
+          <td>this specification</td>
+        </tr>
+        <tr>
+          <td>Encoding considerations: </td>
+          <td>
+            binary; `sd-jwt` values are a series of base64url-encoded values
+            (some of which may be the empty string) separated by period ('.') or tilde ('~') characters.
+          </td>
+        </tr>
+        <tr>
+          <td>Security considerations: </td>
+          <td>
+            <p>As defined in this specification. See also the security
+            considerations in <a data-cite="SD-JWT"></a>.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Contact: </td>
+          <td>
+            W3C Verifiable Credentials Working Group <a
+            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+        <tr>
+          <td>Author/Change Controller: </td>
+          <td>
+            W3C Verifiable Credentials Working Group <a
+            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="json-sd-jwt-suffix">
+      <h2><code>+json+sd-jwt</code></h2>
+      <p>
+        This specification registers the
+        <code>+json+sd-jwt</code> Structured Suffix
+	in the IANA "Structured Syntax Suffixes" registry [[IANA-STRUCTURED-SUFFIX]]
+	for indicating that the media type is encoded as
+	an <a data-cite="SD-JWT"></a>
+        with a JSON payload.
+      </p>
+      <table>
+        <tr>
+          <td>Name: </td>
+          <td>json+sd-jwt</td>
+        </tr>
+        <tr>
+          <td>+suffix: </td>
+          <td>`+json+sd-jwt`</td>
+        </tr>
+        <tr>
+          <td>References: </td>
+          <td>this specification</td>
+        </tr>
+        <tr>
+          <td>Encoding considerations: </td>
+          <td>
+            binary; `sd-jwt` values are a series of base64url-encoded values
+            (some of which may be the empty string) separated by period ('.') or tilde ('~') characters.
+          </td>
+        </tr>
+        <tr>
+          <td>Security considerations: </td>
+          <td>
+            <p>As defined in this specification. See also the security
+            considerations in <a data-cite="SD-JWT"></a>.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Contact: </td>
+          <td>
+            W3C Verifiable Credentials Working Group <a
+            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+        <tr>
+          <td>Author/Change Controller: </td>
+          <td>
+            W3C Verifiable Credentials Working Group <a
+            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="ld-json-cose-suffix">
+      <h2><code>+ld+json+cose</code></h2>
+      <p>
+        This specification registers the
+        <code>+ld+json+cose</code> Structured Suffix
+	in the IANA "Structured Syntax Suffixes" registry [[IANA-STRUCTURED-SUFFIX]]
+	for indicating that the media type is encoded as
+	a COSE object [[RFC9052]]
+        with a JSON-LD payload.
+      </p>
+      <table>
+        <tr>
+          <td>Name: </td>
+          <td>`ld+json+cose`</td>
+        </tr>
+        <tr>
+          <td>+suffix: </td>
+          <td>`+ld+json+cose`</td>
+        </tr>
+        <tr>
+          <td>References: </td>
+          <td>this specification</td>
+        </tr>
+        <tr>
+          <td>Encoding considerations: </td>
+          <td>
+            binary (CBOR)
+          </td>
+        </tr>
+        <tr>
+          <td>Security considerations: </td>
+          <td>
+            <p>As defined in this specification. See also the security
+            considerations in [[RFC9052]] and [[json-ld11]]</a>.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Contact: </td>
+          <td>
+            W3C Verifiable Credentials Working Group <a
+            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+        <tr>
+          <td>Author/Change Controller: </td>
+          <td>
+            W3C Verifiable Credentials Working Group <a
+            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="json-cose-suffix">
+      <h2><code>+json+cose</code></h2>
+      <p>
+        This specification registers the
+        <code>+json+cose</code> Structured Suffix
+	in the IANA "Structured Syntax Suffixes" registry [[IANA-STRUCTURED-SUFFIX]]
+	for indicating that the media type is encoded as
+	a COSE object [[RFC9052]]
+        with a JSON payload.
+      </p>
+      <table>
+        <tr>
+          <td>Name: </td>
+          <td>json+cose</td>
+        </tr>
+        <tr>
+          <td>+suffix: </td>
+          <td>`+json+cose`</td>
+        </tr>
+        <tr>
+          <td>References: </td>
+          <td>this specification</td>
+        </tr>
+        <tr>
+          <td>Encoding considerations: </td>
+          <td>
+            binary (CBOR)
+          </td>
+        </tr>
+        <tr>
+          <td>Security considerations: </td>
+          <td>
+            <p>As defined in this specification. See also the security
+            considerations in [[RFC9052]]</a>.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Contact: </td>
+          <td>
+            W3C Verifiable Credentials Working Group <a
+            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+        <tr>
+          <td>Author/Change Controller: </td>
+          <td>
+            W3C Verifiable Credentials Working Group <a
+            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
+          </td>
+        </tr>
+      </table>
+    </section>
+
   </section>
 
 </section>
