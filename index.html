@@ -353,7 +353,7 @@
           to [[VC-DATA-MODEL-2.0]].
         </p>
         <p>
-          A [=conforming SD-JWT issuer implementation=] MUST use [[SD-JWT] to secure this media type.
+          A [=conforming SD-JWT issuer implementation=] MUST use [[SD-JWT]] to secure this media type.
 	  The unsecured verifiable credential is the unencoded SD-JWT payload.
 	</p>
 	<p>
@@ -364,7 +364,7 @@
           <code>cty</code>.
         </p>
         <p>
-          A [=conforming SD-JWT verifier implementation=] MUST use [[SD-JWT] to verify [=conforming JWS documents=] that use this media type.
+          A [=conforming SD-JWT verifier implementation=] MUST use [[SD-JWT]] to verify [=conforming JWS documents=] that use this media type.
         </p>
 
         <pre class="example vc-jose-cose-sd-jwt" title="A simple example of a verifiable credential secured with SD-JWT">
@@ -2109,7 +2109,7 @@ This includes minimizing any processing of the protected header, unprotected hea
 
     <p>
 When verifying a credential or presentation secured with SD-JWT, the algorithm defined in
-[[SD-JWT] for
+[[SD-JWT]] for
   Verification of the SD-JWT
 MUST be followed.
     </p>
