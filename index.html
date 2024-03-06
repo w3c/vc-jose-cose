@@ -475,7 +475,7 @@
 	</p>
 	<p>
           The <code>typ</code> header parameter SHOULD be <code>application/vc+ld+json+cose</code>.
-          See <a href="https://www.ietf.org/archive/id/draft-ietf-cose-typ-header-parameter-01.html">I-D.ietf-cose-typ-header-parameter</a>
+          See <a href="https://www.ietf.org/archive/id/draft-ietf-cose-typ-header-parameter-03.html">I-D.ietf-cose-typ-header-parameter</a>
           for the COSE "<code>typ</code>" (type) header parameter.
           When present, the <code>content type (3)</code> header parameter
           SHOULD be <code>application/vc+ld+json</code>.
@@ -636,14 +636,14 @@
       the IANA <a href="https://www.iana.org/assignments/cwt/cwt.xhtml">CBOR Web Token (CWT) Claims</a> registry or
       the IANA <a href="https://www.iana.org/assignments/cose/cose.xhtml">COSE Header Parameters</a> registry
       are to be interpreted as defined by the specifications referenced in the registries.
-      CWT Claims MAY be included in a COSE header parameter, as specified in
-      <a href="https://www.ietf.org/archive/id/draft-ietf-cose-cwt-claims-in-headers-09.html">I-D.ietf-cose-cwt-claims-in-headers</a>.
+      CBOR Web Token (CWT) [[?RFC8392]] Claims MAY be included in a COSE header parameter, as specified in
+      <a href="https://www.ietf.org/archive/id/draft-ietf-cose-cwt-claims-in-headers-10.html">I-D.ietf-cose-cwt-claims-in-headers</a>.
       </p>
       <p>
         The normative statements in
   <a data-cite="RFC9052#section-3.1.1">Registered Header Parameter Names</a>,
         <a data-cite="RFC8392#section-3">Claims</a>, and
-  <a href="https://www.ietf.org/archive/id/draft-ietf-cose-cwt-claims-in-headers-09.html">CBOR Web Token (CWT) Claims in COSE Headers</a>
+  <a href="https://www.ietf.org/archive/id/draft-ietf-cose-cwt-claims-in-headers-10.html">CBOR Web Token (CWT) Claims in COSE Headers</a>
         apply to securing credentials and presentations.
       </p>
       <p>
@@ -787,7 +787,8 @@
       <section>
         <h2>kid</h2>
         <p>
-      If <code>kid</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>,
+      If <code>kid</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>
+      or the <a data-cite="RFC9052#section-3">COSE Header</a>,
       a <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">verifier</a> can use this parameter
       as a hint indicating which key was used to secure the verifiable credential, when performing a
       <a data-cite="VC-DATA-MODEL-2.0#dfn-verify">verification</a> process as defined in <a data-cite="RFC7515#section-4.1.4">RFC7515</a>.
@@ -800,8 +801,9 @@
       <section>
         <h2>iss</h2>
         <p>
-      If <code>iss</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>
-      or the <a data-cite="RFC7519#section-4.1.1">JWT Claims </a>,
+      If <code>iss</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>,
+      the <a data-cite="RFC7519#section-4.1.1">JWT Claims</a>,
+      or the <a data-cite="RFC9052#section-3">COSE Header</a>,
       a <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">verifier</a> can use this parameter
       to obtain a <a data-cite="RFC7517#section-4">JSON Web Key</a> to use in the
       <a data-cite="VC-DATA-MODEL-2.0#dfn-verify">verification</a> process.
@@ -822,12 +824,19 @@
       <section>
         <h2>cnf</h2>
         <p>
-      If <code>cnf</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>
-      or the <a data-cite="RFC7519#section-4.1.1">JWT Claims </a>,
+      If <code>cnf</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>,
+      the <a data-cite="RFC7519#section-4.1.1">JWT Claims</a>,
+      or the <a data-cite="RFC9052#section-3">COSE Header</a>,
       a <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">verifier</a> MAY use this parameter
-      to identify a proof-of-possession key in the manner described in [[RFC7800]] for use in the
+      to identify a proof-of-possession key in the manner described in [[RFC7800]]
+      or [[RFC8747]] for use in the
       <a data-cite="VC-DATA-MODEL-2.0#dfn-verify">verification</a> process.
         </p>
+	<p>
+	  Use of a proof-of-posssion key provided by the Holder to the Issuer
+	  to establish a cryptographic binding to the Holder in the Verifiable Credential
+	  that is verifiable by the Verifier in the Verifiable Presentation is RECOMMENDED.
+	</p>
       </section>
       </section>
 
