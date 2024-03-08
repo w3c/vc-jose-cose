@@ -833,7 +833,7 @@
       <a data-cite="VC-DATA-MODEL-2.0#dfn-verify">verification</a> process.
         </p>
 	<p>
-	  Use of a proof-of-posssion key provided by the Holder to the Issuer
+	  Use of a proof-of-possession key provided by the Holder to the Issuer
 	  to establish a cryptographic binding to the Holder in the Verifiable Credential
 	  that is verifiable by the Verifier in the Verifiable Presentation is RECOMMENDED.
 	</p>
@@ -986,7 +986,7 @@ from a DID URL or controller document.
 A <a>verification method</a> MUST NOT contain multiple verification material
 properties for the same material. For example, expressing key material in a
 <a>verification method</a> using both `publicKeyJwk` and
-another representtion is prohibited.
+another representation is prohibited.
             </p>
 
             <p>
@@ -2238,7 +2238,7 @@ credential</a> by a verifier.
       "x": "ANRjH_zxcKBxsjRPUtzRbp7FSVLKJXQ9APX9MP1j7k4"
     }
   }, {
-    "id": "#subject-authenticaton",
+    "id": "#subject-authentication",
     "type": "JsonWebKey",
     "controller": "did:web:vendor.example",
     "publicKeyJwk": {
@@ -2270,7 +2270,7 @@ credential</a> by a verifier.
       "x": "qLZkSTbstvMWPTivmiQglEFWG2Ff7gNDVoVisdZTr1I"
     }
   }],
-  "authentication": ["#subject-authenticaton"],
+  "authentication": ["#subject-authentication"],
   "assertionMethod": ["#credential-issuance"]
 }
       </pre>
