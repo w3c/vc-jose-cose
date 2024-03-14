@@ -1,4 +1,4 @@
-import { diagnose } from 'cbor'
+import { diagnose } from 'cbor-web'
 import { unwrap } from './text'
 
 export const parse = async (data: string | Buffer) => {

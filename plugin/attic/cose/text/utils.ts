@@ -1,4 +1,4 @@
-import { diagnose } from "cbor"
+import { diagnose } from 'cbor-web'
 
 import * as algs from '../cose/alg'
 

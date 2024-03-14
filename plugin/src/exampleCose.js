@@ -1,5 +1,6 @@
 import * as cose from '@transmute/cose'
 import {holder, issuer} from "@transmute/verifiable-credentials";
+import * as edn from '../attic/cose'
 
 function buf2hex(buffer) { // buffer is an ArrayBuffer
     return [...new Uint8Array(buffer)]
@@ -70,6 +71,8 @@ export const getCoseExample = async (privateKey, messageJson) => {
     const messageType = type.includes('VerifiableCredential') ? 'application/vc+ld+json+cose' : 'application/vp+ld+json+cose'
     const message = await getBinaryMessage(privateKey, messageType, messageJson)
     const messageHex = buf2hex(message)
+    const messageBuf = Buffer.from(messageHex, "hex");
+    const html = await edn.render(messageBuf, 'text/html')
     const messageDiag = await cose.cbor.diagnose(message)
     return `
 <h1>${messageType.replace('+cose', '')}</h1>
