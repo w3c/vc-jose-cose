@@ -1,6 +1,6 @@
 import * as cose from '@transmute/cose'
 import {holder, issuer} from "@transmute/verifiable-credentials";
-import * as edn from '../attic/cose'
+import * as edn from '@transmute/edn'
 
 function buf2hex(buffer) { // buffer is an ArrayBuffer
     return [...new Uint8Array(buffer)]
@@ -71,25 +71,20 @@ export const getCoseExample = async (privateKey, messageJson) => {
     const messageType = type.includes('VerifiableCredential') ? 'application/vc+ld+json+cose' : 'application/vp+ld+json+cose'
     const message = await getBinaryMessage(privateKey, messageType, messageJson)
     const messageHex = buf2hex(message)
-    console.log(messageHex)
-    const html = await edn.render(messageHex, 'text/html')
-    const messageDiag = await cose.cbor.diagnose(message)
+    const messageBuffer = Buffer.from(messageHex, "hex");
+    const diagnostic = await edn.render(messageBuffer, 'text/html')
     return `
 <h1>${messageType.replace('+cose', '')}</h1>
 <pre>
 ${JSON.stringify(messageJson, null, 2)}
 </pre>
-<h1>application/cbor-diagnostic</h2>
+<h1>application/cbor-diagnostic</h1>
 <div class="cose-text">
-${messageDiag.trim()}
+${diagnostic.trim()}
 </div>
 <h1>${messageType} (detached payload)</h1>
 <div class="cose-text">
 ${messageHex}
-</div>
-<h1>diagnostic annotated</h1>
-${html}
-<div class="cose-text">
 </div>
   `.trim()
 }
