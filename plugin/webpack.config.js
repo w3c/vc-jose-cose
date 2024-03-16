@@ -4,10 +4,10 @@ module.exports = [{
     mode: 'development',
     entry: './index.js',
     plugins: [
-        new webpack.ProvidePlugin({
-            process: 'process/browser.js',
-            Buffer: ['buffer', 'Buffer'],
-        }),
+        // new webpack.ProvidePlugin({
+        //     process: 'process/browser.js',
+        //     Buffer: ['buffer', 'Buffer'],
+        // }),
     ],
     watch: true,
     module: {
@@ -22,8 +22,11 @@ module.exports = [{
     resolve: {
         extensions: ['.ts', '.js'],
         fallback: {
-            buffer: require.resolve("buffer/"),
-            crypto: false,
+            // buffer: require.resolve("buffer/"),
+            crypto: false // require.resolve("crypto-browserify"),
+            // stream: require.resolve("stream-browserify"),
+            // vm: require.resolve("vm-browserify"),
+            // util: require.resolve("node-util"),
         },
     },
 }];

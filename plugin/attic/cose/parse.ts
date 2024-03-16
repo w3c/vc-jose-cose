@@ -1,10 +1,10 @@
-import { diagnose } from 'cbor-web'
+import { cbor } from '@transmute/cose'
 import { unwrap } from './text'
 
-export const parse = async (data: string | Buffer) => {
+export const parse = async (data: string | Uint8Array) => {
     if (typeof data === 'string'){
         return unwrap(data.trim())
     }
-    const diag = await diagnose(data);
+    const diag = await cbor.diagnose(data);
     return unwrap(diag.trim())
 }

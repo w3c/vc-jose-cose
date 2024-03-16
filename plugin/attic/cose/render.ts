@@ -78,7 +78,7 @@ ${recursiveRender(item)}
     return items.join('\n')
 }
 
-export const render = async (message: Buffer, contentType: string = 'text/html') => {
+export const render = async (message: Uint8Array, contentType: string = 'text/html') => {
     const graph = await parse(message) as EDNCoseSign1
     if (graph.tag !== 18){
         throw new Error('Only tagged cose-sign1 are supported')

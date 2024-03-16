@@ -71,8 +71,8 @@ export const getCoseExample = async (privateKey, messageJson) => {
     const messageType = type.includes('VerifiableCredential') ? 'application/vc+ld+json+cose' : 'application/vp+ld+json+cose'
     const message = await getBinaryMessage(privateKey, messageType, messageJson)
     const messageHex = buf2hex(message)
-    const messageBuf = Buffer.from(messageHex, "hex");
-    const html = await edn.render(messageBuf, 'text/html')
+    console.log(messageHex)
+    const html = await edn.render(messageHex, 'text/html')
     const messageDiag = await cose.cbor.diagnose(message)
     return `
 <h1>${messageType.replace('+cose', '')}</h1>
@@ -86,6 +86,10 @@ ${messageDiag.trim()}
 <h1>${messageType} (detached payload)</h1>
 <div class="cose-text">
 ${messageHex}
+</div>
+<h1>diagnostic annotated</h1>
+${html}
+<div class="cose-text">
 </div>
   `.trim()
 }
