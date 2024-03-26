@@ -72,7 +72,7 @@ export const getCoseExample = async (privateKey, messageJson) => {
     const message = await getBinaryMessage(privateKey, messageType, messageJson)
     const messageHex = buf2hex(message)
     const messageBuffer = Buffer.from(messageHex, "hex");
-    const diagnostic = await edn.render(messageBuffer, 'text/html')
+    const diagnostic = await edn.render(messageBuffer, 'application/cbor-diagnostic')
     return `
 <h1>${messageType.replace('+cose', '')}</h1>
 <pre>
@@ -80,7 +80,7 @@ ${JSON.stringify(messageJson, null, 2)}
 </pre>
 <h1>application/cbor-diagnostic</h1>
 <div class="cose-text">
-${diagnostic.trim()}
+<pre><code>${diagnostic.trim()}</code></pre>
 </div>
 <h1>${messageType} (detached payload)</h1>
 <div class="cose-text">
