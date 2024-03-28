@@ -21,7 +21,7 @@
   "homepage": "https://github.com/w3c/vc-jose-cose#readme",
   "dependencies": {
     "@transmute/cose": "^0.1.1",
-    "@transmute/edn": "^0.0.2",
+    "@transmute/edn": "^0.0.4",
     "@transmute/vc-jwt-sd": "^0.0.5",
     "@transmute/verifiable-credentials": "^0.2.0",
     "buffer": "^6.0.3",
