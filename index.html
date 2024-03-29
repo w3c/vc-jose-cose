@@ -342,6 +342,70 @@
 	Use of the JWS JSON serialization is NOT RECOMMENDED.
       </p>
       </section>
+      <section class="normative">
+        <h2>JOSE Header Parameters and JWT Claims</h2>
+
+        <p>
+When present in the <a data-cite="RFC7515#section-4">JOSE Header</a> or the
+<a data-cite="RFC7519#section-4">JWT Claims Set</a>, members registered in the
+IANA
+<a href="https://www.iana.org/assignments/jwt/jwt.xhtml">JSON Web Token Claims</a>
+registry or the IANA
+<a href="https://www.iana.org/assignments/jose/jose.xhtml">JSON Web Signature and Encryption Header Parameters</a>
+registry are to be interpreted as defined by the specifications referenced in
+the registries.
+        </p>
+        <p>
+The normative statements in
+<a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>,
+<a data-cite="RFC7519#section-5">JOSE Header</a>, and
+<a data-cite="RFC7519#section-5.3">Replicating Claims as Header Parameters</a>
+apply to securing credentials and presentations.
+        </p>
+        <p>
+The unencoded JOSE Header is JSON (`application/json`), not JSON-LD
+(`application/ld+json`).
+        </p>
+        <p>
+It is RECOMMENDED to use the IANA
+<a href="https://www.iana.org/assignments/jwt/jwt.xhtml">JSON Web Token Claims</a>
+registry and the IANA
+<a href="https://www.iana.org/assignments/jose/jose.xhtml">JSON Web Signature and Encryption Header Parameters</a>
+registry to identify any claims and header parameters that might be confused
+with members defined by [[VC-DATA-MODEL-2.0]]. These include but are not limited
+to: <code>iss</code>, <code>kid</code>, <code>alg</code>, <code>iat</code>,
+<code>exp</code>, and <code>cnf</code>.
+        </p>
+        <p>
+When the <code>iat</code> and/or <code>exp</code> JWT claims are present, they
+represent the issuance and expiration time of the signature, respectively. Note
+that these are different from the <code>validFrom</code> and
+<code>validUntil</code> properties defined in
+<a data-cite="VC-DATA-MODEL-2.0#validity-period">Validity Period</a>, which
+represent the validity of the data that is being secured.
+        </p>
+        <p>
+The claims and security provided by this specification are independent of the
+data secured and semantics provided by the [[VC-DATA-MODEL-2.0]]. This means
+that while the security features of this specification ensure data integrity and
+authenticity, they do not dictate the interpretation of claim data.
+        </p>
+        <p>
+Implementers SHOULD avoid setting JWT claims to values that conflict with the
+values of verifiable credential properties when a claim and property pair refer
+to the same conceptual entity, especially with pairs such as `iss` and `issuer`,
+`jti` and `id`, and `sub` and `credentialSubject.id`. For example, JWK claim
+`iss` should not be set to a value which conflicts with the value of verifiable
+credential property `issuer`.
+        </p>
+        <p>
+The JWT Claim Names <code>vc</code> and <code>vp</code> MUST NOT be present.
+        </p>
+        <p>
+Additional members may be present as header parameters and claims. If they are
+not understood, they MUST be ignored.
+        </p>
+      </section>
     </section>
 
     <section id="secure-with-sd-jwt">
@@ -561,116 +625,54 @@ unsecured [=verifiable credential=]) into an SD-JWT payload according to
           See <a data-cite="VC-DATA-MODEL-2.0#example-a-simple-example-of-a-verifiable-presentation"></a> for more details regarding this example.
         </p>
       </section>
+      <section class="normative">
+        <h2>COSE Header Parameters and CWT Claims</h2>
+
+        <p>
+When present in the <a data-cite="RFC9052#section-3.1">COSE Header</a> or as
+<a data-cite="RFC8392#section-3">CWT Claims</a>, members registered in the IANA
+<a href="https://www.iana.org/assignments/cwt/cwt.xhtml">CBOR Web Token (CWT) Claims</a>
+registry or the IANA
+<a href="https://www.iana.org/assignments/cose/cose.xhtml">COSE Header Parameters</a>
+registry are to be interpreted as defined by the specifications referenced in
+the registries. CBOR Web Token (CWT) [[?RFC8392]] Claims MAY be included in a
+COSE header parameter, as specified in
+<a href="https://www.ietf.org/archive/id/draft-ietf-cose-cwt-claims-in-headers-10.html">I-D.ietf-cose-cwt-claims-in-headers</a>.
+        </p>
+        <p>
+The normative statements in
+<a data-cite="RFC9052#section-3.1.1">Registered Header Parameter Names</a>,
+<a data-cite="RFC8392#section-3">Claims</a>, and
+<a href="https://www.ietf.org/archive/id/draft-ietf-cose-cwt-claims-in-headers-10.html">CBOR Web Token (CWT) Claims in COSE Headers</a>
+apply to securing credentials and presentations.
+        </p>
+        <p>
+It is RECOMMENDED to use the IANA
+<a href="https://www.iana.org/assignments/cwt/cwt.xhtml">CBOR Web Token Claims</a>
+registry and the IANA
+<a href="https://www.iana.org/assignments/cose/cose.xhtml">COSE Header Parameters</a>
+registry to identify any claims and header parameters that might be confused
+with members defined by [[VC-DATA-MODEL-2.0]]. These include but are not limited
+to: <code>iss</code>, <code>kid</code>, <code>alg</code>, <code>iat</code>,
+<code>exp</code>, and <code>cnf</code>.
+        </p>
+        <p>
+When the <code>iat</code> and/or <code>exp</code> CWT claims are present, they
+represent the issuance and expiration time of the signature, respectively. Note
+that these are different from the <code>validFrom</code> and
+<code>validUntil</code> properties defined in
+<a data-cite="VC-DATA-MODEL-2.0#validity-period">Validity Period</a>, which
+represent the validity of the data that is being secured.
+        </p>
+        <p>
+Additional members may be present as header parameters and claims. If they are
+not understood, they MUST be ignored.
+        </p>
+      </section>
     </section>
   </section>
 
-    <section class="normative">
-      <h2>JOSE Header Parameters and JWT Claims</h2>
 
-      <p>
-      When present in
-      the <a data-cite="RFC7515#section-4">JOSE Header</a> or
-      the <a data-cite="RFC7519#section-4">JWT Claims Set</a>,
-      members registered in
-      the IANA <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">JSON Web Token Claims</a> registry or
-      the IANA <a href="https://www.iana.org/assignments/jose/jose.xhtml">JSON Web Signature and Encryption Header Parameters</a> registry
-      are to be interpreted as defined by the specifications referenced in the registries.
-      </p>
-      <p>
-        The normative statements in
-  <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>,
-        <a data-cite="RFC7519#section-5">JOSE Header</a>, and
-  <a data-cite="RFC7519#section-5.3">Replicating Claims as Header Parameters</a>
-        apply to securing credentials and presentations.
-      </p>
-      <p>
-        The unencoded JOSE Header is JSON
-        (`application/json`), not JSON-LD (`application/ld+json`).
-      </p>
-      <p>
-        It is RECOMMENDED to use
-  the IANA <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">JSON Web Token Claims</a> registry and
-  the IANA <a href="https://www.iana.org/assignments/jose/jose.xhtml">JSON Web Signature and Encryption Header Parameters</a> registry
-        to identify any claims and header parameters that might be confused with
-        members defined by [[VC-DATA-MODEL-2.0]]. These include but are not
-        limited to: <code>iss</code>, <code>kid</code>,
-        <code>alg</code>, <code>iat</code>,
-        <code>exp</code>, and <code>cnf</code>.
-      </p>
-      <p>
-        When the <code>iat</code> and/or <code>exp</code> JWT claims are present,
-        they represent the issuance and expiration time of the signature, respectively.
-        Note that these are different from the <code>validFrom</code> and <code>validUntil</code> properties
-        defined in <a data-cite="VC-DATA-MODEL-2.0#validity-period">Validity Period</a>,
-        which represent the validity of the data that is being secured.
-      </p>
-      <p>
-        The claims and security provided by this specification are independent of the data
-        secured and semantics provided by the [[VC-DATA-MODEL-2.0]]. This means that while the security
-        features of this specification ensure data integrity and authenticity, they do
-        not dictate the interpretation of claim data.
-      </p>
-      <p>
-        Implementers SHOULD avoid setting JWT claims to values that conflict with
-        the values of verifiable credential properties when a claim and property 
-        pair refer to the same conceptual entity, especially with pairs such as
-        `iss` and `issuer`, `jti` and `id`, and `sub` and `credentialSubject.id`.
-        For example, JWK claim `iss` should not be set to a value which conflicts
-        with the value of verifiable credential property `issuer`.
-      </p>
-      <p>
-        The JWT Claim Names <code>vc</code> and <code>vp</code>
-        MUST NOT be present.
-      </p>
-      <p>
-        Additional members may be present as header parameters and claims.
-        If they are not understood, they MUST be ignored.
-      </p>
-    </section>
-
-    <section class="normative">
-      <h2>COSE Header Parameters and CWT Claims</h2>
-
-      <p>
-      When present in
-      the <a data-cite="RFC9052#section-3.1">COSE Header</a> or
-      as <a data-cite="RFC8392#section-3">CWT Claims</a>,
-      members registered in
-      the IANA <a href="https://www.iana.org/assignments/cwt/cwt.xhtml">CBOR Web Token (CWT) Claims</a> registry or
-      the IANA <a href="https://www.iana.org/assignments/cose/cose.xhtml">COSE Header Parameters</a> registry
-      are to be interpreted as defined by the specifications referenced in the registries.
-      CBOR Web Token (CWT) [[?RFC8392]] Claims MAY be included in a COSE header parameter, as specified in
-      <a href="https://www.ietf.org/archive/id/draft-ietf-cose-cwt-claims-in-headers-10.html">I-D.ietf-cose-cwt-claims-in-headers</a>.
-      </p>
-      <p>
-        The normative statements in
-  <a data-cite="RFC9052#section-3.1.1">Registered Header Parameter Names</a>,
-        <a data-cite="RFC8392#section-3">Claims</a>, and
-  <a href="https://www.ietf.org/archive/id/draft-ietf-cose-cwt-claims-in-headers-10.html">CBOR Web Token (CWT) Claims in COSE Headers</a>
-        apply to securing credentials and presentations.
-      </p>
-      <p>
-        It is RECOMMENDED to use
-  the IANA <a href="https://www.iana.org/assignments/cwt/cwt.xhtml">CBOR Web Token Claims</a> registry and
-  the IANA <a href="https://www.iana.org/assignments/cose/cose.xhtml">COSE Header Parameters</a> registry
-        to identify any claims and header parameters that might be confused with
-        members defined by [[VC-DATA-MODEL-2.0]]. These include but are not
-        limited to: <code>iss</code>, <code>kid</code>,
-        <code>alg</code>, <code>iat</code>,
-        <code>exp</code>, and <code>cnf</code>.
-      </p>
-      <p>
-        When the <code>iat</code> and/or <code>exp</code> CWT claims are present,
-        they represent the issuance and expiration time of the signature, respectively.
-        Note that these are different from the <code>validFrom</code> and <code>validUntil</code> properties
-        defined in <a data-cite="VC-DATA-MODEL-2.0#validity-period">Validity Period</a>,
-        which represent the validity of the data that is being secured.
-      </p>
-      <p>
-        Additional members may be present as header parameters and claims.
-  If they are not understood, they MUST be ignored.
-      </p>
-  </section>
 
   <section id="key_discovery" class="normative">
     <h2>Key Discovery</h2>
@@ -2467,6 +2469,65 @@ The outputs for the following algorithms are:
 <code>mediaType</code>: <code>vc+ld+json</code>
         </li>
     </ul>
+    <section>
+      <h3>Algorithm for verifying a credential or presentation secured with JOSE</h3>
+      <p>
+      The inputs for this algorithm are:
+      </p>
+      <ul>
+        <li>
+        <code>inputMediaType</code>: <code>vc+ld+json+jwt</code> or <code>vp+ld+json+jwt</code>
+        </li>
+        <li>
+        <code>inputDocument</code>: the verifiable credential secured with [[JOSE]]
+        </li>
+      </ul>
+      <p>
+      Upon receipt of the verifiable credential or presentation secured with
+      [[SD-JWT]], the holder or verifier follows this algorithm:
+      </p>
+      <ol>
+        <li>
+        Follow the algorithm defined in [[[SD-JWT]]] for Verification of the SD-JWT.
+        </li>
+        <li>
+        If processing completes successfully:
+        <ol>
+          <li>
+          Set <code>status</code> to <code>true</code>
+          </li>
+          <li>
+          Set <code>mediaType</code> to <code>vc+ld+json</code>
+          </li>
+          <li>
+          Convert the SD-JWT payload back into the JSON claim set by reversing the process
+          described in [[[SD-JWT]]]. Set <code>document</code> to the JSON claim set.
+          </li>
+          <li>
+          Return
+          </li>
+        </ol>
+        </li>
+        <li>
+        If processing aborts for any reason or the SD-JWT is rejected:
+        <ol>
+          <li>
+          Set <code>status</code> to <code>false</code>
+          </li>
+          <li>
+          Set <code>document</code> to <code>null</code>
+          </li>
+          <li>
+          Set <code>mediaType</code> to <code>null</code>
+          </li>
+          <li>
+          Return
+          </li>
+        </ol>
+        </li>
+        </li>
+      </ol>
+    </section>
     <section>
       <h3>Algorithm for verifying a credential or presentation secured with SD-JWT</h3>
       <p>
