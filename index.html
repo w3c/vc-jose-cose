@@ -372,7 +372,7 @@ It is RECOMMENDED to use the IANA
 registry and the IANA
 <a href="https://www.iana.org/assignments/jose/jose.xhtml">JSON Web Signature and Encryption Header Parameters</a>
 registry to identify any claims and header parameters that might be confused
-with members defined by [[VC-DATA-MODEL-2.0]]. These include but are not limited
+with members defined by [[[VC-DATA-MODEL-2.0]]] [[VC-DATA-MODEL-2.0]]. These include but are not limited
 to: <code>iss</code>, <code>kid</code>, <code>alg</code>, <code>iat</code>,
 <code>exp</code>, and <code>cnf</code>.
         </p>
@@ -386,7 +386,7 @@ represent the validity of the data that is being secured.
         </p>
         <p>
 The claims and security provided by this specification are independent of the
-data secured and semantics provided by the [[VC-DATA-MODEL-2.0]]. This means
+data secured and semantics provided by the [[[VC-DATA-MODEL-2.0]]] [[VC-DATA-MODEL-2.0]]. This means
 that while the security features of this specification ensure data integrity and
 authenticity, they do not dictate the interpretation of claim data.
         </p>
@@ -417,7 +417,7 @@ not understood, they MUST be ignored.
           to [[VC-DATA-MODEL-2.0]].
         </p>
         <p>
-A [=conforming SD-JWT issuer implementation=] MUST use [[[SD-JWT]]] to secure
+A [=conforming SD-JWT issuer implementation=] MUST use [[[SD-JWT]]] [[SD-JWT]] to secure
 this media type. The unsecured [=verifiable credential=] is the input JSON
 claim set. The Issuer then converts the input JSON claim set (i.e., the
 unsecured [=verifiable credential=]) into an SD-JWT payload according to
@@ -635,7 +635,7 @@ When present in the <a data-cite="RFC9052#section-3.1">COSE Header</a> or as
 registry or the IANA
 <a href="https://www.iana.org/assignments/cose/cose.xhtml">COSE Header Parameters</a>
 registry are to be interpreted as defined by the specifications referenced in
-the registries. CBOR Web Token (CWT) [[?RFC8392]] Claims MAY be included in a
+those registries. CBOR Web Token (CWT) [[?RFC8392]] Claims MAY be included in a
 COSE header parameter, as specified in
 <a href="https://www.ietf.org/archive/id/draft-ietf-cose-cwt-claims-in-headers-10.html">I-D.ietf-cose-cwt-claims-in-headers</a>.
         </p>
@@ -652,7 +652,7 @@ It is RECOMMENDED to use the IANA
 registry and the IANA
 <a href="https://www.iana.org/assignments/cose/cose.xhtml">COSE Header Parameters</a>
 registry to identify any claims and header parameters that might be confused
-with members defined by [[VC-DATA-MODEL-2.0]]. These include but are not limited
+with members defined by [[[VC-DATA-MODEL-2.0]]] [[VC-DATA-MODEL-2.0]]. These include but are not limited
 to: <code>iss</code>, <code>kid</code>, <code>alg</code>, <code>iat</code>,
 <code>exp</code>, and <code>cnf</code>.
         </p>
@@ -2464,14 +2464,14 @@ The outputs for the following algorithms are:
 <code>true</code> for success and <code>false</code> for failure.
         </li>
       <li>
-<code>document</code>: a document conforming to the [[VC-DATA-MODEL-2.0]]
+<code>document</code>: a document conforming to the [[[VC-DATA-MODEL-2.0]]] [[VC-DATA-MODEL-2.0]]
         </li>
       <li>
 <code>mediaType</code>: <code>vc+ld+json</code> or <code>vp+ld+json</code>
         </li>
     </ul>
     <section>
-      <h3>Algorithm for verifying a credential or presentation secured with JOSE</h3>
+      <h3>Algorithm for Verifying a Credential or Presentation Secured with JOSE</h3>
       <p>
       The inputs for this algorithm are:
       </p>
@@ -2490,7 +2490,7 @@ Upon receipt of the verifiable credential or presentation secured as a JWT
       </p>
       <ol>
         <li>
-Follow the algorithm defined in [[[RFC7519]]] for Validating a JWT.
+Follow the algorithm defined in <a data-cite="RFC7519#section-7.2"> Validating a JWT</a> [[RFC7519]].
         </li>
         <li>
 If processing completes successfully:
@@ -2530,7 +2530,7 @@ Return
       </ol>
     </section>
     <section>
-      <h3>Algorithm for verifying a credential or presentation secured with SD-JWT</h3>
+      <h3>Algorithm for Verifying a Credential or Presentation Secured with SD-JWT</h3>
       <p>
 The inputs for this algorithm are:
       </p>
@@ -2548,7 +2548,7 @@ Upon receipt of the verifiable credential or presentation secured with
       </p>
         <ol>
           <li>
-Follow the algorithm defined in [[[SD-JWT]]] for Verification of the SD-JWT.
+Follow the algorithm defined in [[[SD-JWT]]] [[SD-JWT]] for verification of the SD-JWT.
           </li>
           <li>
 If processing completes successfully:
@@ -2589,12 +2589,12 @@ If processing aborts for any reason or the SD-JWT is rejected:
       </ol>
     </section>
     <section>
-      <h3>Algorithm for verifying a credential or presentation secured with COSE</h3>
+      <h3>Algorithm for Verifying a Credential or Presentation Secured with COSE</h3>
       <p>
   When verifying a credential or presentation secured with COSE_Sign1, the algorithm defined in
   <a data-cite="RFC9052#section-4.4">
   Signing and Verification Process
-  </a> MUST be followed.
+  </a> [[RFC9052]] MUST be followed.
       </p>
       <p>
 The inputs for this algorithm are:
@@ -2615,7 +2615,7 @@ Upon receipt of the verifiable credential or presentation secured with
       </p>
       <ol>
         <li>
-Follow the algorithm defined in [[[RFC9052]]][[RFC9052]] under the Signing and
+Follow the algorithm defined in [[[RFC9052]]] [[RFC9052]] under the Signing and
 Verification Process for COSE_Sign1.
         </li>
         <li>
@@ -2687,9 +2687,9 @@ MUST be ignored.
     </p>
 
     <p>
-Based on the validation policy of the verifier and the type of credentials and
-type of securing mechanism, additional validation checks MAY be applied. For
-example, dependencies between multiple credentials, ordering or timing
+Based on the validation policy of the verifier, the type of credentials, and
+the type of securing mechanism, additional validation checks MAY be applied.
+For example, dependencies between multiple credentials, ordering or timing
 information associated with multiple credentials, and/or multiple presentations
 could cause an otherwise valid credential or presentation to be considered
 invalid.
