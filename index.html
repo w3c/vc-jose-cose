@@ -2481,29 +2481,12 @@ The inputs for this algorithm are:
           </li>
       </ul>
       <p>
-Upon receipt of the verifiable credential secured with [[SD-JWT]], the holder or
-verifier follows this algorithm:
+Upon receipt of the verifiable credential or presentation secured with
+[[SD-JWT]], the holder or verifier follows this algorithm:
       </p>
         <ol>
           <li>
 Follow the algorithm defined in [[[SD-JWT]]] for Verification of the SD-JWT.
-          </li>
-          <li>
-If processing aborts for any reason or the SD-JWT is rejected:
-            <ol>
-              <li>
-Set <code>status</code> to <code>false</code>
-              </li>
-              <li>
-Set <code>document</code> to <code>null</code>
-              </li>
-              <li>
-Set <code>mediaType</code> to <code>null</code>
-              </li>
-              <li>
-Return
-              </li>
-            </ol>
           </li>
           <li>
 If processing completes successfully:
@@ -2523,16 +2506,35 @@ Return
               </li>
             </ol>
           </li>
+          <li>
+If processing aborts for any reason or the SD-JWT is rejected:
+          <ol>
+            <li>
+            Set <code>status</code> to <code>false</code>
+            </li>
+            <li>
+            Set <code>document</code> to <code>null</code>
+            </li>
+            <li>
+            Set <code>mediaType</code> to <code>null</code>
+            </li>
+            <li>
+            Return
+            </li>
+          </ol>
+          </li>
         </li>
       </ol>
     </section>
-    <p>
-When verifying a credential or presentation secured with COSE_Sign1, the algorithm defined in
-<a data-cite="RFC9052#section-4.4">
-Signing and Verification Process
-</a> MUST be followed.
-    </p>
-
+    <section>
+      <h3>Algorithm for verifying a credential or presentation secured with COSE</h3>
+      <p>
+  When verifying a credential or presentation secured with COSE_Sign1, the algorithm defined in
+  <a data-cite="RFC9052#section-4.4">
+  Signing and Verification Process
+  </a> MUST be followed.
+      </p>
+    </section>
 
 
   </section>
