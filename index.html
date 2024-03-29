@@ -2669,27 +2669,30 @@ All claims that are not understood MUST be ignored.
     </p>
 
     <p>
-The verified payload MUST be a well formed compact JSON-LD document, as described in
+The verified <code>document</code> returnsed from verification MUST be a
+well-formed compact JSON-LD document, as described in
 <a data-cite="VC-DATA-MODEL-2.0/#conformance">Verifiable Credentials Data Model v2.0</a>.
     </p>
 
     <p>
 Schema extension mechanisms such as <code>credentialSchema</code> SHOULD be checked.
-If the extension mechanism <code>type</code> is not understood,
-this property MUST be ignored.
+If the extension mechanism <code>type</code> is not understood, this property
+MUST be ignored.
     </p>
 
     <p>
 Status extension mechanisms such as <code>credentialStatus</code> SHOULD be checked.
-If the extension mechanism <code>type</code> is not understood,
-this property MUST be ignored.
+If the extension mechanism <code>type</code> is not understood, this property
+MUST be ignored.
     </p>
 
     <p>
-Based on the validation policy of the verifier and the type of credentials and type of securing mechanism,
-additional validation checks might be applied. For example, dependencies between multiple credentials,
-ordering or timing information associated with multiple credentials, and/or multiple presentations
-could cause an otherwise valid credential or presentation to be considered invalid.
+Based on the validation policy of the verifier and the type of credentials and
+type of securing mechanism, additional validation checks MAY be applied. For
+example, dependencies between multiple credentials, ordering or timing
+information associated with multiple credentials, and/or multiple presentations
+could cause an otherwise valid credential or presentation to be considered
+invalid.
     </p>
   </section>
 </body>
