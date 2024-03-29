@@ -354,9 +354,10 @@
         </p>
         <p>
 A [=conforming SD-JWT issuer implementation=] MUST use [[[SD-JWT]]] to secure
-this media type. The unsecured verifiable credential is the JSON input claim
-set. The Issuer then converts the input claim set (i.e., the unsecured
-verifiable credential) into an SD-JWT payload according to [[SD-JWT]].
+this media type. The unsecured [=verifiable credential=] is the input JSON
+claim set. The Issuer then converts the input JSON claim set (i.e., the
+unsecured [=verifiable credential=]) into an SD-JWT payload according to
+[[[SD-JWT]]] [[SD-JWT]].
 	</p>
 	<p>
           The <code>typ</code> header parameter SHOULD be <code>vc+ld+json+sd-jwt</code>.
