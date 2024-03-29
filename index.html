@@ -2499,7 +2499,7 @@ If processing completes successfully:
 Set <code>status</code> to <code>true</code>
           </li>
           <li>
-Set <code>mediaType</code> to <code>vc+ld+json</code>
+Set <code>mediaType</code> to <code>vc+ld+json</code> or <code>vp+json+ld</code>
           </li>
           <li>
 Set <code>document</code> to the decoded JWS payload.
@@ -2596,6 +2596,64 @@ If processing aborts for any reason or the SD-JWT is rejected:
   Signing and Verification Process
   </a> MUST be followed.
       </p>
+      <p>
+The inputs for this algorithm are:
+      </p>
+      <ul>
+        <li>
+<code>inputMediaType</code>: <code>vc+ld+json+cose</code> or
+<code>vp+ld+json+cose</code>
+        </li>
+        <li>
+<code>inputDocument</code>: the verifiable credential or verifiable presentation
+secured with [[[RFC9052]]]
+        </li>
+      </ul>
+      <p>
+Upon receipt of the verifiable credential or presentation secured with
+[[RFC9052]], the holder or verifier follows this algorithm:
+      </p>
+      <ol>
+        <li>
+Follow the algorithm defined in [[[RFC9052]]] under the Signing and Verification
+Process for COSE_Sign1.
+        </li>
+        <li>
+If processing completes successfully:
+        <ol>
+          <li>
+Set <code>status</code> to <code>true</code>
+          </li>
+          <li>
+Set <code>mediaType</code> to <code>vc+ld+json</code> or <code>vp+ld+json</code>
+          </li>
+          <li>
+Set <code>document</code> to the decoded COSE_Sign1 payload.
+          </li>
+          <li>
+Return
+          </li>
+        </ol>
+        </li>
+        <li>
+If processing aborts for any reason:
+        <ol>
+          <li>
+Set <code>status</code> to <code>false</code>
+          </li>
+          <li>
+Set <code>document</code> to <code>null</code>
+          </li>
+          <li>
+Set <code>mediaType</code> to <code>null</code>
+          </li>
+          <li>
+Return
+          </li>
+        </ol>
+        </li>
+        </li>
+      </ol>
     </section>
 
 
