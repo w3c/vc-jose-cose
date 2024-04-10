@@ -665,6 +665,20 @@ dd{margin-left:0}
       }
     },
     {
+      "id": "https://www.w3.org/TR/vc-specs-dir/",
+      "type": "TechArticle",
+      "name": "VC Specifications Directory",
+      "url": "https://www.w3.org/TR/vc-specs-dir/",
+      "creator": [
+        {
+          "name": "Manu Sporny"
+        }
+      ],
+      "publisher": {
+        "name": "W3C"
+      }
+    },
+    {
       "id": "https://www.rfc-editor.org/rfc/rfc7519",
       "type": "TechArticle",
       "name": "JSON Web Token (JWT)",
@@ -863,10 +877,10 @@ li.vc-jose-cose-tab, li.vc-jose-cose-jwt-tab, li.vc-jose-cose-sd-jwt-tab, li.vc-
 <script id="initialUserConfig" type="application/json">{
   "group": "vc",
   "specStatus": "CR",
-  "crEnd": "2024-07-18",
-  "implementationReportURI": "https://w3c.github.io/vc-jose-cose-test-suite/",
+  "crEnd": "2024-05-18",
   "shortName": "vc-jose-cose",
   "publishDate": "2024-04-18",
+  "implementationReportURI": "https://w3c.github.io/vc-jose-cose-test-suite/",
   "previousPublishDate": "2023-07-10",
   "previousMaturity": "WD",
   "doJsonLd": true,
@@ -1072,7 +1086,17 @@ li.vc-jose-cose-tab, li.vc-jose-cose-jwt-tab, li.vc-jose-cose-sd-jwt-tab, li.vc-
       document at the time of its publication. A list of current <abbr title="World Wide Web Consortium">W3C</abbr>
       publications and the latest revision of this technical report can be found
       in the <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at
-      https://www.w3.org/TR/.</em></p><p>
+      https://www.w3.org/TR/.</em></p>
+    <p>
+      The Working Group is actively seeking implementation feedback for this
+      specification. In order to exit the Candidate Recommendation phase, the
+      Working Group has set the requirement of at least two independent
+      implementations for each mandatory feature in the specification. For details
+      on the conformance testing process, see the test suite listed in the
+      <a href="https://w3c.github.io/vc-jose-cose-test-suite/">
+      implementation report</a>.
+    </p>
+  <p>
     This document was published by the <a href="https://www.w3.org/groups/wg/vc">Verifiable Credentials Working Group</a> as
     a Candidate Recommendation Snapshot using the
         <a href="https://www.w3.org/2023/Process-20231103/#recs-and-notes">Recommendation track</a>. 
@@ -1085,7 +1109,7 @@ li.vc-jose-cose-tab, li.vc-jose-cose-jwt-tab, li.vc-jose-cose-sd-jwt-tab, li.vc-
         <a href="https://www.w3.org/Consortium/Patent-Policy/#sec-Requirements">royalty-free licensing</a>
         for implementations.</p><p>
           This Candidate Recommendation is not expected to advance to Proposed
-          Recommendation any earlier than 18 July 2024.
+          Recommendation any earlier than 18 May 2024.
         </p><p>
     
         This document was produced by a group
@@ -1371,7 +1395,7 @@ li.vc-jose-cose-tab, li.vc-jose-cose-jwt-tab, li.vc-jose-cose-sd-jwt-tab, li.vc-
 <h1>application/vc+ld+json+jwt</h1>
 <div class="jose-text">
 
-<div class="jwt-compact"><span class="jwt-header">eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ</span>.<span class="sd-jwt-payload">eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaWQiOiJodHRwOi8vdW5pdmVyc2l0eS5leGFtcGxlL2NyZWRlbnRpYWxzLzE4NzIiLCJ0eXBlIjpbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwiRXhhbXBsZUFsdW1uaUNyZWRlbnRpYWwiXSwiaXNzdWVyIjoiaHR0cHM6Ly91bml2ZXJzaXR5LmV4YW1wbGUvaXNzdWVycy81NjUwNDkiLCJ2YWxpZEZyb20iOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTY2hlbWEiOnsiaWQiOiJodHRwczovL2V4YW1wbGUub3JnL2V4YW1wbGVzL2RlZ3JlZS5qc29uIiwidHlwZSI6Ikpzb25TY2hlbWEifSwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJkaWQ6ZXhhbXBsZToxMjMiLCJkZWdyZWUiOnsidHlwZSI6IkJhY2hlbG9yRGVncmVlIiwibmFtZSI6IkJhY2hlbG9yIG9mIFNjaWVuY2UgYW5kIEFydHMifX19</span>.<span class="sd-jwt-signature">sw0KOKuUrZFUBFv7Z36VKNMWUdLbvtXRhkAp5ru9gvJR7DMbY4PnHHJsnWp9UT_M905YxkjZgazQYKi2shBEmB4I7zcncjBKS9I5gidXDsqmuqrx_czDxaXMi0oj45uh</span></div>
+<div class="jwt-compact"><span class="jwt-header">eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ</span>.<span class="sd-jwt-payload">eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaWQiOiJodHRwOi8vdW5pdmVyc2l0eS5leGFtcGxlL2NyZWRlbnRpYWxzLzE4NzIiLCJ0eXBlIjpbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwiRXhhbXBsZUFsdW1uaUNyZWRlbnRpYWwiXSwiaXNzdWVyIjoiaHR0cHM6Ly91bml2ZXJzaXR5LmV4YW1wbGUvaXNzdWVycy81NjUwNDkiLCJ2YWxpZEZyb20iOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTY2hlbWEiOnsiaWQiOiJodHRwczovL2V4YW1wbGUub3JnL2V4YW1wbGVzL2RlZ3JlZS5qc29uIiwidHlwZSI6Ikpzb25TY2hlbWEifSwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJkaWQ6ZXhhbXBsZToxMjMiLCJkZWdyZWUiOnsidHlwZSI6IkJhY2hlbG9yRGVncmVlIiwibmFtZSI6IkJhY2hlbG9yIG9mIFNjaWVuY2UgYW5kIEFydHMifX19</span>.<span class="sd-jwt-signature">Ak5L1-mitigtXA0Zife7q-qe4TSFqGTfQrN0kEsI8yF_l2dwafdrT4t7IXSY6KOZPSlzuDSqRrwg-ImkpZLhKpEzvX5z0oAifxD9ZbzFAQ-lqwb6l9mDe3vJJ-KUwm_X</span></div>
 </div>
     </div>
 </div>
@@ -1440,7 +1464,7 @@ li.vc-jose-cose-tab, li.vc-jose-cose-jwt-tab, li.vc-jose-cose-sd-jwt-tab, li.vc-
 <h1>application/vp+ld+json+jwt</h1>
 <div class="jose-text">
 
-<div class="jwt-compact"><span class="jwt-header">eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ</span>.<span class="sd-jwt-payload">eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwidHlwZSI6IlZlcmlmaWFibGVQcmVzZW50YXRpb24iLCJ2ZXJpZmlhYmxlQ3JlZGVudGlhbCI6W3siQGNvbnRleHQiOiJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJpZCI6ImRhdGE6YXBwbGljYXRpb24vdmMrbGQranNvbitqd3Q7ZXlKcmFXUWlPaUpGZUVoclFrMVhPV1p0WW10MlZqSTJObTFTY0hWUU1uTlZXVjlPWDBWWFNVNHhiR0Z3VlhwUE9ISnZJaXdpWVd4bklqb2lSVk16T0RRaWZRLmV5SkFZMjl1ZEdWNGRDSTZXeUpvZEhSd2N6b3ZMM2QzZHk1M015NXZjbWN2Ym5NdlkzSmxaR1Z1ZEdsaGJITXZkaklpTENKb2RIUndjem92TDNkM2R5NTNNeTV2Y21jdmJuTXZZM0psWkdWdWRHbGhiSE12WlhoaGJYQnNaWE12ZGpJaVhTd2lhV1FpT2lKb2RIUndPaTh2ZFc1cGRtVnljMmwwZVM1bGVHRnRjR3hsTDJOeVpXUmxiblJwWVd4ekx6RTROeklpTENKMGVYQmxJanBiSWxabGNtbG1hV0ZpYkdWRGNtVmtaVzUwYVdGc0lpd2lSWGhoYlhCc1pVRnNkVzF1YVVOeVpXUmxiblJwWVd3aVhTd2lhWE56ZFdWeUlqb2lhSFIwY0hNNkx5OTFibWwyWlhKemFYUjVMbVY0WVcxd2JHVXZhWE56ZFdWeWN5ODFOalV3TkRraUxDSjJZV3hwWkVaeWIyMGlPaUl5TURFd0xUQXhMVEF4VkRFNU9qSXpPakkwV2lJc0ltTnlaV1JsYm5ScFlXeFRZMmhsYldFaU9uc2lhV1FpT2lKb2RIUndjem92TDJWNFlXMXdiR1V1YjNKbkwyVjRZVzF3YkdWekwyUmxaM0psWlM1cWMyOXVJaXdpZEhsd1pTSTZJa3B6YjI1VFkyaGxiV0VpZlN3aVkzSmxaR1Z1ZEdsaGJGTjFZbXBsWTNRaU9uc2lhV1FpT2lKa2FXUTZaWGhoYlhCc1pUb3hNak1pTENKa1pXZHlaV1VpT25zaWRIbHdaU0k2SWtKaFkyaGxiRzl5UkdWbmNtVmxJaXdpYm1GdFpTSTZJa0poWTJobGJHOXlJRzltSUZOamFXVnVZMlVnWVc1a0lFRnlkSE1pZlgxOS5kMms0TzNGeXRRSmY4M2tMaC1Ic1h1UHZoNnllT2xoSkVMVm81VEY3MWd1N2Vsc2xReU9mMlpJdEFYcnRiWEY0S3o5V2l2TmR6dE9heXo0VlVRME13YTh5Q0Raa1A5QjJwSC05U190Y0FGeGVvZUo2WjRYbkZ1TF9ET2ZrUjFmUCIsInR5cGUiOiJFbnZlbG9wZWRWZXJpZmlhYmxlQ3JlZGVudGlhbCJ9XX0</span>.<span class="sd-jwt-signature">HQeuWohlrPU4UXDsF8kSAVL86miWzkUWdBG1O2laU2lPtirtO5iF63HAzY-6E_hJUmicXcP3_dBmi_mas0pcmgroxYKCsWe9tQbvFbiHOUfQgeNb8JIZPs3DxZHNL9up</span></div>
+<div class="jwt-compact"><span class="jwt-header">eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ</span>.<span class="sd-jwt-payload">eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwidHlwZSI6IlZlcmlmaWFibGVQcmVzZW50YXRpb24iLCJ2ZXJpZmlhYmxlQ3JlZGVudGlhbCI6W3siQGNvbnRleHQiOiJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJpZCI6ImRhdGE6YXBwbGljYXRpb24vdmMrbGQranNvbitqd3Q7ZXlKcmFXUWlPaUpGZUVoclFrMVhPV1p0WW10MlZqSTJObTFTY0hWUU1uTlZXVjlPWDBWWFNVNHhiR0Z3VlhwUE9ISnZJaXdpWVd4bklqb2lSVk16T0RRaWZRLmV5SkFZMjl1ZEdWNGRDSTZXeUpvZEhSd2N6b3ZMM2QzZHk1M015NXZjbWN2Ym5NdlkzSmxaR1Z1ZEdsaGJITXZkaklpTENKb2RIUndjem92TDNkM2R5NTNNeTV2Y21jdmJuTXZZM0psWkdWdWRHbGhiSE12WlhoaGJYQnNaWE12ZGpJaVhTd2lhV1FpT2lKb2RIUndPaTh2ZFc1cGRtVnljMmwwZVM1bGVHRnRjR3hsTDJOeVpXUmxiblJwWVd4ekx6RTROeklpTENKMGVYQmxJanBiSWxabGNtbG1hV0ZpYkdWRGNtVmtaVzUwYVdGc0lpd2lSWGhoYlhCc1pVRnNkVzF1YVVOeVpXUmxiblJwWVd3aVhTd2lhWE56ZFdWeUlqb2lhSFIwY0hNNkx5OTFibWwyWlhKemFYUjVMbVY0WVcxd2JHVXZhWE56ZFdWeWN5ODFOalV3TkRraUxDSjJZV3hwWkVaeWIyMGlPaUl5TURFd0xUQXhMVEF4VkRFNU9qSXpPakkwV2lJc0ltTnlaV1JsYm5ScFlXeFRZMmhsYldFaU9uc2lhV1FpT2lKb2RIUndjem92TDJWNFlXMXdiR1V1YjNKbkwyVjRZVzF3YkdWekwyUmxaM0psWlM1cWMyOXVJaXdpZEhsd1pTSTZJa3B6YjI1VFkyaGxiV0VpZlN3aVkzSmxaR1Z1ZEdsaGJGTjFZbXBsWTNRaU9uc2lhV1FpT2lKa2FXUTZaWGhoYlhCc1pUb3hNak1pTENKa1pXZHlaV1VpT25zaWRIbHdaU0k2SWtKaFkyaGxiRzl5UkdWbmNtVmxJaXdpYm1GdFpTSTZJa0poWTJobGJHOXlJRzltSUZOamFXVnVZMlVnWVc1a0lFRnlkSE1pZlgxOS5kMms0TzNGeXRRSmY4M2tMaC1Ic1h1UHZoNnllT2xoSkVMVm81VEY3MWd1N2Vsc2xReU9mMlpJdEFYcnRiWEY0S3o5V2l2TmR6dE9heXo0VlVRME13YTh5Q0Raa1A5QjJwSC05U190Y0FGeGVvZUo2WjRYbkZ1TF9ET2ZrUjFmUCIsInR5cGUiOiJFbnZlbG9wZWRWZXJpZmlhYmxlQ3JlZGVudGlhbCJ9XX0</span>.<span class="sd-jwt-signature">cdbFDw7djjnjnUf7na3HjsmWBbI87oKmnum9WXBoVbqw13nxnwXRLtDNT7BfD4ioYTMHDKfbTtE_5uHS_sszKg1vUT5HB7d3pKqo0E92DypJcfBL1ZU3Oof-efjCHpqs</span></div>
 </div>
     </div>
 </div>
@@ -1582,7 +1606,7 @@ credentialSubject:
 <h1>application/vc+ld+json+sd-jwt</h1>
 <div class="jose-text">
 
-<div class="sd-jwt-compact"><span class="sd-jwt-header">eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ</span>.<span class="sd-jwt-payload">eyJfc2RfYWxnIjoic2hhLTI1NiIsIkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy9leGFtcGxlcy92MiJdLCJpc3N1ZXIiOiJodHRwczovL3VuaXZlcnNpdHkuZXhhbXBsZS9pc3N1ZXJzLzU2NTA0OSIsInZhbGlkRnJvbSI6IjIwMTAtMDEtMDFUMTk6MjM6MjRaIiwiY3JlZGVudGlhbFNjaGVtYSI6eyJfc2QiOlsiQ2ZMYUxocnp3SnF2QXZKVWQ5TW1wdk9rSnctb3h4dXdUaW1CNFEtaDZLUSIsImo5MFFUUk5pQWl3UGlNMHhPSUtTemhweW9HLXl0WUpVWGU5M0dYTG11TFEiXX0sImNyZWRlbnRpYWxTdWJqZWN0Ijp7ImRlZ3JlZSI6eyJuYW1lIjoiQmFjaGVsb3Igb2YgU2NpZW5jZSBhbmQgQXJ0cyIsIl9zZCI6WyJnQzVJNHZPZUhrLXR1TVlrWDZSd1NTd09XNjAzamUxM1NDaTV3T1c0OHVzIl19LCJfc2QiOlsibmxzTi01bGp3NjRVNU41V1dNbXhkRnNqRnZYUlFXZUtoUXd5STZIRXFxcyJdfSwiX3NkIjpbIkpFT2hENk5aMDJiNldNUE9EZWRwQmNuQXN1TTFmMVdVbVp0TjlfYUg2SUkiLCJvRkJPdEdmNG9VNV9iN1I2ODdUNGFmYWJadEJySTc1RGdxZ0VJQ2JGNnk0Il19</span>.<span class="sd-jwt-signature">HplcnOTzFmzoC6wQ5zOaxSvor3PUaI2WU2LOsX9z1wOQZ8OUGbOl1JiWgechuNOvSoRtmugBbZ105lkWgnhvsTCWhalybS3u6ZNFVjwj2QFbFHZCFKHDlydnesfp-YRN</span>~<span class="sd-jwt-disclosure">WyJwNTlzY0VsZFFEVjNYMHRZajBiUTRRIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd</span>~<span class="sd-jwt-disclosure">WyJoWTVIUTJBZTBjZTVObkxmckZZVUt3IiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d</span>~<span class="sd-jwt-disclosure">WyJ2SEJFTXlYdXpfRGtlbzRUNGJDWlpBIiwgImlkIiwgImh0dHBzOi8vZXhhbXBsZS5vcmcvZXhhbXBsZXMvZGVncmVlLmpzb24iXQ</span>~<span class="sd-jwt-disclosure">WyJ3bDByZkdOSW5yY2JFRmcwY0VHNGN3IiwgInR5cGUiLCAiSnNvblNjaGVtYSJd</span>~<span class="sd-jwt-disclosure">WyJXM1o1NzJyMkVOSmZRaUYxcGpKT3RnIiwgImlkIiwgImRpZDpleGFtcGxlOjEyMyJd</span>~<span class="sd-jwt-disclosure">WyJUODZ0QkNJNGJhc0p1VEhCeHZoRFFBIiwgInR5cGUiLCAiQmFjaGVsb3JEZWdyZWUiXQ</span></div>
+<div class="sd-jwt-compact"><span class="sd-jwt-header">eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ</span>.<span class="sd-jwt-payload">eyJfc2RfYWxnIjoic2hhLTI1NiIsIkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy9leGFtcGxlcy92MiJdLCJpc3N1ZXIiOiJodHRwczovL3VuaXZlcnNpdHkuZXhhbXBsZS9pc3N1ZXJzLzU2NTA0OSIsInZhbGlkRnJvbSI6IjIwMTAtMDEtMDFUMTk6MjM6MjRaIiwiY3JlZGVudGlhbFNjaGVtYSI6eyJfc2QiOlsiYzF3YXhTcXpTcnV5Z2hHYWlXcEZGRE9kRFBrUnkwbTVTVHRNVWFZdzdKMCIsImpDUUVLNG5tMFBxM0tOYXlFbzAzUzR1VU0yVHlrMVVvT2pORE9OaGVIdGciXX0sImNyZWRlbnRpYWxTdWJqZWN0Ijp7ImRlZ3JlZSI6eyJuYW1lIjoiQmFjaGVsb3Igb2YgU2NpZW5jZSBhbmQgQXJ0cyIsIl9zZCI6WyJxVzA0dmo4UXEtV0NMVUpIaExIWnVHRUhCNmM2Y3dHYUhhdG1uRVJKZGRvIl19LCJfc2QiOlsiMHhhekFuVEg2U3NOR3VaU19RTERLc3JucndMd3RmU3Z0OUE2Q2Y0MGhLYyJdfSwiX3NkIjpbIkh6eXlHLVoyR0NyWXVBV1ZXLWY4RmhtVUo3MXpydDQ1OWFhT1VGak5RRkUiLCJlU2p6bUNzV21xMWhfaEs1LWt3cU5lLW15M3lSSlREOFFlNklPc25XRHpRIl19</span>.<span class="sd-jwt-signature">s89ZjMFFQoWbO95ebrVqtUA1GMx467VWAfEKpovgZoWOZvkjb4AgrUgPKu44YgAOlDJ0qeCVIboCIEGt2ad6k1Py_j4oJg1zPe2NwnYhAgBJ8BK8msogRNPgJH4kymPz</span>~<span class="sd-jwt-disclosure">WyJ5Qk9rYkdLdlZDMVgtSlU5aktBb3NnIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd</span>~<span class="sd-jwt-disclosure">WyJuWE85LVZoU045Y3ZUeEl1ZkZmcE9nIiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d</span>~<span class="sd-jwt-disclosure">WyJ4QU9ZdGctRC1BRW5vU3N4dFhoTnZ3IiwgImlkIiwgImh0dHBzOi8vZXhhbXBsZS5vcmcvZXhhbXBsZXMvZGVncmVlLmpzb24iXQ</span>~<span class="sd-jwt-disclosure">WyJjdVdieTlXWkl3cUlQMnJ6amxZS2VBIiwgInR5cGUiLCAiSnNvblNjaGVtYSJd</span>~<span class="sd-jwt-disclosure">WyJIZUFUb0oxQkEtem1yeHdrYjMtQThBIiwgImlkIiwgImRpZDpleGFtcGxlOjEyMyJd</span>~<span class="sd-jwt-disclosure">WyJ3TEJ0S1h3RHRJZmJYS21RUnFMR3l3IiwgInR5cGUiLCAiQmFjaGVsb3JEZWdyZWUiXQ</span></div>
 </div>
     </div>
 </div>
@@ -1647,7 +1671,7 @@ verifiableCredential:
 <h1>application/vp+ld+json+sd-jwt</h1>
 <div class="jose-text">
 
-<div class="sd-jwt-compact"><span class="sd-jwt-header">eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ</span>.<span class="sd-jwt-payload">eyJfc2RfYWxnIjoic2hhLTI1NiIsIkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy9leGFtcGxlcy92MiJdLCJ2ZXJpZmlhYmxlQ3JlZGVudGlhbCI6W3siQGNvbnRleHQiOiJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJfc2QiOlsiN2s1enRZNkprdHRKd2hKT3VubXNaMXZOZ2xoTVozbGR6dHo1cHhwOW9iTSIsIk9SUWpWc0hIX3puSkNyWEVwblpORDBwbmxGV0JCdmx4SmlXalF0aW9uWVUiXX1dLCJfc2QiOlsiTk5lRFNvWC1zMzlaYWJyLVByWm96clZHemZaSGppejBYdUFiNFllVFBRYyJdfQ</span>.<span class="sd-jwt-signature">N9KuIOiF6aQzNTjz3ci-YAb17-q28KzMx0smpBUKAX35dOcyZcg-z9AB57cQ8iRCnzzCH4NjqlZ1lGDCFRVxarzehCNVwi1pCYM1B6rbeVZ9TKMhehACJduHlfzIwqSh</span>~<span class="sd-jwt-disclosure">WyJiWHNBMUthZ0hjSWpGa3dKNTBqazJ3IiwgInR5cGUiLCAiVmVyaWZpYWJsZVByZXNlbnRhdGlvbiJd</span>~<span class="sd-jwt-disclosure">WyJOR2I2UlRSUU03c3dKeVFUeWljdlZnIiwgInR5cGUiLCAiRW52ZWxvcGVkVmVyaWZpYWJsZUNyZWRlbnRpYWwiXQ</span>~<span class="sd-jwt-disclosure">WyJyYS05UlV2VUpBWkE2MXJIdGZONGlRIiwgImlkIiwgImRhdGE6YXBwbGljYXRpb24vdmMrbGQranNvbitzZC1qd3Q7ZXlKaGJHY2lPaUpGVXpNNE5DSXNJbXRwWkNJNklsVlJUVjlmYmxFMFV6WkNUemh1VVRSdVQwNVllSEI0YUhSb2IzbE9lR0kxTTB4WloxbDZMVEpCUW5NaUxDSjBlWEFpT2lKMmNDdHNaQ3RxYzI5dUszTmtMV3AzZENJc0ltTjBlU0k2SW5ad0syeGtLMnB6YjI0aWZRLmV5SkFZMjl1ZEdWNGRDSTZXeUpvZEhSd2N6b3ZMM2QzZHk1M015NXZjbWN2Ym5NdlkzSmxaR1Z1ZEdsaGJITXZkaklpTENKb2RIUndjem92TDNkM2R5NTNNeTV2Y21jdmJuTXZZM0psWkdWdWRHbGhiSE12WlhoaGJYQnNaWE12ZGpJaVhTd2lkbVZ5YVdacFlXSnNaVU55WldSbGJuUnBZV3dpT2x0N0lrQmpiMjUwWlhoMElqcGJJbWgwZEhCek9pOHZkM2QzTG5jekxtOXlaeTl1Y3k5amNtVmtaVzUwYVdGc2N5OTJNaUlzSW1oMGRIQnpPaTh2ZDNkM0xuY3pMbTl5Wnk5dWN5OWpjbVZrWlc1MGFXRnNjeTlsZUdGdGNHeGxjeTkyTWlKZExDSnBjM04xWlhJaU9pSm9kSFJ3Y3pvdkwzVnVhWFpsY25OcGRIa3VaWGhoYlhCc1pTOXBjM04xWlhKekx6VTJOVEEwT1NJc0luWmhiR2xrUm5KdmJTSTZJakl3TVRBdE1ERXRNREZVTVRrNk1qTTZNalJhSWl3aVkzSmxaR1Z1ZEdsaGJGTjFZbXBsWTNRaU9uc2lZV3gxYlc1cFQyWWlPbnNpYm1GdFpTSTZJa1Y0WVcxd2JHVWdWVzVwZG1WeWMybDBlU0lzSWw5elpDSTZXeUpvZWs5TFJ6VTJjREk1YzFCeVRHRkROVUU0Um5kRmRVY3pWVTA1ZFVsWlUxcDFjVTlZY3pKbFZHSkJJbDE5TENKZmMyUWlPbHNpV1ZkWFZtVkRSbmR4UW1rNFdEQnFTRjlqVjBOV1dVMTZTVE5oT0hCalRFVllSV1ppY0ZOU1FWbG5keUpkZlN3aVgzTmtJanBiSWpKSlpqaGhhVXM0UkVad1ZXSjRkRWMxY0dNd2VsOVNhRkp6Ym0xeWJHRlJNRWh6Y1RrNFdGTnlZV3NpTENKVWVEWjRaV1pNVlVkVVpVcGZZV3RWVUZkR2VITnZiVWhvYkd0V1ZucGZOelZvYVZaNmVXcHlZbVZ6SWwxOVhTd2lYM05rSWpwYklqZDJhbmwwVlZOM1pFSjBNWFE1Umt0bE9WRmZTM0pJUlhoRldHeHJURUZhVHpCS00wSnBkMjAwZGxraVhTd2lYM05rWDJGc1p5STZJbk5vWVMweU5UWWlMQ0pwWVhRaU9qRTNNRFkxTmpJNE5Ea3NJbVY0Y0NJNk1UY3pPREU0TlRJME9Td2lZMjVtSWpwN0ltcDNheUk2ZXlKcmRIa2lPaUpGUXlJc0ltTnlkaUk2SWxBdE16ZzBJaXdpWVd4bklqb2lSVk16T0RRaUxDSjRJam9pZFd0RWQxVTJaemxRVVZSRlVXaFlhRWd5Y2tSWk5uZE1RbGczVUhGbFVqWkJjR2xoVkhCRVVYb3djbDh0ZERsNlVYTnhlbTU0WjBoRWNFNW9la1psUXlJc0lua2lPaUpNUW5oVlluQlZkRk5HTVZWS1ZUVnBZbkpJZGtwSU5qQlVTRzVZTWsxeGEweEhaR2x0VTFsMFVHUjRSbGt4T0VkaGNsZGlTM0ZaVjBkalVrWkhWRTlCSW4xOWZRLmtZRDYzWXRCTlluTFVUdzZTemYxdnNfVWczVUJYaFB3Q3lxcE5tUG5QRGEzclhaUWhRTGRCMUJnYW9POHpnUS1jM0I0MWZ4YVhNbkxIWVY5LUIyMHVib1NwSlAwQi0yVnJlOTE3ZVF0MWNTRHN3REdBX1l0dm40QlNxWVZCQjJKfld5SkZNa0ZzUnpoc1kycDBRVkZyY2xsSWJqbEliblZSSWl3Z0luUjVjR1VpTENBaVZtVnlhV1pwWVdKc1pWQnlaWE5sYm5SaGRHbHZiaUpkfld5STVObGRZTURSbmVubzRjVlp6T1ZaTFUyd3dZVFZuSWl3Z0ltbGtJaXdnSW1oMGRIQTZMeTkxYm1sMlpYSnphWFI1TG1WNFlXMXdiR1V2WTNKbFpHVnVkR2xoYkhNdk1UZzNNaUpkfld5SmFla1UyVkZWYWFtdEhNVzFEV1hCS01FaG5jMGwzSWl3Z0luUjVjR1VpTENCYklsWmxjbWxtYVdGaWJHVkRjbVZrWlc1MGFXRnNJaXdnSWtWNFlXMXdiR1ZCYkhWdGJtbERjbVZrWlc1MGFXRnNJbDFkfld5SXRRM05zUzI1R1pHRlliMkppUVdzeVUwSkJWR1IzSWl3Z0ltbGtJaXdnSW1ScFpEcGxlR0Z0Y0d4bE9tVmlabVZpTVdZM01USmxZbU0yWmpGak1qYzJaVEV5WldNeU1TSmR-V3lKdVJtMU9XbDlJY3pCM1dXTm9PRmRrZVRkblFVTlJJaXdnSW1sa0lpd2dJbVJwWkRwbGVHRnRjR3hsT21NeU56WmxNVEpsWXpJeFpXSm1aV0l4WmpjeE1tVmlZelptTVNKZCJd</span></div>
+<div class="sd-jwt-compact"><span class="sd-jwt-header">eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ</span>.<span class="sd-jwt-payload">eyJfc2RfYWxnIjoic2hhLTI1NiIsIkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy9leGFtcGxlcy92MiJdLCJ2ZXJpZmlhYmxlQ3JlZGVudGlhbCI6W3siQGNvbnRleHQiOiJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJfc2QiOlsiLW9PVWdtVzNpeDQ2aDdhWVMzWlRuNTdfdVlacFhMN3JSZy03R19IT0h5VSIsIkRjVmFYQ0RkM2YtUFZXSFJoOVRJVEdUUFpmdXQ0Tmk1VE1Gel9wVmR0ZjgiXX1dLCJfc2QiOlsiU25NcGNlT3dPNDVYUHNMTV9UNFVjbnRSYU5FX01OaXp2UExtN3hRMWx2TSJdfQ</span>.<span class="sd-jwt-signature">kw6ZXofpvX6CRda53WHF1IuwCXzveW-Jit1LTdLZS33oyV7lXpnl_IGEgqitytgmy5niZP64InE1Qv4nJRwdDu4xYVy02kOeSqos8cFqHskjX56HO6YKJgj-P-B1lT0Y</span>~<span class="sd-jwt-disclosure">WyJ6R00xVnBOYkVqUzhNVm1rWnRjLVNRIiwgInR5cGUiLCAiVmVyaWZpYWJsZVByZXNlbnRhdGlvbiJd</span>~<span class="sd-jwt-disclosure">WyJHT3Rncm9OTmFCNFFFRXZaX20xUnJRIiwgInR5cGUiLCAiRW52ZWxvcGVkVmVyaWZpYWJsZUNyZWRlbnRpYWwiXQ</span>~<span class="sd-jwt-disclosure">WyJOZGJVTnJKLU8wZDBFTkV6LWdjTjlBIiwgImlkIiwgImRhdGE6YXBwbGljYXRpb24vdmMrbGQranNvbitzZC1qd3Q7ZXlKaGJHY2lPaUpGVXpNNE5DSXNJbXRwWkNJNklsVlJUVjlmYmxFMFV6WkNUemh1VVRSdVQwNVllSEI0YUhSb2IzbE9lR0kxTTB4WloxbDZMVEpCUW5NaUxDSjBlWEFpT2lKMmNDdHNaQ3RxYzI5dUszTmtMV3AzZENJc0ltTjBlU0k2SW5ad0syeGtLMnB6YjI0aWZRLmV5SkFZMjl1ZEdWNGRDSTZXeUpvZEhSd2N6b3ZMM2QzZHk1M015NXZjbWN2Ym5NdlkzSmxaR1Z1ZEdsaGJITXZkaklpTENKb2RIUndjem92TDNkM2R5NTNNeTV2Y21jdmJuTXZZM0psWkdWdWRHbGhiSE12WlhoaGJYQnNaWE12ZGpJaVhTd2lkbVZ5YVdacFlXSnNaVU55WldSbGJuUnBZV3dpT2x0N0lrQmpiMjUwWlhoMElqcGJJbWgwZEhCek9pOHZkM2QzTG5jekxtOXlaeTl1Y3k5amNtVmtaVzUwYVdGc2N5OTJNaUlzSW1oMGRIQnpPaTh2ZDNkM0xuY3pMbTl5Wnk5dWN5OWpjbVZrWlc1MGFXRnNjeTlsZUdGdGNHeGxjeTkyTWlKZExDSnBjM04xWlhJaU9pSm9kSFJ3Y3pvdkwzVnVhWFpsY25OcGRIa3VaWGhoYlhCc1pTOXBjM04xWlhKekx6VTJOVEEwT1NJc0luWmhiR2xrUm5KdmJTSTZJakl3TVRBdE1ERXRNREZVTVRrNk1qTTZNalJhSWl3aVkzSmxaR1Z1ZEdsaGJGTjFZbXBsWTNRaU9uc2lZV3gxYlc1cFQyWWlPbnNpYm1GdFpTSTZJa1Y0WVcxd2JHVWdWVzVwZG1WeWMybDBlU0lzSWw5elpDSTZXeUpvZWs5TFJ6VTJjREk1YzFCeVRHRkROVUU0Um5kRmRVY3pWVTA1ZFVsWlUxcDFjVTlZY3pKbFZHSkJJbDE5TENKZmMyUWlPbHNpV1ZkWFZtVkRSbmR4UW1rNFdEQnFTRjlqVjBOV1dVMTZTVE5oT0hCalRFVllSV1ppY0ZOU1FWbG5keUpkZlN3aVgzTmtJanBiSWpKSlpqaGhhVXM0UkVad1ZXSjRkRWMxY0dNd2VsOVNhRkp6Ym0xeWJHRlJNRWh6Y1RrNFdGTnlZV3NpTENKVWVEWjRaV1pNVlVkVVpVcGZZV3RWVUZkR2VITnZiVWhvYkd0V1ZucGZOelZvYVZaNmVXcHlZbVZ6SWwxOVhTd2lYM05rSWpwYklqZDJhbmwwVlZOM1pFSjBNWFE1Umt0bE9WRmZTM0pJUlhoRldHeHJURUZhVHpCS00wSnBkMjAwZGxraVhTd2lYM05rWDJGc1p5STZJbk5vWVMweU5UWWlMQ0pwWVhRaU9qRTNNRFkxTmpJNE5Ea3NJbVY0Y0NJNk1UY3pPREU0TlRJME9Td2lZMjVtSWpwN0ltcDNheUk2ZXlKcmRIa2lPaUpGUXlJc0ltTnlkaUk2SWxBdE16ZzBJaXdpWVd4bklqb2lSVk16T0RRaUxDSjRJam9pZFd0RWQxVTJaemxRVVZSRlVXaFlhRWd5Y2tSWk5uZE1RbGczVUhGbFVqWkJjR2xoVkhCRVVYb3djbDh0ZERsNlVYTnhlbTU0WjBoRWNFNW9la1psUXlJc0lua2lPaUpNUW5oVlluQlZkRk5HTVZWS1ZUVnBZbkpJZGtwSU5qQlVTRzVZTWsxeGEweEhaR2x0VTFsMFVHUjRSbGt4T0VkaGNsZGlTM0ZaVjBkalVrWkhWRTlCSW4xOWZRLmtZRDYzWXRCTlluTFVUdzZTemYxdnNfVWczVUJYaFB3Q3lxcE5tUG5QRGEzclhaUWhRTGRCMUJnYW9POHpnUS1jM0I0MWZ4YVhNbkxIWVY5LUIyMHVib1NwSlAwQi0yVnJlOTE3ZVF0MWNTRHN3REdBX1l0dm40QlNxWVZCQjJKfld5SkZNa0ZzUnpoc1kycDBRVkZyY2xsSWJqbEliblZSSWl3Z0luUjVjR1VpTENBaVZtVnlhV1pwWVdKc1pWQnlaWE5sYm5SaGRHbHZiaUpkfld5STVObGRZTURSbmVubzRjVlp6T1ZaTFUyd3dZVFZuSWl3Z0ltbGtJaXdnSW1oMGRIQTZMeTkxYm1sMlpYSnphWFI1TG1WNFlXMXdiR1V2WTNKbFpHVnVkR2xoYkhNdk1UZzNNaUpkfld5SmFla1UyVkZWYWFtdEhNVzFEV1hCS01FaG5jMGwzSWl3Z0luUjVjR1VpTENCYklsWmxjbWxtYVdGaWJHVkRjbVZrWlc1MGFXRnNJaXdnSWtWNFlXMXdiR1ZCYkhWdGJtbERjbVZrWlc1MGFXRnNJbDFkfld5SXRRM05zUzI1R1pHRlliMkppUVdzeVUwSkJWR1IzSWl3Z0ltbGtJaXdnSW1ScFpEcGxlR0Z0Y0d4bE9tVmlabVZpTVdZM01USmxZbU0yWmpGak1qYzJaVEV5WldNeU1TSmR-V3lKdVJtMU9XbDlJY3pCM1dXTm9PRmRrZVRkblFVTlJJaXdnSW1sa0lpd2dJbVJwWkRwbGVHRnRjR3hsT21NeU56WmxNVEpsWXpJeFpXSm1aV0l4WmpjeE1tVmlZelptTVNKZCJd</span></div>
 </div>
     </div>
 </div>
@@ -1742,12 +1766,12 @@ verifiableCredential:
   / unprotected / {
   },
   / payload / nil,
-  / signature / h'0dc7bc6a...c7937db3'
+  / signature / h'87eaed56...90be7f42'
 ])</code></pre>
 </div>
 <h1>application/vc+ld+json+cose (detached payload)</h1>
 <div class="cose-text">
-d28444a1013822a0f658600dc7bc6ae506c779c077f22032937c7c46503581eee44aa4c0459b4c058d2be6e8b2e69eb955dbd7765057ca39e3d4c4fea85740b248b9ff540f8c146fb5432238ef6bdfb3fd59d00095584780bc2e8bc007306543591f0484b6c143c7937db3
+d28444a1013822a0f6586087eaed56e39e86d668a3ab8a3ea7aa0144a9083e10f236238d7b7153635f4f40179821e170b104c1534abf67d115c065227dd185a392da195722667086341b331c6d38b8c911a3cd359c3e697f470795ae902d96e44b3949dda7bf8690be7f42
 </div>
     </div>
 </div>
@@ -1818,12 +1842,12 @@ d28444a1013822a0f658600dc7bc6ae506c779c077f22032937c7c46503581eee44aa4c0459b4c05
   / unprotected / {
   },
   / payload / nil,
-  / signature / h'86c77e1e...eb9e1f18'
+  / signature / h'88539a6f...f9e08683'
 ])</code></pre>
 </div>
 <h1>application/vp+ld+json+cose (detached payload)</h1>
 <div class="cose-text">
-d28444a1013822a0f6586086c77e1e7499f2a913fd446ea1c4aa41173f24490e3a8099ffe162584df849b380db80e7490bba3071fc80f51e79becb867e8b7972b4f256a7e0cc165daa0bf148ef8c07f0872dedf84f5644a6297aad5d2a65c8ca46b70c62ab5469eb9e1f18
+d28444a1013822a0f6586088539a6f549abb9592672b0a87165731af222d8b8892c75d04bc0c5e4b01138e38e7438a14b22403e97429d305640873965149c83f6d8624a54c979fa64614fd65ff029500c1745d5ff71dc234c95b551ae84af14ec4ce8d0d799ad1f9e08683
 </div>
     </div>
 </div>
@@ -1848,7 +1872,7 @@ COSE header parameter, as specified in
         </p>
         <p>
 The normative statements in
-<a href="https://www.rfc-editor.org/rfc/rfc9052#section-3.1.1">Registered Header Parameter Names</a>,
+<a href="https://www.rfc-editor.org/rfc/rfc9052#section-3.1">Header Parameters</a>,
 <a href="https://www.rfc-editor.org/rfc/rfc8392#section-3">Claims</a>, and
 <a href="https://www.ietf.org/archive/id/draft-ietf-cose-cwt-claims-in-headers-10.html">CBOR Web Token (CWT) Claims in COSE Headers</a>
 apply to securing credentials and presentations.
@@ -2441,7 +2465,7 @@ The following sections define several useful <a href="#dfn-verification-relation
 A <a href="#dfn-controller-documents" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-controller-documents-16">controller document</a> <em class="rfc2119">MAY</em> include any of these, or other properties, to
 express a specific <a href="#dfn-verification-relationship" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-verification-relationship-12">verification relationship</a>. To maximize global
 interoperability, any such properties used <em class="rfc2119">SHOULD</em> be registered in the
-<a href="https://w3c.github.io/vc-specs-dir/#proof">VC Specifications Directory</a>.
+<a href="https://www.w3.org/TR/vc-specs-dir/#securing-mechanisms">VC Specifications Directory</a>.
           </p>
           <section id="authentication"><div class="header-wrapper"><h5 id="x4-3-2-1-authentication"><bdi class="secno">4.3.2.1 </bdi>Authentication</h5><a class="self-link" href="#authentication" aria-label="Permalink for Section 4.3.2.1"></a></div>
             
@@ -2603,16 +2627,19 @@ credential</a> by a verifier.
     </section>
     <section class="normative" id="securing-verifiable-credentials"><div class="header-wrapper"><h3 id="x5-2-securing-verifiable-credentials"><bdi class="secno">5.2 </bdi>Securing Verifiable Credentials</h3><a class="self-link" href="#securing-verifiable-credentials" aria-label="Permalink for Section 5.2"></a></div>
       
-      <p>The <a href="https://www.w3.org/TR/vc-data-model-2.0/#proof-formats">Verifiable Credentials Data Model v2.0</a> describes the approach taken by JSON Web
-        Tokens to secure JWT Claims Sets as <i>applying an
+      <p>The <a href="https://www.w3.org/TR/vc-data-model-2.0/#securing-mechanism-specifications">Verifiable Credentials Data Model v2.0</a> describes 
+        the approach taken by JSON Web Tokens to secure JWT Claims Sets as <i>applying an
         <code>external proof</code></i>.
       </p>
-      <p>The normative statements in <a href="https://www.w3.org/TR/vc-data-model-2.0/#securing-verifiable-credentials">Securing
-          Verifiable Credentials</a> apply to securing
+      <p>The normative statements in <a href="https://www.w3.org/TR/vc-data-model-2.0/#securing-mechanisms">Securing
+          Mechanisms</a> apply to securing
         <code>application/vc+ld+json</code> and
-        <code>application/vp+ld+json</code>
-        as <code>application/vc+ld+json+sd-jwt</code> and
-        <code>application/vp+ld+json+sd-jwt</code>.
+        <code>application/vp+ld+json</code>,
+        <code>application/vc+ld+json+sd-jwt</code> and
+        <code>application/vp+ld+json+sd-jwt</code>,
+        as well as
+        <code>application/vc+ld+json+cose</code> and
+        <code>application/vp+ld+json+cose</code>.
       </p>
       <p>
         JSON Web Token implementers are advised to review <a href="https://www.rfc-editor.org/rfc/rfc7519#section-8">Implementation
@@ -3567,12 +3594,12 @@ credential</a> by a verifier.
   / unprotected / {
   },
   / payload / nil,
-  / signature / h'dd665ff8...b7be2262'
+  / signature / h'1d954880...616d3b76'
 ])</code></pre>
 </div>
 <h1>application/vc+ld+json+cose (detached payload)</h1>
 <div class="cose-text">
-d28444a1013822a0f65860dd665ff832ce29e3c2b093a174a25ea1dace11f943ff525fc1e464caf49fcfc9da055e099a3f9be6dbf6e7790995ccdb505763e640c102267545986270087adb8fb60350ebf24ad749a5fce2659c9ae495539e370e6b33b85245b05ab7be2262
+d28444a1013822a0f658601d954880746113403959a1cbe6b5ebff56e632b8dcc5b1bdd2ef1326b14c436f8bb45e1f8d7e35cb7dd87490ddc2dc630e0bf58d82abd84809092de04a247c62808e8e73beaa6123e6f38027d717ded91cd08d416bf852b786fa3ab3616d3b76
 </div>
     </div>
     <div class="vc-jose-cose-tab-content">
@@ -3613,7 +3640,7 @@ d28444a1013822a0f65860dd665ff832ce29e3c2b093a174a25ea1dace11f943ff525fc1e464caf4
 <h1>application/vc+ld+json+jwt</h1>
 <div class="jose-text">
 
-<div class="jwt-compact"><span class="jwt-header">eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ</span>.<span class="sd-jwt-payload">eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaWQiOiJodHRwczovL2NvbnRvc28uZXhhbXBsZS9jcmVkZW50aWFscy8yMzg5NDY3MjM5NCIsInR5cGUiOlsiVmVyaWZpYWJsZUNyZWRlbnRpYWwiLCJLOVVuaXRDcmVkZW50aWFsIl0sImlzc3VlciI6eyJpZCI6Imh0dHBzOi8vY29udG9zby5leGFtcGxlIn0sInZhbGlkRnJvbSI6IjIwMTUtMDQtMTZUMDU6MTE6MzIuNDMyWiIsImNyZWRlbnRpYWxTdGF0dXMiOnsiaWQiOiJodHRwczovL2NvbnRvc28uZXhhbXBsZS9jcmVkZW50aWFscy9zdGF0dXMvNCMyNzM3NjIiLCJ0eXBlIjoiU3RhdHVzTGlzdDIwMjFFbnRyeSIsInN0YXR1c1B1cnBvc2UiOiJyZXZvY2F0aW9uIiwic3RhdHVzTGlzdEluZGV4IjoiMjczNzYyIiwic3RhdHVzTGlzdENyZWRlbnRpYWwiOiJodHRwczovL2NvbnRvc28uZXhhbXBsZS9jcmVkZW50aWFscy9zdGF0dXMvNCJ9LCJjcmVkZW50aWFsU3ViamVjdCI6W3siaWQiOiJkaWQ6ZXhhbXBsZToxMzEyMzg3NjQxIiwidHlwZSI6IlBlcnNvbiJ9LHsiaWQiOiJkaWQ6ZXhhbXBsZTo2Mzg4ODIzMSIsInR5cGUiOiJEb2cifV19</span>.<span class="sd-jwt-signature">wQztIASNLaHANQjdgF6Rmyakn-Bthp-LpGqDsn2400EoOtYx6oppZDGoPt87oYauJcIkg-1i4JtI17gyRcxRUHyTZ3iAN0XGR4GbFoBBhYUQTIwCdjxj_Io4hvoNxAPl</span></div>
+<div class="jwt-compact"><span class="jwt-header">eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ</span>.<span class="sd-jwt-payload">eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaWQiOiJodHRwczovL2NvbnRvc28uZXhhbXBsZS9jcmVkZW50aWFscy8yMzg5NDY3MjM5NCIsInR5cGUiOlsiVmVyaWZpYWJsZUNyZWRlbnRpYWwiLCJLOVVuaXRDcmVkZW50aWFsIl0sImlzc3VlciI6eyJpZCI6Imh0dHBzOi8vY29udG9zby5leGFtcGxlIn0sInZhbGlkRnJvbSI6IjIwMTUtMDQtMTZUMDU6MTE6MzIuNDMyWiIsImNyZWRlbnRpYWxTdGF0dXMiOnsiaWQiOiJodHRwczovL2NvbnRvc28uZXhhbXBsZS9jcmVkZW50aWFscy9zdGF0dXMvNCMyNzM3NjIiLCJ0eXBlIjoiU3RhdHVzTGlzdDIwMjFFbnRyeSIsInN0YXR1c1B1cnBvc2UiOiJyZXZvY2F0aW9uIiwic3RhdHVzTGlzdEluZGV4IjoiMjczNzYyIiwic3RhdHVzTGlzdENyZWRlbnRpYWwiOiJodHRwczovL2NvbnRvc28uZXhhbXBsZS9jcmVkZW50aWFscy9zdGF0dXMvNCJ9LCJjcmVkZW50aWFsU3ViamVjdCI6W3siaWQiOiJkaWQ6ZXhhbXBsZToxMzEyMzg3NjQxIiwidHlwZSI6IlBlcnNvbiJ9LHsiaWQiOiJkaWQ6ZXhhbXBsZTo2Mzg4ODIzMSIsInR5cGUiOiJEb2cifV19</span>.<span class="sd-jwt-signature">8AFHKPfssNsuB01ej4Hu9oBvPDxoo371UjzB0PwInZFgA2vHB96DbXLaV7bD9UZVgU7KMISO1MKb3Iv9hqeJI7GNmT8q4PnauU6pn32sarGBj6YItTVCsW6pnjl0aJpn</span></div>
 </div>
     </div>
     <div class="vc-jose-cose-tab-content">
@@ -3646,7 +3673,7 @@ credentialSubject:
 <h1>application/vc+ld+json+sd-jwt</h1>
 <div class="jose-text">
 
-<div class="sd-jwt-compact"><span class="sd-jwt-header">eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ</span>.<span class="sd-jwt-payload">eyJfc2RfYWxnIjoic2hhLTI1NiIsIkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy9leGFtcGxlcy92MiJdLCJpc3N1ZXIiOnsiX3NkIjpbIndUM0ZRSy1TNnJaZV8tWEJNM3VyZ1JfOG9yYTQzS2pUcXpwZGVRbkJvTU0iXX0sInZhbGlkRnJvbSI6IjIwMTUtMDQtMTZUMDU6MTE6MzIuNDMyWiIsImNyZWRlbnRpYWxTdGF0dXMiOnsic3RhdHVzUHVycG9zZSI6InJldm9jYXRpb24iLCJzdGF0dXNMaXN0SW5kZXgiOiIyNzM3NjIiLCJzdGF0dXNMaXN0Q3JlZGVudGlhbCI6Imh0dHBzOi8vY29udG9zby5leGFtcGxlL2NyZWRlbnRpYWxzL3N0YXR1cy80IiwiX3NkIjpbImRyNktxMjhCWkx3dXNOTm4ta3Q1dUdVOHZkd0NRQWR1a1p2Umt0aS02R3MiLCJ2TnVVaERuRHdvZi1mVXpZb2RjVVJGMkxHUk5wY2haS01WdnFFT18xd3p3Il19LCJjcmVkZW50aWFsU3ViamVjdCI6W3siX3NkIjpbIjl0cThNN1BwQy1pQzVfUnFFVHptMjJjMkxnMm0yYlFpWFlueTY4ZDdxR3ciLCJ1ejRIN1VZWUZUOUNfOVVGRUV6eEVPOTcwNU94RjVUQXI0ek5rVXJXWjcwIl19LHsiX3NkIjpbIkZpczhaY0ZSWnZCSkM0TUVESXV5Y1E4RjFXLXFlaUtIa1F3ZV9QeU1aMGciLCJlVkN1VGpKbGVGQUJqdkh1QlVXRDFhSjdQLUFIc2tjWWZBcVlPSW5TY25JIl19XSwiX3NkIjpbIlEtZmY3RU1FQjFUdno3dGdFMlBySENITDB0WmF3dXR1eTZLMndnVEtZRmsiLCJaT29VeTQ2MVFRbXhDbUVFTC1pRE5zdFlxR2t1SnE5ZDZLTG9wRkI5dV9zIl19</span>.<span class="sd-jwt-signature">_VX9HXW0Xnug3-zSSWEzHjAjad3qvNyR3HRUNNxOadykwHUz9hIR-lI2e4apWy_tclwZhhDoSQeUHa8oZCS7IP4RcSzltYPVN1WNXHpNXeX1ZuwsZDWqwo_68lwn42yR</span>~<span class="sd-jwt-disclosure">WyJjQWhic21SdUE3Vmpzc0R3d2JPMXh3IiwgImlkIiwgImh0dHBzOi8vY29udG9zby5leGFtcGxlL2NyZWRlbnRpYWxzLzIzODk0NjcyMzk0Il0</span>~<span class="sd-jwt-disclosure">WyIxMldWZHVwVi1BWG80UGM2cmFaMWdRIiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIks5VW5pdENyZWRlbnRpYWwiXV0</span>~<span class="sd-jwt-disclosure">WyJKSUlmYnpJRjhhUTc0NUVDcFF5SnlBIiwgImlkIiwgImh0dHBzOi8vY29udG9zby5leGFtcGxlIl0</span>~<span class="sd-jwt-disclosure">WyJaT0FvTU8wSEVib0dwdzJVZGpIT0NRIiwgImlkIiwgImh0dHBzOi8vY29udG9zby5leGFtcGxlL2NyZWRlbnRpYWxzL3N0YXR1cy80IzI3Mzc2MiJd</span>~<span class="sd-jwt-disclosure">WyJwQnRQcXpDbWFWbXk0eXg0enBSV21nIiwgInR5cGUiLCAiU3RhdHVzTGlzdDIwMjFFbnRyeSJd</span>~<span class="sd-jwt-disclosure">WyJlWkU1VC13TGZJd0w3WTRFbGM1cFBnIiwgImlkIiwgImRpZDpleGFtcGxlOjEzMTIzODc2NDEiXQ</span>~<span class="sd-jwt-disclosure">WyJiZi1aVGY3TEZUbXpVUXNiajA4Y1VRIiwgInR5cGUiLCAiUGVyc29uIl0</span>~<span class="sd-jwt-disclosure">WyJSaWlsYzhoZUZUN1kyOXFneUZURUlnIiwgImlkIiwgImRpZDpleGFtcGxlOjYzODg4MjMxIl0</span>~<span class="sd-jwt-disclosure">WyIyX3k4eEY1dTEyUGxmRkV1c3AwRFdnIiwgInR5cGUiLCAiRG9nIl0</span></div>
+<div class="sd-jwt-compact"><span class="sd-jwt-header">eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ</span>.<span class="sd-jwt-payload">eyJfc2RfYWxnIjoic2hhLTI1NiIsIkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy9leGFtcGxlcy92MiJdLCJpc3N1ZXIiOnsiX3NkIjpbImJXRnRpRzBSNTVQTVFnbXV3eEIyWW9iNkNWZDczU0pIaG5fZUJ4U3EyZkUiXX0sInZhbGlkRnJvbSI6IjIwMTUtMDQtMTZUMDU6MTE6MzIuNDMyWiIsImNyZWRlbnRpYWxTdGF0dXMiOnsic3RhdHVzUHVycG9zZSI6InJldm9jYXRpb24iLCJzdGF0dXNMaXN0SW5kZXgiOiIyNzM3NjIiLCJzdGF0dXNMaXN0Q3JlZGVudGlhbCI6Imh0dHBzOi8vY29udG9zby5leGFtcGxlL2NyZWRlbnRpYWxzL3N0YXR1cy80IiwiX3NkIjpbIkZRc3kzS0pRd1htS08tbTgyN2hDZGlYT0RzejgtZDVjNDFScy04NTZfYnciLCJ3RWZFNDNfOGxxZmVCa0ZNV05DNVVqYTMwdVZVX1Rhb1ZpYXBOV0o5REpvIl19LCJjcmVkZW50aWFsU3ViamVjdCI6W3siX3NkIjpbIjBKUHgtZWRlVVRPc0VRVDlnRmNJZUd5cXZDNUxub3FOZEc1WVZfd3NXYmMiLCJZMmo2c2tyd28zbFV1ZGU0bzRMZmo4czVQdGhUbndyQVJvb2UxNnE0cWswIl19LHsiX3NkIjpbIi0wTElpS192RFAwb2xxQkY4R0pzMDhNSTRrVFlmWHh6WUswYXlyekpxT3MiLCJ0U1o5b1Z2TThsNjZZQUtoQ0pSMFE2OVBta1V0RkduSlBnRk9RNW56YjQwIl19XSwiX3NkIjpbIkhzbjR1b2NtaVNmQ3lNRnFIN3RrTTFTcENTRVNiMUd6NTlXVEhaZklUZkUiLCJQYnpLQ3VtRTBRTVc5N2xMQWNnYzdyQzBiczZYM2RIbnpLbWFLTjY1cmVzIl19</span>.<span class="sd-jwt-signature">TBSlipdEpNdsKX5vBwS11DicAwbHtcas5-NXPKjl2mdr2xeswYH_T_-dX9roVUED3Xe1aNxh5VuPrfkET_uv7EZnm0U-Wi47QYJIOp66K2Web6elnheD0DyrbODsYSJm</span>~<span class="sd-jwt-disclosure">WyJLVy1SV2xCVWZxMVhPcVNfanBobXhRIiwgImlkIiwgImh0dHBzOi8vY29udG9zby5leGFtcGxlL2NyZWRlbnRpYWxzLzIzODk0NjcyMzk0Il0</span>~<span class="sd-jwt-disclosure">WyJwaW9ZNEQwUXhiYVkwS2JDdmtoSHlRIiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIks5VW5pdENyZWRlbnRpYWwiXV0</span>~<span class="sd-jwt-disclosure">WyJlRVF6WHdWMVFmSzhRVV9iOXlOZk9BIiwgImlkIiwgImh0dHBzOi8vY29udG9zby5leGFtcGxlIl0</span>~<span class="sd-jwt-disclosure">WyJNVG91cjdMQmR6LW5ER01OTC0zelVBIiwgImlkIiwgImh0dHBzOi8vY29udG9zby5leGFtcGxlL2NyZWRlbnRpYWxzL3N0YXR1cy80IzI3Mzc2MiJd</span>~<span class="sd-jwt-disclosure">WyJNT2ZvYUlQMFVCdlV0SzYycnhyZkt3IiwgInR5cGUiLCAiU3RhdHVzTGlzdDIwMjFFbnRyeSJd</span>~<span class="sd-jwt-disclosure">WyI4M0Uya2J1QjQ2NWZuQXJQajliM3FRIiwgImlkIiwgImRpZDpleGFtcGxlOjEzMTIzODc2NDEiXQ</span>~<span class="sd-jwt-disclosure">WyJ3V3NFNThvdlBqSGtPckozYi1CRElnIiwgInR5cGUiLCAiUGVyc29uIl0</span>~<span class="sd-jwt-disclosure">WyJOa3RRaWhnWVdVMDZOa1AwcThPc1VRIiwgImlkIiwgImRpZDpleGFtcGxlOjYzODg4MjMxIl0</span>~<span class="sd-jwt-disclosure">WyIxSjRYTFVTQUQxLVRYbklFcmtWaGpRIiwgInR5cGUiLCAiRG9nIl0</span></div>
 </div>
     </div> 
 </div>
@@ -3705,12 +3732,12 @@ credentialSubject:
   / unprotected / {
   },
   / payload / nil,
-  / signature / h'f77f7f09...a8805b1d'
+  / signature / h'776fd68e...1b2975c7'
 ])</code></pre>
 </div>
 <h1>application/vc+ld+json+cose (detached payload)</h1>
 <div class="cose-text">
-d28444a1013822a0f65860f77f7f09e240b62752609403dd672e89a83052f4c3ddc18651b2021082a3f757c9a6a51cbd1d0a167cd4b893ac9f795b0f02025ec608961aae8b66fd255c3a5ebb6bb384eabc91172a31edc10e308e6238011a23c80e12dce8c941d7a8805b1d
+d28444a1013822a0f65860776fd68eee3bacf953b114d4de86ee50e47c8d006091ec730833fb9ea43ca7f4bd01694ab8040001622a773345baca4b6a16af3058dc818c5ac8f113f738fc09fdf40cbc5ef5b5cc35c25bbb3ad2bbc3cd29dc227d8fbe9e4527f2cb1b2975c7
 </div>
     </div>
     <div class="vc-jose-cose-tab-content">
@@ -3741,7 +3768,7 @@ d28444a1013822a0f65860f77f7f09e240b62752609403dd672e89a83052f4c3ddc18651b2021082
 <h1>application/vc+ld+json+jwt</h1>
 <div class="jose-text">
 
-<div class="jwt-compact"><span class="jwt-header">eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ</span>.<span class="sd-jwt-payload">eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaWQiOiJodHRwczovL2NvbnRvc28uZXhhbXBsZS9jcmVkZW50aWFscy8zNTMyNzI1NSIsInR5cGUiOlsiVmVyaWZpYWJsZUNyZWRlbnRpYWwiLCJLWUNFeGFtcGxlIl0sImlzc3VlciI6ImRpZDp3ZWI6Y29udG9zby5leGFtcGxlIiwidmFsaWRGcm9tIjoiMjAxOS0wNS0yNVQwMzoxMDoxNi45OTJaIiwidmFsaWRVbnRpbCI6IjIwMjctMDUtMjVUMDM6MTA6MTYuOTkyWiIsImNyZWRlbnRpYWxTY2hlbWEiOnsiaWQiOiJodHRwczovL2NvbnRvc28uZXhhbXBsZS9iYWZ5YmVpZ2R5ci4uLmxxYWJmM29jbGd0cXk1NWZiemRpIiwidHlwZSI6Ikpzb25TY2hlbWEifSwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJkaWQ6ZXhhbXBsZToxMjMxNTg4IiwidHlwZSI6IlBlcnNvbiJ9fQ</span>.<span class="sd-jwt-signature">QapDTwBNDaLbZEDBRPzMfv0WpxIdOSg2_9sC8y_UAy89UCArT5kRW0Jdf0ZochqdM74IMBttwb-PXTbJTTbtEoLf8hgvMs1sPhsk5RfLBztLmiH7ALTO1uuHqSTEllJM</span></div>
+<div class="jwt-compact"><span class="jwt-header">eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ</span>.<span class="sd-jwt-payload">eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaWQiOiJodHRwczovL2NvbnRvc28uZXhhbXBsZS9jcmVkZW50aWFscy8zNTMyNzI1NSIsInR5cGUiOlsiVmVyaWZpYWJsZUNyZWRlbnRpYWwiLCJLWUNFeGFtcGxlIl0sImlzc3VlciI6ImRpZDp3ZWI6Y29udG9zby5leGFtcGxlIiwidmFsaWRGcm9tIjoiMjAxOS0wNS0yNVQwMzoxMDoxNi45OTJaIiwidmFsaWRVbnRpbCI6IjIwMjctMDUtMjVUMDM6MTA6MTYuOTkyWiIsImNyZWRlbnRpYWxTY2hlbWEiOnsiaWQiOiJodHRwczovL2NvbnRvc28uZXhhbXBsZS9iYWZ5YmVpZ2R5ci4uLmxxYWJmM29jbGd0cXk1NWZiemRpIiwidHlwZSI6Ikpzb25TY2hlbWEifSwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJkaWQ6ZXhhbXBsZToxMjMxNTg4IiwidHlwZSI6IlBlcnNvbiJ9fQ</span>.<span class="sd-jwt-signature">VGJWFa_ffv6bPCV_r4k1FuNybYxRTv6Ro5NPXO0dOGugpTbeN5acmpN6k7xquW7zTU7BPKaQCVSXhVxoPiaqxrGzztFIn5fxiMLZI4_Np2oVp1PuS7AAuto8w4vhx0Tn</span></div>
 </div>
     </div>
     <div class="vc-jose-cose-tab-content">
@@ -3769,7 +3796,7 @@ credentialSubject:
 <h1>application/vc+ld+json+sd-jwt</h1>
 <div class="jose-text">
 
-<div class="sd-jwt-compact"><span class="sd-jwt-header">eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ</span>.<span class="sd-jwt-payload">eyJfc2RfYWxnIjoic2hhLTI1NiIsIkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy9leGFtcGxlcy92MiJdLCJpc3N1ZXIiOiJkaWQ6d2ViOmNvbnRvc28uZXhhbXBsZSIsInZhbGlkRnJvbSI6IjIwMTktMDUtMjVUMDM6MTA6MTYuOTkyWiIsInZhbGlkVW50aWwiOiIyMDI3LTA1LTI1VDAzOjEwOjE2Ljk5MloiLCJjcmVkZW50aWFsU2NoZW1hIjp7Il9zZCI6WyI5TkdvX0E1RlcyQXV1SlV5bURWd0lxMi05YnBvemVWOGtNTDRnOHBENTdVIiwieVF0b3FUcUQxQXdidmNIYW1IQVlJOUFfeDE3clV4X1o3cUZjTFh5Rmh2dyJdfSwiY3JlZGVudGlhbFN1YmplY3QiOnsiX3NkIjpbIjItbEJnWjljNm1RZUwzbkFqcU1FRzEtQU9FdmZnR3QwUWhRU2lqd1NURUEiLCJYTGFWYzVXSTlQV21QN180c3NaRmV4YUxmWjRCVTRRd0RjTVNoQlVZSnVnIl19LCJfc2QiOlsiYmNsSGJJYW1JaWx1NlRiQ1ZhTno3eUtWNjB2bnJ1Z05QN3hKSGhQaTdkayIsImVBTGViTFJGS0xGZ09jYWQ1V1NrNjNFNmhpbXg0a3JBNTlTdzVVU0tMb3ciXX0</span>.<span class="sd-jwt-signature">IiQJGTVBshINUGhIsvcc7vxt7B0QrOrENwmrWs_f1hyRMDdRfE4Xt6kXG6Au4mdpEtLegGpQp4wk-Np5C8jjDG61Vp3azP0SydsfHQev8O991XzKa_8JTiqSopFWUO1Q</span>~<span class="sd-jwt-disclosure">WyJCRmFxSVN2TFpBUFdYVml4ajFuTHdBIiwgImlkIiwgImh0dHBzOi8vY29udG9zby5leGFtcGxlL2NyZWRlbnRpYWxzLzM1MzI3MjU1Il0</span>~<span class="sd-jwt-disclosure">WyJNN2E4REJqRTFldkI1a0tYV1prX3dBIiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIktZQ0V4YW1wbGUiXV0</span>~<span class="sd-jwt-disclosure">WyJzRDB1RGJJUFJSa3EzaWU4UjlZQ3h3IiwgImlkIiwgImh0dHBzOi8vY29udG9zby5leGFtcGxlL2JhZnliZWlnZHlyLi4ubHFhYmYzb2NsZ3RxeTU1ZmJ6ZGkiXQ</span>~<span class="sd-jwt-disclosure">WyJMa2Z6b1hmemRRUkZZcWVTc2hPNlZRIiwgInR5cGUiLCAiSnNvblNjaGVtYSJd</span>~<span class="sd-jwt-disclosure">WyJveG9hYi1DOG5CbU1ncElwY19FcjJRIiwgImlkIiwgImRpZDpleGFtcGxlOjEyMzE1ODgiXQ</span>~<span class="sd-jwt-disclosure">WyJ0RG5CZ1Bvb3dKbHZnSGlBUzh2VXhBIiwgInR5cGUiLCAiUGVyc29uIl0</span></div>
+<div class="sd-jwt-compact"><span class="sd-jwt-header">eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ</span>.<span class="sd-jwt-payload">eyJfc2RfYWxnIjoic2hhLTI1NiIsIkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy9leGFtcGxlcy92MiJdLCJpc3N1ZXIiOiJkaWQ6d2ViOmNvbnRvc28uZXhhbXBsZSIsInZhbGlkRnJvbSI6IjIwMTktMDUtMjVUMDM6MTA6MTYuOTkyWiIsInZhbGlkVW50aWwiOiIyMDI3LTA1LTI1VDAzOjEwOjE2Ljk5MloiLCJjcmVkZW50aWFsU2NoZW1hIjp7Il9zZCI6WyJFc1QwRnVlellYRkJPUGxLX0lxbVdIMWY3NkZ0aGI1bHF4eUh6VXJLV2s4IiwidUw5RW10YUE2cE1wempVcndqUy1weG9YOUVqd2hmM3JBd2JPd0dvazQycyJdfSwiY3JlZGVudGlhbFN1YmplY3QiOnsiX3NkIjpbIlZkdFdPVTlSdVRNanRhZk5xalJOUVJSN0hNSGhCRVg1NFBSM1B4YUd5YTAiLCJxbWdUWUJReFo3VTBJenNESnY0dnV5VHZwcW1RQ3hiMXhIZ1RpRlJWX3M4Il19LCJfc2QiOlsiMk1aaW9LRThGQXlKcGlhU25fZ1ZBUTB5c2Q4NFJtNERSRTQ5M2JUNzY1VSIsIldGSm5LYjhlcmNETUdRWjlHZ3BuUng0VWVZYTFoejVWQzVhS0JUQVBWY2ciXX0</span>.<span class="sd-jwt-signature">x5G4jPrul_H6t3zAPcKReHTmQnP4QpzFjLknRt0T80VzUKaQfdIrvxp2C7HaovqLaj0xCai8qI2D36kqX3-t6kiDZ06WksyjvqDPXxmg0TJlBdOwBs8-PVqog_3yM3n1</span>~<span class="sd-jwt-disclosure">WyJ2RFdDdUI3a1lZbjFrX1BkOWZ0cGJ3IiwgImlkIiwgImh0dHBzOi8vY29udG9zby5leGFtcGxlL2NyZWRlbnRpYWxzLzM1MzI3MjU1Il0</span>~<span class="sd-jwt-disclosure">WyJKY0JEMk9sYWFYbGZKR3NvdXdvMnpnIiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIktZQ0V4YW1wbGUiXV0</span>~<span class="sd-jwt-disclosure">WyJsYXRXbWN6YmxnWDBKQWhnRUtwVWF3IiwgImlkIiwgImh0dHBzOi8vY29udG9zby5leGFtcGxlL2JhZnliZWlnZHlyLi4ubHFhYmYzb2NsZ3RxeTU1ZmJ6ZGkiXQ</span>~<span class="sd-jwt-disclosure">WyJwMTB0cGFxdkh0VlhzNWhYOV85WEV3IiwgInR5cGUiLCAiSnNvblNjaGVtYSJd</span>~<span class="sd-jwt-disclosure">WyJTdERORURoeC11VWRMTXduX1Z4OHdBIiwgImlkIiwgImRpZDpleGFtcGxlOjEyMzE1ODgiXQ</span>~<span class="sd-jwt-disclosure">WyJMWWdKUHdfXzhaRzd2NjJvUFd6cjVBIiwgInR5cGUiLCAiUGVyc29uIl0</span></div>
 </div>
     </div> 
 </div>
@@ -3836,12 +3863,12 @@ credentialSubject:
   / unprotected / {
   },
   / payload / nil,
-  / signature / h'b5aa5211...c3087940'
+  / signature / h'537319f8...aee3f602'
 ])</code></pre>
 </div>
 <h1>application/vp+ld+json+cose (detached payload)</h1>
 <div class="cose-text">
-d28444a1013822a0f65860b5aa52113dd858062bbf3442fc6b2b52414c08a6037eaf462356ef315828334ea9d169ee9b80b14a06c25934d2f4fc07740eb745fa4f42638e4d59f763922959b6c796bc48146123081295d329a2eb346ae529973915d743cbadb052c3087940
+d28444a1013822a0f65860537319f8caa19c7b58cfa4caf5c5af179be9ae628f0b3a3c20c71204c26e14cbd55da61fd2e869a257ae4b9ba7e8ddc0af373b2793ed6f0b8fd719760b5bde15e59549174056ad7ba48d60dc1e3201981ff16b1834be8b1b3ba1ddadaee3f602
 </div>
     </div>
     <div class="vc-jose-cose-tab-content">
@@ -3874,7 +3901,7 @@ d28444a1013822a0f65860b5aa52113dd858062bbf3442fc6b2b52414c08a6037eaf462356ef3158
 <h1>application/vp+ld+json+jwt</h1>
 <div class="jose-text">
 
-<div class="jwt-compact"><span class="jwt-header">eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ</span>.<span class="sd-jwt-payload">eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwidHlwZSI6IlZlcmlmaWFibGVQcmVzZW50YXRpb24iLCJ2ZXJpZmlhYmxlQ3JlZGVudGlhbCI6W3siQGNvbnRleHQiOiJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJpZCI6ImRhdGE6YXBwbGljYXRpb24vdmMrbGQranNvbitjb3NlO2Jhc2U2NHVybCxWVmh3VjJGc1dYVk1hVFZUVkZkd1ZnIiwidHlwZSI6IkVudmVsb3BlZFZlcmlmaWFibGVDcmVkZW50aWFsIn0seyJAY29udGV4dCI6Imh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImlkIjoiZGF0YTphcHBsaWNhdGlvbi92YytsZCtqc29uK2p3dDtleVZqVi4uLlJNalUiLCJ0eXBlIjoiRW52ZWxvcGVkVmVyaWZpYWJsZUNyZWRlbnRpYWwifSx7IkBjb250ZXh0IjoiaHR0cHM6Ly93d3cudzMub3JnL25zL2NyZWRlbnRpYWxzL3YyIiwiaWQiOiJkYXRhOmFwcGxpY2F0aW9uL3ZjK2xkK2pzb24rc2Qtand0O2V5VmpWLi4uUk1qVSIsInR5cGUiOiJFbnZlbG9wZWRWZXJpZmlhYmxlQ3JlZGVudGlhbCJ9XX0</span>.<span class="sd-jwt-signature">LMjJRXPh2bTWYmmXUzSh7N4926dZOYctTF9w_yV6rqpHCHcNY8BvG0vkhqPAbTv2b63iXHC_PzRDkCZjrUjcjScpnAs0YckzE_UoMIKxC_i739dRxT4mYRtIwXNqslEP</span></div>
+<div class="jwt-compact"><span class="jwt-header">eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ</span>.<span class="sd-jwt-payload">eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwidHlwZSI6IlZlcmlmaWFibGVQcmVzZW50YXRpb24iLCJ2ZXJpZmlhYmxlQ3JlZGVudGlhbCI6W3siQGNvbnRleHQiOiJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJpZCI6ImRhdGE6YXBwbGljYXRpb24vdmMrbGQranNvbitjb3NlO2Jhc2U2NHVybCxWVmh3VjJGc1dYVk1hVFZUVkZkd1ZnIiwidHlwZSI6IkVudmVsb3BlZFZlcmlmaWFibGVDcmVkZW50aWFsIn0seyJAY29udGV4dCI6Imh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImlkIjoiZGF0YTphcHBsaWNhdGlvbi92YytsZCtqc29uK2p3dDtleVZqVi4uLlJNalUiLCJ0eXBlIjoiRW52ZWxvcGVkVmVyaWZpYWJsZUNyZWRlbnRpYWwifSx7IkBjb250ZXh0IjoiaHR0cHM6Ly93d3cudzMub3JnL25zL2NyZWRlbnRpYWxzL3YyIiwiaWQiOiJkYXRhOmFwcGxpY2F0aW9uL3ZjK2xkK2pzb24rc2Qtand0O2V5VmpWLi4uUk1qVSIsInR5cGUiOiJFbnZlbG9wZWRWZXJpZmlhYmxlQ3JlZGVudGlhbCJ9XX0</span>.<span class="sd-jwt-signature">st3uhcYZ_4N9uGRfwhGgaS1O5u5iO6empMXvmT_tNq2aaFz26bnQQpoB3XjE7hJjKbzav09UwRzoUD3gWow91hLaedC6a7VtfA8Tyve1gZCgpkc3j77nnL3Ps1lXkNX_</span></div>
 </div>
     </div>
     <div class="vc-jose-cose-tab-content">
@@ -3900,7 +3927,7 @@ verifiableCredential:
 <h1>application/vp+ld+json+sd-jwt</h1>
 <div class="jose-text">
 
-<div class="sd-jwt-compact"><span class="sd-jwt-header">eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ</span>.<span class="sd-jwt-payload">eyJfc2RfYWxnIjoic2hhLTI1NiIsIkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy9leGFtcGxlcy92MiJdLCJ2ZXJpZmlhYmxlQ3JlZGVudGlhbCI6W3siQGNvbnRleHQiOiJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJfc2QiOlsiQ0dmb3JMbmk2aS1SdWxja1FTYlpOWHlWVVFqekhSek5ZTml2T0ZWaHJsMCIsIlIweGM0TUlnUWhUdkZqeElETU0xSm0wZy1KMWI3Z2JYbC00SGFoWUxPRWMiXX0seyJAY29udGV4dCI6Imh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsIl9zZCI6WyJGVGlkLTRNWjNNTHBfWUJ6YUNWMHc3Q09POUVWb3NERnFYSGZJYUhCX1hRIiwiRmlhS2otTXhQMzBjeVV2ek5FTnJDYjMteUxxOG5pS0pZVHRKZG84bWZmSSJdfSx7IkBjb250ZXh0IjoiaHR0cHM6Ly93d3cudzMub3JnL25zL2NyZWRlbnRpYWxzL3YyIiwiX3NkIjpbIm9tbV9BUEs4N19hRGd5SklJbmp6bGdIZ1kteVNQNVRhQm1UY2lXcDFRN3MiLCJ2WDhPdllJdW9sY0MxQjZWaHVkNngzTlRaZlgtV2RfbmZIWnZqbDQ3T2NNIl19XSwiX3NkIjpbIjBmZEE3QUVPWlIwNnQyM1JDWDlQa08zZjRIbFZMdHJTVnRKRTk2LWE0QlkiXX0</span>.<span class="sd-jwt-signature">bIncBrELoAqUR0l79Ddd4dwuyU9UUbaO5-wDQAvSYAjGYRpYkvYr1_9buQNWSB_smZidFc-kPJMnSQlw08qq4nUv5TqFw1JXhUaIkhwK3uRtLtaKDIHyrY-F4AJfBbe2</span>~<span class="sd-jwt-disclosure">WyJrRDdiQnRhQllZWXdmblRUcjlqRWp3IiwgInR5cGUiLCAiVmVyaWZpYWJsZVByZXNlbnRhdGlvbiJd</span>~<span class="sd-jwt-disclosure">WyJnYjEzMVRNaFNnb1lHX0oyTjF4SlRRIiwgImlkIiwgImRhdGE6YXBwbGljYXRpb24vdmMrbGQranNvbitjb3NlO2Jhc2U2NHVybCwgVlZod1YyRnNXWFZNYVRWVFZGZHdWZyJd</span>~<span class="sd-jwt-disclosure">WyI0eWxaV0ZnRzBCUDNGQ1ZTRWNrdi1BIiwgInR5cGUiLCAiRW52ZWxvcGVkVmVyaWZpYWJsZUNyZWRlbnRpYWwiXQ</span>~<span class="sd-jwt-disclosure">WyJmVHFVOU84UWhLZF8xNndtTjMyRFRBIiwgImlkIiwgImRhdGE6YXBwbGljYXRpb24vdmMrbGQranNvbitqd3Q7ZXlWalYuLi5STWpVIl0</span>~<span class="sd-jwt-disclosure">WyJpZndaNFlYalN1c3VySzRnMldWTm93IiwgInR5cGUiLCAiRW52ZWxvcGVkVmVyaWZpYWJsZUNyZWRlbnRpYWwiXQ</span>~<span class="sd-jwt-disclosure">WyJrZE5BVWJ2a29ueTFzRmR4NFA1X3NnIiwgImlkIiwgImRhdGE6YXBwbGljYXRpb24vdmMrbGQranNvbitzZC1qd3Q7ZXlWalYuLi5STWpVIl0</span>~<span class="sd-jwt-disclosure">WyJoTktBalFvWS1Jc2V0VERZNmYwMFpnIiwgInR5cGUiLCAiRW52ZWxvcGVkVmVyaWZpYWJsZUNyZWRlbnRpYWwiXQ</span></div>
+<div class="sd-jwt-compact"><span class="sd-jwt-header">eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ</span>.<span class="sd-jwt-payload">eyJfc2RfYWxnIjoic2hhLTI1NiIsIkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy9leGFtcGxlcy92MiJdLCJ2ZXJpZmlhYmxlQ3JlZGVudGlhbCI6W3siQGNvbnRleHQiOiJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJfc2QiOlsiUUJqYlVUVlg2RUZJcnRqWUlEUGJiQk5LVzNCUEJSWVdNaXR4aXFKd0NTayIsInhPYi00US04RW9nTEw0VFgwcTM0M0JKRFJGWGR1S0RrVW13aXljZDM2NmMiXX0seyJAY29udGV4dCI6Imh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsIl9zZCI6WyJGVjhBcnFqWXNIV1FUdDZaYU1FaUpvRjl2S3NvUUR2bTNDbnl5NHBuaHlZIiwic2l5bkF0VnlRaVJZT3hjRlNIeGFPQnlUX0FIY1Z4ZWVpLXJYQnZhWGFOOCJdfSx7IkBjb250ZXh0IjoiaHR0cHM6Ly93d3cudzMub3JnL25zL2NyZWRlbnRpYWxzL3YyIiwiX3NkIjpbImxBS25VWXV5b2lKRWk0SlJNd041X2VXRlgwQWJEV0hVS3h0S1VMV1k0TXMiLCJwbXpOMHUwZnhEQ04yZmxXQ2pteW9XVzhRQzlTNzlWdFRoNHJLVm85YWZBIl19XSwiX3NkIjpbInpHelNvSWdJYmdQTHY1anN2MS1nSmpKelk0VW9vQXVpQVgxeG01MlhLRjAiXX0</span>.<span class="sd-jwt-signature">5cvhuTe6blXf0f5e5mRMvGwWIEnnJxSdnlZRfGRjcj1B11DHtRE90UUK3PPatpBgl28rTEEA4BEjHn5Q7vZVmNVOdOjg0QWJjEA8dofA1UiujDC7eJax5qlsRfD9kKjD</span>~<span class="sd-jwt-disclosure">WyJYamZ6OHh0b3JQUl9iV2Y3WWxsRWtBIiwgInR5cGUiLCAiVmVyaWZpYWJsZVByZXNlbnRhdGlvbiJd</span>~<span class="sd-jwt-disclosure">WyJOZzV1ekdtWHBZMEdpelI5bVYxYndRIiwgImlkIiwgImRhdGE6YXBwbGljYXRpb24vdmMrbGQranNvbitjb3NlO2Jhc2U2NHVybCwgVlZod1YyRnNXWFZNYVRWVFZGZHdWZyJd</span>~<span class="sd-jwt-disclosure">WyJsVDFzZmhSOW03bko5YXUtNVhQZVVRIiwgInR5cGUiLCAiRW52ZWxvcGVkVmVyaWZpYWJsZUNyZWRlbnRpYWwiXQ</span>~<span class="sd-jwt-disclosure">WyJmeUFVTUJaQmZyUUpaRm5YcElURjFnIiwgImlkIiwgImRhdGE6YXBwbGljYXRpb24vdmMrbGQranNvbitqd3Q7ZXlWalYuLi5STWpVIl0</span>~<span class="sd-jwt-disclosure">WyI1ZmxLUEkzd2RSYjZFZE9XVmwzSEVnIiwgInR5cGUiLCAiRW52ZWxvcGVkVmVyaWZpYWJsZUNyZWRlbnRpYWwiXQ</span>~<span class="sd-jwt-disclosure">WyJadC1xVlpmbXRtUkxyeEItMnNPemxBIiwgImlkIiwgImRhdGE6YXBwbGljYXRpb24vdmMrbGQranNvbitzZC1qd3Q7ZXlWalYuLi5STWpVIl0</span>~<span class="sd-jwt-disclosure">WyIyTElkSFFIWllwUXFDckxPSzJkWGFBIiwgInR5cGUiLCAiRW52ZWxvcGVkVmVyaWZpYWJsZUNyZWRlbnRpYWwiXQ</span></div>
 </div>
     </div> 
 </div>
@@ -3987,7 +4014,7 @@ Remember that all actual interchange always happens in the binary format.
       </div>
       <p>
 The payload can be either a credential or presentation as described in
-<a href="https://www.w3.org/TR/vc-data-model-2.0/#securing-verifiable-credentials">Securing Verifiable Credentials</a>.
+<a href="https://www.w3.org/TR/vc-data-model-2.0/#securing-mechanisms">Securing Mechanisms</a>.
       </p>
     </section>
   </section>
@@ -4299,6 +4326,8 @@ invalid.
       <a href="https://url.spec.whatwg.org/"><cite>URL Standard</cite></a>. Anne van Kesteren.  WHATWG. Living Standard. URL: <a href="https://url.spec.whatwg.org/">https://url.spec.whatwg.org/</a>
     </dd><dt id="bib-vc-data-model-2.0">[VC-DATA-MODEL-2.0]</dt><dd>
       <a href="https://www.w3.org/TR/vc-data-model-2.0/"><cite>Verifiable Credentials Data Model v2.0</cite></a>. Manu Sporny; Ted Thibodeau Jr; Ivan Herman; Michael Jones; Gabe Cohen.  W3C. 2 April 2024. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/vc-data-model-2.0/">https://www.w3.org/TR/vc-data-model-2.0/</a>
+    </dd><dt id="bib-vc-specs-dir">[VC-SPECS-DIR]</dt><dd>
+      <a href="https://www.w3.org/TR/vc-specs-dir/"><cite>VC Specifications Directory</cite></a>. Manu Sporny.  W3C. 1 February 2024. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/vc-specs-dir/">https://www.w3.org/TR/vc-specs-dir/</a>
     </dd><dt id="bib-xmlschema11-2">[XMLSCHEMA11-2]</dt><dd>
       <a href="https://www.w3.org/TR/xmlschema11-2/"><cite>W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes</cite></a>. David Peterson; Sandy Gao; Ashok Malhotra; Michael Sperberg-McQueen; Henry Thompson; Paul V. Biron et al.  W3C. 5 April 2012. W3C Recommendation. URL: <a href="https://www.w3.org/TR/xmlschema11-2/">https://www.w3.org/TR/xmlschema11-2/</a>
     </dd></dl>
