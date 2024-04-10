@@ -14,7 +14,8 @@
 
       // specification status (e.g., WD, NOTE, etc.). If in doubt use
       // ED.
-      specStatus: "WD",
+      specStatus: "CR",
+      crEnd: "2024-05-18",
 
       // the specification's short name, as in
       // http://www.w3.org/TR/short-name/
@@ -22,12 +23,10 @@
 
       // if you wish the publication date to be other than today, set
       // this
-      // publishDate: "2023-07-20",
+      // publishDate: "2024-04-18",
 
-      // implementationReportURI:
-      // "https://w3c.github.io/vc-test-suite/implementations/", errata:
-      // "https://w3c.github.io/vc-data-model/errata.html",
-      // previousMaturity: "REC", previousPublishDate: "2019-11-19",
+      implementationReportURI: "https://w3c.github.io/vc-jose-cose-test-suite/",
+      // errata:  "https://w3c.github.io/vc-data-model/errata.html",
 
       // if there is a previously published draft, uncomment this and
       // set its YYYY-MM-DD date and its maturity status
@@ -148,7 +147,17 @@
       for signing and encryption that are widely adopted.
     </p>
   </section>
-  <section id="sotd"></section>
+  <section id="sotd">
+    <p>
+      The Working Group is actively seeking implementation feedback for this
+      specification. In order to exit the Candidate Recommendation phase, the
+      Working Group has set the requirement of at least two independent
+      implementations for each mandatory feature in the specification. For details
+      on the conformance testing process, see the test suite listed in the
+      <a href="https://w3c.github.io/vc-jose-cose-test-suite/">
+      implementation report</a>.
+    </p>
+  </section>
 
   <section id="introduction">
     <h2>Introduction</h2>
@@ -640,7 +649,7 @@ COSE header parameter, as specified in
         </p>
         <p>
 The normative statements in
-<a data-cite="RFC9052#section-3.1.1">Registered Header Parameter Names</a>,
+<a data-cite="RFC9052#section-3.1">Header Parameters</a>,
 <a data-cite="RFC8392#section-3">Claims</a>, and
 <a href="https://www.ietf.org/archive/id/draft-ietf-cose-cwt-claims-in-headers-10.html">CBOR Web Token (CWT) Claims in COSE Headers</a>
 apply to securing credentials and presentations.
@@ -1219,7 +1228,7 @@ The following sections define several useful <a>verification relationships</a>.
 A <a>controller document</a> MAY include any of these, or other properties, to
 express a specific <a>verification relationship</a>. To maximize global
 interoperability, any such properties used SHOULD be registered in the
-<a href="https://w3c.github.io/vc-specs-dir/#proof">VC Specifications Directory</a>.
+<a data-cite="VC-SPECS-DIR#securing-mechanisms">VC Specifications Directory</a>.
           </p>
           <section>
             <h2>Authentication</h2>
@@ -1371,16 +1380,19 @@ credential</a> by a verifier.
     </section>
     <section class="normative">
       <h2>Securing Verifiable Credentials</h2>
-      <p>The <a data-cite="VC-DATA-MODEL-2.0#proof-formats"></a> describes the approach taken by JSON Web
-        Tokens to secure JWT Claims Sets as <i>applying an
+      <p>The <a data-cite="VC-DATA-MODEL-2.0#securing-mechanism-specifications"></a> describes 
+        the approach taken by JSON Web Tokens to secure JWT Claims Sets as <i>applying an
         <code>external proof</code></i>.
       </p>
-      <p>The normative statements in <a data-cite="VC-DATA-MODEL-2.0#securing-verifiable-credentials">Securing
-          Verifiable Credentials</a> apply to securing
+      <p>The normative statements in <a data-cite="VC-DATA-MODEL-2.0#securing-mechanisms">Securing
+          Mechanisms</a> apply to securing
         <code>application/vc+ld+json</code> and
-        <code>application/vp+ld+json</code>
-        as <code>application/vc+ld+json+sd-jwt</code> and
-        <code>application/vp+ld+json+sd-jwt</code>.
+        <code>application/vp+ld+json</code>,
+        <code>application/vc+ld+json+sd-jwt</code> and
+        <code>application/vp+ld+json+sd-jwt</code>,
+        as well as
+        <code>application/vc+ld+json+cose</code> and
+        <code>application/vp+ld+json+cose</code>.
       </p>
       <p>
         JSON Web Token implementers are advised to review <a data-cite="RFC7519#section-8">Implementation
@@ -2434,7 +2446,7 @@ Remember that all actual interchange always happens in the binary format.
       </pre>
       <p>
 The payload can be either a credential or presentation as described in
-<a data-cite="VC-DATA-MODEL-2.0#securing-verifiable-credentials">Securing Verifiable Credentials</a>.
+<a data-cite="VC-DATA-MODEL-2.0#securing-mechanisms">Securing Mechanisms</a>.
       </p>
     </section>
   </section>
