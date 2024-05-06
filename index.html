@@ -439,8 +439,14 @@ unsecured [=verifiable credential=]) into an SD-JWT payload according to
           <code>cty</code>.
         </p>
         <p>
-          A [=conforming SD-JWT verifier implementation=] MUST use [[SD-JWT]] to verify [=conforming JWS documents=] that use this media type.
+          A [=conforming SD-JWT verifier implementation=] MUST use [[SD-JWT]] to verify [=conforming SD-JWT documents=] that use this media type.
         </p>
+	<p>
+	  Note that the example below uses the
+	  <a href="https://github.com/openwallet-foundation-labs/sd-jwt-python">Open Wallet Foundation Python SD-JWT implementation</a>
+	  to generate the SD-JWT content.
+	  The syntax `!sd` indicates that the claim value was selectively disclosed.
+	</p>
 
         <pre class="example vc-jose-cose-sd-jwt" title="A simple example of a verifiable credential secured with SD-JWT">
 {
@@ -491,7 +497,7 @@ unsecured [=verifiable credential=]) into an SD-JWT payload according to
           <code>cty</code>.
         </p>
         <p>
-          A [=conforming SD-JWT verifier implementation=] MUST use [[SD-JWT]] to verify [=conforming JWS documents=] that use this media type.
+          A [=conforming SD-JWT verifier implementation=] MUST use [[SD-JWT]] to verify [=conforming SD-JWT documents=] that use this media type.
         </p>
         <p>
           Credentials in verifiable presentations MUST use the <a data-cite="VC-DATA-MODEL-2.0/#defn-EnvelopedVerifiableCredential">Enveloped Verifiable Credential</a>
@@ -501,6 +507,13 @@ unsecured [=verifiable credential=]) into an SD-JWT payload according to
           Credentials in verifiable presentations MUST be secured.
 	  These credentials are secured using SD-JWT in this case.
         <p>
+	<p>
+	  Note that the example below uses the
+	  <a href="https://github.com/openwallet-foundation-labs/sd-jwt-python">Open Wallet Foundation Python SD-JWT implementation</a>
+	  to generate the SD-JWT content.
+	  The syntax `!sd` indicates that the claim value was selectively disclosed.
+	</p>
+
       <pre class="example vc-jose-cose-sd-jwt" title="A simple example of a verifiable presentation secured with SD-JWT">
 {
   "@context": [
