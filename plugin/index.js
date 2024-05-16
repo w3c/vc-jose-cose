@@ -1,4 +1,4 @@
-import {getCombinedHtml, getCoseHtml, getHtml, getJwtHtml, getSdJwtHtml} from './src/getHtml';
+import { getCombinedHtml, getCoseHtml, getJwtHtml, getSdJwtHtml } from './src/getHtml';
 import { getPrivateKey } from './src/exampleKey';
 import { getCoseExample } from './src/exampleCose';
 import { getJwtExample } from './src/exampleJwt';
