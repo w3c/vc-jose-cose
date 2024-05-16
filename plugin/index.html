@@ -96,14 +96,21 @@
     "https://www.w3.org/ns/credentials/examples/v2"
   ],
   "id": "http://university.example/credentials/1872",
-  "type": ["VerifiableCredential", "ExampleAlumniCredential"],
+  "type": [
+    "VerifiableCredential",
+    "ExampleAlumniCredential"
+  ],
   "issuer": "https://university.example/issuers/565049",
   "validFrom": "2010-01-01T19:23:24Z",
+  "credentialSchema": {
+    "id": "https://example.org/examples/degree.json",
+    "type": "JsonSchema"
+  },
   "credentialSubject": {
-    "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
-    "alumniOf": {
-      "id": "did:example:c276e12ec21ebfeb1f712ebc6f1",
-      "name": "Example University"
+    "id": "did:example:123",
+    "degree": {
+      "type": "BachelorDegree",
+      "name": "Bachelor of Science and Arts"
     }
   }
 }
