@@ -17,27 +17,10 @@ const generateDisclosureHtml = (claimName, hash, disclosure, contents) => {
 <div class="disclosure">
     <h3>Claim: <span class="claim-name">${claimName}</span></h3>
     <p><strong>SHA-256 Hash:</strong> <span class="hash">${hash}</span></p>
-    <p><strong>Disclosure:</strong> <span class="disclosure-value">${disclosure}</span></p>
-    <p><strong>Contents:</strong> <span class="contents">${customJSONStringify(JSON.parse(contents))}</span></p>
+    <p><strong>Disclosure(s):</strong> <span class="disclosure-value">${disclosure}</span></p>
+    <p><strong>Contents:</strong> <span class="contents">${customJSONStringify(contents)}</span></p>
 </div>
 `;
-};
-
-const getDisclosuresFromPayload = (payload) => {
-    const decodedPayload = new TextDecoder().decode(base64url.decode(payload));
-    const claims = JSON.parse(decodedPayload);
-    const disclosures = [];
-
-    for (const claimName in claims) {
-        const claim = claims[claimName];
-        const hash = calculateHash(JSON.stringify(claim));
-        const disclosure = base64url.encode(JSON.stringify(claim));
-        const contents = JSON.stringify(claim, null, 2); // Prettified formatting
-
-        disclosures.push({claimName, hash, disclosure, contents});
-    }
-
-    return disclosures;
 };
 
 const getSdHtml = (vc) => {
@@ -58,13 +41,15 @@ const getHeadersHtml = (vc) => {
 };
 
 const getDisclosabilityHtml = async (vc) => {
-    const [token] = vc.split('~');
-    const [, payload] = token.split('.');
+    const [_, ...disclosures] = vc.split('~');
+    const disclosureHtml = disclosures.map((disclosure) => {
+        const decodedDisclosure = JSON.parse(new TextDecoder().decode(base64url.decode(disclosure)));
+        const [, ...claimPath] = decodedDisclosure;
+        const claimName = claimPath.pop();
+        const hash = calculateHash(disclosure);
 
-    const disclosures = getDisclosuresFromPayload(payload);
-    const disclosureHtml = disclosures.map(({claimName, hash, disclosure, contents}) =>
-        generateDisclosureHtml(claimName, hash, disclosure, contents)
-    );
+        return generateDisclosureHtml(JSON.stringify(claimName), hash, disclosure, decodedDisclosure);
+    });
 
     return `
 <div class="disclosures">
@@ -95,7 +80,7 @@ const getBinaryMessage = async (privateKey, messageType, messageJson) => {
     const byteSigner = {
         sign: async (bytes) => {
             const jws = await new jose.CompactSign(bytes)
-                .setProtectedHeader({kid: privateKey.kid, alg: privateKey.alg})
+                .setProtectedHeader({ kid: privateKey.kid, alg: privateKey.alg })
                 .sign(await key.importKeyLike({
                     type: 'application/jwk+json',
                     content: new TextEncoder().encode(JSON.stringify(privateKey))
@@ -145,9 +130,9 @@ const injectStyles = () => {
     const style = document.createElement('style');
     style.innerHTML = `
         .disclosure {
-            margin: 10px 0; /* Increased margin for better spacing */
+            margin: 10px 0;
             font-size: 12px;
-            line-height: 1.6; /* Increased line height for better readability */
+            line-height: 1.6;
             padding: 5px;
         }
         .disclosure h3 {
@@ -174,8 +159,8 @@ const injectStyles = () => {
             word-wrap: break-word;
             margin: 0;
             padding-left: 5px;
-            line-height: 1.6; /* Increased line height for better readability */
-            display: inline-block; /* Ensure contents are inline */
+            line-height: 1.6;
+            display: inline-block;
         }
         .header-value {
             white-space: pre-wrap;
