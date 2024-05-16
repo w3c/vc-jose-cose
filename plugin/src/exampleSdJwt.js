@@ -1,5 +1,5 @@
 import yaml from 'yaml';
-import { base64url, issuer, key, text } from "@transmute/verifiable-credentials";
+import {base64url, issuer, key, text} from "@transmute/verifiable-credentials";
 import * as jose from 'jose';
 import crypto from 'crypto'; // Ensure you have this dependency
 
@@ -17,7 +17,7 @@ const generateDisclosureHtml = (claimName, hash, disclosure, contents) => {
 <div class="disclosure">
     <h3>Claim: <span class="claim-name">${claimName}</span></h3>
     <p><strong>SHA-256 Hash:</strong> <span class="hash">${hash}</span></p>
-    <p><strong>Disclosure(s):</strong> <span class="disclosure-value">${disclosure}</span></p>
+    <p><strong>Disclosure:</strong> <span class="disclosure-value">${disclosure}</span></p>
     <p><strong>Contents:</strong> <span class="contents">${customJSONStringify(JSON.parse(contents))}</span></p>
 </div>
 `;
@@ -34,7 +34,7 @@ const getDisclosuresFromPayload = (payload) => {
         const disclosure = base64url.encode(JSON.stringify(claim));
         const contents = JSON.stringify(claim, null, 2); // Prettified formatting
 
-        disclosures.push({ claimName, hash, disclosure, contents });
+        disclosures.push({claimName, hash, disclosure, contents});
     }
 
     return disclosures;
@@ -62,53 +62,11 @@ const getDisclosabilityHtml = async (vc) => {
     const [, payload] = token.split('.');
 
     const disclosures = getDisclosuresFromPayload(payload);
-    const disclosureHtml = disclosures.map(({ claimName, hash, disclosure, contents }) =>
+    const disclosureHtml = disclosures.map(({claimName, hash, disclosure, contents}) =>
         generateDisclosureHtml(claimName, hash, disclosure, contents)
     );
 
     return `
-<style>
-    .disclosure {
-        margin: 10px 0; /* Increased margin for better spacing */
-        font-size: 12px;
-        line-height: 1.6; /* Increased line height for better readability */
-        padding: 5px;
-    }
-    .disclosure h3 {
-        margin: 0;
-        font-size: 14px;
-        padding-left: 5px;
-    }
-    .disclosure .claim-name {
-        color: #333;
-    }
-    .disclosure .hash,
-    .disclosure .disclosure-value,
-    .disclosure .contents {
-        color: #555;
-        word-wrap: break-word;
-        display: inline;
-    }
-    .disclosure p {
-        margin: 0;
-        padding-left: 5px;
-    }
-    .disclosure pre {
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        margin: 0;
-        padding-left: 5px;
-        line-height: 1.6; /* Increased line height for better readability */
-        display: inline-block; /* Ensure contents are inline */
-    }
-    .header-value {
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        margin: 0;
-        padding-left: 5px;
-        line-height: 1.6;
-    }
-</style>
 <div class="disclosures">
     ${disclosureHtml.join('\n')}
 </div>
@@ -137,7 +95,7 @@ const getBinaryMessage = async (privateKey, messageType, messageJson) => {
     const byteSigner = {
         sign: async (bytes) => {
             const jws = await new jose.CompactSign(bytes)
-                .setProtectedHeader({ kid: privateKey.kid, alg: privateKey.alg })
+                .setProtectedHeader({kid: privateKey.kid, alg: privateKey.alg})
                 .sign(await key.importKeyLike({
                     type: 'application/jwk+json',
                     content: new TextEncoder().encode(JSON.stringify(privateKey))
@@ -159,6 +117,7 @@ const getBinaryMessage = async (privateKey, messageType, messageJson) => {
 };
 
 export const getSdJwtExample = async (privateKey, messageJson) => {
+    injectStyles();
     const type = Array.isArray(messageJson.type) ? messageJson.type : [messageJson.type];
     const messageType = type.includes('VerifiableCredential') ? 'application/vc+ld+json+sd-jwt' : 'application/vp+ld+json+sd-jwt';
     const message = await getBinaryMessage(privateKey, messageType, messageJson);
@@ -180,4 +139,52 @@ ${await getDisclosabilityHtml(messageEncoded)}
 ${getSdHtml(messageEncoded)}
 </div>
   `.trim();
+};
+
+const injectStyles = () => {
+    const style = document.createElement('style');
+    style.innerHTML = `
+        .disclosure {
+            margin: 10px 0; /* Increased margin for better spacing */
+            font-size: 12px;
+            line-height: 1.6; /* Increased line height for better readability */
+            padding: 5px;
+        }
+        .disclosure h3 {
+            margin: 0;
+            font-size: 14px;
+            padding-left: 5px;
+        }
+        .disclosure .claim-name {
+            color: #333;
+        }
+        .disclosure .hash,
+        .disclosure .disclosure-value,
+        .disclosure .contents {
+            color: #555;
+            word-wrap: break-word;
+            display: inline;
+        }
+        .disclosure p {
+            margin: 0;
+            padding-left: 5px;
+        }
+        .disclosure pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+            padding-left: 5px;
+            line-height: 1.6; /* Increased line height for better readability */
+            display: inline-block; /* Ensure contents are inline */
+        }
+        .header-value {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+            padding-left: 5px;
+            line-height: 1.6;
+            font-size: 12px;
+        }
+    `;
+    document.head.appendChild(style);
 };
