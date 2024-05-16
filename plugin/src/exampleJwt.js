@@ -1,4 +1,4 @@
-import {base64url, holder, issuer, key, text} from "@transmute/verifiable-credentials";
+import { base64url, holder, issuer, key, text } from "@transmute/verifiable-credentials";
 
 import * as jose from 'jose'
 

@@ -1,7 +1,7 @@
 import yaml from 'yaml';
-import {base64url, issuer, key, text} from "@transmute/verifiable-credentials";
+import { base64url, issuer, key, text } from "@transmute/verifiable-credentials";
 import * as jose from 'jose';
-import crypto from 'crypto'; // Ensure you have this dependency
+import crypto from 'crypto';
 
 const calculateHash = (value) => {
     return base64url.encode(crypto.createHash('sha256').update(value).digest());
