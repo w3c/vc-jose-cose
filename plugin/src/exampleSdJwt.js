@@ -132,8 +132,8 @@ export const getSdJwtExample = async (index, privateKey, messageJson, prefix = '
         ${encoded}
     </div>
     <div class="sd-jwt-tab-content" id="${prefix}-content-${index}-decoded">
-      <pre>${header}</pre>
-      <pre>${payload}</pre>
+      ${header}
+      ${payload}
     </div>
     <div class="sd-jwt-tab-content" id="${prefix}-content-${index}-disclosures">
         ${disclosures}
