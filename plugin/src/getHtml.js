@@ -1,6 +1,4 @@
-
-
-export const getCombinedHtml = ({ index, coseExample, jwtExample, sdJwtExample })=>{
+export const getCombinedHtml = ({index, coseExample, jwtExample, sdJwtExample}) => {
     return `
 <div class="vc-jose-cose-tabbed">
     <input type="radio" id="vc-jose-cose-tab-${index}-cose" name="vc-jose-cose-tabs-${index}" checked="checked">
@@ -29,7 +27,7 @@ ${sdJwtExample}
 </div>`
 }
 
-export const getJwtHtml = ({ index, jwtExample })=>{
+export const getJwtHtml = ({jwtExample}) => {
     return `
 <div class="vc-jose-cose-jwt-tabbed">
     <ul class="vc-jose-cose-jwt-tabs">
@@ -43,21 +41,15 @@ ${jwtExample}
 </div>`
 }
 
-export const getSdJwtHtml = ({ index, sdJwtExample })=>{
+export const getSdJwtHtml = ({sdJwtExample}) => {
     return `
-<div class="vc-jose-cose-sd-jwt-tabbed">
-    <ul class="vc-jose-cose-sd-jwt-tabs">
-      <li class="vc-jose-cose-sd-jwt-tab">
-        <label>SD-JWT</label>
-      </li>
-    </ul>
-    <div class="vc-jose-cose-sd-jwt-tab-content">
+<div>
 ${sdJwtExample}
-    </div>
-</div>`
-}
+</div>
+`.trim();
+};
 
-export const getCoseHtml = ({ index, coseExample })=>{
+export const getCoseHtml = ({coseExample}) => {
     return `
 <div class="vc-jose-cose-cose-tabbed">
     <ul class="vc-jose-cose-cose-tabs">
@@ -69,4 +61,4 @@ export const getCoseHtml = ({ index, coseExample })=>{
 ${coseExample}
     </div>
 </div>`
-}
+};

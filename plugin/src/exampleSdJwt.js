@@ -7,7 +7,6 @@ const calculateHash = (value) => {
     return base64url.encode(crypto.createHash('sha256').update(value).digest());
 };
 
-// Custom JSON.stringify with prettier formatting
 const customJSONStringify = (obj) => {
     return JSON.stringify(obj, null, 2).replace(/\n/g, '<br>').replace(/\s/g, '&nbsp;');
 };
@@ -40,7 +39,14 @@ const getHeadersHtml = (vc) => {
     return `<pre class="header-value">${customJSONStringify(headerJson)}</pre>`;
 };
 
-const getDisclosabilityHtml = async (vc) => {
+const getPayloadHtml = (vc) => {
+    const [token] = vc.split('~');
+    const [, payload] = token.split('.');
+    const payloadJson = JSON.parse(new TextDecoder().decode(base64url.decode(payload)));
+    return `<pre class="header-value">${customJSONStringify(payloadJson)}</pre>`;
+};
+
+const getDisclosuresHtml = async (vc) => {
     const [_, ...disclosures] = vc.split('~');
     const disclosureHtml = disclosures.map((disclosure) => {
         const decodedDisclosure = JSON.parse(new TextDecoder().decode(base64url.decode(disclosure)));
@@ -51,11 +57,7 @@ const getDisclosabilityHtml = async (vc) => {
         return generateDisclosureHtml(JSON.stringify(claimName), hash, disclosure, decodedDisclosure);
     });
 
-    return `
-<div class="disclosures">
-    ${disclosureHtml.join('\n')}
-</div>
-`;
+    return `<div class="disclosures">${disclosureHtml.join('\n')}</div>`;
 };
 
 export const generateIssuerClaims = (example) => {
@@ -76,7 +78,7 @@ const getPresentation = async (privateKey, byteSigner, messageType, messageJson)
     return await getCredential(privateKey, byteSigner, 'application/vc+ld+json+sd-jwt', messageJson);
 };
 
-const getBinaryMessage = async (privateKey, messageType, messageJson) => {
+export const getBinaryMessage = async (privateKey, messageType, messageJson) => {
     const byteSigner = {
         sign: async (bytes) => {
             const jws = await new jose.CompactSign(bytes)
@@ -101,75 +103,41 @@ const getBinaryMessage = async (privateKey, messageType, messageJson) => {
     }
 };
 
-export const getSdJwtExample = async (privateKey, messageJson) => {
-    injectStyles();
+export const getSdJwtExample = async (index, privateKey, messageJson, prefix = 'sd-jwt') => {
     const type = Array.isArray(messageJson.type) ? messageJson.type : [messageJson.type];
     const messageType = type.includes('VerifiableCredential') ? 'application/vc+ld+json+sd-jwt' : 'application/vp+ld+json+sd-jwt';
-    const message = await getBinaryMessage(privateKey, messageType, messageJson);
-    const messageEncoded = new TextDecoder().decode(message);
-
+    const binaryMessage = await getBinaryMessage(privateKey, messageType, messageJson);
+    const message = new TextDecoder().decode(binaryMessage);
+    const encoded = getSdHtml(message);
+    const header = getHeadersHtml(message);
+    const payload = getPayloadHtml(message);
+    const disclosures = await getDisclosuresHtml(message);
     return `
-<h1>Protected Headers</h1>
-<div>
-${getHeadersHtml(messageEncoded)}
+<div class="sd-jwt-tabbed">
+    <input type="radio" id="${prefix}-tab-${index}-encoded" name="${prefix}-tabs-${index}" checked="checked" tabindex="0">
+    <input type="radio" id="${prefix}-tab-${index}-decoded" name="${prefix}-tabs-${index}" tabindex="0">
+    <input type="radio" id="${prefix}-tab-${index}-disclosures" name="${prefix}-tabs-${index}" tabindex="0">
+    <ul class="sd-jwt-tabs">
+      <li class="sd-jwt-tab">
+        <label for="${prefix}-tab-${index}-encoded">Encoded</label>
+      </li>
+      <li class="sd-jwt-tab">
+        <label for="${prefix}-tab-${index}-decoded">Decoded</label>
+      </li>
+      <li class="sd-jwt-tab">
+        <label for="${prefix}-tab-${index}-disclosures">Issuer Disclosures</label>
+      </li>
+    </ul>
+    <div class="sd-jwt-tab-content" id="${prefix}-content-${index}-encoded">
+        ${encoded}
+    </div>
+    <div class="sd-jwt-tab-content" id="${prefix}-content-${index}-decoded">
+      <pre>${header}</pre>
+      <pre>${payload}</pre>
+    </div>
+    <div class="sd-jwt-tab-content" id="${prefix}-content-${index}-disclosures">
+        ${disclosures}
+    </div>
 </div>
-
-<h1>Disclosures</h1>
-<div>
-${await getDisclosabilityHtml(messageEncoded)}
-</div>
-
-<h1>${messageType}</h1>
-<div class="jose-text">
-${getSdHtml(messageEncoded)}
-</div>
-  `.trim();
-};
-
-const injectStyles = () => {
-    const style = document.createElement('style');
-    style.innerHTML = `
-        .disclosure {
-            margin: 10px 0;
-            font-size: 12px;
-            line-height: 1.6;
-            padding: 5px;
-        }
-        .disclosure h3 {
-            margin: 0;
-            font-size: 14px;
-            padding-left: 5px;
-        }
-        .disclosure .claim-name {
-            color: #333;
-        }
-        .disclosure .hash,
-        .disclosure .disclosure-value,
-        .disclosure .contents {
-            color: #555;
-            word-wrap: break-word;
-            display: inline;
-        }
-        .disclosure p {
-            margin: 0;
-            padding-left: 5px;
-        }
-        .disclosure pre {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            margin: 0;
-            padding-left: 5px;
-            line-height: 1.6;
-            display: inline-block;
-        }
-        .header-value {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            margin: 0;
-            padding-left: 5px;
-            line-height: 1.6;
-            font-size: 12px;
-        }
-    `;
-    document.head.appendChild(style);
+`;
 };
