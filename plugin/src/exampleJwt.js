@@ -1,4 +1,4 @@
-import {holder, issuer, key, text} from "@transmute/verifiable-credentials";
+import { base64url, holder, issuer, key, text } from "@transmute/verifiable-credentials";
 
 import * as jose from 'jose'
 
@@ -73,13 +73,12 @@ export const getJwtExample = async (privateKey, messageJson) => {
     const messageType = type.includes('VerifiableCredential') ? 'application/vc+ld+json+jwt' : 'application/vp+ld+json+jwt'
     const message = await getBinaryMessage(privateKey, messageType, messageJson)
     const messageEncoded = new TextDecoder().decode(message)
-    // const decodedHeader = jose.decodeProtectedHeader(messageEncoded)
-    // Not displaying protected header to save space
-    // <h1>Protected</h1>
-    // <pre>
-    // ${JSON.stringify(decodedHeader, null, 2)}
-    // </pre>
+    const decodedHeader = jose.decodeProtectedHeader(messageEncoded)
     return `
+<h1>Protected Headers</h1>
+<pre>
+${JSON.stringify(decodedHeader, null, 2)}
+</pre>
 <h1>${messageType.replace('+jwt', '')}</h1>
 <pre>
 ${JSON.stringify(messageJson, null, 2)}
