@@ -51,10 +51,9 @@ const getDisclosuresHtml = async (vc) => {
     const disclosureHtml = disclosures.map((disclosure) => {
         const decodedDisclosure = JSON.parse(new TextDecoder().decode(base64url.decode(disclosure)));
         const [, ...claimPath] = decodedDisclosure;
-        const claimName = claimPath.pop();
+        claimPath.pop();
         const hash = calculateHash(disclosure);
-
-        return generateDisclosureHtml(JSON.stringify(claimName), hash, disclosure, decodedDisclosure);
+        return generateDisclosureHtml(claimPath, hash, disclosure, decodedDisclosure);
     });
 
     return `<div class="disclosures">${disclosureHtml.join('\n')}</div>`;
