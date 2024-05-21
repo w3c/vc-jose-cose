@@ -160,7 +160,7 @@
   </section>
 
   <section id="introduction">
-    <h2>Introduction</h2>
+    <h2 id="section-introduction">Introduction</h2>
     <p>
       This specification defines how to secure media types
       expressing Verifiable Credentials and Verifiable Presentations
@@ -208,12 +208,12 @@
   </section>
 
   <section>
-    <h3>Terminology</h3>
+    <h3 id="terminology">Terminology</h3>
     <div data-include="./terms.html"></div>
   </section>
 
   <section>
-    <h2>Securing the VC Data Model</h2>
+    <h2 id="securing-the-vc-data-model">Securing the VC Data Model</h2>
     <p>
       This section outlines how to secure documents conforming
       to [[VC-DATA-MODEL-2.0]] using JOSE, SD-JWT, and COSE.
@@ -246,9 +246,9 @@
     </p>
 
     <section id="secure-with-jose">
-      <h2>With JOSE</h2>
+      <h2 id="with-jose">With JOSE</h2>
       <section>
-        <h2>Securing JSON-LD Verifiable Credentials with JOSE</h2>
+        <h2 id="securing-with-jose">Securing JSON-LD Verifiable Credentials with JOSE</h2>
         <p>
           This section details how to use JOSE to secure verifiable credentials conforming
           to [[VC-DATA-MODEL-2.0]].
@@ -299,7 +299,7 @@
       </section>
 
       <section>
-        <h2>Securing JSON-LD Verifiable Presentations with JOSE</h2>
+        <h2 id="securing-vps-with-jose">Securing JSON-LD Verifiable Presentations with JOSE</h2>
         <p>
           This section details how to use JOSE to secure verifiable presentations conforming
           to [[VC-DATA-MODEL-2.0]].
@@ -351,7 +351,7 @@
       </p>
       </section>
       <section class="normative">
-        <h2>JOSE Header Parameters and JWT Claims</h2>
+        <h2 id="jose-header-parameters-jwt-claims">JOSE Header Parameters and JWT Claims</h2>
 
         <p>
 When present in the <a data-cite="RFC7515#section-4">JOSE Header</a> or the
@@ -417,9 +417,9 @@ not understood, they MUST be ignored.
     </section>
 
     <section id="secure-with-sd-jwt">
-      <h2>With SD-JWT</h2>
+      <h2 id="with-sd-jwt">With SD-JWT</h2>
       <section>
-        <h2>Securing JSON-LD Verifiable Credentials with SD-JWT</h2>
+        <h2 id="securing-with-sd-jwt">Securing JSON-LD Verifiable Credentials with SD-JWT</h2>
         <p>
           This section details how to use JOSE to secure verifiable credentials conforming
           to [[VC-DATA-MODEL-2.0]].
@@ -474,7 +474,7 @@ unsecured [=verifiable credential=]) into an SD-JWT payload according to
       </section>
 
       <section>
-        <h2>Securing JSON-LD Verifiable Presentations with SD-JWT</h2>
+        <h2 id="securing-vps-sd-jwt">Securing JSON-LD Verifiable Presentations with SD-JWT</h2>
         <p>
           This section details how to use SD-JWT to secure verifiable presentations conforming
           to [[VC-DATA-MODEL-2.0]].
@@ -529,7 +529,7 @@ unsecured [=verifiable credential=]) into an SD-JWT payload according to
     </section>
 
     <section id="secure-with-cose">
-      <h2>With COSE</h2>
+      <h2 id="securing-with-cose">With COSE</h2>
       <p>
         COSE [[RFC9052]] is a common approach to encoding and securing
         information using CBOR [[RFC8949]]. Verifiable credentials MAY
@@ -538,7 +538,7 @@ unsecured [=verifiable credential=]) into an SD-JWT payload according to
       </p>
 
       <section>
-        <h2>Securing JSON-LD Verifiable Credentials with COSE</h2>
+        <h2 id="securing-vcs-with-cose">Securing JSON-LD Verifiable Credentials with COSE</h2>
         <p>
           This section details how to secure data with the type
           <code>application/vc+ld+json</code>
@@ -590,7 +590,7 @@ unsecured [=verifiable credential=]) into an SD-JWT payload according to
         </p>
       </section>
       <section>
-        <h2>Securing JSON-LD Verifiable Presentations with COSE</h2>
+        <h2 id="securing-vps-with-cose">Securing JSON-LD Verifiable Presentations with COSE</h2>
         <p>
           This section details how to use COSE to secure verifiable presentations conforming
           to [[VC-DATA-MODEL-2.0]].
@@ -634,7 +634,7 @@ unsecured [=verifiable credential=]) into an SD-JWT payload according to
         </p>
       </section>
       <section class="normative">
-        <h2>COSE Header Parameters and CWT Claims</h2>
+        <h2 id="cose-header-param-cwt-claims">COSE Header Parameters and CWT Claims</h2>
 
         <p>
 When present in the <a data-cite="RFC9052#section-3.1">COSE Header</a> or as
@@ -683,7 +683,7 @@ not understood, they MUST be ignored.
 
 
   <section id="key_discovery" class="normative">
-    <h2>Key Discovery</h2>
+    <h2 id="key-discovery">Key Discovery</h2>
       <p class="issue" data-number="160">
         The working group is still discussing how to close many related issues.
       </p>
@@ -792,13 +792,13 @@ not understood, they MUST be ignored.
 
 
     <section>
-      <h2>Using Header Parameters and Claims for Key Discovery</h2>
+      <h2 id="using-header-params-claims-key-discovery">Using Header Parameters and Claims for Key Discovery</h2>
       <p>
       These JOSE header parameters and JWT claims can be used by
       <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">verifiers</a> to discover verification keys.
       </p>
       <section>
-        <h2>kid</h2>
+        <h2 id="kid">kid</h2>
         <p>
       If <code>kid</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>
       or the <a data-cite="RFC9052#section-3">COSE Header</a>,
@@ -812,7 +812,7 @@ not understood, they MUST be ignored.
         </p>
       </section>
       <section>
-        <h2>iss</h2>
+        <h2 id="iss">iss</h2>
         <p>
       If <code>iss</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>,
       the <a data-cite="RFC7519#section-4.1.1">JWT Claims</a>,
@@ -835,7 +835,7 @@ not understood, they MUST be ignored.
       </section>
 
       <section>
-        <h2>cnf</h2>
+        <h2 id="cnf">cnf</h2>
         <p>
       If <code>cnf</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>,
       the <a data-cite="RFC7519#section-4.1.1">JWT Claims</a>,
@@ -854,7 +854,7 @@ not understood, they MUST be ignored.
       </section>
 
       <section>
-      <h2>Well-Known URIs</h2>
+      <h2 id="well-known-uris">Well-Known URIs</h2>
       <p class="issue" data-number="160">
       The working group is currently exploring how
       <a data-cite="RFC5785#section-3">Defining Well-Known Uniform Resource Identifiers (URIs)</a>
@@ -864,7 +864,7 @@ not understood, they MUST be ignored.
       </p>
 
       <section>
-        <h2>JWT Issuer</h2>
+        <h2 id="jwt-issuer">JWT Issuer</h2>
             <p>
               When the issuer value is a URL using the HTTPS scheme,
               issuer metadata including the issuer's public keys can be retrieved using the mechanism
@@ -879,7 +879,7 @@ not understood, they MUST be ignored.
           </section>
         </section>
         <section>
-        <h3>Controller Documents</h3>
+        <h3 id="controller-documents">Controller Documents</h3>
           <p>
 A <a>controller document</a> is a set of data that specifies one or more
 relationships between a <a>controller</a> and a set of data, such as a set of
@@ -890,7 +890,7 @@ certain <a>verification methods</a> for specific purposes.
 
 
         <section>
-          <h2>Verification Methods</h2>
+          <h2 id="verification-methods">Verification Methods</h2>
             <p>
 A <a>controller document</a> can express <a>verification methods</a>, such as
 cryptographic <a>public keys</a>, which can be used to <a>authenticate</a> or
@@ -985,7 +985,7 @@ using the `<a>controller</a>` property at the highest level of the
           </p>
 
           <section>
-            <h3>Verification Material</h3>
+            <h3 id="verification-material">Verification Material</h3>
 
             <p>
 Verification material MUST be expressed in the <code>publicKeyJwk</code> property
@@ -1044,7 +1044,7 @@ methods</a> using both properties above is shown below.
 
 
           <section>
-            <h3>JsonWebKey</h3>
+            <h3 id="json-web-key">JsonWebKey</h3>
             <p>
 The JSON Web Key (JWK) is a specific type of <a>verification method</a>
 that uses the JWK specification [[RFC7517]] to encode key types into a
@@ -1160,7 +1160,7 @@ the secp384r1 curve that is associated with the public key).
           </section>
 
           <section>
-            <h3>Referring to Verification Methods</h3>
+            <h3 id="referring-to-verification-methods">Referring to Verification Methods</h3>
             <p>
 <a>Verification methods</a> can be referenced from properties
 associated with various <a>verification relationships</a> as described in <a
@@ -1196,7 +1196,7 @@ is done by dereferencing the URL and searching the resulting <a>resource</a> for
         </section>
 
         <section>
-          <h2>Verification Relationships</h2>
+          <h2 id="verification-relationships">Verification Relationships</h2>
 
           <p>
 A <a>verification relationship</a> expresses the relationship between the
@@ -1231,7 +1231,7 @@ interoperability, any such properties used SHOULD be registered in the
 <a data-cite="VC-SPECS-DIR#securing-mechanisms">VC Specifications Directory</a>.
           </p>
           <section>
-            <h2>Authentication</h2>
+            <h2 id="authentication">Authentication</h2>
 
             <p>
 The `authentication` <a>verification relationship</a> is used to
@@ -1292,7 +1292,7 @@ the value of `controller` needs to <a>authenticate</a> with its
           </section>
 
           <section>
-            <h2>Assertion</h2>
+            <h2 id="assertion">Assertion</h2>
 
             <p>
 The `assertionMethod` <a>verification relationship</a> is used to
@@ -1336,7 +1336,7 @@ credential</a> by a verifier.
 
   <section id="conformance">
     <section class="normative">
-      <h2>Conformance Classes</h2>
+      <h2 id="conformance-classes">Conformance Classes</h2>
       <p>
       A <dfn>conforming JWS document</dfn> is one that conforms to all of the
       "MUST" statements in Section <a href="#secure-with-jose"></a>.
@@ -1379,7 +1379,7 @@ credential</a> by a verifier.
       </p>
     </section>
     <section class="normative">
-      <h2>Securing Verifiable Credentials</h2>
+      <h2 id="securing-verifiable-credentials">Securing Verifiable Credentials</h2>
       <p>The <a data-cite="VC-DATA-MODEL-2.0#securing-mechanism-specifications"></a> describes 
         the approach taken by JSON Web Tokens to secure JWT Claims Sets as <i>applying an
         <code>external proof</code></i>.
@@ -1432,13 +1432,13 @@ credential</a> by a verifier.
   </section>
 
   <section class="normative">
-    <h2>IANA Considerations</h2>
+    <h2 id="iana-considerations">IANA Considerations</h2>
 
     <section>
-    <h2>Media Types</h2>
+    <h2 id="media-types">Media Types</h2>
 
     <section id="vc-ld-jwt-media-type">
-      <h2><code>application/vc+ld+json+jwt</code></h2>
+      <h2 id="vcc-ld-json-jwt"><code>application/vc+ld+json+jwt</code></h2>
       <p>
         This specification registers the
         <code>application/vc+ld+json+jwt</code> Media Type specifically for
@@ -1484,7 +1484,7 @@ credential</a> by a verifier.
     </section>
 
     <section id="vp-ld-jwt-media-type">
-      <h2><code>application/vp+ld+json+jwt</code></h2>
+      <h2 id="vp-ld-json-jwt"><code>application/vp+ld+json+jwt</code></h2>
       <p>
         This specification registers the
         <code>application/vp+ld+json+jwt</code> Media Type specifically for
@@ -1530,7 +1530,7 @@ credential</a> by a verifier.
     </section>
 
     <section id="vc-ld-sd-jwt-media-type">
-      <h2><code>application/vc+ld+json+sd-jwt</code></h2>
+      <h2 id="vc-ld-json-sd-jwt"><code>application/vc+ld+json+sd-jwt</code></h2>
       <p>
         This specification registers the
         <code>application/vc+ld+json+sd-jwt</code> Media Type specifically for
@@ -1576,7 +1576,7 @@ credential</a> by a verifier.
     </section>
 
     <section id="vp-ld-sd-jwt-media-type">
-      <h2><code>application/vp+ld+json+sd-jwt</code></h2>
+      <h2 id="vp-ld-json-sd-jwt"><code>application/vp+ld+json+sd-jwt</code></h2>
       <p>
         This specification registers the
         <code>application/vp+ld+json+sd-jwt</code> Media Type specifically for
@@ -1622,7 +1622,7 @@ credential</a> by a verifier.
     </section>
 
     <section id="vc-ld-json-cose-media-type">
-      <h2><code>application/vc+ld+json+cose</code></h2>
+      <h2 id="vc-ld-json-cose"><code>application/vc+ld+json+cose</code></h2>
       <p>
         This specification registers the
         <code>application/vc+ld+json+cose</code> Media Type specifically for
@@ -1667,7 +1667,7 @@ credential</a> by a verifier.
     </section>
 
     <section id="vp-ld-json-cose-media-type">
-      <h2><code>application/vp+ld+json+cose</code></h2>
+      <h2 id="vp-ld-json-cose"><code>application/vp+ld+json+cose</code></h2>
       <p>
         This specification registers the
         <code>application/vp+ld+json+cose</code> Media Type specifically for
@@ -1713,10 +1713,10 @@ credential</a> by a verifier.
     </section>
 
     <section>
-    <h2>Structured Syntax Suffixes</h2>
+    <h2 id="structured-syntax-suffixes">Structured Syntax Suffixes</h2>
 
     <section id="ld-json-jwt-suffix">
-      <h2><code>+ld+json+jwt</code></h2>
+      <h2 id="ld-json-jwt"><code>+ld+json+jwt</code></h2>
       <p>
         This specification registers the
         <code>+ld+json+jwt</code> Structured Suffix
@@ -1770,7 +1770,7 @@ credential</a> by a verifier.
     </section>
 
     <section id="json-jwt-suffix">
-      <h2><code>+json+jwt</code></h2>
+      <h2 id="json-jwt"><code>+json+jwt</code></h2>
       <p>
         This specification registers the
         <code>+json+jwt</code> Structured Suffix
@@ -1824,7 +1824,7 @@ credential</a> by a verifier.
     </section>
 
     <section id="ld-json-sd-jwt-suffix">
-      <h2><code>+ld+json+sd-jwt</code></h2>
+      <h2 id="ld-json-sd-jwt"><code>+ld+json+sd-jwt</code></h2>
       <p>
         This specification registers the
         <code>+ld+json+sd-jwt</code> Structured Suffix
@@ -1878,7 +1878,7 @@ credential</a> by a verifier.
     </section>
 
     <section id="json-sd-jwt-suffix">
-      <h2><code>+json+sd-jwt</code></h2>
+      <h2 id="json-sd-jwt"><code>+json+sd-jwt</code></h2>
       <p>
         This specification registers the
         <code>+json+sd-jwt</code> Structured Suffix
@@ -1932,7 +1932,7 @@ credential</a> by a verifier.
     </section>
 
     <section id="ld-json-cose-suffix">
-      <h2><code>+ld+json+cose</code></h2>
+      <h2 id="ls-json-cose"><code>+ld+json+cose</code></h2>
       <p>
         This specification registers the
         <code>+ld+json+cose</code> Structured Suffix
@@ -1985,7 +1985,7 @@ credential</a> by a verifier.
     </section>
 
     <section id="json-cose-suffix">
-      <h2><code>+json+cose</code></h2>
+      <h2 id="json-cose"><code>+json+cose</code></h2>
       <p>
         This specification registers the
         <code>+json+cose</code> Structured Suffix
@@ -2041,10 +2041,10 @@ credential</a> by a verifier.
 
 </section>
   <section>
-    <h3>Other Considerations</h3>
+    <h3 id="other-considerations">Other Considerations</h3>
 
     <section>
-      <h2>Privacy Considerations</h2>
+      <h2 id="privacy-considerations">Privacy Considerations</h2>
       <p>
         Verifiable Credentials often contain sensitive information that
         needs to be protected to ensure the privacy and security of
@@ -2100,7 +2100,7 @@ credential</a> by a verifier.
       </p>
     </section>
     <section>
-      <h2>Security Considerations</h2>
+      <h2 id="security-considerations">Security Considerations</h2>
       <p>
         This section outlines security considerations for implementers
         and users of this specification. It is important to carefully
@@ -2148,7 +2148,7 @@ credential</a> by a verifier.
       </p>
     </section>
     <section class="informative">
-      <h2>Accessibility</h2>
+      <h2 id="accessibility">Accessibility</h2>
       <p>
         When implementing this specification, it is crucial for
         technical implementers to consider various accessibility
@@ -2170,9 +2170,9 @@ credential</a> by a verifier.
 
 
   <section class="informative">
-    <h3>Examples</h3>
+    <h3 id="examples">Examples</h3>
     <section>
-      <h2>Controllers</h2>
+      <h2 id="controllers">Controllers</h2>
 
       <pre class="example" title="A minimal controller document">
         {
@@ -2293,7 +2293,7 @@ credential</a> by a verifier.
 
     </section>
     <section>
-      <h3>Credentials</h3>
+      <h3 id="credentials">Credentials</h3>
       <pre class="example vc-jose-cose" title="A revocable credential with multiple subjects">
 {
   "@context": ["https://www.w3.org/ns/credentials/v2",
@@ -2346,9 +2346,7 @@ credential</a> by a verifier.
     </section>
 
     <section>
-      <h2>
-        Presentations
-      </h2>
+      <h2 id="presentations">Presentations</h2>
 
       <pre class="example vc-jose-cose" title="Presentation">
 {
@@ -2380,7 +2378,7 @@ credential</a> by a verifier.
     </section>
 
     <section>
-      <h3>Data URIs</h3>
+      <h3 id="date-uris">Data URIs</h3>
       <pre class="example" title="A simple URI-encoded Verifiable Credential">
 data:application/vc+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT09OUFFVQUw3RWdaLWtJNl94ajlvUkV2WDF4T3ciLCJ0eXAiOiJ2YytsZCtqc29uK3NkLWp3dCIsImN0eSI6InZjK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaXNzdWVyIjoiaHR0cHM6Ly91bml2ZXJzaXR5LmV4YW1wbGUvaXNzdWVycy81NjUwNDkiLCJ2YWxpZEZyb20iOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTY2hlbWEiOnsiX3NkIjpbIkU3dU1sSWFyS29iYXJTdEZGRjctZm5qaV9sQVdnM3BGMkV5dVc4dWFYakUiLCJYelRaSVgyNGdDSWxSQVFHclFoNU5FRm1XWkQtZ3Z3dkIybzB5Y0FwNFZzIl19LCJjcmVkZW50aWFsU3ViamVjdCI6eyJkZWdyZWUiOnsibmFtZSI6IkJhY2hlbG9yIG9mIFNjaWVuY2UgYW5kIEFydHMiLCJfc2QiOlsiT3oxUEZIMG0tWk9TdEhwUVZyeGlmVlpKRzhvNmlQQmNnLVZ2SXQwd2plcyJdfSwiX3NkIjpbIkVZQ1daMTZZMHB5X1VNNzRHU3NVYU9zT19mdDExTlVSaFFUTS1TT1lFTVEiXX0sIl9zZCI6WyJqT055NnZUbGNvVlAzM25oSTdERGN3ekVka3d2R3VVRXlLUjdrWEVLd3VVIiwid21BdHpwc0dRbDJveS1PY2JrSEVZcE8xb3BoX3VYcWVWVTRKekF0aFFibyJdLCJfc2RfYWxnIjoic2hhLTI1NiIsImlzcyI6Imh0dHBzOi8vdW5pdmVyc2l0eS5leGFtcGxlL2lzc3VlcnMvNTY1MDQ5IiwiaWF0IjoxNjk3Mjg5OTk2LCJleHAiOjE3Mjg5MTIzOTYsImNuZiI6eyJqd2siOnsia3R5IjoiRUMiLCJjcnYiOiJQLTM4NCIsImFsZyI6IkVTMzg0IiwieCI6InZFdV84WGxZT0ZFU2hTcVRpZ2JSYWduZ0ZGM1p5U0xrclNHekh3azFBT1loanhlazVhV21HY2UwZU05S0pWOEIiLCJ5IjoiRUpNY2czWXBzUTB3M2RLNHlVa25QczE1Z0lsY2Yyay03dzFKLTNlYlBiOERENmQtUkhBeGUwMDkzSWpfdTRCOSJ9fX0.rYzbxb6j1dwop8_s491iArVVJNm6A6C3b742gOm_qYO3zdkyQU4_VxxOSJ8ECcmWj2r5KyiCNC1ojfO4Yms-zBsjt7PoMYpYWBplsqXpiIvnehmM7D0eOLi40uHXki0X~WyJSWTg1YTZNMmEwX3VDWlFTVGZmTFdRIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~WyJMeG5GYTBXVm8wRUluVy1QdS1fd1dRIiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyJUQVdrakpCaVpxdC1rVU54X1EweUJBIiwgImlkIiwgImh0dHBzOi8vZXhhbXBsZS5vcmcvZXhhbXBsZXMvZGVncmVlLmpzb24iXQ~WyJTd2xuZFpPZzZEZ1ZERFp5X0RvYVFBIiwgInR5cGUiLCAiSnNvblNjaGVtYSJd~WyJuSnJlU3E1Nzg3RGZMSDJCbU03cXFRIiwgImlkIiwgImRpZDpleGFtcGxlOjEyMyJd~WyIxMjNNd3hNcHRiek02YUk2aW03ME1RIiwgInR5cGUiLCAiQmFjaGVsb3JEZWdyZWUiXQ
       </pre>
@@ -2391,9 +2389,7 @@ data:application/vp+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvO
     </section>
 
     <section>
-      <h2>
-        COSE Examples
-      </h2>
+      <h2 id="cose-examples">COSE Examples</h2>
       <p>
 These examples rely on <a data-cite="RFC7049#section-6">CBOR Diagnostic Notation</a>.
 Remember that all actual interchange always happens in the binary format.
@@ -2451,7 +2447,7 @@ The payload can be either a credential or presentation as described in
     </section>
   </section>
   <section>
-    <h2>Verification Algorithms</h2>
+    <h2 id="verification-algorithms">Verification Algorithms</h2>
     <p>
 This specification might be used with many different key discovery protocols.
 Therefore, discovery of verification keys is described in <a href="#key_discovery"></a>,
@@ -2482,7 +2478,7 @@ The outputs for the following algorithms are:
         </li>
     </ul>
     <section>
-      <h3>Algorithm for Verifying a Credential or Presentation Secured with JOSE</h3>
+      <h3 id="alg-jose">Algorithm for Verifying a Credential or Presentation Secured with JOSE</h3>
       <p>
       The inputs for this algorithm are:
       </p>
@@ -2541,7 +2537,7 @@ Return
       </ol>
     </section>
     <section>
-      <h3>Algorithm for Verifying a Credential or Presentation Secured with SD-JWT</h3>
+      <h3 id="alg-sd-jwt">Algorithm for Verifying a Credential or Presentation Secured with SD-JWT</h3>
       <p>
 The inputs for this algorithm are:
       </p>
@@ -2603,7 +2599,7 @@ If processing aborts for any reason or the SD-JWT is rejected:
       </ol>
     </section>
     <section>
-      <h3>Algorithm for Verifying a Credential or Presentation Secured with COSE</h3>
+      <h3 id="alg-cose">Algorithm for Verifying a Credential or Presentation Secured with COSE</h3>
       <p>
 The inputs for this algorithm are:
       </p>
@@ -2668,7 +2664,7 @@ Return
   </section>
 
   <section>
-    <h2>Validation Algorithm</h2>
+    <h2 id="validation-algorithms">Validation Algorithm</h2>
 
     <p>
 All claims expected for the <code>typ</code> MUST be present.

@@ -14,7 +14,7 @@ const customJSONStringify = (obj) => {
 const generateDisclosureHtml = (claimName, hash, disclosure, contents) => {
     return `
 <div class="disclosure">
-    <h3>Claim: <span class="claim-name">${claimName}</span></h3>
+    <h3 id="sd-jwt-claim-${hash}">Claim: <span class="claim-name">${claimName}</span></h3>
     <p><strong>SHA-256 Hash:</strong> <span class="hash">${hash}</span></p>
     <p><strong>Disclosure(s):</strong> <span class="disclosure-value">${disclosure}</span></p>
     <p><strong>Contents:</strong> <span class="contents">${customJSONStringify(contents)}</span></p>
