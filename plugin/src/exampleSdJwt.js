@@ -14,7 +14,7 @@ const customJSONStringify = (obj) => {
 const generateDisclosureHtml = (claimName, hash, disclosure, contents) => {
     return `
 <div class="disclosure">
-    <h3>Claim: <span class="claim-name">${claimName}</span></h3>
+    <h3 id="sd-jwt-claim-${hash}">Claim: <span class="claim-name">${claimName}</span></h3>
     <p><strong>SHA-256 Hash:</strong> <span class="hash">${hash}</span></p>
     <p><strong>Disclosure(s):</strong> <span class="disclosure-value">${disclosure}</span></p>
     <p><strong>Contents:</strong> <span class="contents">${customJSONStringify(contents)}</span></p>
@@ -51,10 +51,9 @@ const getDisclosuresHtml = async (vc) => {
     const disclosureHtml = disclosures.map((disclosure) => {
         const decodedDisclosure = JSON.parse(new TextDecoder().decode(base64url.decode(disclosure)));
         const [, ...claimPath] = decodedDisclosure;
-        const claimName = claimPath.pop();
+        claimPath.pop();
         const hash = calculateHash(disclosure);
-
-        return generateDisclosureHtml(JSON.stringify(claimName), hash, disclosure, decodedDisclosure);
+        return generateDisclosureHtml(claimPath, hash, disclosure, decodedDisclosure);
     });
 
     return `<div class="disclosures">${disclosureHtml.join('\n')}</div>`;
