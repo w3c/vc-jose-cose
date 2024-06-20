@@ -123,13 +123,6 @@
                     status: "REC",
                     publisher: "The Internet Assigned Numbers Authority"
                 },
-                "IANA-STRUCTURED-SUFFIX": {
-                    title: "Structured Syntax Suffixes",
-                    href: "https://www.iana.org/assignments/media-type-structured-suffix/",
-                    authors: ["The Internet Assigned Numbers Authority"],
-                    status: "REC",
-                    publisher: "The Internet Assigned Numbers Authority"
-                },
             }
         };
     </script>
@@ -240,7 +233,7 @@
     <p>
         The most specific media type (or subtype) available SHOULD be used, instead of
         more generic media types (or supertypes). For example, rather than the general
-        <code>application/sd-jwt</code>, <code>application/vc+ld+json+sd-jwt</code>
+        <code>application/sd-jwt</code>, <code>application/vc+sd-jwt</code>
         SHOULD be used, unless there is a more specific media type that would even
         better identify the secured envelope format.
     </p>
@@ -261,8 +254,8 @@
                 The unsecured verifiable credential is the unencoded JWS payload.
             </p>
             <p>
-                The <code>typ</code> header parameter SHOULD be <code>vc+ld+json+jwt</code>.
-                When present, the <code>cty</code> header parameter SHOULD be <code>vc+ld+json</code>.
+                The <code>typ</code> header parameter SHOULD be <code>vc+jwt</code>.
+                When present, the <code>cty</code> header parameter SHOULD be <code>vc</code>.
                 See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
                 for additional details regarding usage of <code>typ</code> and
                 <code>cty</code>.
@@ -315,8 +308,8 @@
                 The unsecured verifiable presentation is the unencoded JWS payload.
             </p>
             <p>
-                The <code>typ</code> header parameter SHOULD be <code>vp+ld+json+jwt</code>.
-                When present, the <code>cty</code> header parameter SHOULD be <code>vp+ld+json</code>.
+                The <code>typ</code> header parameter SHOULD be <code>vp+jwt</code>.
+                When present, the <code>cty</code> header parameter SHOULD be <code>vp</code>.
                 See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
                 for additional details regarding usage of <code>typ</code> and
                 <code>cty</code>.
@@ -347,7 +340,7 @@
   "verifiableCredential": [{
     "@context": ["https://www.w3.org/ns/credentials/v2"],
     "type": ["EnvelopedVerifiableCredential"],
-    "id": "data:application/vc+ld+json+jwt;eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaWQiOiJodHRwOi8vdW5pdmVyc2l0eS5leGFtcGxlL2NyZWRlbnRpYWxzLzE4NzIiLCJ0eXBlIjpbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwiRXhhbXBsZUFsdW1uaUNyZWRlbnRpYWwiXSwiaXNzdWVyIjoiaHR0cHM6Ly91bml2ZXJzaXR5LmV4YW1wbGUvaXNzdWVycy81NjUwNDkiLCJ2YWxpZEZyb20iOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTY2hlbWEiOnsiaWQiOiJodHRwczovL2V4YW1wbGUub3JnL2V4YW1wbGVzL2RlZ3JlZS5qc29uIiwidHlwZSI6Ikpzb25TY2hlbWEifSwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJkaWQ6ZXhhbXBsZToxMjMiLCJkZWdyZWUiOnsidHlwZSI6IkJhY2hlbG9yRGVncmVlIiwibmFtZSI6IkJhY2hlbG9yIG9mIFNjaWVuY2UgYW5kIEFydHMifX19.d2k4O3FytQJf83kLh-HsXuPvh6yeOlhJELVo5TF71gu7elslQyOf2ZItAXrtbXF4Kz9WivNdztOayz4VUQ0Mwa8yCDZkP9B2pH-9S_tcAFxeoeJ6Z4XnFuL_DOfkR1fP"
+    "id": "data:application/vc+jwt;eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaWQiOiJodHRwOi8vdW5pdmVyc2l0eS5leGFtcGxlL2NyZWRlbnRpYWxzLzE4NzIiLCJ0eXBlIjpbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwiRXhhbXBsZUFsdW1uaUNyZWRlbnRpYWwiXSwiaXNzdWVyIjoiaHR0cHM6Ly91bml2ZXJzaXR5LmV4YW1wbGUvaXNzdWVycy81NjUwNDkiLCJ2YWxpZEZyb20iOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTY2hlbWEiOnsiaWQiOiJodHRwczovL2V4YW1wbGUub3JnL2V4YW1wbGVzL2RlZ3JlZS5qc29uIiwidHlwZSI6Ikpzb25TY2hlbWEifSwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJkaWQ6ZXhhbXBsZToxMjMiLCJkZWdyZWUiOnsidHlwZSI6IkJhY2hlbG9yRGVncmVlIiwibmFtZSI6IkJhY2hlbG9yIG9mIFNjaWVuY2UgYW5kIEFydHMifX19.d2k4O3FytQJf83kLh-HsXuPvh6yeOlhJELVo5TF71gu7elslQyOf2ZItAXrtbXF4Kz9WivNdztOayz4VUQ0Mwa8yCDZkP9B2pH-9S_tcAFxeoeJ6Z4XnFuL_DOfkR1fP"
   }]
 }
       </pre>
@@ -445,8 +438,8 @@
                 <a data-cite="SD-JWT#section-6.1">SD-JWT issuance instructions</a>.
             </p>
             <p>
-                The <code>typ</code> header parameter SHOULD be <code>vc+ld+json+sd-jwt</code>.
-                When present, the <code>cty</code> header parameter SHOULD be <code>vc+ld+json</code>.
+                The <code>typ</code> header parameter SHOULD be <code>vc+sd-jwt</code>.
+                When present, the <code>cty</code> header parameter SHOULD be <code>vc</code>.
                 See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
                 for additional details regarding usage of <code>typ</code> and
                 <code>cty</code>.
@@ -501,8 +494,8 @@
                 The unsecured verifiable presentation is the unencoded SD-JWT payload.
             </p>
             <p>
-                The <code>typ</code> header parameter SHOULD be <code>vp+ld+json+sd-jwt</code>.
-                When present, the <code>cty</code> header parameter SHOULD be <code>vp+ld+json</code>.
+                The <code>typ</code> header parameter SHOULD be <code>vp+sd-jwt</code>.
+                When present, the <code>cty</code> header parameter SHOULD be <code>vp</code>.
                 See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
                 for additional details regarding usage of <code>typ</code> and
                 <code>cty</code>.
@@ -532,7 +525,7 @@
   "verifiableCredential": [{
     "@context": "https://www.w3.org/ns/credentials/v2",
     "type": "EnvelopedVerifiableCredential",
-    "id": "data:application/vc+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlVRTV9fblE0UzZCTzhuUTRuT05YeHB4aHRob3lOeGI1M0xZZ1l6LTJBQnMiLCJ0eXAiOiJ2cCtsZCtqc29uK3NkLWp3dCIsImN0eSI6InZwK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwidmVyaWZpYWJsZUNyZWRlbnRpYWwiOlt7IkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy9leGFtcGxlcy92MiJdLCJpc3N1ZXIiOiJodHRwczovL3VuaXZlcnNpdHkuZXhhbXBsZS9pc3N1ZXJzLzU2NTA0OSIsInZhbGlkRnJvbSI6IjIwMTAtMDEtMDFUMTk6MjM6MjRaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiYWx1bW5pT2YiOnsibmFtZSI6IkV4YW1wbGUgVW5pdmVyc2l0eSIsIl9zZCI6WyJoek9LRzU2cDI5c1ByTGFDNUE4RndFdUczVU05dUlZU1p1cU9YczJlVGJBIl19LCJfc2QiOlsiWVdXVmVDRndxQmk4WDBqSF9jV0NWWU16STNhOHBjTEVYRWZicFNSQVlndyJdfSwiX3NkIjpbIjJJZjhhaUs4REZwVWJ4dEc1cGMwel9SaFJzbm1ybGFRMEhzcTk4WFNyYWsiLCJUeDZ4ZWZMVUdUZUpfYWtVUFdGeHNvbUhobGtWVnpfNzVoaVZ6eWpyYmVzIl19XSwiX3NkIjpbIjd2anl0VVN3ZEJ0MXQ5RktlOVFfS3JIRXhFWGxrTEFaTzBKM0Jpd200dlkiXSwiX3NkX2FsZyI6InNoYS0yNTYiLCJpYXQiOjE3MDY1NjI4NDksImV4cCI6MTczODE4NTI0OSwiY25mIjp7Imp3ayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0IiwiYWxnIjoiRVMzODQiLCJ4IjoidWtEd1U2ZzlQUVRFUWhYaEgyckRZNndMQlg3UHFlUjZBcGlhVHBEUXowcl8tdDl6UXNxem54Z0hEcE5oekZlQyIsInkiOiJMQnhVYnBVdFNGMVVKVTVpYnJIdkpINjBUSG5YMk1xa0xHZGltU1l0UGR4RlkxOEdhcldiS3FZV0djUkZHVE9BIn19fQ.kYD63YtBNYnLUTw6Szf1vs_Ug3UBXhPwCyqpNmPnPDa3rXZQhQLdB1BgaoO8zgQ-c3B41fxaXMnLHYV9-B20uboSpJP0B-2Vre917eQt1cSDswDGA_Ytvn4BSqYVBB2J~WyJFMkFsRzhsY2p0QVFrcllIbjlIbnVRIiwgInR5cGUiLCAiVmVyaWZpYWJsZVByZXNlbnRhdGlvbiJd~WyI5NldYMDRneno4cVZzOVZLU2wwYTVnIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~WyJaekU2VFVaamtHMW1DWXBKMEhnc0l3IiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyItQ3NsS25GZGFYb2JiQWsyU0JBVGR3IiwgImlkIiwgImRpZDpleGFtcGxlOmViZmViMWY3MTJlYmM2ZjFjMjc2ZTEyZWMyMSJd~WyJuRm1OWl9IczB3WWNoOFdkeTdnQUNRIiwgImlkIiwgImRpZDpleGFtcGxlOmMyNzZlMTJlYzIxZWJmZWIxZjcxMmViYzZmMSJd"
+    "id": "data:application/vc+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlVRTV9fblE0UzZCTzhuUTRuT05YeHB4aHRob3lOeGI1M0xZZ1l6LTJBQnMiLCJ0eXAiOiJ2cCtsZCtqc29uK3NkLWp3dCIsImN0eSI6InZwK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwidmVyaWZpYWJsZUNyZWRlbnRpYWwiOlt7IkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy9leGFtcGxlcy92MiJdLCJpc3N1ZXIiOiJodHRwczovL3VuaXZlcnNpdHkuZXhhbXBsZS9pc3N1ZXJzLzU2NTA0OSIsInZhbGlkRnJvbSI6IjIwMTAtMDEtMDFUMTk6MjM6MjRaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiYWx1bW5pT2YiOnsibmFtZSI6IkV4YW1wbGUgVW5pdmVyc2l0eSIsIl9zZCI6WyJoek9LRzU2cDI5c1ByTGFDNUE4RndFdUczVU05dUlZU1p1cU9YczJlVGJBIl19LCJfc2QiOlsiWVdXVmVDRndxQmk4WDBqSF9jV0NWWU16STNhOHBjTEVYRWZicFNSQVlndyJdfSwiX3NkIjpbIjJJZjhhaUs4REZwVWJ4dEc1cGMwel9SaFJzbm1ybGFRMEhzcTk4WFNyYWsiLCJUeDZ4ZWZMVUdUZUpfYWtVUFdGeHNvbUhobGtWVnpfNzVoaVZ6eWpyYmVzIl19XSwiX3NkIjpbIjd2anl0VVN3ZEJ0MXQ5RktlOVFfS3JIRXhFWGxrTEFaTzBKM0Jpd200dlkiXSwiX3NkX2FsZyI6InNoYS0yNTYiLCJpYXQiOjE3MDY1NjI4NDksImV4cCI6MTczODE4NTI0OSwiY25mIjp7Imp3ayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0IiwiYWxnIjoiRVMzODQiLCJ4IjoidWtEd1U2ZzlQUVRFUWhYaEgyckRZNndMQlg3UHFlUjZBcGlhVHBEUXowcl8tdDl6UXNxem54Z0hEcE5oekZlQyIsInkiOiJMQnhVYnBVdFNGMVVKVTVpYnJIdkpINjBUSG5YMk1xa0xHZGltU1l0UGR4RlkxOEdhcldiS3FZV0djUkZHVE9BIn19fQ.kYD63YtBNYnLUTw6Szf1vs_Ug3UBXhPwCyqpNmPnPDa3rXZQhQLdB1BgaoO8zgQ-c3B41fxaXMnLHYV9-B20uboSpJP0B-2Vre917eQt1cSDswDGA_Ytvn4BSqYVBB2J~WyJFMkFsRzhsY2p0QVFrcllIbjlIbnVRIiwgInR5cGUiLCAiVmVyaWZpYWJsZVByZXNlbnRhdGlvbiJd~WyI5NldYMDRneno4cVZzOVZLU2wwYTVnIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~WyJaekU2VFVaamtHMW1DWXBKMEhnc0l3IiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyItQ3NsS25GZGFYb2JiQWsyU0JBVGR3IiwgImlkIiwgImRpZDpleGFtcGxlOmViZmViMWY3MTJlYmM2ZjFjMjc2ZTEyZWMyMSJd~WyJuRm1OWl9IczB3WWNoOFdkeTdnQUNRIiwgImlkIiwgImRpZDpleGFtcGxlOmMyNzZlMTJlYzIxZWJmZWIxZjcxMmViYzZmMSJd"
   }]
 }
       </pre>
@@ -563,7 +556,7 @@
             <h2 id="securing-vcs-with-cose">Securing JSON-LD Verifiable Credentials with COSE</h2>
             <p>
                 This section details how to secure data with the type
-                <code>application/vc+ld+json</code>
+                <code>application/vc</code>
                 with COSE.
             </p>
             <p>
@@ -572,11 +565,11 @@
                 The unsecured verifiable credential is the unencoded COSE_Sign1 payload.
             </p>
             <p>
-                The <code>typ</code> header parameter SHOULD be <code>application/vc+ld+json+cose</code>.
+                The <code>typ</code> header parameter SHOULD be <code>application/vc+cose</code>.
                 See <a href="https://www.ietf.org/archive/id/draft-ietf-cose-typ-header-parameter-03.html">I-D.ietf-cose-typ-header-parameter</a>
                 for the COSE "<code>typ</code>" (type) header parameter.
                 When present, the <code>content type (3)</code> header parameter
-                SHOULD be <code>application/vc+ld+json</code>.
+                SHOULD be <code>application/vc</code>.
                 See <a data-cite="RFC9052#section-3.1">Common COSE Header Parameters</a> for additional details.
             </p>
             <p>
@@ -628,8 +621,8 @@
                 The unsecured verifiable presentation is the unencoded COSE_Sign1 payload.
             </p>
             <p>
-                The <code>typ</code> header parameter SHOULD be <code>application/vp+ld+json+cose</code>.
-                When present, the <code>cty</code> header parameter SHOULD be <code>application/vp+ld+json</code>.
+                The <code>typ</code> header parameter SHOULD be <code>application/vp+cose</code>.
+                When present, the <code>cty</code> header parameter SHOULD be <code>application/vp</code>.
                 See <a data-cite="RFC9052#section-3.1">Common COSE Header Parameters</a> for additional details.
             </p>
             <p>
@@ -657,7 +650,7 @@
   "verifiableCredential": [{
     "@context": "https://www.w3.org/ns/credentials/v2",
     "type": "EnvelopedVerifiableCredential",
-    "id": "data:application/vc+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlVRTV9fblE0UzZCTzhuUTRuT05YeHB4aHRob3lOeGI1M0xZZ1l6LTJBQnMiLCJ0eXAiOiJ2cCtsZCtqc29uK3NkLWp3dCIsImN0eSI6InZwK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwidmVyaWZpYWJsZUNyZWRlbnRpYWwiOlt7IkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy9leGFtcGxlcy92MiJdLCJpc3N1ZXIiOiJodHRwczovL3VuaXZlcnNpdHkuZXhhbXBsZS9pc3N1ZXJzLzU2NTA0OSIsInZhbGlkRnJvbSI6IjIwMTAtMDEtMDFUMTk6MjM6MjRaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiYWx1bW5pT2YiOnsibmFtZSI6IkV4YW1wbGUgVW5pdmVyc2l0eSIsIl9zZCI6WyJoek9LRzU2cDI5c1ByTGFDNUE4RndFdUczVU05dUlZU1p1cU9YczJlVGJBIl19LCJfc2QiOlsiWVdXVmVDRndxQmk4WDBqSF9jV0NWWU16STNhOHBjTEVYRWZicFNSQVlndyJdfSwiX3NkIjpbIjJJZjhhaUs4REZwVWJ4dEc1cGMwel9SaFJzbm1ybGFRMEhzcTk4WFNyYWsiLCJUeDZ4ZWZMVUdUZUpfYWtVUFdGeHNvbUhobGtWVnpfNzVoaVZ6eWpyYmVzIl19XSwiX3NkIjpbIjd2anl0VVN3ZEJ0MXQ5RktlOVFfS3JIRXhFWGxrTEFaTzBKM0Jpd200dlkiXSwiX3NkX2FsZyI6InNoYS0yNTYiLCJpYXQiOjE3MDY1NjI4NDksImV4cCI6MTczODE4NTI0OSwiY25mIjp7Imp3ayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0IiwiYWxnIjoiRVMzODQiLCJ4IjoidWtEd1U2ZzlQUVRFUWhYaEgyckRZNndMQlg3UHFlUjZBcGlhVHBEUXowcl8tdDl6UXNxem54Z0hEcE5oekZlQyIsInkiOiJMQnhVYnBVdFNGMVVKVTVpYnJIdkpINjBUSG5YMk1xa0xHZGltU1l0UGR4RlkxOEdhcldiS3FZV0djUkZHVE9BIn19fQ.kYD63YtBNYnLUTw6Szf1vs_Ug3UBXhPwCyqpNmPnPDa3rXZQhQLdB1BgaoO8zgQ-c3B41fxaXMnLHYV9-B20uboSpJP0B-2Vre917eQt1cSDswDGA_Ytvn4BSqYVBB2J~WyJFMkFsRzhsY2p0QVFrcllIbjlIbnVRIiwgInR5cGUiLCAiVmVyaWZpYWJsZVByZXNlbnRhdGlvbiJd~WyI5NldYMDRneno4cVZzOVZLU2wwYTVnIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~WyJaekU2VFVaamtHMW1DWXBKMEhnc0l3IiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyItQ3NsS25GZGFYb2JiQWsyU0JBVGR3IiwgImlkIiwgImRpZDpleGFtcGxlOmViZmViMWY3MTJlYmM2ZjFjMjc2ZTEyZWMyMSJd~WyJuRm1OWl9IczB3WWNoOFdkeTdnQUNRIiwgImlkIiwgImRpZDpleGFtcGxlOmMyNzZlMTJlYzIxZWJmZWIxZjcxMmViYzZmMSJd"
+    "id": "data:application/vc+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlVRTV9fblE0UzZCTzhuUTRuT05YeHB4aHRob3lOeGI1M0xZZ1l6LTJBQnMiLCJ0eXAiOiJ2cCtsZCtqc29uK3NkLWp3dCIsImN0eSI6InZwK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwidmVyaWZpYWJsZUNyZWRlbnRpYWwiOlt7IkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy9leGFtcGxlcy92MiJdLCJpc3N1ZXIiOiJodHRwczovL3VuaXZlcnNpdHkuZXhhbXBsZS9pc3N1ZXJzLzU2NTA0OSIsInZhbGlkRnJvbSI6IjIwMTAtMDEtMDFUMTk6MjM6MjRaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiYWx1bW5pT2YiOnsibmFtZSI6IkV4YW1wbGUgVW5pdmVyc2l0eSIsIl9zZCI6WyJoek9LRzU2cDI5c1ByTGFDNUE4RndFdUczVU05dUlZU1p1cU9YczJlVGJBIl19LCJfc2QiOlsiWVdXVmVDRndxQmk4WDBqSF9jV0NWWU16STNhOHBjTEVYRWZicFNSQVlndyJdfSwiX3NkIjpbIjJJZjhhaUs4REZwVWJ4dEc1cGMwel9SaFJzbm1ybGFRMEhzcTk4WFNyYWsiLCJUeDZ4ZWZMVUdUZUpfYWtVUFdGeHNvbUhobGtWVnpfNzVoaVZ6eWpyYmVzIl19XSwiX3NkIjpbIjd2anl0VVN3ZEJ0MXQ5RktlOVFfS3JIRXhFWGxrTEFaTzBKM0Jpd200dlkiXSwiX3NkX2FsZyI6InNoYS0yNTYiLCJpYXQiOjE3MDY1NjI4NDksImV4cCI6MTczODE4NTI0OSwiY25mIjp7Imp3ayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0IiwiYWxnIjoiRVMzODQiLCJ4IjoidWtEd1U2ZzlQUVRFUWhYaEgyckRZNndMQlg3UHFlUjZBcGlhVHBEUXowcl8tdDl6UXNxem54Z0hEcE5oekZlQyIsInkiOiJMQnhVYnBVdFNGMVVKVTVpYnJIdkpINjBUSG5YMk1xa0xHZGltU1l0UGR4RlkxOEdhcldiS3FZV0djUkZHVE9BIn19fQ.kYD63YtBNYnLUTw6Szf1vs_Ug3UBXhPwCyqpNmPnPDa3rXZQhQLdB1BgaoO8zgQ-c3B41fxaXMnLHYV9-B20uboSpJP0B-2Vre917eQt1cSDswDGA_Ytvn4BSqYVBB2J~WyJFMkFsRzhsY2p0QVFrcllIbjlIbnVRIiwgInR5cGUiLCAiVmVyaWZpYWJsZVByZXNlbnRhdGlvbiJd~WyI5NldYMDRneno4cVZzOVZLU2wwYTVnIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~WyJaekU2VFVaamtHMW1DWXBKMEhnc0l3IiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyItQ3NsS25GZGFYb2JiQWsyU0JBVGR3IiwgImlkIiwgImRpZDpleGFtcGxlOmViZmViMWY3MTJlYmM2ZjFjMjc2ZTEyZWMyMSJd~WyJuRm1OWl9IczB3WWNoOFdkeTdnQUNRIiwgImlkIiwgImRpZDpleGFtcGxlOmMyNzZlMTJlYzIxZWJmZWIxZjcxMmViYzZmMSJd"
   }]
 }
       </pre>
@@ -1431,13 +1424,13 @@
         </p>
         <p>The normative statements in <a data-cite="VC-DATA-MODEL-2.0#securing-mechanisms">Securing
             Mechanisms</a> apply to securing
-            <code>application/vc+ld+json</code> and
-            <code>application/vp+ld+json</code>,
-            <code>application/vc+ld+json+sd-jwt</code> and
-            <code>application/vp+ld+json+sd-jwt</code>,
+            <code>application/vc</code> and
+            <code>application/vp</code>,
+            <code>application/vc+sd-jwt</code> and
+            <code>application/vp+sd-jwt</code>,
             as well as
-            <code>application/vc+ld+json+cose</code> and
-            <code>application/vp+ld+json+cose</code>.
+            <code>application/vc+cose</code> and
+            <code>application/vp+cose</code>.
         </p>
         <p>
             JSON Web Token implementers are advised to review <a data-cite="RFC7519#section-8">Implementation
@@ -1483,10 +1476,10 @@
         <h2 id="media-types">Media Types</h2>
 
         <section id="vc-ld-jwt-media-type">
-            <h2 id="vcc-ld-json-jwt"><code>application/vc+ld+json+jwt</code></h2>
+            <h2 id="vcc-ld-json-jwt"><code>application/vc+jwt</code></h2>
             <p>
                 This specification registers the
-                <code>application/vc+ld+json+jwt</code> Media Type specifically for
+                <code>application/vc+jwt</code> Media Type specifically for
                 identifying a <a data-cite="JWT"></a>
                 with a payload
                 conforming to the Verifiable Credential Data Model.
@@ -1498,7 +1491,7 @@
                 </tr>
                 <tr>
                     <td>Subtype name:</td>
-                    <td>`vc+ld+json+jwt`</td>
+                    <td>`vc+jwt`</td>
                 </tr>
                 <tr>
                     <td>Required parameters:</td>
@@ -1529,10 +1522,10 @@
         </section>
 
         <section id="vp-ld-jwt-media-type">
-            <h2 id="vp-ld-json-jwt"><code>application/vp+ld+json+jwt</code></h2>
+            <h2 id="vp-ld-json-jwt"><code>application/vp+jwt</code></h2>
             <p>
                 This specification registers the
-                <code>application/vp+ld+json+jwt</code> Media Type specifically for
+                <code>application/vp+jwt</code> Media Type specifically for
                 identifying a <a data-cite="JWT"></a>
                 with a payload
                 conforming to Verifiable Presentations.
@@ -1544,7 +1537,7 @@
                 </tr>
                 <tr>
                     <td>Subtype name:</td>
-                    <td>vp+ld+json+jwt</td>
+                    <td>vp+jwt</td>
                 </tr>
                 <tr>
                     <td>Required parameters:</td>
@@ -1575,10 +1568,10 @@
         </section>
 
         <section id="vc-ld-sd-jwt-media-type">
-            <h2 id="vc-ld-json-sd-jwt"><code>application/vc+ld+json+sd-jwt</code></h2>
+            <h2 id="vc-ld-json-sd-jwt"><code>application/vc+sd-jwt</code></h2>
             <p>
                 This specification registers the
-                <code>application/vc+ld+json+sd-jwt</code> Media Type specifically for
+                <code>application/vc+sd-jwt</code> Media Type specifically for
                 identifying a <a data-cite="SD-JWT"></a>
                 with a payload
                 conforming to the Verifiable Credential Data Model.
@@ -1590,7 +1583,7 @@
                 </tr>
                 <tr>
                     <td>Subtype name:</td>
-                    <td>`vc+ld+json+sd-jwt`</td>
+                    <td>`vc+sd-jwt`</td>
                 </tr>
                 <tr>
                     <td>Required parameters:</td>
@@ -1621,10 +1614,10 @@
         </section>
 
         <section id="vp-ld-sd-jwt-media-type">
-            <h2 id="vp-ld-json-sd-jwt"><code>application/vp+ld+json+sd-jwt</code></h2>
+            <h2 id="vp-ld-json-sd-jwt"><code>application/vp+sd-jwt</code></h2>
             <p>
                 This specification registers the
-                <code>application/vp+ld+json+sd-jwt</code> Media Type specifically for
+                <code>application/vp+sd-jwt</code> Media Type specifically for
                 identifying a <a data-cite="SD-JWT"></a>
                 with a payload
                 conforming to Verifiable Presentations.
@@ -1636,7 +1629,7 @@
                 </tr>
                 <tr>
                     <td>Subtype name:</td>
-                    <td>vp+ld+json+sd-jwt</td>
+                    <td>vp+sd-jwt</td>
                 </tr>
                 <tr>
                     <td>Required parameters:</td>
@@ -1667,10 +1660,10 @@
         </section>
 
         <section id="vc-ld-json-cose-media-type">
-            <h2 id="vc-ld-json-cose"><code>application/vc+ld+json+cose</code></h2>
+            <h2 id="vc-ld-json-cose"><code>application/vc+cose</code></h2>
             <p>
                 This specification registers the
-                <code>application/vc+ld+json+cose</code> Media Type specifically for
+                <code>application/vc+cose</code> Media Type specifically for
                 identifying a COSE object [[RFC9052]]
                 with a payload
                 conforming to the Verifiable Credential Data Model.
@@ -1682,7 +1675,7 @@
                 </tr>
                 <tr>
                     <td>Subtype name:</td>
-                    <td>`vc+ld+json+cose`</td>
+                    <td>`vc+cose`</td>
                 </tr>
                 <tr>
                     <td>Required parameters:</td>
@@ -1712,10 +1705,10 @@
         </section>
 
         <section id="vp-ld-json-cose-media-type">
-            <h2 id="vp-ld-json-cose"><code>application/vp+ld+json+cose</code></h2>
+            <h2 id="vp-ld-json-cose"><code>application/vp+cose</code></h2>
             <p>
                 This specification registers the
-                <code>application/vp+ld+json+cose</code> Media Type specifically for
+                <code>application/vp+cose</code> Media Type specifically for
                 identifying a COSE object [[RFC9052]]
                 with a payload
                 conforming to Verifiable Presentations.
@@ -1727,7 +1720,7 @@
                 </tr>
                 <tr>
                     <td>Subtype name:</td>
-                    <td>`vp+ld+json+cose`</td>
+                    <td>`vp+cose`</td>
                 </tr>
                 <tr>
                     <td>Required parameters:</td>
@@ -1755,333 +1748,6 @@
                 </tr>
             </table>
         </section>
-    </section>
-
-    <section>
-        <h2 id="structured-syntax-suffixes">Structured Syntax Suffixes</h2>
-
-        <section id="ld-json-jwt-suffix">
-            <h2 id="ld-json-jwt"><code>+ld+json+jwt</code></h2>
-            <p>
-                This specification registers the
-                <code>+ld+json+jwt</code> Structured Suffix
-                in the IANA "Structured Syntax Suffixes" registry [[IANA-STRUCTURED-SUFFIX]]
-                for indicating that the media type is encoded as
-                a <a data-cite="JWT"></a>
-                with a JSON-LD payload.
-            </p>
-            <table>
-                <tr>
-                    <td>Name:</td>
-                    <td>`ld+json+jwt`</td>
-                </tr>
-                <tr>
-                    <td>+suffix:</td>
-                    <td>`+ld+json+jwt`</td>
-                </tr>
-                <tr>
-                    <td>References:</td>
-                    <td>this specification</td>
-                </tr>
-                <tr>
-                    <td>Encoding considerations:</td>
-                    <td>
-                        binary; `jwt` values are a series of base64url-encoded values
-                        (some of which may be the empty string) separated by period ('.').
-                    </td>
-                </tr>
-                <tr>
-                    <td>Security considerations:</td>
-                    <td>
-                        <p>As defined in this specification. See also the security
-                            considerations in <a data-cite="JWT"></a> and [[json-ld11]].</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Contact:</td>
-                    <td>
-                        W3C Verifiable Credentials Working Group <a
-                            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Author/Change Controller:</td>
-                    <td>
-                        W3C Verifiable Credentials Working Group <a
-                            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-                    </td>
-                </tr>
-            </table>
-        </section>
-
-        <section id="json-jwt-suffix">
-            <h2 id="json-jwt"><code>+json+jwt</code></h2>
-            <p>
-                This specification registers the
-                <code>+json+jwt</code> Structured Suffix
-                in the IANA "Structured Syntax Suffixes" registry [[IANA-STRUCTURED-SUFFIX]]
-                for indicating that the media type is encoded as
-                a <a data-cite="JWT"></a>
-                with a JSON payload.
-            </p>
-            <table>
-                <tr>
-                    <td>Name:</td>
-                    <td>json+jwt</td>
-                </tr>
-                <tr>
-                    <td>+suffix:</td>
-                    <td>`+json+jwt`</td>
-                </tr>
-                <tr>
-                    <td>References:</td>
-                    <td>this specification</td>
-                </tr>
-                <tr>
-                    <td>Encoding considerations:</td>
-                    <td>
-                        binary; `jwt` values are a series of base64url-encoded values
-                        (some of which may be the empty string) separated by period ('.').
-                    </td>
-                </tr>
-                <tr>
-                    <td>Security considerations:</td>
-                    <td>
-                        <p>As defined in this specification. See also the security
-                            considerations in <a data-cite="JWT"></a>.</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Contact:</td>
-                    <td>
-                        W3C Verifiable Credentials Working Group <a
-                            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Author/Change Controller:</td>
-                    <td>
-                        W3C Verifiable Credentials Working Group <a
-                            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-                    </td>
-                </tr>
-            </table>
-        </section>
-
-        <section id="ld-json-sd-jwt-suffix">
-            <h2 id="ld-json-sd-jwt"><code>+ld+json+sd-jwt</code></h2>
-            <p>
-                This specification registers the
-                <code>+ld+json+sd-jwt</code> Structured Suffix
-                in the IANA "Structured Syntax Suffixes" registry [[IANA-STRUCTURED-SUFFIX]]
-                for indicating that the media type is encoded as
-                an <a data-cite="SD-JWT"></a>
-                with a JSON-LD payload.
-            </p>
-            <table>
-                <tr>
-                    <td>Name:</td>
-                    <td>`ld+json+sd-jwt`</td>
-                </tr>
-                <tr>
-                    <td>+suffix:</td>
-                    <td>`+ld+json+sd-jwt`</td>
-                </tr>
-                <tr>
-                    <td>References:</td>
-                    <td>this specification</td>
-                </tr>
-                <tr>
-                    <td>Encoding considerations:</td>
-                    <td>
-                        binary; `sd-jwt` values are a series of base64url-encoded values
-                        (some of which may be the empty string) separated by period ('.') or tilde ('~') characters.
-                    </td>
-                </tr>
-                <tr>
-                    <td>Security considerations:</td>
-                    <td>
-                        <p>As defined in this specification. See also the security
-                            considerations in <a data-cite="SD-JWT"></a>.</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Contact:</td>
-                    <td>
-                        W3C Verifiable Credentials Working Group <a
-                            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Author/Change Controller:</td>
-                    <td>
-                        W3C Verifiable Credentials Working Group <a
-                            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-                    </td>
-                </tr>
-            </table>
-        </section>
-
-        <section id="json-sd-jwt-suffix">
-            <h2 id="json-sd-jwt"><code>+json+sd-jwt</code></h2>
-            <p>
-                This specification registers the
-                <code>+json+sd-jwt</code> Structured Suffix
-                in the IANA "Structured Syntax Suffixes" registry [[IANA-STRUCTURED-SUFFIX]]
-                for indicating that the media type is encoded as
-                an <a data-cite="SD-JWT"></a>
-                with a JSON payload.
-            </p>
-            <table>
-                <tr>
-                    <td>Name:</td>
-                    <td>json+sd-jwt</td>
-                </tr>
-                <tr>
-                    <td>+suffix:</td>
-                    <td>`+json+sd-jwt`</td>
-                </tr>
-                <tr>
-                    <td>References:</td>
-                    <td>this specification</td>
-                </tr>
-                <tr>
-                    <td>Encoding considerations:</td>
-                    <td>
-                        binary; `sd-jwt` values are a series of base64url-encoded values
-                        (some of which may be the empty string) separated by period ('.') or tilde ('~') characters.
-                    </td>
-                </tr>
-                <tr>
-                    <td>Security considerations:</td>
-                    <td>
-                        <p>As defined in this specification. See also the security
-                            considerations in <a data-cite="SD-JWT"></a>.</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Contact:</td>
-                    <td>
-                        W3C Verifiable Credentials Working Group <a
-                            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Author/Change Controller:</td>
-                    <td>
-                        W3C Verifiable Credentials Working Group <a
-                            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-                    </td>
-                </tr>
-            </table>
-        </section>
-
-        <section id="ld-json-cose-suffix">
-            <h2 id="ls-json-cose"><code>+ld+json+cose</code></h2>
-            <p>
-                This specification registers the
-                <code>+ld+json+cose</code> Structured Suffix
-                in the IANA "Structured Syntax Suffixes" registry [[IANA-STRUCTURED-SUFFIX]]
-                for indicating that the media type is encoded as
-                a COSE object [[RFC9052]]
-                with a JSON-LD payload.
-            </p>
-            <table>
-                <tr>
-                    <td>Name:</td>
-                    <td>`ld+json+cose`</td>
-                </tr>
-                <tr>
-                    <td>+suffix:</td>
-                    <td>`+ld+json+cose`</td>
-                </tr>
-                <tr>
-                    <td>References:</td>
-                    <td>this specification</td>
-                </tr>
-                <tr>
-                    <td>Encoding considerations:</td>
-                    <td>
-                        binary (CBOR)
-                    </td>
-                </tr>
-                <tr>
-                    <td>Security considerations:</td>
-                    <td>
-                        <p>As defined in this specification. See also the security
-                            considerations in [[RFC9052]] and [[json-ld11]]</a>.</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Contact:</td>
-                    <td>
-                        W3C Verifiable Credentials Working Group <a
-                            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Author/Change Controller:</td>
-                    <td>
-                        W3C Verifiable Credentials Working Group <a
-                            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-                    </td>
-                </tr>
-            </table>
-        </section>
-
-        <section id="json-cose-suffix">
-            <h2 id="json-cose"><code>+json+cose</code></h2>
-            <p>
-                This specification registers the
-                <code>+json+cose</code> Structured Suffix
-                in the IANA "Structured Syntax Suffixes" registry [[IANA-STRUCTURED-SUFFIX]]
-                for indicating that the media type is encoded as
-                a COSE object [[RFC9052]]
-                with a JSON payload.
-            </p>
-            <table>
-                <tr>
-                    <td>Name:</td>
-                    <td>json+cose</td>
-                </tr>
-                <tr>
-                    <td>+suffix:</td>
-                    <td>`+json+cose`</td>
-                </tr>
-                <tr>
-                    <td>References:</td>
-                    <td>this specification</td>
-                </tr>
-                <tr>
-                    <td>Encoding considerations:</td>
-                    <td>
-                        binary (CBOR)
-                    </td>
-                </tr>
-                <tr>
-                    <td>Security considerations:</td>
-                    <td>
-                        <p>As defined in this specification. See also the security
-                            considerations in [[RFC9052]]</a>.</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Contact:</td>
-                    <td>
-                        W3C Verifiable Credentials Working Group <a
-                            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Author/Change Controller:</td>
-                    <td>
-                        W3C Verifiable Credentials Working Group <a
-                            href="mailto:public-vc-wg@w3.org">public-vc-wg@w3.org</a>
-                    </td>
-                </tr>
-            </table>
-        </section>
-
     </section>
 
 </section>
@@ -2403,17 +2069,17 @@
   "verifiableCredential": [
     {
       "@context": "https://www.w3.org/ns/credentials/v2",
-      "id": "data:application/vc+ld+json+cose;base64url,QzVjV...RMjU",
+      "id": "data:application/vc+cose;base64url,QzVjV...RMjU",
       "type": "EnvelopedVerifiableCredential"
     },
     {
       "@context": "https://www.w3.org/ns/credentials/v2",
-      "id": "data:application/vc+ld+json+jwt;eyVjV...RMjU",
+      "id": "data:application/vc+jwt;eyVjV...RMjU",
       "type": "EnvelopedVerifiableCredential"
     },
     {
       "@context": "https://www.w3.org/ns/credentials/v2",
-      "id": "data:application/vc+ld+json+sd-jwt;eyVjV...RMjU",
+      "id": "data:application/vc+sd-jwt;eyVjV...RMjU",
       "type": "EnvelopedVerifiableCredential"
     }
   ]
@@ -2425,11 +2091,11 @@
     <section>
         <h3 id="date-uris">Data URIs</h3>
         <pre class="example" title="A simple URI-encoded Verifiable Credential">
-data:application/vc+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT09OUFFVQUw3RWdaLWtJNl94ajlvUkV2WDF4T3ciLCJ0eXAiOiJ2YytsZCtqc29uK3NkLWp3dCIsImN0eSI6InZjK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaXNzdWVyIjoiaHR0cHM6Ly91bml2ZXJzaXR5LmV4YW1wbGUvaXNzdWVycy81NjUwNDkiLCJ2YWxpZEZyb20iOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTY2hlbWEiOnsiX3NkIjpbIkU3dU1sSWFyS29iYXJTdEZGRjctZm5qaV9sQVdnM3BGMkV5dVc4dWFYakUiLCJYelRaSVgyNGdDSWxSQVFHclFoNU5FRm1XWkQtZ3Z3dkIybzB5Y0FwNFZzIl19LCJjcmVkZW50aWFsU3ViamVjdCI6eyJkZWdyZWUiOnsibmFtZSI6IkJhY2hlbG9yIG9mIFNjaWVuY2UgYW5kIEFydHMiLCJfc2QiOlsiT3oxUEZIMG0tWk9TdEhwUVZyeGlmVlpKRzhvNmlQQmNnLVZ2SXQwd2plcyJdfSwiX3NkIjpbIkVZQ1daMTZZMHB5X1VNNzRHU3NVYU9zT19mdDExTlVSaFFUTS1TT1lFTVEiXX0sIl9zZCI6WyJqT055NnZUbGNvVlAzM25oSTdERGN3ekVka3d2R3VVRXlLUjdrWEVLd3VVIiwid21BdHpwc0dRbDJveS1PY2JrSEVZcE8xb3BoX3VYcWVWVTRKekF0aFFibyJdLCJfc2RfYWxnIjoic2hhLTI1NiIsImlzcyI6Imh0dHBzOi8vdW5pdmVyc2l0eS5leGFtcGxlL2lzc3VlcnMvNTY1MDQ5IiwiaWF0IjoxNjk3Mjg5OTk2LCJleHAiOjE3Mjg5MTIzOTYsImNuZiI6eyJqd2siOnsia3R5IjoiRUMiLCJjcnYiOiJQLTM4NCIsImFsZyI6IkVTMzg0IiwieCI6InZFdV84WGxZT0ZFU2hTcVRpZ2JSYWduZ0ZGM1p5U0xrclNHekh3azFBT1loanhlazVhV21HY2UwZU05S0pWOEIiLCJ5IjoiRUpNY2czWXBzUTB3M2RLNHlVa25QczE1Z0lsY2Yyay03dzFKLTNlYlBiOERENmQtUkhBeGUwMDkzSWpfdTRCOSJ9fX0.rYzbxb6j1dwop8_s491iArVVJNm6A6C3b742gOm_qYO3zdkyQU4_VxxOSJ8ECcmWj2r5KyiCNC1ojfO4Yms-zBsjt7PoMYpYWBplsqXpiIvnehmM7D0eOLi40uHXki0X~WyJSWTg1YTZNMmEwX3VDWlFTVGZmTFdRIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~WyJMeG5GYTBXVm8wRUluVy1QdS1fd1dRIiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyJUQVdrakpCaVpxdC1rVU54X1EweUJBIiwgImlkIiwgImh0dHBzOi8vZXhhbXBsZS5vcmcvZXhhbXBsZXMvZGVncmVlLmpzb24iXQ~WyJTd2xuZFpPZzZEZ1ZERFp5X0RvYVFBIiwgInR5cGUiLCAiSnNvblNjaGVtYSJd~WyJuSnJlU3E1Nzg3RGZMSDJCbU03cXFRIiwgImlkIiwgImRpZDpleGFtcGxlOjEyMyJd~WyIxMjNNd3hNcHRiek02YUk2aW03ME1RIiwgInR5cGUiLCAiQmFjaGVsb3JEZWdyZWUiXQ
+data:application/vc+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT09OUFFVQUw3RWdaLWtJNl94ajlvUkV2WDF4T3ciLCJ0eXAiOiJ2YytsZCtqc29uK3NkLWp3dCIsImN0eSI6InZjK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaXNzdWVyIjoiaHR0cHM6Ly91bml2ZXJzaXR5LmV4YW1wbGUvaXNzdWVycy81NjUwNDkiLCJ2YWxpZEZyb20iOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTY2hlbWEiOnsiX3NkIjpbIkU3dU1sSWFyS29iYXJTdEZGRjctZm5qaV9sQVdnM3BGMkV5dVc4dWFYakUiLCJYelRaSVgyNGdDSWxSQVFHclFoNU5FRm1XWkQtZ3Z3dkIybzB5Y0FwNFZzIl19LCJjcmVkZW50aWFsU3ViamVjdCI6eyJkZWdyZWUiOnsibmFtZSI6IkJhY2hlbG9yIG9mIFNjaWVuY2UgYW5kIEFydHMiLCJfc2QiOlsiT3oxUEZIMG0tWk9TdEhwUVZyeGlmVlpKRzhvNmlQQmNnLVZ2SXQwd2plcyJdfSwiX3NkIjpbIkVZQ1daMTZZMHB5X1VNNzRHU3NVYU9zT19mdDExTlVSaFFUTS1TT1lFTVEiXX0sIl9zZCI6WyJqT055NnZUbGNvVlAzM25oSTdERGN3ekVka3d2R3VVRXlLUjdrWEVLd3VVIiwid21BdHpwc0dRbDJveS1PY2JrSEVZcE8xb3BoX3VYcWVWVTRKekF0aFFibyJdLCJfc2RfYWxnIjoic2hhLTI1NiIsImlzcyI6Imh0dHBzOi8vdW5pdmVyc2l0eS5leGFtcGxlL2lzc3VlcnMvNTY1MDQ5IiwiaWF0IjoxNjk3Mjg5OTk2LCJleHAiOjE3Mjg5MTIzOTYsImNuZiI6eyJqd2siOnsia3R5IjoiRUMiLCJjcnYiOiJQLTM4NCIsImFsZyI6IkVTMzg0IiwieCI6InZFdV84WGxZT0ZFU2hTcVRpZ2JSYWduZ0ZGM1p5U0xrclNHekh3azFBT1loanhlazVhV21HY2UwZU05S0pWOEIiLCJ5IjoiRUpNY2czWXBzUTB3M2RLNHlVa25QczE1Z0lsY2Yyay03dzFKLTNlYlBiOERENmQtUkhBeGUwMDkzSWpfdTRCOSJ9fX0.rYzbxb6j1dwop8_s491iArVVJNm6A6C3b742gOm_qYO3zdkyQU4_VxxOSJ8ECcmWj2r5KyiCNC1ojfO4Yms-zBsjt7PoMYpYWBplsqXpiIvnehmM7D0eOLi40uHXki0X~WyJSWTg1YTZNMmEwX3VDWlFTVGZmTFdRIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~WyJMeG5GYTBXVm8wRUluVy1QdS1fd1dRIiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyJUQVdrakpCaVpxdC1rVU54X1EweUJBIiwgImlkIiwgImh0dHBzOi8vZXhhbXBsZS5vcmcvZXhhbXBsZXMvZGVncmVlLmpzb24iXQ~WyJTd2xuZFpPZzZEZ1ZERFp5X0RvYVFBIiwgInR5cGUiLCAiSnNvblNjaGVtYSJd~WyJuSnJlU3E1Nzg3RGZMSDJCbU03cXFRIiwgImlkIiwgImRpZDpleGFtcGxlOjEyMyJd~WyIxMjNNd3hNcHRiek02YUk2aW03ME1RIiwgInR5cGUiLCAiQmFjaGVsb3JEZWdyZWUiXQ
       </pre>
 
         <pre class="example" title="A simple URI-encoded Verifiable Presentation">
-data:application/vp+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT09OUFFVQUw3RWdaLWtJNl94ajlvUkV2WDF4T3ciLCJ0eXAiOiJ2YytsZCtqc29uK3NkLWp3dCIsImN0eSI6InZjK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaXNzdWVyIjoiaHR0cHM6Ly91bml2ZXJzaXR5LmV4YW1wbGUvaXNzdWVycy81NjUwNDkiLCJ2YWxpZEZyb20iOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTY2hlbWEiOnsiX3NkIjpbIkU3dU1sSWFyS29iYXJTdEZGRjctZm5qaV9sQVdnM3BGMkV5dVc4dWFYakUiLCJYelRaSVgyNGdDSWxSQVFHclFoNU5FRm1XWkQtZ3Z3dkIybzB5Y0FwNFZzIl19LCJjcmVkZW50aWFsU3ViamVjdCI6eyJkZWdyZWUiOnsibmFtZSI6IkJhY2hlbG9yIG9mIFNjaWVuY2UgYW5kIEFydHMiLCJfc2QiOlsiT3oxUEZIMG0tWk9TdEhwUVZyeGlmVlpKRzhvNmlQQmNnLVZ2SXQwd2plcyJdfSwiX3NkIjpbIkVZQ1daMTZZMHB5X1VNNzRHU3NVYU9zT19mdDExTlVSaFFUTS1TT1lFTVEiXX0sIl9zZCI6WyJqT055NnZUbGNvVlAzM25oSTdERGN3ekVka3d2R3VVRXlLUjdrWEVLd3VVIiwid21BdHpwc0dRbDJveS1PY2JrSEVZcE8xb3BoX3VYcWVWVTRKekF0aFFibyJdLCJfc2RfYWxnIjoic2hhLTI1NiIsImlzcyI6Imh0dHBzOi8vdW5pdmVyc2l0eS5leGFtcGxlL2lzc3VlcnMvNTY1MDQ5IiwiaWF0IjoxNjk3Mjg5OTk2LCJleHAiOjE3Mjg5MTIzOTYsImNuZiI6eyJqd2siOnsia3R5IjoiRUMiLCJjcnYiOiJQLTM4NCIsImFsZyI6IkVTMzg0IiwieCI6InZFdV84WGxZT0ZFU2hTcVRpZ2JSYWduZ0ZGM1p5U0xrclNHekh3azFBT1loanhlazVhV21HY2UwZU05S0pWOEIiLCJ5IjoiRUpNY2czWXBzUTB3M2RLNHlVa25QczE1Z0lsY2Yyay03dzFKLTNlYlBiOERENmQtUkhBeGUwMDkzSWpfdTRCOSJ9fX0.rYzbxb6j1dwop8_s491iArVVJNm6A6C3b742gOm_qYO3zdkyQU4_VxxOSJ8ECcmWj2r5KyiCNC1ojfO4Yms-zBsjt7PoMYpYWBplsqXpiIvnehmM7D0eOLi40uHXki0X~WyJTd2xuZFpPZzZEZ1ZERFp5X0RvYVFBIiwgInR5cGUiLCAiSnNvblNjaGVtYSJd~WyIxMjNNd3hNcHRiek02YUk2aW03ME1RIiwgInR5cGUiLCAiQmFjaGVsb3JEZWdyZWUiXQ~WyJMeG5GYTBXVm8wRUluVy1QdS1fd1dRIiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyJSWTg1YTZNMmEwX3VDWlFTVGZmTFdRIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~eyJhbGciOiJFUzM4NCIsInR5cCI6ImtiK2p3dCJ9.eyJub25jZSI6IkVmeTROTFJPX3ZvSkszdDIzcUNfQlEiLCJhdWQiOiJodHRwczovL3ZlcmlmaWVyLmV4YW1wbGUiLCJpYXQiOjE2OTcyODk5OTZ9.6G-1nVcrDKFzR6BdbcFHcbtassEb8NZ7ZavTYz3SJ-e4pXleXs0tNcCkUCwMI70gsuOY0AXzeDPbHjp5GKyLDVuNWgWCt3Wo2VSaCwUkyfLyvhkCsmkF9kvFhMIOhp1i
+data:application/vp+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT09OUFFVQUw3RWdaLWtJNl94ajlvUkV2WDF4T3ciLCJ0eXAiOiJ2YytsZCtqc29uK3NkLWp3dCIsImN0eSI6InZjK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaXNzdWVyIjoiaHR0cHM6Ly91bml2ZXJzaXR5LmV4YW1wbGUvaXNzdWVycy81NjUwNDkiLCJ2YWxpZEZyb20iOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTY2hlbWEiOnsiX3NkIjpbIkU3dU1sSWFyS29iYXJTdEZGRjctZm5qaV9sQVdnM3BGMkV5dVc4dWFYakUiLCJYelRaSVgyNGdDSWxSQVFHclFoNU5FRm1XWkQtZ3Z3dkIybzB5Y0FwNFZzIl19LCJjcmVkZW50aWFsU3ViamVjdCI6eyJkZWdyZWUiOnsibmFtZSI6IkJhY2hlbG9yIG9mIFNjaWVuY2UgYW5kIEFydHMiLCJfc2QiOlsiT3oxUEZIMG0tWk9TdEhwUVZyeGlmVlpKRzhvNmlQQmNnLVZ2SXQwd2plcyJdfSwiX3NkIjpbIkVZQ1daMTZZMHB5X1VNNzRHU3NVYU9zT19mdDExTlVSaFFUTS1TT1lFTVEiXX0sIl9zZCI6WyJqT055NnZUbGNvVlAzM25oSTdERGN3ekVka3d2R3VVRXlLUjdrWEVLd3VVIiwid21BdHpwc0dRbDJveS1PY2JrSEVZcE8xb3BoX3VYcWVWVTRKekF0aFFibyJdLCJfc2RfYWxnIjoic2hhLTI1NiIsImlzcyI6Imh0dHBzOi8vdW5pdmVyc2l0eS5leGFtcGxlL2lzc3VlcnMvNTY1MDQ5IiwiaWF0IjoxNjk3Mjg5OTk2LCJleHAiOjE3Mjg5MTIzOTYsImNuZiI6eyJqd2siOnsia3R5IjoiRUMiLCJjcnYiOiJQLTM4NCIsImFsZyI6IkVTMzg0IiwieCI6InZFdV84WGxZT0ZFU2hTcVRpZ2JSYWduZ0ZGM1p5U0xrclNHekh3azFBT1loanhlazVhV21HY2UwZU05S0pWOEIiLCJ5IjoiRUpNY2czWXBzUTB3M2RLNHlVa25QczE1Z0lsY2Yyay03dzFKLTNlYlBiOERENmQtUkhBeGUwMDkzSWpfdTRCOSJ9fX0.rYzbxb6j1dwop8_s491iArVVJNm6A6C3b742gOm_qYO3zdkyQU4_VxxOSJ8ECcmWj2r5KyiCNC1ojfO4Yms-zBsjt7PoMYpYWBplsqXpiIvnehmM7D0eOLi40uHXki0X~WyJTd2xuZFpPZzZEZ1ZERFp5X0RvYVFBIiwgInR5cGUiLCAiSnNvblNjaGVtYSJd~WyIxMjNNd3hNcHRiek02YUk2aW03ME1RIiwgInR5cGUiLCAiQmFjaGVsb3JEZWdyZWUiXQ~WyJMeG5GYTBXVm8wRUluVy1QdS1fd1dRIiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyJSWTg1YTZNMmEwX3VDWlFTVGZmTFdRIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~eyJhbGciOiJFUzM4NCIsInR5cCI6ImtiK2p3dCJ9.eyJub25jZSI6IkVmeTROTFJPX3ZvSkszdDIzcUNfQlEiLCJhdWQiOiJodHRwczovL3ZlcmlmaWVyLmV4YW1wbGUiLCJpYXQiOjE2OTcyODk5OTZ9.6G-1nVcrDKFzR6BdbcFHcbtassEb8NZ7ZavTYz3SJ-e4pXleXs0tNcCkUCwMI70gsuOY0AXzeDPbHjp5GKyLDVuNWgWCt3Wo2VSaCwUkyfLyvhkCsmkF9kvFhMIOhp1i
       </pre>
     </section>
 
@@ -2443,7 +2109,7 @@ data:application/vp+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvO
         <pre class="example" title="A COSE Sign 1 Protected Header for a Verifiable Credential">
 {                                   / Protected                     /
   1: -35,                           / Algorithm                     /
-  3: application/vc+ld+json,        / Content type                  /
+  3: application/vc,        / Content type                  /
   4: h'177f12cb...1933d554',        / Key identifier                /
   15: {                             / CWT Claims                    /
     1: urn:example:123,             / Issuer                        /
@@ -2455,7 +2121,7 @@ data:application/vp+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvO
         <pre class="example" title="A COSE Sign 1 Protected Header for a Verifiable Presentation">
 {                                   / Protected                     /
   1: -35,                           / Algorithm                     /
-  3: application/vp+ld+json,        / Content type                  /
+  3: application/vp,        / Content type                  /
   4: h'177f12cb...1933d554',        / Key identifier                /
   15: {                             / CWT Claims                    /
     1: urn:example:123,             / Issuer                        /
@@ -2519,7 +2185,7 @@ data:application/vp+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvO
             <code>document</code>: a document conforming to the [[[VC-DATA-MODEL-2.0]]] [[VC-DATA-MODEL-2.0]]
         </li>
         <li>
-            <code>mediaType</code>: <code>vc+ld+json</code> or <code>vp+ld+json</code>
+            <code>mediaType</code>: <code>vc</code> or <code>vp</code>
         </li>
     </ul>
     <section>
@@ -2529,8 +2195,8 @@ data:application/vp+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvO
         </p>
         <ul>
             <li>
-                <code>inputMediaType</code>: <code>vc+ld+json+jwt</code> or
-                <code>vp+ld+json+jwt</code>
+                <code>inputMediaType</code>: <code>vc+jwt</code> or
+                <code>vp+jwt</code>
             </li>
             <li>
                 <code>inputDocument</code>: the verifiable credential secured as a JWT [[RFC7519]]
@@ -2551,7 +2217,7 @@ data:application/vp+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvO
                         Set <code>status</code> to <code>true</code>
                     </li>
                     <li>
-                        Set <code>mediaType</code> to <code>vc+ld+json</code> or <code>vp+json+ld</code>
+                        Set <code>mediaType</code> to <code>vc</code> or <code>vp</code>
                     </li>
                     <li>
                         Set <code>document</code> to the decoded JWS payload.
@@ -2587,7 +2253,7 @@ data:application/vp+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvO
         </p>
         <ul>
             <li>
-                <code>inputMediaType</code>: <code>vc+ld+json+sd-jwt</code>
+                <code>inputMediaType</code>: <code>vc+sd-jwt</code>
             </li>
             <li>
                 <code>inputDocument</code>: the verifiable credential secured with [[SD-JWT]]
@@ -2609,7 +2275,7 @@ data:application/vp+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvO
                         Set <code>status</code> to <code>true</code>
                     </li>
                     <li>
-                        Set <code>mediaType</code> to <code>vc+ld+json</code>
+                        Set <code>mediaType</code> to <code>vc</code>
                     </li>
                     <li>
                         Convert the SD-JWT payload back into the JSON claim set by reversing the process
@@ -2648,8 +2314,8 @@ data:application/vp+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvO
         </p>
         <ul>
             <li>
-                <code>inputMediaType</code>: <code>vc+ld+json+cose</code> or
-                <code>vp+ld+json+cose</code>
+                <code>inputMediaType</code>: <code>vc+cose</code> or
+                <code>vp+cose</code>
             </li>
             <li>
                 <code>inputDocument</code>: the verifiable credential or verifiable presentation
@@ -2672,7 +2338,7 @@ data:application/vp+ld+json+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvO
                         Set <code>status</code> to <code>true</code>
                     </li>
                     <li>
-                        Set <code>mediaType</code> to <code>vc+ld+json</code> or <code>vp+ld+json</code>
+                        Set <code>mediaType</code> to <code>vc</code> or <code>vp</code>
                     </li>
                     <li>
                         Set <code>document</code> to the decoded COSE_Sign1 payload.
