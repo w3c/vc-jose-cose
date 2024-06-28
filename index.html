@@ -1527,7 +1527,7 @@
                 identifying a <a data-cite="JWT"></a>
                 with a payload
                 conforming to the <a data-cite="VC-DATA-MODEL-2.0#verifiable-presentations">
-                Verifiable Presentation Data Model</a>.
+                Verifiable Presentations definition in the Verifiable Credential Data Model</a>.
             </p>
             <table>
                 <tr>
@@ -1621,7 +1621,7 @@
                 identifying a <a data-cite="SD-JWT"></a>
                 with a payload
                 conforming to the <a data-cite="VC-DATA-MODEL-2.0#verifiable-presentations">
-                Verifiable Presentation Data Model</a>.
+                Verifiable Presentations definition in the Verifiable Credential Data Model</a>.
             </p>
             <table>
                 <tr>
@@ -1714,7 +1714,7 @@
                 identifying a COSE object [[RFC9052]]
                 with a payload
                 conforming to the <a data-cite="VC-DATA-MODEL-2.0#verifiable-presentations">
-                Verifiable Presentation Data Model</a>.
+                Verifiable Presentations definition in the Verifiable Credential Data Model</a>.
             </p>
             <table>
                 <tr>
@@ -2139,17 +2139,6 @@ data:application/vp-ld+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT0
       h'a4013822...3a343536',       / Protected Header              /
       {}                            / Unprotected Header            /
       h'0fbe22a0...3a009118',       / Attached payload              /
-      h'09772c7f...5c4e736f'        / Signature                     /
-    ]
-)
-      </pre>
-
-        <pre class="example" title="A COSE Sign 1 with a detached payload">
-18(                                 / COSE Sign 1                   /
-    [
-      h'a4013822...3a343536',       / Protected Header              /
-      {}                            / Unprotected Header            /
-      nil,                          / Detached payload              /
       h'09772c7f...5c4e736f'        / Signature                     /
     ]
 )
