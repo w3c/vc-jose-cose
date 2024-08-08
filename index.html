@@ -5,7 +5,7 @@
     <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
     <title>Securing Verifiable Credentials using JOSE and COSE</title>
     <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove"></script>
-    <script class="remove" src="https://cdn.jsdelivr.net/gh/digitalbazaar/respec-vc@3.3.2/dist/main.js"></script>
+    <script class="remove" src="https://cdn.jsdelivr.net/gh/w3c/respec-vc@3.3.3/dist/main.js"></script>
     <script class="remove">
         // See https://github.com/w3c/respec/wiki/ for how to configure
         // ReSpec
@@ -318,10 +318,16 @@
                 that use this media type.
             </p>
             <p>
-                Credentials in verifiable presentations MUST use the <a
-                    data-cite="VC-DATA-MODEL-2.0/#defn-EnvelopedVerifiableCredential">Enveloped Verifiable
-                Credential</a>
-                type defined by the [[VC-DATA-MODEL-2.0]].
+                Verifiable Credentials secured in <a data-cite="VC-DATA-MODEL-2.0/#verifiable-presentations">
+                verifiable presentations</a> MUST use the <a 
+                data-cite="VC-DATA-MODEL-2.0/#defn-EnvelopedVerifiableCredential">Enveloped Verifiable
+                Credential</a> type defined by the [[VC-DATA-MODEL-2.0]].
+            </p>
+            <p>
+                Verifiable Presentations in <a data-cite="VC-DATA-MODEL-2.0/#verifiable-presentations">
+                verifiable presentations</a> MUST use the <a
+                    data-cite="VC-DATA-MODEL-2.0/#defn-EnvelopedVerifiablePresentation">Enveloped Verifiable
+                Presentation</a> type defined by the [[VC-DATA-MODEL-2.0]].
             </p>
             <p>
                 Credentials in verifiable presentations MUST be secured.
@@ -329,7 +335,7 @@
             <p>
 
             <pre class="example nohighlight vc" data-vc-tabs="jose"
-                 title="A simple example of a verifiable presentation secured with JOSE">
+                 title="A simple example of a verifiable presentation secured with JOSE with the EnvelopedVerifiableCredential type">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
@@ -344,7 +350,23 @@
 }
       </pre>
             <p>
-                See <a data-cite="VC-DATA-MODEL-2.0#example-a-simple-example-of-a-verifiable-presentation"></a> for more
+                See <a data-cite="VC-DATA-MODEL-2.0#enveloped-verifiable-credentials"></a> for more
+                details regarding this example.
+            </p>
+
+             <pre class="example nohighlight vc" data-vc-tabs="jose"
+                 title="A simple example of a verifiable presentation secured with JOSE with the EnvelopedVerifiablePresentation type">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "type": "EnvelopedVerifiablePresentation",  
+  "id": "data:application/vp-ld+jwt;eyJraWQiOiJFeEhrQk1XOWZtYmt2VjI2Nm1ScHVQMnNVWV9OX0VXSU4xbGFwVXpPOHJvIiwiYWxnIjoiRVMzODQifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwiaWQiOiJodHRwOi8vdW5pdmVyc2l0eS5leGFtcGxlL2NyZWRlbnRpYWxzLzE4NzIiLCJ0eXBlIjpbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwiRXhhbXBsZUFsdW1uaUNyZWRlbnRpYWwiXSwiaXNzdWVyIjoiaHR0cHM6Ly91bml2ZXJzaXR5LmV4YW1wbGUvaXNzdWVycy81NjUwNDkiLCJ2YWxpZEZyb20iOiIyMDEwLTAxLTAxVDE5OjIzOjI0WiIsImNyZWRlbnRpYWxTY2hlbWEiOnsiaWQiOiJodHRwczovL2V4YW1wbGUub3JnL2V4YW1wbGVzL2RlZ3JlZS5qc29uIiwidHlwZSI6Ikpzb25TY2hlbWEifSwiY3JlZGVudGlhbFN1YmplY3QiOnsiaWQiOiJkaWQ6ZXhhbXBsZToxMjMiLCJkZWdyZWUiOnsidHlwZSI6IkJhY2hlbG9yRGVncmVlIiwibmFtZSI6IkJhY2hlbG9yIG9mIFNjaWVuY2UgYW5kIEFydHMifX19.d2k4O3FytQJf83kLh-HsXuPvh6yeOlhJELVo5TF71gu7elslQyOf2ZItAXrtbXF4Kz9WivNdztOayz4VUQ0Mwa8yCDZkP9B2pH-9S_tcAFxeoeJ6Z4XnFuL_DOfkR1fP"
+}
+      </pre>
+            <p>
+                See <a data-cite="VC-DATA-MODEL-2.0#enveloped-verifiable-presentations"></a> for more
                 details regarding this example.
             </p>
 
@@ -504,17 +526,23 @@
                 documents=] that use this media type.
             </p>
             <p>
-                Credentials in verifiable presentations MUST use the <a
-                    data-cite="VC-DATA-MODEL-2.0/#defn-EnvelopedVerifiableCredential">Enveloped Verifiable
-                Credential</a>
-                type defined by the [[VC-DATA-MODEL-2.0]].
+                Verifiable Credentials secured in <a data-cite="VC-DATA-MODEL-2.0/#verifiable-presentations">
+                verifiable presentations</a> MUST use the <a 
+                data-cite="VC-DATA-MODEL-2.0/#defn-EnvelopedVerifiableCredential">Enveloped Verifiable
+                Credential</a> type defined by the [[VC-DATA-MODEL-2.0]].
+            </p>
+            <p>
+                Verifiable Presentations in <a data-cite="VC-DATA-MODEL-2.0/#verifiable-presentations">
+                verifiable presentations</a> MUST use the <a
+                    data-cite="VC-DATA-MODEL-2.0/#defn-EnvelopedVerifiablePresentation">Enveloped Verifiable
+                Presentation</a> type defined by the [[VC-DATA-MODEL-2.0]].
             </p>
             <p>
                 Credentials in verifiable presentations MUST be secured.
                 These credentials are secured using SD-JWT in this case.
             <p>
             <pre class="example nohighlight vc" data-vc-tabs="sd-jwt"
-                 title="A simple example of a verifiable presentation secured with SD-JWT">
+                 title="A simple example of a verifiable presentation secured with SD-JWT using the EnvelopedVerifiableCredential type">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
@@ -529,7 +557,23 @@
 }
       </pre>
             <p>
-                See <a data-cite="VC-DATA-MODEL-2.0#example-a-simple-example-of-a-verifiable-presentation"></a> for more
+                See <a data-cite="VC-DATA-MODEL-2.0#enveloped-verifiable-credentials"></a> for more
+                details regarding this example.
+            </p>
+
+            <pre class="example nohighlight vc" data-vc-tabs="sd-jwt"
+                 title="A simple example of a verifiable presentation secured with SD-JWT using the EnvelopedVerifiablePresentation type">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "type": "EnvelopedVerifiablePresentation",
+  "id": "data:application/vp-ld+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlVRTV9fblE0UzZCTzhuUTRuT05YeHB4aHRob3lOeGI1M0xZZ1l6LTJBQnMiLCJ0eXAiOiJ2cCtsZCtqc29uK3NkLWp3dCIsImN0eSI6InZwK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwidmVyaWZpYWJsZUNyZWRlbnRpYWwiOlt7IkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy9leGFtcGxlcy92MiJdLCJpc3N1ZXIiOiJodHRwczovL3VuaXZlcnNpdHkuZXhhbXBsZS9pc3N1ZXJzLzU2NTA0OSIsInZhbGlkRnJvbSI6IjIwMTAtMDEtMDFUMTk6MjM6MjRaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiYWx1bW5pT2YiOnsibmFtZSI6IkV4YW1wbGUgVW5pdmVyc2l0eSIsIl9zZCI6WyJoek9LRzU2cDI5c1ByTGFDNUE4RndFdUczVU05dUlZU1p1cU9YczJlVGJBIl19LCJfc2QiOlsiWVdXVmVDRndxQmk4WDBqSF9jV0NWWU16STNhOHBjTEVYRWZicFNSQVlndyJdfSwiX3NkIjpbIjJJZjhhaUs4REZwVWJ4dEc1cGMwel9SaFJzbm1ybGFRMEhzcTk4WFNyYWsiLCJUeDZ4ZWZMVUdUZUpfYWtVUFdGeHNvbUhobGtWVnpfNzVoaVZ6eWpyYmVzIl19XSwiX3NkIjpbIjd2anl0VVN3ZEJ0MXQ5RktlOVFfS3JIRXhFWGxrTEFaTzBKM0Jpd200dlkiXSwiX3NkX2FsZyI6InNoYS0yNTYiLCJpYXQiOjE3MDY1NjI4NDksImV4cCI6MTczODE4NTI0OSwiY25mIjp7Imp3ayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0IiwiYWxnIjoiRVMzODQiLCJ4IjoidWtEd1U2ZzlQUVRFUWhYaEgyckRZNndMQlg3UHFlUjZBcGlhVHBEUXowcl8tdDl6UXNxem54Z0hEcE5oekZlQyIsInkiOiJMQnhVYnBVdFNGMVVKVTVpYnJIdkpINjBUSG5YMk1xa0xHZGltU1l0UGR4RlkxOEdhcldiS3FZV0djUkZHVE9BIn19fQ.kYD63YtBNYnLUTw6Szf1vs_Ug3UBXhPwCyqpNmPnPDa3rXZQhQLdB1BgaoO8zgQ-c3B41fxaXMnLHYV9-B20uboSpJP0B-2Vre917eQt1cSDswDGA_Ytvn4BSqYVBB2J~WyJFMkFsRzhsY2p0QVFrcllIbjlIbnVRIiwgInR5cGUiLCAiVmVyaWZpYWJsZVByZXNlbnRhdGlvbiJd~WyI5NldYMDRneno4cVZzOVZLU2wwYTVnIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~WyJaekU2VFVaamtHMW1DWXBKMEhnc0l3IiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyItQ3NsS25GZGFYb2JiQWsyU0JBVGR3IiwgImlkIiwgImRpZDpleGFtcGxlOmViZmViMWY3MTJlYmM2ZjFjMjc2ZTEyZWMyMSJd~WyJuRm1OWl9IczB3WWNoOFdkeTdnQUNRIiwgImlkIiwgImRpZDpleGFtcGxlOmMyNzZlMTJlYzIxZWJmZWIxZjcxMmViYzZmMSJd"
+}
+      </pre>
+            <p>
+                See <a data-cite="VC-DATA-MODEL-2.0#enveloped-verifiable-presentations"></a> for more
                 details regarding this example.
             </p>
 
@@ -626,17 +670,23 @@
                 [=conforming COSE documents=] that use this media type.
             </p>
             <p>
-                Credentials in verifiable presentations MUST use the <a
-                    data-cite="VC-DATA-MODEL-2.0/#defn-EnvelopedVerifiableCredential">Enveloped Verifiable
-                Credential</a>
-                type defined by the [[VC-DATA-MODEL-2.0]].
+                Verifiable Credentials secured in <a data-cite="VC-DATA-MODEL-2.0/#verifiable-presentations">
+                verifiable presentations</a> MUST use the <a 
+                data-cite="VC-DATA-MODEL-2.0/#defn-EnvelopedVerifiableCredential">Enveloped Verifiable
+                Credential</a> type defined by the [[VC-DATA-MODEL-2.0]].
+            </p>
+            <p>
+                Verifiable Presentations in <a data-cite="VC-DATA-MODEL-2.0/#verifiable-presentations">
+                verifiable presentations</a> MUST use the <a
+                    data-cite="VC-DATA-MODEL-2.0/#defn-EnvelopedVerifiablePresentation">Enveloped Verifiable
+                Presentation</a> type defined by the [[VC-DATA-MODEL-2.0]].
             </p>
             <p>
                 Credentials in verifiable presentations MUST be secured.
                 These credentials are secured using COSE in this case.
             <p>
             <pre class="example nohighlight vc" data-vc-tabs="cose"
-                 title="A simple example of a verifiable presentation secured with COSE">
+                 title="A simple example of a verifiable presentation secured with COSE using the EnvelopedVerifiableCredential type">
 {
   "@context": [
     "https://www.w3.org/ns/credentials/v2",
@@ -651,9 +701,25 @@
 }
       </pre>
             <p>
-                See <a data-cite="VC-DATA-MODEL-2.0#example-a-simple-example-of-a-verifiable-presentation"></a> for more
+                See <a data-cite="VC-DATA-MODEL-2.0#enveloped-verifiable-credentials"></a> for more
                 details regarding this example.
             </p>
+
+            <pre class="example nohighlight vc" data-vc-tabs="cose"
+                 title="A simple example of a verifiable presentation secured with COSE using the EnvelopedVerifiablePresentation type">
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://www.w3.org/ns/credentials/examples/v2"
+  ],
+  "type": "EnvelopedVerifiablePresentation",
+  "id": "data:application/vp-ld+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlVRTV9fblE0UzZCTzhuUTRuT05YeHB4aHRob3lOeGI1M0xZZ1l6LTJBQnMiLCJ0eXAiOiJ2cCtsZCtqc29uK3NkLWp3dCIsImN0eSI6InZwK2xkK2pzb24ifQ.eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvdjIiLCJodHRwczovL3d3dy53My5vcmcvbnMvY3JlZGVudGlhbHMvZXhhbXBsZXMvdjIiXSwidmVyaWZpYWJsZUNyZWRlbnRpYWwiOlt7IkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy92MiIsImh0dHBzOi8vd3d3LnczLm9yZy9ucy9jcmVkZW50aWFscy9leGFtcGxlcy92MiJdLCJpc3N1ZXIiOiJodHRwczovL3VuaXZlcnNpdHkuZXhhbXBsZS9pc3N1ZXJzLzU2NTA0OSIsInZhbGlkRnJvbSI6IjIwMTAtMDEtMDFUMTk6MjM6MjRaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiYWx1bW5pT2YiOnsibmFtZSI6IkV4YW1wbGUgVW5pdmVyc2l0eSIsIl9zZCI6WyJoek9LRzU2cDI5c1ByTGFDNUE4RndFdUczVU05dUlZU1p1cU9YczJlVGJBIl19LCJfc2QiOlsiWVdXVmVDRndxQmk4WDBqSF9jV0NWWU16STNhOHBjTEVYRWZicFNSQVlndyJdfSwiX3NkIjpbIjJJZjhhaUs4REZwVWJ4dEc1cGMwel9SaFJzbm1ybGFRMEhzcTk4WFNyYWsiLCJUeDZ4ZWZMVUdUZUpfYWtVUFdGeHNvbUhobGtWVnpfNzVoaVZ6eWpyYmVzIl19XSwiX3NkIjpbIjd2anl0VVN3ZEJ0MXQ5RktlOVFfS3JIRXhFWGxrTEFaTzBKM0Jpd200dlkiXSwiX3NkX2FsZyI6InNoYS0yNTYiLCJpYXQiOjE3MDY1NjI4NDksImV4cCI6MTczODE4NTI0OSwiY25mIjp7Imp3ayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0IiwiYWxnIjoiRVMzODQiLCJ4IjoidWtEd1U2ZzlQUVRFUWhYaEgyckRZNndMQlg3UHFlUjZBcGlhVHBEUXowcl8tdDl6UXNxem54Z0hEcE5oekZlQyIsInkiOiJMQnhVYnBVdFNGMVVKVTVpYnJIdkpINjBUSG5YMk1xa0xHZGltU1l0UGR4RlkxOEdhcldiS3FZV0djUkZHVE9BIn19fQ.kYD63YtBNYnLUTw6Szf1vs_Ug3UBXhPwCyqpNmPnPDa3rXZQhQLdB1BgaoO8zgQ-c3B41fxaXMnLHYV9-B20uboSpJP0B-2Vre917eQt1cSDswDGA_Ytvn4BSqYVBB2J~WyJFMkFsRzhsY2p0QVFrcllIbjlIbnVRIiwgInR5cGUiLCAiVmVyaWZpYWJsZVByZXNlbnRhdGlvbiJd~WyI5NldYMDRneno4cVZzOVZLU2wwYTVnIiwgImlkIiwgImh0dHA6Ly91bml2ZXJzaXR5LmV4YW1wbGUvY3JlZGVudGlhbHMvMTg3MiJd~WyJaekU2VFVaamtHMW1DWXBKMEhnc0l3IiwgInR5cGUiLCBbIlZlcmlmaWFibGVDcmVkZW50aWFsIiwgIkV4YW1wbGVBbHVtbmlDcmVkZW50aWFsIl1d~WyItQ3NsS25GZGFYb2JiQWsyU0JBVGR3IiwgImlkIiwgImRpZDpleGFtcGxlOmViZmViMWY3MTJlYmM2ZjFjMjc2ZTEyZWMyMSJd~WyJuRm1OWl9IczB3WWNoOFdkeTdnQUNRIiwgImlkIiwgImRpZDpleGFtcGxlOmMyNzZlMTJlYzIxZWJmZWIxZjcxMmViYzZmMSJd"
+}
+      </pre>
+            <p>
+                See <a data-cite="VC-DATA-MODEL-2.0#enveloped-verifiable-presentations"></a> for more
+                details regarding this example.
+            </p>            
         </section>
         <section class="normative">
             <h2 id="cose-header-param-cwt-claims">COSE Header Parameters and CWT Claims</h2>
@@ -2111,7 +2177,7 @@ data:application/vp-ld+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT0
         <pre class="example" title="A COSE Sign 1 Protected Header for a Verifiable Credential">
 {                                   / Protected                     /
   1: -35,                           / Algorithm                     /
-  3: application/vc,        / Content type                  /
+  3: application/vc,                / Content type                  /
   4: h'177f12cb...1933d554',        / Key identifier                /
   15: {                             / CWT Claims                    /
     1: urn:example:123,             / Issuer                        /
@@ -2123,7 +2189,7 @@ data:application/vp-ld+sd-jwt;eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT0
         <pre class="example" title="A COSE Sign 1 Protected Header for a Verifiable Presentation">
 {                                   / Protected                     /
   1: -35,                           / Algorithm                     /
-  3: application/vp,        / Content type                  /
+  3: application/vp,                / Content type                  /
   4: h'177f12cb...1933d554',        / Key identifier                /
   15: {                             / CWT Claims                    /
     1: urn:example:123,             / Issuer                        /
