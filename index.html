@@ -412,12 +412,16 @@
                 <code>exp</code>, and <code>cnf</code>.
             </p>
             <p>
-                When the <code>iat</code> and/or <code>exp</code> JWT claims are present, they
+                When the <code>iat</code> (Issued At) and/or
+		<code>exp</code> (Expiration Time) JWT claims are present, they
                 represent the issuance and expiration time of the signature, respectively. Note
                 that these are different from the <code>validFrom</code> and
                 <code>validUntil</code> properties defined in
                 <a data-cite="VC-DATA-MODEL-2.0#validity-period">Validity Period</a>, which
                 represent the validity of the data that is being secured.
+		Use of the <code>nbf</code> (Not Before) claim is NOT RECOMMENDED,
+		as it makes little sense to attempt to future-date or post-date
+		a signature.
             </p>
             <p>
                 The claims and security provided by this specification are independent of the
@@ -768,12 +772,16 @@
                 <code>exp</code>, and <code>cnf</code>.
             </p>
             <p>
-                When the <code>iat</code> and/or <code>exp</code> CWT claims are present, they
+                When the <code>iat</code> (Issued At) and/or
+		<code>exp</code> (Expiration Time) CWT claims are present, they
                 represent the issuance and expiration time of the signature, respectively. Note
                 that these are different from the <code>validFrom</code> and
                 <code>validUntil</code> properties defined in
                 <a data-cite="VC-DATA-MODEL-2.0#validity-period">Validity Period</a>, which
                 represent the validity of the data that is being secured.
+		Use of the <code>nbf</code> (Not Before) claim is NOT RECOMMENDED,
+		as it makes little sense to attempt to future-date or post-date
+		a signature.
             </p>
             <p>
                 Additional members may be present as header parameters and claims. If they are
