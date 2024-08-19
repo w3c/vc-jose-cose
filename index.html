@@ -250,7 +250,8 @@
             </p>
             <p>
                 A [=conforming JWS issuer implementation=] MUST use [[RFC7515]] to secure this media type.
-                The unsecured verifiable credential is the unencoded JWS payload.
+                The unsecured [=verifiable credential=] is the unencoded JWS payload.
+		A detached payload MAY be used, as described in Appendix F of [[RFC7515]].
             </p>
             <p>
                 The <code>typ</code> header parameter SHOULD be <code>vc-ld+jwt</code>.
@@ -304,7 +305,8 @@
             </p>
             <p>
                 A [=conforming JWS issuer implementation=] MUST use [[RFC7515]] to secure this media type.
-                The unsecured verifiable presentation is the unencoded JWS payload.
+                The unsecured [=verifiable presentation=] is the unencoded JWS payload.
+		A detached payload MAY be used, as described in Appendix F of [[RFC7515]].
             </p>
             <p>
                 The <code>typ</code> header parameter SHOULD be <code>vp-ld+jwt</code>.
@@ -453,10 +455,11 @@
             </p>
             <p>
                 A [=conforming SD-JWT issuer implementation=] MUST use [[[SD-JWT]]] [[SD-JWT]] to secure
-                this media type. The unsecured [=verifiable credential=] is the input JSON
-                claim set. The Issuer then converts the input JSON claim set (i.e., the
+                this media type. The unsecured [=verifiable credential=] is the input
+                JWT Claims Set. The Issuer then converts the input JWT Claims Set (i.e., the
                 unsecured [=verifiable credential=]) into an SD-JWT payload according to
                 <a data-cite="SD-JWT#section-6.1">SD-JWT issuance instructions</a>.
+		A detached payload MAY be used, as described in Appendix F of [[RFC7515]].
             </p>
             <p>
                 The <code>typ</code> header parameter SHOULD be <code>vc-ld+sd-jwt</code>.
@@ -519,7 +522,8 @@
             </p>
             <p>
                 A [=conforming SD-JWT issuer implementation=] MUST use [[SD-JWT]] to secure this media type.
-                The unsecured verifiable presentation is the unencoded SD-JWT payload.
+                The unsecured [=verifiable presentation=] is the unencoded SD-JWT payload.
+		A detached payload MAY be used, as described in Appendix F of [[RFC7515]].
             </p>
             <p>
                 The <code>typ</code> header parameter SHOULD be <code>vp-ld+sd-jwt</code>.
@@ -618,7 +622,8 @@
             <p>
                 A [=conforming COSE issuer implementation=] MUST use COSE_Sign1 as specified in [[RFC9052]] to secure
                 this media type.
-                The unsecured verifiable credential is the unencoded COSE_Sign1 payload.
+                The unsecured [=verifiable credential=] is the unencoded COSE_Sign1 payload.
+		A detached payload MAY be used, as described in Section 4.1 of [[RFC9052]].
             </p>
             <p>
                 The <code>typ</code> header parameter, as described in <a data-cite="RFC9596#section-2">COSE "typ" (type) Header Parameter</a>, SHOULD be <code>application/vc-ld+cose</code>.
@@ -672,7 +677,8 @@
             <p>
                 A [=conforming COSE issuer implementation=] MUST use COSE_Sign1 as specified in [[RFC9052]] to secure
                 this media type.
-                The unsecured verifiable presentation is the unencoded COSE_Sign1 payload.
+                The unsecured [=verifiable presentation=] is the unencoded COSE_Sign1 payload.
+		A detached payload MAY be used, as described in Section 4.1 of [[RFC9052]].
             </p>
             <p>
                 The <code>typ</code> header parameter SHOULD be <code>application/vp-ld+cose</code>.
@@ -2349,9 +2355,9 @@ data:application/vp-ld+sd-jwt,eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT0
                         Set <code>mediaType</code> to <code>vc</code>
                     </li>
                     <li>
-                        Convert the SD-JWT payload back into the JSON claim set by reversing the process
-                        in [[[SD-JWT]]] [[SD-JWT]]. Set <code>document</code> to the JSON claim set.
-                        (For examples of the transition from JSON claim set to SD-JWT payload, please
+                        Convert the SD-JWT payload back into the JWT Claims Set by reversing the process
+                        in [[[SD-JWT]]] [[SD-JWT]]. Set <code>document</code> to the JWT Claims Set.
+                        (For examples of the transition from JWT Claims Set to SD-JWT payload, please
                         see <a data-cite="SD-JWT#appendix-A">SD-JWT examples</a>).
                     </li>
                     <li>
