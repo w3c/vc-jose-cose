@@ -108,19 +108,19 @@
                     status: "Internet-Draft",
                     publisher: "IETF"
                 },
-                "MULTIPLE-SUFFIXES": {
-                    title: "Media Types with Multiple Suffixes",
-                    href: "https://datatracker.ietf.org/doc/draft-ietf-mediaman-suffixes/",
-                    authors: ["Manu Sporny", "Amy Guy"],
-                    status: "Internet-Draft",
-                    publisher: "IETF"
-                },
                 "JOSE-REGISTRIES": {
                     title: "The JSON Object Signing and Encryption (JOSE) Registries",
                     href: "https://www.iana.org/assignments/jose",
                     authors: ["The Internet Assigned Numbers Authority"],
                     status: "REC",
                     publisher: "The Internet Assigned Numbers Authority"
+                },
+                "SP-800-122": {
+                    title: "Guide to Protecting the Confidentiality of Personally Identifiable Information (PII)",
+                    href: "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-122.pdf",
+                    authors: ["Erika McCallister", "Tim Grance", "Karen Scarfone"],
+                    status: "Special Publication 800-122",
+                    publisher: "NIST"
                 },
             }
         };
@@ -162,7 +162,7 @@
         This includes JSON Web Signature (JWS) [[RFC7515]],
         Selective Disclosure for JWTs [[SD-JWT]],
         and CBOR Object Signing and Encryption (COSE) [[RFC9052]].
-        It uses content types [[RFC6838]] and structured suffixes [[MULTIPLE-SUFFIXES]]
+        It uses content types [[RFC6838]]
         to distinguish between the data types of unsecured documents
         conforming to [[VC-DATA-MODEL-2.0]]
         and the data types of secured documents conforming to [[VC-DATA-MODEL-2.0]].
@@ -1852,7 +1852,10 @@
             Implementers are additionally advised to reference the
             <a href="https://www.rfc-editor.org/rfc/rfc7519#section-12">Privacy
                 Consideration</a>
-            section of the JWT specification for privacy guidance.
+            section of the JWT specification
+	    and NIST Special Publication 800-122 [[SP-800-122]
+	    "Guide to Protecting the Confidentiality of Personally Identifiable Information (PII)"
+	    for privacy guidance.
         </p>
         <p>
             In addition to the privacy recommendations in the
