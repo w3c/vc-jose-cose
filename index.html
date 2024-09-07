@@ -82,15 +82,15 @@
             inlineCSS: true,
             postProcess: [window.respecVc.createVcExamples],
             license: "w3c-software-doc",
-            xref: true,
+            xref: ["INFRA", "VC-DATA-MODEL-2.0", "CONTROLLER-DOCUMENT"],
             otherLinks: [{
                 key: "Related Documents",
                 data: [{
-                    value: "VC Data Model",
+                    value: "Verifiable Credentials Data Model v2.0",
                     href: "https://www.w3.org/TR/vc-data-model-2.0/"
                 }, {
-                    value: "DID Core",
-                    href: "https://www.w3.org/TR/did-core/"
+                    value: "Controller Documents 1.0",
+                    href: "https://www.w3.org/TR/controller-document/"
                 }]
             }],
             localBiblio: {
@@ -845,9 +845,6 @@
 
 <section id="key_discovery" class="normative">
     <h2 id="key-discovery">Key Discovery</h2>
-    <p class="issue" data-number="160">
-        The working group is still discussing how to close many related issues.
-    </p>
 
     <!-- DID URLS via "issuer" and "holder" -->
     <p>
@@ -1022,14 +1019,6 @@
 
     <section>
         <h2 id="well-known-uris">Well-Known URIs</h2>
-        <p class="issue" data-number="160">
-            The working group is currently exploring how
-            <a data-cite="RFC5785#section-3">Defining Well-Known Uniform Resource Identifiers (URIs)</a>
-            could be leveraged to assist a <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">verifier</a> in discovering
-            verification keys for
-            <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">issuers</a>
-            and <a data-cite="VC-DATA-MODEL-2.0#dfn-holders">holders</a>.
-        </p>
 
         <section>
             <h2 id="jwt-issuer">JWT Issuer</h2>
@@ -1046,115 +1035,16 @@
             </p>
         </section>
     </section>
+
     <section>
-        <h3 id="controller-documents">Controller Documents</h3>
-        <p>
-            A <a>controller document</a> is a set of data that specifies one or more
-            relationships between a <a>controller</a> and a set of data, such as a set of
-            public cryptographic keys. The <a>controller document</a> SHOULD
-            contain <a>verification relationships</a> that explicitly permit the use of
-            certain <a>verification methods</a> for specific purposes.
+        <h3 id="using-controller-documents">Using Controller Documents</h3>
+	<p>
+	  When using [=controller documents=] with this specification,
+	  the following requirements apply.
+	</p>
+	<p>
+	  The value of the `type` property of the verification method MUST be <code>JsonWebKey</code>.
         </p>
-
-
-        <section>
-            <h2 id="verification-methods">Verification Methods</h2>
-            <p>
-                A <a>controller document</a> can express <a>verification methods</a>, such as
-                cryptographic <a>public keys</a>, which can be used to <a>authenticate</a> or
-                authorize interactions with the <a>controller</a> or associated parties. For
-                example, a cryptographic <a>public key</a> can be used as a <a>verification
-                method</a> with respect to a digital signature; in such usage, it verifies that
-                the signer could use the associated cryptographic private key. <a>Verification
-                methods</a> might take many parameters. An example of this is a set of five
-                cryptographic keys from which any three are required to contribute to a
-                cryptographic threshold signature.
-            </p>
-
-            <dl>
-                <dt><dfn class="lint-ignore">verificationMethod</dfn></dt>
-                <dd>
-                    <p>
-                        The `verificationMethod` property is OPTIONAL. If present, its value
-                        MUST be a <a data-cite="INFRA#ordered-set">set</a> of <a>verification
-                        methods</a>, where each <a>verification method</a> is expressed using a <a
-                            data-cite="INFRA#ordered-map">map</a>. The <a>verification method</a> <a
-                            data-cite="INFRA#ordered-map">map</a> MUST include the `id`,
-                        `type`, `controller`, and specific verification material
-                        properties that are determined by the value of `type` and are defined
-                        in <a href="#verification-material"></a>. A <a>verification method</a> MAY
-                        include additional properties.
-                    </p>
-
-                    <dl>
-                        <dt>id</dt>
-                        <dd>
-                            <p>
-                                The value of the `id` property for a <a>verification
-                                method</a> MUST be a <a data-cite="INFRA#string">string</a> that
-                                conforms to the [[URL]] syntax.
-                            </p>
-                        </dd>
-                        <dt>type</dt>
-                        <dd>
-                            The value of the `type` property MUST be a <a
-                                data-cite="INFRA#string">string</a> that references exactly one <a>verification
-                            method</a> type. To maximize interoperability, the
-                            <a>verification method</a> type SHOULD be `JsonWebKey`.
-                        </dd>
-                        <dt><span id="defn-controller">controller</span></dt>
-                        <dd>
-                            The value of the `controller` property MUST be a <a
-                                data-cite="INFRA#string">string</a> that conforms to the [[URL]] syntax.
-                        </dd>
-                        <dt><dfn class="lint-ignore">revoked</dfn></dt>
-                        <dd>
-                            The `revoked` property is OPTIONAL. If present, its value MUST be an [[XMLSCHEMA11-2]]
-                            combined date and time string specifying when the <a>verification method</a>
-                            SHOULD cease to be used. Once the value is set, it is not expected to be updated, and
-                            systems depending on the value are expected to not verify any proofs associated
-                            with the <a>verification method</a> at or after the time of revocation.
-                        </dd>
-                    </dl>
-                </dd>
-            </dl>
-
-            <pre class="example nohighlight"
-                 title="Example verification method structure">
-    {
-      "@context": [
-        "https://www.w3.org/ns/did/v1",
-        "https://www.w3.org/ns/credentials/v2",
-        "https://w3id.org/security/jwk/v1"
-      ]
-      "id": "did:example:123456789abcdefghi",
-      <span class="comment">...</span>
-      "verificationMethod": [{
-        "id": <span class="comment">...</span>,
-        "type": <span class="comment">...</span>,
-        "controller": <span class="comment">...</span>,
-        "publicKeyJwk": <span class="comment">...</span>
-      }]
-    }
-          </pre>
-
-            <p class="note"
-               title="Verification method controller(s) and controller(s)">
-                The semantics of the `controller` property are the same when the
-                subject of the relationship is the <a>controller document</a> as when the subject of
-                the relationship is a <a>verification method</a>, such as a cryptographic public
-                key. Since a key can't control itself, and the key controller cannot be inferred
-                from the <a>controller document</a>, it is necessary to explicitly express the identity
-                of the controller of the key. The difference is that the value of
-                `controller` for a <a>verification method</a> is <em>not</em>
-                necessarily a <a>controller</a>. <a>Controllers</a> are expressed
-                using the `<a>controller</a>` property at the highest level of the
-                <a>controller document</a>.
-            </p>
-
-            <section>
-                <h3 id="verification-material">Verification Material</h3>
-
                 <p>
                     Verification material MUST be expressed in the <code>publicKeyJwk</code> property
                     of a <code>JsonWebKey</code>. This key material is retrieved based on hints in the
@@ -1162,348 +1052,6 @@
                     the time of writing, there is no standard way to retrieve a public key in JWK format
                     from a DID URL or controller document.
                 </p>
-
-                <p>
-                    A <a>verification method</a> MUST NOT contain multiple verification material
-                    properties for the same material. For example, expressing key material in a
-                    <a>verification method</a> using both `publicKeyJwk` and
-                    another representation is prohibited.
-                </p>
-
-                <p>
-                    Implementations MAY convert keys between formats as desired for operational purposes or
-                    to interface with cryptographic libraries. As an internal implementation detail, such
-                    conversion MUST NOT affect the external representation of key material.
-                </p>
-
-                <p>
-                    An example of a <a>controller document</a> containing <a>verification
-                    methods</a> using both properties above is shown below.
-                </p>
-
-                <pre id="example-various-verification-method-types"
-                     class="example nohighlight"
-                     title="Verification method using publicKeyJwk">
-    {
-      "@context": [
-        "https://www.w3.org/ns/did/v1",
-        "https://www.w3.org/ns/credentials/v2",
-        "https://w3id.org/security/jwk/v1"
-      ]
-      "id": "did:example:123456789abcdefghi",
-      <span class="comment">...</span>
-      "verificationMethod": [
-        {
-          "id": "did:example:123#_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A",
-          "type": "JsonWebKey", <span class="comment">// external (property value)</span>
-          "controller": "did:example:123",
-          "publicKeyJwk": {
-            "crv": "Ed25519", <span class="comment">// external (property name)</span>
-            "x": "VCpo2LMLhn6iWku8MKvSLg2ZAoC-nlOyPVQaO3FxVeQ", <span class="comment">// external (property name)</span>
-            "kty": "OKP", <span class="comment">// external (property name)</span>
-            "kid": "_Qq0UL2Fq651Q0Fjd6TvnYE-faHiOpRlPVQcY_-tA4A" <span
-                        class="comment">// external (property name)</span>
-          }
-        }
-      ],
-      <span class="comment">...</span>
-    }
-            </pre>
-            </section>
-
-
-            <section>
-                <h3 id="json-web-key">JsonWebKey</h3>
-                <p>
-                    The JSON Web Key (JWK) is a specific type of <a>verification method</a>
-                    that uses the JWK specification [[RFC7517]] to encode key types into a
-                    set of parameters.
-                </p>
-
-                <p>
-                    When specifying a `JsonWebKey`, the object takes the following form:
-                </p>
-
-                <dl>
-                    <dt>type</dt>
-                    <dd>
-                        The value of the `type` property MUST contain the string `JsonWebKey`.
-                    </dd>
-                    <dt><dfn class="lint-ignore">publicKeyJwk</dfn></dt>
-                    <dd>
-                        <p>
-                            The `publicKeyJwk` property is REQUIRED, and its value MUST
-                            be a JSON Web Key that conforms to [[RFC7517]].
-                            It is RECOMMENDED that verification methods that use
-                            JWKs [[RFC7517]] to represent their <a>public keys</a> use the value of `kid` as
-                            their fragment identifier. It is RECOMMENDED that JWK `kid` values be set to
-                            the public key fingerprint [[RFC7638]]. See the first key in the example below
-                            for an instance of a public key with a compound key identifier.
-                        </p>
-                        <p>
-                            As specified in <a data-cite="RFC7517#section-4.4">Section 4.4 of the JWK specification</a>,
-                            the OPTIONAL `alg` property identifies the algorithm intended for use with the public key,
-                            and SHOULD be included to prevent security issues that can arise when using the same
-                            key with multiple algorithms. As specified in <a data-cite="RFC7518#section-6.2.1.1">
-                            Section 6.2.1.1 of the JWA specification</a>, describing a key using an elliptic curve,
-                            the REQUIRED `crv` property is used to identify the particular curve type of the public key.
-                            As specified in <a data-cite="RFC7515#section-4.1.4">Section 4.1.4 of the JWS
-                            specification</a>,
-                            the OPTIONAL `kid` property is a hint used to help discover the key; if present, the `kid`
-                            value SHOULD
-                            match, or be included in, the `id` property of the encapsulating `JsonWebKey` object,
-                            as part of the path, query, or fragment of the URL.
-                        </p>
-                    </dd>
-                    <dt><dfn class="lint-ignore">secretKeyJwk</dfn></dt>
-                    <dd>
-                        The `secretKeyJwk` property is OPTIONAL. If present, its value MUST be a <a
-                            data-cite="INFRA#ordered-map">map</a> representing a JSON Web Key that conforms
-                        to [[RFC7517]].
-                        It MUST NOT be used if the data structure containing it is public or may be revealed to parties
-                        other than the legitimate holders of the secret key.
-                    </dd>
-                </dl>
-
-                <p>
-                    An example of an object that conforms to `JsonWebKey` is provided below:
-                </p>
-
-                <pre class="example nohighlight" title="JSON Web Key encoding of a secp384r1 (P-384) public key">
-{
-  "id": "did:example:123456789abcdefghi#key-1",
-  "type": "JsonWebKey",
-  "controller": "did:example:123456789abcdefghi",
-  "publicKeyJwk": {
-      "kid": "key-1",
-      "kty": "EC",
-      "crv": "P-384",
-      "alg": "ES384",
-      "x": "1F14JSzKbwxO-Heqew5HzEt-0NZXAjCu8w-RiuV8_9tMiXrSZdjsWqi4y86OFb5d",
-      "y": "dnd8yoq-NOJcBuEYgdVVMmSxonXg-DU90d7C4uPWb_Lkd4WIQQEH0DyeC2KUDMIU"
-    }
-}
-            </pre>
-
-                <p>
-                    In the example above, the `publicKeyJwk` value contains the JSON Web Key.
-                    The `kty` property encodes the key type of "OKP", which means
-                    "Octet string key pairs". The `alg` property identifies the algorithm intended
-                    for use with the public key, which in this case is `ES384`. The `crv` property identifies
-                    the particular curve type of the public key, `P-384`. The `x` property specifies
-                    the point on the P-384 curve that is associated with the public key.
-                </p>
-
-                <p>
-                    The `publicKeyJwk` property MUST NOT contain any property marked as
-                    "Private" or "Secret" in any registry contained in the JOSE Registries [[JOSE-REGISTRIES]],
-                    including "d".
-                </p>
-
-                <p>
-                    JSON Web Key is also capable of encoding <em>secret keys</em>, sometimes
-                    referred to as <em>private keys</em>.
-                </p>
-
-                <pre class="example nohighlight"
-                     title="JSON Web Key encoding of a secp384r1 (P-384) secret key">
-{
-  "id": "did:example:123456789abcdefghi#key-1",
-  "type": "JsonWebKey",
-  "controller": "did:example:123456789abcdefghi",
-  "secretKeyJwk": {
-      "kty": "EC",
-      "crv": "P-384",
-      "alg": "ES384",
-      "d": "fGwges0SX1mj4eZamUCL4qtZijy9uT15fI4gKTuRvre4Kkoju2SHM4rlFOeKVraH",
-      "x": "1F14JSzKbwxO-Heqew5HzEt-0NZXAjCu8w-RiuV8_9tMiXrSZdjsWqi4y86OFb5d",
-      "y": "dnd8yoq-NOJcBuEYgdVVMmSxonXg-DU90d7C4uPWb_Lkd4WIQQEH0DyeC2KUDMIU"
-    }
-}
-            </pre>
-
-                <p>
-                    The private key example above is almost identical to the previous example of the
-                    public key, except that the information is stored in the `secretKeyJwk` property
-                    (rather than the `publicKeyJwk`), and the private key value is encoded in the `d`
-                    property thereof (alongside the `x` property, which still specifies the point on
-                    the secp384r1 curve that is associated with the public key).
-                </p>
-
-            </section>
-
-            <section>
-                <h3 id="referring-to-verification-methods">Referring to Verification Methods</h3>
-                <p>
-                    <a>Verification methods</a> can be referenced from properties
-                    associated with various <a>verification relationships</a> as described in <a
-                        href="#verification-relationships"></a>. Referencing <a>verification methods</a>
-                    allows them to be used by more than one <a>verification relationship</a>.
-                </p>
-
-                <p>
-                    If the value of a <a>verification method</a> property is a
-                    URL <a data-cite="INFRA#string">string</a>, the <a>verification method</a> has
-                    been included by reference and its properties will need to be retrieved from
-                    elsewhere in the <a>controller document</a> or from another <a>controller document</a>. This
-                    is done by dereferencing the URL and searching the resulting <a>resource</a> for a
-                    <a>verification method</a> <a data-cite="INFRA#ordered-map">map</a> with an
-                    `id` property whose value matches the URL.
-                </p>
-
-                <pre class="example nohighlight"
-                     title="Referencing verification methods">
-    {
-<span class="comment">...</span>
-
-      "authentication": [
-        <span class="comment">// this key is referenced and might be used by</span>
-        <span class="comment">// more than one verification relationship</span>
-        "did:example:123456789abcdefghi#keys-1",
-      ],
-
-<span class="comment">...</span>
-    }
-            </pre>
-            </section>
-        </section>
-
-        <section>
-            <h2 id="verification-relationships">Verification Relationships</h2>
-
-            <p>
-                A <a>verification relationship</a> expresses the relationship between the
-                <a>controller</a> and a <a>verification method</a>.
-            </p>
-            <p>
-                Different <a>verification relationships</a> enable the associated
-                <a>verification methods</a> to be used for different purposes. It is up to a
-                <em>verifier</em> to ascertain the validity of a verification attempt by
-                checking that the <a>verification method</a> used is contained in the
-                appropriate <a>verification relationship</a> property of the
-                <a>controller document</a>.
-            </p>
-            <p>
-                The <a>verification relationship</a> between the <a>controller</a> and the
-                <a>verification method</a> is explicit in the <a>controller document</a>.
-                <a>Verification methods</a> that are not associated with a particular
-                <a>verification relationship</a> cannot be used for that <a>verification
-                relationship</a>.
-            </p>
-            <p>
-                The <a>controller document</a> does not express revoked keys using a <a>verification
-                relationship</a>. If a referenced verification method is not in the latest
-                <a>controller document</a> used to dereference it, then that verification method is
-                considered invalid or revoked.
-            </p>
-            <p>
-                The following sections define several useful <a>verification relationships</a>.
-                A <a>controller document</a> MAY include any of these, or other properties, to
-                express a specific <a>verification relationship</a>. To maximize global
-                interoperability, any such properties used SHOULD be registered in the
-                <a data-cite="VC-SPECS-DIR#securing-mechanisms">VC Specifications Directory</a>.
-            </p>
-            <section>
-                <h2 id="authentication">Authentication</h2>
-
-                <p>
-                    The `authentication` <a>verification relationship</a> is used to
-                    specify how the <a>controller</a> is expected to be <a>authenticated</a>, for
-                    purposes such as logging into a website or engaging in any sort of
-                    challenge-response protocol.
-                </p>
-
-                <dl>
-                    <dt id="defn-authentication">authentication</dt>
-                    <dd>
-                        The `authentication` property is OPTIONAL. If present, its
-                        value MUST be a <a data-cite="INFRA#ordered-set">set</a> of one or more
-                        <a>verification methods</a>. Each <a>verification method</a> MAY be embedded or
-                        referenced.
-                    </dd>
-                </dl>
-
-                <pre class="example nohighlight" title="Authentication property
-                          containing three verification methods">
-    {
-      "@context": [
-        "https://www.w3.org/ns/did/v1",
-        "https://www.w3.org/ns/credentials/v2"
-      ],
-      "id": "did:example:123456789abcdefghi",
-      <span class="comment">...</span>
-      "authentication": [
-        <span class="comment">// this method can be used to authenticate as did:...fghi</span>
-        "did:example:123456789abcdefghi#keys-1",
-      <span class="comment">...</span>
-    }
-            </pre>
-
-                <p>
-                    If authentication is established, it is up to the application to decide what to
-                    do with that information.
-                </p>
-                <p>
-                    This is useful to any <em>authentication verifier</em> that needs to check to
-                    see whether an entity that is attempting to <a>authenticate</a> is, in fact,
-                    presenting a valid proof of authentication. When a <em>verifier</em> receives
-                    some data (in some protocol-specific format) that contains a proof that was made
-                    for the purpose of "authentication", and that says that an entity is identified
-                    by the `id`, then that <em>verifier</em> checks to ensure that the proof can be
-                    verified using a <a>verification method</a> (e.g., <a>public key</a>) listed
-                    under `<a>authentication</a>` in the <a>controller document</a>.
-                </p>
-                <p>
-                    Note that the <a>verification method</a> indicated by the
-                    `<a>authentication</a>` property of a <a>controller document</a> can
-                    only be used to <a>authenticate</a> the <a>controller</a>. To
-                    <a>authenticate</a> a different <a>controller</a>, the entity associated with
-                    the value of `controller` needs to <a>authenticate</a> with its
-                    <em>own</em> <a>controller document</a> and associated
-                    `<a>authentication</a>` <a>verification relationship</a>.
-                </p>
-            </section>
-
-            <section>
-                <h2 id="assertion">Assertion</h2>
-
-                <p>
-                    The `assertionMethod` <a>verification relationship</a> is used to
-                    specify how the <a>controller</a> is expected to express claims, such as for
-                    the purposes of issuing a Verifiable Credential [[?VC-DATA-MODEL-2.0]].
-                </p>
-
-                <dl>
-                    <dt>assertionMethod</dt>
-                    <dd>
-                        The `assertionMethod` property is OPTIONAL. If present, its
-                        value MUST be a <a data-cite="INFRA#ordered-set">set</a> of
-                        one or more <a>verification methods</a>. Each <a>verification method</a> MAY be
-                        embedded or referenced.
-                    </dd>
-                </dl>
-
-                <p>
-                    This property is useful, for example, during the processing of a <a>verifiable
-                    credential</a> by a verifier.
-                </p>
-
-                <pre class="example nohighlight" title="Assertion method property">
-    {
-      "@context": [
-        "https://www.w3.org/ns/did/v1",
-        "https://www.w3.org/ns/credentials/v2"
-      ],
-      "id": "did:example:123456789abcdefghi",
-      <span class="comment">...</span>
-      "assertionMethod": [
-        <span class="comment">// this method can be used to assert statements as did:...fghi</span>
-        "did:example:123456789abcdefghi#keys-1",
-      <span class="comment">...</span>
-    }
-            </pre>
-            </section>
-        </section>
     </section>
 </section>
 
