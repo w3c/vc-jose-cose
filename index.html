@@ -846,98 +846,6 @@
 <section id="key_discovery" class="normative">
     <h2 id="key-discovery">Key Discovery</h2>
 
-    <!-- DID URLS via "issuer" and "holder" -->
-    <p>
-        When <a href="#iss">iss</a> is absent and the <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">issuer</a>
-        is identified as a <a data-cite="DID-CORE#did-subject">DID Subject</a>,
-        the <a href="#kid">kid</a> MUST be an absolute <a data-cite="DID-CORE#relative-did-urls">DID URL</a>.
-    </p>
-    <pre class="example" title="An issuer identified by a DID">
-{
-  "issuer": "did:example:123"
-  // ...
-}
-</pre>
-    <pre class="example" title="An absolute DID URL as a kid">
-{
-  "alg": "ES384",
-  "kid": "did:example:123#key-456
-}
-</pre>
-    <p>
-        When <a href="#iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL-2.0#dfn-holders">holder</a>
-        is identified as a <a data-cite="DID-CORE#did-subject">DID Subject</a>,
-        the <a href="#kid">kid</a> MUST be an absolute <a data-cite="DID-CORE#relative-did-urls">DID URL</a>.
-    </p>
-    <pre class="example" title="A holder identified by a DID">
-{
-  "holder": "did:example:abc"
-  // ...
-}
-</pre>
-    <pre class="example" title="A kid as an absolute DID URL">
-{
-  "alg": "ES384",
-  "kid": "did:example:abc#key-456
-}
-</pre>
-
-    <!-- REGULAR URLS via "issuer" and "holder" -->
-    <p>
-        When <a href="#iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">issuer</a> is
-        identified as a [[URL]],
-        the <a href="#kid">kid</a> MUST be an absolute [[URL]] to a verification method listed in a controller document.
-    </p>
-
-    <pre class="example" title="An issuer identified by a controller document identifier">
-{
-  "issuer": {
-    "id": "https://university.example/issuers/565049"
-  }
-  // ...
-}
-</pre>
-    <pre class="example" title="A kid as a controller document verification method identifier">
-{
-  "alg": "ES384",
-  "kid": "https://university.example/issuers/565049#key-123
-}
-</pre>
-
-    <p>
-        When the <a data-cite="VC-DATA-MODEL-2.0#dfn-holders">holder</a> is identified as a [[URL]],
-        and <a href="#iss">iss</a> is absent,
-        the <a href="#kid">kid</a> MUST be an absolute [[URL]] to a verification method listed in a controller document.
-    </p>
-    <pre class="example" title="A holder identified by a controller document identifier">
-{
-  "holder": {
-    "id": "https://university.example/issuers/565049"
-  }
-  // ...
-}
-</pre>
-    <pre class="example" title="A kid as a controller document verification method identifier">
-{
-  "alg": "ES384",
-  "kid": "https://university.example/issuers/565049#key-123
-}
-</pre>
-
-    <!-- REGULAR URLS via "iss" -->
-
-    <p>
-        When <a href="#iss">iss</a> is present and is a [[URL]],
-        the <a href="#kid">kid</a> MUST match a key discovered via a JWT Issuer Metadata Request,
-        as described in [[SD-JWT-VC]].
-    </p>
-
-    <p class="issue" title="(AT RISK) Feature depends on demonstration of independent implementations">
-        This normative statement depends on the IETF OAuth working group draft [[SD-JWT-VC]].
-        This feature is at risk and will be removed from the specification if at least
-        two independent, interoperable implementations are not demonstrated.
-    </p>
-
     <p>
         To complete the <a data-cite="VC-DATA-MODEL-2.0#dfn-verify">verification</a> process,
         a <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">verifier</a> needs to obtain the cryptographic keys used to
@@ -963,7 +871,7 @@
                 If <code>kid</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>
                 or the <a data-cite="RFC9052#section-3">COSE Header</a>,
                 a <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">verifier</a> can use this parameter
-                as a hint indicating which key was used to secure the verifiable credential, when performing a
+                as a hint indicating which key was used to secure the [=verifiable credential=], when performing a
                 <a data-cite="VC-DATA-MODEL-2.0#dfn-verify">verification</a> process as defined in <a
                     data-cite="RFC7515#section-4.1.4">RFC7515</a>.
             </p>
@@ -1010,48 +918,142 @@
                 <a data-cite="VC-DATA-MODEL-2.0#dfn-verify">verification</a> process.
             </p>
             <p>
-                Use of a proof-of-possession key provided by the Holder to the Issuer
-                to establish a cryptographic binding to the Holder in the Verifiable Credential
-                that is verifiable by the Verifier in the Verifiable Presentation is RECOMMENDED.
+                Use of a proof-of-possession key provided by the [=Holder=] to the [=Issuer=]
+                to establish a cryptographic binding to the Holder in the [=Verifiable Credential=]
+                that is verifiable by the [=Verifier=] in the [=Verifiable Presentation=] is RECOMMENDED.
             </p>
         </section>
     </section>
 
     <section>
         <h2 id="well-known-uris">Well-Known URIs</h2>
+        <p>
+            When the [=issuer=] value is a URL using the HTTPS scheme,
+            [=issuer=] metadata including the [=issuer=]'s [=public keys=] can be retrieved using the mechanism
+            defined in [[SD-JWT-VC]].
+        </p>
 
-        <section>
-            <h2 id="jwt-issuer">JWT Issuer</h2>
-            <p>
-                When the issuer value is a URL using the HTTPS scheme,
-                issuer metadata including the issuer's public keys can be retrieved using the mechanism
-                defined in [[SD-JWT-VC]].
-            </p>
+        <p class="issue" title="(AT RISK) Feature depends on demonstration of independent implementations">
+            This normative statement depends on the IETF OAuth working group draft [[SD-JWT-VC]].
+            This feature is at risk and will be removed from the specification if at least
+            two independent, interoperable implementations are not demonstrated.
+        </p>
 
-            <p class="issue" title="(AT RISK) Feature depends on demonstration of independent implementations">
-                This normative statement depends on the IETF OAuth working group draft [[SD-JWT-VC]].
-                This feature is at risk and will be removed from the specification if at least
-                two independent, interoperable implementations are not demonstrated.
-            </p>
-        </section>
+        <pre class="example" title="A kid as a URL with a JWK Thumbprint URI">
+        {
+          "alg": "EdDSA",
+          "kid": "https://vendor.example/issuers/42/keys/urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs"
+        }
+        </pre>
     </section>
 
     <section>
-        <h3 id="using-controller-documents">Using Controller Documents</h3>
+    <h3 id="using-controller-documents">Using Controller Documents</h3>
 	<p>
 	  When using [=controller documents=] with this specification,
 	  the following requirements apply.
 	</p>
 	<p>
 	  The value of the `type` property of the verification method MUST be <code>JsonWebKey</code>.
-        </p>
-                <p>
-                    Verification material MUST be expressed in the <code>publicKeyJwk</code> property
-                    of a <code>JsonWebKey</code>. This key material is retrieved based on hints in the
-                    JOSE or COSE message envelopes, such as <code>kid</code> or <code>iss</code>. At
-                    the time of writing, there is no standard way to retrieve a public key in JWK format
-                    from a DID URL or controller document.
-                </p>
+    </p>
+    <p>
+        Verification material MUST be expressed in the <code>publicKeyJwk</code> property
+        of a <code>JsonWebKey</code>. This key material is retrieved based on hints in the
+        JOSE or COSE message envelopes, such as <code>kid</code> or <code>iss</code>. At
+        the time of writing, there is no standard way to retrieve a public key in JWK format
+        from a DID URL or [=controller document=].
+    </p>
+       <!-- REGULAR URLS via "issuer" and "holder" -->
+    <p>
+        When <a href="#iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">issuer</a> is
+        identified as a [[URL]],
+        the <a href="#kid">kid</a> MUST be an absolute [[URL]] to a 
+        verification method listed in a [=controller document=] or
+        a <a data-cite="DID-CORE#dfn-did-documents">DID Document</a>.
+    </p>
+
+    <p>
+        When using [[URL]] identifiers, the <code>kid</code> is RECOMMENDED to be 
+        an absolute [[URL]] that includes a JWK Thumbprint URI
+        as defined in [[RFC7638]]. For example:
+        <code>https://vendor.example/issuers/42/keys/urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs</code>
+    </p>
+
+    <pre class="example" title="An issuer identified by a controller document identifier">
+{
+  "issuer": {
+    "id": "https://university.example/issuers/565049"
+  }
+  // ...
+}
+</pre>
+    <pre class="example" title="A kid as a controller document verification method identifier">
+{
+  "alg": "ES384",
+  "kid": "https://university.example/issuers/565049#key-123
+}
+</pre>
+
+    <p>
+        When the <a data-cite="VC-DATA-MODEL-2.0#dfn-holders">holder</a> is 
+        identified as a [[URL]],
+        and <a href="#iss">iss</a> is absent,
+        the <a href="#kid">kid</a> MUST be an absolute [[URL]] to a 
+        verification method listed in a [=controller document=].
+    </p>
+    <pre class="example" title="A holder identified by a controller document identifier">
+{
+  "holder": {
+    "id": "https://university.example/issuers/565049"
+  }
+  // ...
+}
+</pre>
+    <pre class="example" title="A kid as a controller document verification method identifier">
+{
+  "alg": "ES384",
+  "kid": "https://university.example/issuers/565049#key-123
+}
+</pre>
+    </section>
+    <section>
+    <h3 id="using-did-documents">Using DID Documents</h3>
+    <!-- DID URLS via "issuer" and "holder" -->
+    <p>
+        When <a href="#iss">iss</a> is absent and the <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">issuer</a>
+        is identified as a <a data-cite="DID-CORE#did-subject">DID Subject</a>,
+        the <a href="#kid">kid</a> MUST be an absolute <a data-cite="DID-CORE#relative-did-urls">DID URL</a>.
+    </p>
+    <pre class="example" title="An issuer identified by a DID">
+{
+  "issuer": "did:example:123"
+  // ...
+}
+</pre>
+    <pre class="example" title="An absolute DID URL as a kid">
+{
+  "alg": "ES384",
+  "kid": "did:example:123#key-456
+}
+</pre>
+    <p>
+        When <a href="#iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL-2.0#dfn-holders">holder</a>
+        is identified as a <a data-cite="DID-CORE#did-subject">DID Subject</a>,
+        the <a href="#kid">kid</a> MUST be an absolute <a data-cite="DID-CORE#relative-did-urls">DID URL</a>.
+    </p>
+    <pre class="example" title="A holder identified by a DID">
+{
+  "holder": "did:example:abc"
+  // ...
+}
+</pre>
+    <pre class="example" title="A kid as an absolute DID URL">
+{
+  "alg": "ES384",
+  "kid": "did:example:abc#key-456
+}
+</pre>
+
     </section>
 </section>
 
@@ -1136,7 +1138,7 @@
             have no integrity protection.
         </p>
         <p class="advisement">
-            Verifiable Credentials and Verifiable Presentations are not
+            [=Verifiable Credentials=] and [=Verifiable Presentations=] are not
             required to be secured or integrity protected or to contain a
             <code>proof</code> member.
         </p>
@@ -1880,12 +1882,12 @@ data:application/vp-ld+sd-jwt,eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT0
                 <code>vp-ld+jwt</code>
             </li>
             <li>
-                <code>inputDocument</code>: the verifiable credential secured as a JWT [[RFC7519]]
+                <code>inputDocument</code>: the [=verifiable credential=] secured as a JWT [[RFC7519]]
             </li>
         </ul>
         <p>
-            Upon receipt of the verifiable credential or presentation secured as a JWT
-            [[RFC7519]], the holder or verifier follows this algorithm:
+            Upon receipt of the [=verifiable credential=] or [=presentation=] secured as a JWT
+            [[RFC7519]], the [=holder=] or [=verifier=] follows this algorithm:
         </p>
         <ol>
             <li>
@@ -1941,7 +1943,7 @@ data:application/vp-ld+sd-jwt,eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT0
             </li>
         </ul>
         <p>
-            Upon receipt of the verifiable credential or presentation secured with
+            Upon receipt of the [=verifiable credential=] or [=presentation=] secured with
             [[SD-JWT]], the holder or verifier follows this algorithm:
         </p>
         <ol>
@@ -1999,13 +2001,13 @@ data:application/vp-ld+sd-jwt,eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT0
                 <code>vp-ld+cose</code>
             </li>
             <li>
-                <code>inputDocument</code>: the verifiable credential or verifiable presentation
+                <code>inputDocument</code>: the [=verifiable credential=] or [=verifiable presentation=]
                 secured with [[[RFC9052]]]
             </li>
         </ul>
         <p>
-            Upon receipt of the verifiable credential or presentation secured with
-            [[RFC9052]], the holder or verifier follows this algorithm:
+            Upon receipt of the [=verifiable credential=] or [=presentation=] secured with
+            [[RFC9052]], the [=holder=] or [=verifier=] follows this algorithm:
         </p>
         <ol>
             <li>
@@ -2057,7 +2059,7 @@ data:application/vp-ld+sd-jwt,eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT0
 
     <p>
         All claims expected for the <code>typ</code> MUST be present.
-        All claims that are understood MUST be evaluated according the verifier's validation policies.
+        All claims that are understood MUST be evaluated according the [=verifier=]'s validation policies.
         All claims that are not understood MUST be ignored.
     </p>
 
@@ -2080,11 +2082,11 @@ data:application/vp-ld+sd-jwt,eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT0
     </p>
 
     <p>
-        Based on the validation policy of the verifier, the type of credentials, and
+        Based on the validation policy of the verifier, the type of [=credentials=], and
         the type of securing mechanism, additional validation checks MAY be applied.
-        For example, dependencies between multiple credentials, ordering or timing
-        information associated with multiple credentials, and/or multiple presentations
-        could cause an otherwise valid credential or presentation to be considered
+        For example, dependencies between multiple [=credentials=], ordering or timing
+        information associated with multiple credentials, and/or multiple [=presentations=]
+        could cause an otherwise valid [=credential=] or [=presentation=] to be considered
         invalid.
     </p>
 </section>
