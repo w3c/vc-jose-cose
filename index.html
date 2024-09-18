@@ -152,7 +152,7 @@
     </p>
 </section>
 
-<section id="introduction">
+<section class="informative" id="introduction">
     <h2 id="section-introduction">Introduction</h2>
     <p>
         This specification defines how to secure media types
@@ -205,7 +205,7 @@
     <div data-include="./terms.html"></div>
 </section>
 
-<section>
+<section class="normative">
     <h2 id="securing-the-vc-data-model">Securing the VC Data Model</h2>
     <p>
         This section outlines how to secure documents conforming
@@ -240,9 +240,9 @@
         If implementations do not know which media type to use, media types defined in this specification MUST be used.
     </p>
 
-    <section id="secure-with-jose">
+    <section class="normative" id="secure-with-jose">
         <h2 id="with-jose">With JOSE</h2>
-        <section>
+        <section class="normative">
             <h2 id="securing-with-jose">Securing JSON-LD Verifiable Credentials with JOSE</h2>
             <p>
                 This section details how to use JOSE to secure verifiable credentials conforming
@@ -304,7 +304,7 @@
             </p>
         </section>
 
-        <section>
+        <section class="normative">
             <h2 id="securing-vps-with-jose">Securing JSON-LD Verifiable Presentations with JOSE</h2>
             <p>
                 This section details how to use JOSE to secure verifiable presentations conforming
@@ -391,7 +391,7 @@
                 Use of the JWS JSON serialization is NOT RECOMMENDED.
             </p>
         </section>
-        <section class="normative">
+        <section class="appendix informative">
             <h2 id="jose-header-parameters-jwt-claims">JOSE Header Parameters and JWT Claims</h2>
 
             <p>
@@ -463,9 +463,9 @@
         </section>
     </section>
 
-    <section id="secure-with-sd-jwt">
+    <section class="normative" id="secure-with-sd-jwt">
         <h2 id="with-sd-jwt">With SD-JWT</h2>
-        <section>
+        <section class="normative">
             <h2 id="securing-with-sd-jwt">Securing JSON-LD Verifiable Credentials with SD-JWT</h2>
             <p>
                 This section details how to use JOSE to secure verifiable credentials conforming
@@ -539,7 +539,7 @@
             </p>
         </section>
 
-        <section>
+        <section class="normative">
             <h2 id="securing-vps-sd-jwt">Securing JSON-LD Verifiable Presentations with SD-JWT</h2>
             <p>
                 This section details how to use SD-JWT to secure verifiable presentations conforming
@@ -637,7 +637,7 @@
         </section>
     </section>
 
-    <section id="secure-with-cose">
+    <section class="normative" id="secure-with-cose">
         <h2 id="securing-with-cose">With COSE</h2>
         <p>
             COSE [[RFC9052]] is a common approach to encoding and securing
@@ -646,7 +646,7 @@
             use of content types as outlined in this section.
         </p>
 
-        <section>
+        <section class="normative">
             <h2 id="securing-vcs-with-cose">Securing JSON-LD Verifiable Credentials with COSE</h2>
             <p>
                 This section details how to use COSE to secure verifiable credentials conforming
@@ -709,7 +709,7 @@
                 for more details regarding this example.
             </p>
         </section>
-        <section>
+        <section class="normative">
             <h2 id="securing-vps-with-cose">Securing JSON-LD Verifiable Presentations with COSE</h2>
             <p>
                 This section details how to use COSE to secure verifiable presentations conforming
@@ -951,13 +951,13 @@
     </p>
 
 
-    <section>
+    <section class="normative">
         <h2 id="using-header-params-claims-key-discovery">Using Header Parameters and Claims for Key Discovery</h2>
         <p>
             These JOSE header parameters and JWT claims can be used by
             <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">verifiers</a> to discover verification keys.
         </p>
-        <section>
+        <section class="normative">
             <h2 id="kid">kid</h2>
             <p>
                 If <code>kid</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>
@@ -973,7 +973,7 @@
                 or <a data-cite="VC-DATA-MODEL-2.0#dfn-subjects">subject</a> is expressed as a DID URL.
             </p>
         </section>
-        <section>
+        <section class="normative">
             <h2 id="iss">iss</h2>
             <p>
                 If <code>iss</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>,
@@ -998,7 +998,7 @@
             </p>
         </section>
 
-        <section>
+        <section class="normative">
             <h2 id="cnf">cnf</h2>
             <p>
                 If <code>cnf</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>,
@@ -1017,10 +1017,10 @@
         </section>
     </section>
 
-    <section>
+    <section class="normative">
         <h2 id="well-known-uris">Well-Known URIs</h2>
 
-        <section>
+        <section class="normative">
             <h2 id="jwt-issuer">JWT Issuer</h2>
             <p>
                 When the issuer value is a URL using the HTTPS scheme,
@@ -1036,7 +1036,7 @@
         </section>
     </section>
 
-    <section>
+    <section class="normative">
         <h3 id="using-controller-documents">Using Controller Documents</h3>
 	<p>
 	  When using [=controller documents=] with this specification,
@@ -1055,7 +1055,7 @@
     </section>
 </section>
 
-<section id="conformance">
+<section class="normative" id="conformance">
     <section class="normative">
         <h2 id="conformance-classes">Conformance Classes</h2>
         <p>
@@ -1153,6 +1153,254 @@
 </section>
 
 <section class="normative">
+    <h2 id="algorithms">Algorithms</h2>
+    <p>
+        This specification might be used with many different key discovery protocols.
+        Therefore, discovery of verification keys is described in <a href="#key_discovery"></a>,
+        and is assumed to have succeeded prior to beginning the verification process.
+    </p>
+    <p>
+        As a general rule, verifiers SHOULD strive to minimize the processing of
+        untrusted data. This includes minimizing any processing of the protected header,
+        unprotected header, or payload as part of the key discovery procedures.
+    </p>
+    <p>
+        After verification has succeeded, additional validation checks SHOULD be
+        performed as described in Section <a href="#validation-algorithm"></a>
+    </p>
+    <p>
+        The outputs for the following algorithms are:
+    </p>
+    <ul>
+        <li>
+            <code>status</code>: a boolean indicating the result of verification,
+            <code>true</code> for success and <code>false</code> for failure.
+        </li>
+        <li>
+            <code>document</code>: a document conforming to the [[[VC-DATA-MODEL-2.0]]] [[VC-DATA-MODEL-2.0]]
+        </li>
+        <li>
+            <code>mediaType</code>: <code>vc</code> or <code>vp</code>
+        </li>
+    </ul>
+    <section class="normative">
+        <h3 id="alg-jose">Verifying a Credential or Presentation Secured with JOSE</h3>
+        <p>
+            The inputs for this algorithm are:
+        </p>
+        <ul>
+            <li>
+                <code>inputMediaType</code>: <code>vc-ld+jwt</code> or
+                <code>vp-ld+jwt</code>
+            </li>
+            <li>
+                <code>inputDocument</code>: the verifiable credential secured as a JWT [[RFC7519]]
+            </li>
+        </ul>
+        <p>
+            Upon receipt of the verifiable credential or presentation secured as a JWT
+            [[RFC7519]], the holder or verifier follows this algorithm:
+        </p>
+        <ol>
+            <li>
+                Follow the algorithm defined in <a data-cite="RFC7519#section-7.2"> Validating a JWT</a> [[RFC7519]].
+            </li>
+            <li>
+                If processing completes successfully:
+                <ol>
+                    <li>
+                        Set <code>status</code> to <code>true</code>
+                    </li>
+                    <li>
+                        Set <code>mediaType</code> to <code>vc</code> or <code>vp</code>
+                    </li>
+                    <li>
+                        Set <code>document</code> to the decoded JWS payload.
+                    </li>
+                    <li>
+                        Return
+                    </li>
+                </ol>
+            </li>
+            <li>
+                If processing aborts for any reason or the JWT is rejected:
+                <ol>
+                    <li>
+                        Set <code>status</code> to <code>false</code>
+                    </li>
+                    <li>
+                        Set <code>document</code> to <code>null</code>
+                    </li>
+                    <li>
+                        Set <code>mediaType</code> to <code>null</code>
+                    </li>
+                    <li>
+                        Return
+                    </li>
+                </ol>
+            </li>
+        </ol>
+    </section>
+    <section class="normative">
+        <h3 id="alg-sd-jwt">Verifying a Credential or Presentation Secured with SD-JWT</h3>
+        <p>
+            The inputs for this algorithm are:
+        </p>
+        <ul>
+            <li>
+                <code>inputMediaType</code>: <code>vc-ld+sd-jwt</code>
+            </li>
+            <li>
+                <code>inputDocument</code>: the verifiable credential secured with [[SD-JWT]]
+            </li>
+        </ul>
+        <p>
+            Upon receipt of the verifiable credential or presentation secured with
+            [[SD-JWT]], the holder or verifier follows this algorithm:
+        </p>
+        <ol>
+            <li>
+                Follow the algorithms defined in <a data-cite="SD-JWT#section-8">SD-JWT</a> for
+                verification of the SD-JWT.
+            </li>
+            <li>
+                If processing completes successfully:
+                <ol>
+                    <li>
+                        Set <code>status</code> to <code>true</code>
+                    </li>
+                    <li>
+                        Set <code>mediaType</code> to <code>vc</code>
+                    </li>
+                    <li>
+                        Convert the SD-JWT payload back into the JSON claim set by reversing the process
+                        in [[[SD-JWT]]] [[SD-JWT]]. Set <code>document</code> to the JSON claim set.
+                        (For examples of the transition from JSON claim set to SD-JWT payload, please
+                        see <a data-cite="SD-JWT#appendix-A">SD-JWT examples</a>).
+                    </li>
+                    <li>
+                        Return
+                    </li>
+                </ol>
+            </li>
+            <li>
+                If processing aborts for any reason or the SD-JWT is rejected:
+                <ol>
+                    <li>
+                        Set <code>status</code> to <code>false</code>
+                    </li>
+                    <li>
+                        Set <code>document</code> to <code>null</code>
+                    </li>
+                    <li>
+                        Set <code>mediaType</code> to <code>null</code>
+                    </li>
+                    <li>
+                        Return
+                    </li>
+                </ol>
+            </li>
+        </ol>
+    </section>
+    <section class="normative">
+        <h3 id="alg-cose">Verifying a Credential or Presentation Secured with COSE</h3>
+        <p>
+            The inputs for this algorithm are:
+        </p>
+        <ul>
+            <li>
+                <code>inputMediaType</code>: <code>vc-ld+cose</code> or
+                <code>vp-ld+cose</code>
+            </li>
+            <li>
+                <code>inputDocument</code>: the verifiable credential or verifiable presentation
+                secured with [[[RFC9052]]]
+            </li>
+        </ul>
+        <p>
+            Upon receipt of the verifiable credential or presentation secured with
+            [[RFC9052]], the holder or verifier follows this algorithm:
+        </p>
+        <ol>
+            <li>
+                Follow the algorithm defined in [[[RFC9052]]] [[RFC9052]] under the Signing and
+                Verification Process for COSE_Sign1.
+            </li>
+            <li>
+                If processing completes successfully:
+                <ol>
+                    <li>
+                        Set <code>status</code> to <code>true</code>
+                    </li>
+                    <li>
+                        Set <code>mediaType</code> to <code>vc</code> or <code>vp</code>
+                    </li>
+                    <li>
+                        Set <code>document</code> to the decoded COSE_Sign1 payload.
+                    </li>
+                    <li>
+                        Return
+                    </li>
+                </ol>
+            </li>
+            <li>
+                If processing aborts for any reason:
+                <ol>
+                    <li>
+                        Set <code>status</code> to <code>false</code>
+                    </li>
+                    <li>
+                        Set <code>document</code> to <code>null</code>
+                    </li>
+                    <li>
+                        Set <code>mediaType</code> to <code>null</code>
+                    </li>
+                    <li>
+                        Return
+                    </li>
+                </ol>
+            </li>
+        </ol>
+    </section>
+
+    <h3 id="validation-algorithm">Validation</h2>
+
+    <p>
+        All claims expected for the <code>typ</code> MUST be present.
+        All claims that are understood MUST be evaluated according the verifier's validation policies.
+        All claims that are not understood MUST be ignored.
+    </p>
+
+    <p>
+        The verified <code>document</code> returned from verification MUST be a
+        well-formed compact JSON-LD document, as described in
+        <a data-cite="VC-DATA-MODEL-2.0/#conformance">Verifiable Credentials Data Model v2.0</a>.
+    </p>
+
+    <p>
+        Schema extension mechanisms such as <code>credentialSchema</code> SHOULD be checked.
+        If the extension mechanism <code>type</code> is not understood, this property
+        MUST be ignored.
+    </p>
+
+    <p>
+        Status extension mechanisms such as <code>credentialStatus</code> SHOULD be checked.
+        If the extension mechanism <code>type</code> is not understood, this property
+        MUST be ignored.
+    </p>
+
+    <p>
+        Based on the validation policy of the verifier, the type of credentials, and
+        the type of securing mechanism, additional validation checks MAY be applied.
+        For example, dependencies between multiple credentials, ordering or timing
+        information associated with multiple credentials, and/or multiple presentations
+        could cause an otherwise valid credential or presentation to be considered
+        invalid.
+    </p>
+
+</section>
+
+<section class="informative">
     <h2 id="iana-considerations">IANA Considerations</h2>
 
     <section>
@@ -1440,7 +1688,7 @@
     </section>
 
 </section>
-<section>
+<section class="informative">
     <h3 id="other-considerations">Other Considerations</h3>
 
     <section>
@@ -1502,6 +1750,7 @@
             Credentials implemented using this specification.
         </p>
     </section>
+
     <section>
         <h2 id="security-considerations">Security Considerations</h2>
         <p>
@@ -1550,7 +1799,8 @@
             Verifiable Credentials.
         </p>
     </section>
-    <section class="informative">
+
+    <section>
         <h2 id="accessibility">Accessibility</h2>
         <p>
             When implementing this specification, it is crucial for
@@ -1837,256 +2087,6 @@ data:application/vp-ld+sd-jwt,eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT0
             <a data-cite="VC-DATA-MODEL-2.0#securing-mechanisms">Securing Mechanisms</a>.
         </p>
     </section>
-</section>
-<section>
-    <h2 id="verification-algorithms">Verification Algorithms</h2>
-    <p>
-        This specification might be used with many different key discovery protocols.
-        Therefore, discovery of verification keys is described in <a href="#key_discovery"></a>,
-        and is assumed to have succeeded prior to beginning the verification process.
-    </p>
-    <p>
-        As a general rule, verifiers SHOULD strive to minimize the processing of
-        untrusted data. This includes minimizing any processing of the protected header,
-        unprotected header, or payload as part of the key discovery procedures.
-    </p>
-    <p>
-        After verification has succeeded, additional validation checks SHOULD be
-        performed as described in Section <a href="#validation-algorithm"></a>
-    </p>
-    <p>
-        The outputs for the following algorithms are:
-    </p>
-    <ul>
-        <li>
-            <code>status</code>: a boolean indicating the result of verification,
-            <code>true</code> for success and <code>false</code> for failure.
-        </li>
-        <li>
-            <code>document</code>: a document conforming to the [[[VC-DATA-MODEL-2.0]]] [[VC-DATA-MODEL-2.0]]
-        </li>
-        <li>
-            <code>mediaType</code>: <code>vc</code> or <code>vp</code>
-        </li>
-    </ul>
-    <section>
-        <h3 id="alg-jose">Algorithm for Verifying a Credential or Presentation Secured with JOSE</h3>
-        <p>
-            The inputs for this algorithm are:
-        </p>
-        <ul>
-            <li>
-                <code>inputMediaType</code>: <code>vc-ld+jwt</code> or
-                <code>vp-ld+jwt</code>
-            </li>
-            <li>
-                <code>inputDocument</code>: the verifiable credential secured as a JWT [[RFC7519]]
-            </li>
-        </ul>
-        <p>
-            Upon receipt of the verifiable credential or presentation secured as a JWT
-            [[RFC7519]], the holder or verifier follows this algorithm:
-        </p>
-        <ol>
-            <li>
-                Follow the algorithm defined in <a data-cite="RFC7519#section-7.2"> Validating a JWT</a> [[RFC7519]].
-            </li>
-            <li>
-                If processing completes successfully:
-                <ol>
-                    <li>
-                        Set <code>status</code> to <code>true</code>
-                    </li>
-                    <li>
-                        Set <code>mediaType</code> to <code>vc</code> or <code>vp</code>
-                    </li>
-                    <li>
-                        Set <code>document</code> to the decoded JWS payload.
-                    </li>
-                    <li>
-                        Return
-                    </li>
-                </ol>
-            </li>
-            <li>
-                If processing aborts for any reason or the JWT is rejected:
-                <ol>
-                    <li>
-                        Set <code>status</code> to <code>false</code>
-                    </li>
-                    <li>
-                        Set <code>document</code> to <code>null</code>
-                    </li>
-                    <li>
-                        Set <code>mediaType</code> to <code>null</code>
-                    </li>
-                    <li>
-                        Return
-                    </li>
-                </ol>
-            </li>
-        </ol>
-    </section>
-    <section>
-        <h3 id="alg-sd-jwt">Algorithm for Verifying a Credential or Presentation Secured with SD-JWT</h3>
-        <p>
-            The inputs for this algorithm are:
-        </p>
-        <ul>
-            <li>
-                <code>inputMediaType</code>: <code>vc-ld+sd-jwt</code>
-            </li>
-            <li>
-                <code>inputDocument</code>: the verifiable credential secured with [[SD-JWT]]
-            </li>
-        </ul>
-        <p>
-            Upon receipt of the verifiable credential or presentation secured with
-            [[SD-JWT]], the holder or verifier follows this algorithm:
-        </p>
-        <ol>
-            <li>
-                Follow the algorithms defined in <a data-cite="SD-JWT#section-8">SD-JWT</a> for
-                verification of the SD-JWT.
-            </li>
-            <li>
-                If processing completes successfully:
-                <ol>
-                    <li>
-                        Set <code>status</code> to <code>true</code>
-                    </li>
-                    <li>
-                        Set <code>mediaType</code> to <code>vc</code>
-                    </li>
-                    <li>
-                        Convert the SD-JWT payload back into the JSON claim set by reversing the process
-                        in [[[SD-JWT]]] [[SD-JWT]]. Set <code>document</code> to the JSON claim set.
-                        (For examples of the transition from JSON claim set to SD-JWT payload, please
-                        see <a data-cite="SD-JWT#appendix-A">SD-JWT examples</a>).
-                    </li>
-                    <li>
-                        Return
-                    </li>
-                </ol>
-            </li>
-            <li>
-                If processing aborts for any reason or the SD-JWT is rejected:
-                <ol>
-                    <li>
-                        Set <code>status</code> to <code>false</code>
-                    </li>
-                    <li>
-                        Set <code>document</code> to <code>null</code>
-                    </li>
-                    <li>
-                        Set <code>mediaType</code> to <code>null</code>
-                    </li>
-                    <li>
-                        Return
-                    </li>
-                </ol>
-            </li>
-        </ol>
-    </section>
-    <section>
-        <h3 id="alg-cose">Algorithm for Verifying a Credential or Presentation Secured with COSE</h3>
-        <p>
-            The inputs for this algorithm are:
-        </p>
-        <ul>
-            <li>
-                <code>inputMediaType</code>: <code>vc-ld+cose</code> or
-                <code>vp-ld+cose</code>
-            </li>
-            <li>
-                <code>inputDocument</code>: the verifiable credential or verifiable presentation
-                secured with [[[RFC9052]]]
-            </li>
-        </ul>
-        <p>
-            Upon receipt of the verifiable credential or presentation secured with
-            [[RFC9052]], the holder or verifier follows this algorithm:
-        </p>
-        <ol>
-            <li>
-                Follow the algorithm defined in [[[RFC9052]]] [[RFC9052]] under the Signing and
-                Verification Process for COSE_Sign1.
-            </li>
-            <li>
-                If processing completes successfully:
-                <ol>
-                    <li>
-                        Set <code>status</code> to <code>true</code>
-                    </li>
-                    <li>
-                        Set <code>mediaType</code> to <code>vc</code> or <code>vp</code>
-                    </li>
-                    <li>
-                        Set <code>document</code> to the decoded COSE_Sign1 payload.
-                    </li>
-                    <li>
-                        Return
-                    </li>
-                </ol>
-            </li>
-            <li>
-                If processing aborts for any reason:
-                <ol>
-                    <li>
-                        Set <code>status</code> to <code>false</code>
-                    </li>
-                    <li>
-                        Set <code>document</code> to <code>null</code>
-                    </li>
-                    <li>
-                        Set <code>mediaType</code> to <code>null</code>
-                    </li>
-                    <li>
-                        Return
-                    </li>
-                </ol>
-            </li>
-        </ol>
-    </section>
-
-
-</section>
-
-<section>
-    <h2 id="validation-algorithms">Validation Algorithm</h2>
-
-    <p>
-        All claims expected for the <code>typ</code> MUST be present.
-        All claims that are understood MUST be evaluated according the verifier's validation policies.
-        All claims that are not understood MUST be ignored.
-    </p>
-
-    <p>
-        The verified <code>document</code> returned from verification MUST be a
-        well-formed compact JSON-LD document, as described in
-        <a data-cite="VC-DATA-MODEL-2.0/#conformance">Verifiable Credentials Data Model v2.0</a>.
-    </p>
-
-    <p>
-        Schema extension mechanisms such as <code>credentialSchema</code> SHOULD be checked.
-        If the extension mechanism <code>type</code> is not understood, this property
-        MUST be ignored.
-    </p>
-
-    <p>
-        Status extension mechanisms such as <code>credentialStatus</code> SHOULD be checked.
-        If the extension mechanism <code>type</code> is not understood, this property
-        MUST be ignored.
-    </p>
-
-    <p>
-        Based on the validation policy of the verifier, the type of credentials, and
-        the type of securing mechanism, additional validation checks MAY be applied.
-        For example, dependencies between multiple credentials, ordering or timing
-        information associated with multiple credentials, and/or multiple presentations
-        could cause an otherwise valid credential or presentation to be considered
-        invalid.
-    </p>
 </section>
 </body>
 
