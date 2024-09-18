@@ -1101,12 +1101,44 @@
     </section>
     <section class="normative">
         <h2 id="securing-verifiable-credentials">Securing Verifiable Credentials</h2>
-        <p>The <a data-cite="VC-DATA-MODEL-2.0#securing-mechanism-specifications"></a> describes
-            the approach taken by JSON Web Tokens to secure JWT Claims Sets as <i>applying an
-                <code>external proof</code></i>.
+        <p>
+            The <a data-cite="VC-DATA-MODEL-2.0#securing-mechanism-specifications"></a> describes
+            the approach taken by this specification to secure JSON and CBOR
+            claims by <i>applying an <code>enveloping proof</code></i>.
         </p>
-        <p>The normative statements in <a data-cite="VC-DATA-MODEL-2.0#securing-mechanisms">Securing
-            Mechanisms</a> apply to securing
+        <p>
+            This specification defines how to secure different data structures 
+            using various <code>enveloping proof</code> mechanisms:</p>
+        <dl>
+        <dt>JSON Web Tokens (JWTs):</dt>
+        <dd>JWTs secure JSON Web Token Claim Sets. These are JSON objects 
+        containing claims about an entity (typically the subject of the JWT).</dd>
+        <dt>Selective Disclosure JWTs (SD-JWTs): </dt>
+        <dd>SD-JWTs secure JSON Claim Sets, similar to JWTs, but with added
+         selective disclosure capabilities. This allows for parts of the 
+         claim set to be selectively revealed or withheld.</dd>
+        <dt>CBOR Object Signing and Encryption (COSE):</dt>
+        <dd>COSE secures CBOR (Concise Binary Object Representation) data
+        structures. CBOR is a binary data format that is more compact than
+        JSON and is designed for constrained environments.</dd>
+        </dl>
+
+        <p>In the context of Verifiable Credentials:</p>
+        <ul>
+            <li>When using JWTs, the Verifiable Credential or Presentation is
+             encoded as a JSON Web Token Claim Set.</li>
+            <li>When using SD-JWTs, the Verifiable Credential or Presentation 
+            is encoded as a JSON Claim Set with selective disclosure features.</li>
+            <li>When using COSE, the Verifiable Credential or Presentation is 
+            encoded as a CBOR data structure.</li>
+        </ul>
+        <p>
+         In all cases, the underlying data model of the Verifiable Credential
+         or Presentation remains consistent with the [[VC-DATA-MODEL-2.0]],
+         but the encoding and security mechanism differ.</p>
+        <p>
+        The normative statements in <a data-cite="VC-DATA-MODEL-2.0#securing-mechanisms">
+        Securing Mechanisms</a> apply to securing
             <code>application/vc-ld+jwt</code> and
             <code>application/vp-ld+jwt</code>,
             <code>application/vc-ld+sd-jwt</code> and
@@ -1115,6 +1147,8 @@
             <code>application/vc-ld+cose</code> and
             <code>application/vp-ld+cose</code>.
         </p>
+        <section>
+        <h2>JWT Format and Requirements</h2>
         <p>
             JSON Web Token implementers are advised to review <a data-cite="RFC7519#section-8">Implementation
             Requirements</a>.
@@ -1148,6 +1182,33 @@
             The JWT Claim Names <code>vc</code> and <code>vp</code>
             MUST NOT be present in any JWT Claims Set.
         </p>
+        </section>
+        <section>
+        <h2>SD-JWT Format and Requirements</h2>
+        <p>
+            This specification uses Selective Disclosure for JWTs (SD-JWT) as 
+            defined in the IETF draft [[SD-JWT]].
+            Implementers should refer to this draft for the full details of the
+            SD-JWT format and processing requirements.
+        </p>
+        <ul>
+            <li>An SD-JWT consists of three main parts: the
+            SD-JWT itself, optional disclosures, and an optional KB-JWT (Key
+            Binding JWT). These parts are separated by tilde (~) characters.</li>
+
+            <li>If the KB-JWT is not present, the SD-JWT must end
+            with a tilde (~) character. This is crucial for correct parsing and
+            processing of the SD-JWT.</li>
+
+            <li>Selective disclosure is achieved through the use of
+            disclosure objects. These are base64url-encoded JSON arrays
+            containing the digest of the disclosed claim, the claim name, and
+            the claim value.</li>
+
+            <li>Each disclosable claim is combined with a salt value 
+            before hashing to prevent dictionary attacks.</li>
+        </ul>
+        </section>
     </section>
 
 </section>
