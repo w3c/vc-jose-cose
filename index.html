@@ -71,12 +71,7 @@
             // if you have authors as well as editors. only "name" is
             // required. Same format as editors.
             authors: [],
-            formerEditors: [{
-                name: "Orie Steele",
-                company: "Transmute",
-                companyURL: "https://transmute.industries",
-                w3cid: 109171,
-            }],
+            formerEditors: [],
 
             maxTocLevel: 3,
             inlineCSS: true,
@@ -197,6 +192,105 @@
         confidentiality of CBOR data by encrypting it with symmetric or
         asymmetric encryption algorithms.
     </p>
+
+  <section id="conformance" class="normative">
+    <section class="normative">
+        <h2 id="conformance-classes">Conformance Classes</h2>
+        <p>
+            A <dfn>conforming JWS document</dfn> is one that conforms to all of the
+            "MUST" statements in Section <a href="#secure-with-jose"></a>.
+        </p>
+        <p>
+            A <dfn>conforming JWS issuer implementation</dfn> produces
+            [=conforming JWS documents=] and MUST secure them as described in Section
+            <a href="#secure-with-jose"></a>.
+        <p>
+            A <dfn>conforming JWS verifier implementation</dfn> verifies
+            [=conforming JWS documents=] as described in Section
+            <a href="#secure-with-jose"></a>.
+        </p>
+        <p>
+            A <dfn>conforming SD-JWT document</dfn> is one that conforms to all of the
+            "MUST" statements in Section <a href="#secure-with-sd-jwt"></a>.
+        </p>
+        <p>
+            A <dfn>conforming SD-JWT issuer implementation</dfn> produces
+            [=conforming SD-JWT documents=] and MUST secure them as described in Section
+            <a href="#secure-with-sd-jwt"></a>.
+        <p>
+            A <dfn>conforming SD-JWT verifier implementation</dfn> verifies
+            [=conforming SD-JWT documents=] as described in Section
+            <a href="#secure-with-sd-jwt"></a>.
+        </p>
+        <p>
+            A <dfn>conforming COSE document</dfn> is one that conforms to all of the
+            "MUST" statements in Section <a href="#secure-with-cose"></a>.
+        </p>
+        <p>
+            A <dfn>conforming COSE issuer implementation</dfn> produces
+            [=conforming COSE documents=] and MUST secure them as described in Section
+            <a href="#secure-with-cose"></a>.
+        </p>
+        <p>
+            A <dfn>conforming COSE verifier implementation</dfn> verifies
+            [=conforming COSE documents=] as described in Section
+            <a href="#secure-with-cose"></a>.
+        </p>
+    </section>
+    <section class="normative">
+        <h2 id="securing-verifiable-credentials">Securing Verifiable Credentials</h2>
+        <p>The <a data-cite="VC-DATA-MODEL-2.0#securing-mechanism-specifications"></a> describes
+            the approach taken by JSON Web Tokens to secure JWT Claims Sets as <i>applying an
+                <code>external proof</code></i>.
+        </p>
+        <p>The normative statements in <a data-cite="VC-DATA-MODEL-2.0#securing-mechanisms">Securing
+            Mechanisms</a> apply to securing
+            <code>application/vc-ld+jwt</code> and
+            <code>application/vp-ld+jwt</code>,
+            <code>application/vc-ld+sd-jwt</code> and
+            <code>application/vp-ld+sd-jwt</code>,
+            as well as
+            <code>application/vc-ld+cose</code> and
+            <code>application/vp-ld+cose</code>.
+        </p>
+        <p>
+            JSON Web Token implementers are advised to review <a data-cite="RFC7519#section-8">Implementation
+            Requirements</a>.
+        </p>
+        <p>
+            Issuers, Holders, and Verifiers MUST understand the
+            JSON Web Token header parameter setting
+            <code>"alg": "none"</code> when securing [[VC-DATA-MODEL-2.0]]
+            with JSON Web Tokens.
+            When content types from [[VC-DATA-MODEL-2.0]] are secured using
+            JSON Web Tokens, the header parameter setting <code>"alg": "none"</code>,
+            MUST be used to communicate that a JWT Claims Set that comprises a
+            Verifiable Credential or a Verifiable Presentation has no
+            integrity protection.
+            When a JWT Claims Set that comprises a Verifiable Credential or a
+            Verifiable Presentation contains
+            <code>proof</code>, and the JSON Web Token header contains
+            <code>"alg": "none"</code>, the JWT Claims Set MUST be considered to
+            have no integrity protection.
+        </p>
+        <p class="advisement">
+            Verifiable Credentials and Verifiable Presentations are not
+            required to be secured nor integrity protected, nor to contain a
+            <code>proof</code> member.
+        </p>
+        <p>
+            Issuers, Holders, and Verifiers of Verifiable Credentials and/or
+            Verifiable Presentations MUST ignore all, and MUST NOT produce any,
+            JWT Claims Sets that have no integrity protection.
+        </p>
+        <p>
+            The JWT Claim Names <code>vc</code> and <code>vp</code>
+            MUST NOT be present in any JWT Claims Set that comprises a
+            Verifiable Credential or a Verifiable Presentation.
+        </p>
+    </section>
+
+  </section>
 
 </section>
 
@@ -846,98 +940,6 @@
 <section id="key_discovery" class="normative">
     <h2 id="key-discovery">Key Discovery</h2>
 
-    <!-- DID URLS via "issuer" and "holder" -->
-    <p>
-        When <a href="#iss">iss</a> is absent and the <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">issuer</a>
-        is identified as a <a data-cite="DID-CORE#did-subject">DID Subject</a>,
-        the <a href="#kid">kid</a> MUST be an absolute <a data-cite="DID-CORE#relative-did-urls">DID URL</a>.
-    </p>
-    <pre class="example" title="An issuer identified by a DID">
-{
-  "issuer": "did:example:123"
-  // ...
-}
-</pre>
-    <pre class="example" title="An absolute DID URL as a kid">
-{
-  "alg": "ES384",
-  "kid": "did:example:123#key-456
-}
-</pre>
-    <p>
-        When <a href="#iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL-2.0#dfn-holders">holder</a>
-        is identified as a <a data-cite="DID-CORE#did-subject">DID Subject</a>,
-        the <a href="#kid">kid</a> MUST be an absolute <a data-cite="DID-CORE#relative-did-urls">DID URL</a>.
-    </p>
-    <pre class="example" title="A holder identified by a DID">
-{
-  "holder": "did:example:abc"
-  // ...
-}
-</pre>
-    <pre class="example" title="A kid as an absolute DID URL">
-{
-  "alg": "ES384",
-  "kid": "did:example:abc#key-456
-}
-</pre>
-
-    <!-- REGULAR URLS via "issuer" and "holder" -->
-    <p>
-        When <a href="#iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">issuer</a> is
-        identified as a [[URL]],
-        the <a href="#kid">kid</a> MUST be an absolute [[URL]] to a verification method listed in a controller document.
-    </p>
-
-    <pre class="example" title="An issuer identified by a controller document identifier">
-{
-  "issuer": {
-    "id": "https://university.example/issuers/565049"
-  }
-  // ...
-}
-</pre>
-    <pre class="example" title="A kid as a controller document verification method identifier">
-{
-  "alg": "ES384",
-  "kid": "https://university.example/issuers/565049#key-123
-}
-</pre>
-
-    <p>
-        When the <a data-cite="VC-DATA-MODEL-2.0#dfn-holders">holder</a> is identified as a [[URL]],
-        and <a href="#iss">iss</a> is absent,
-        the <a href="#kid">kid</a> MUST be an absolute [[URL]] to a verification method listed in a controller document.
-    </p>
-    <pre class="example" title="A holder identified by a controller document identifier">
-{
-  "holder": {
-    "id": "https://university.example/issuers/565049"
-  }
-  // ...
-}
-</pre>
-    <pre class="example" title="A kid as a controller document verification method identifier">
-{
-  "alg": "ES384",
-  "kid": "https://university.example/issuers/565049#key-123
-}
-</pre>
-
-    <!-- REGULAR URLS via "iss" -->
-
-    <p>
-        When <a href="#iss">iss</a> is present and is a [[URL]],
-        the <a href="#kid">kid</a> MUST match a key discovered via a JWT Issuer Metadata Request,
-        as described in [[SD-JWT-VC]].
-    </p>
-
-    <p class="issue" title="(AT RISK) Feature depends on demonstration of independent implementations">
-        This normative statement depends on the IETF OAuth working group draft [[SD-JWT-VC]].
-        This feature is at risk and will be removed from the specification if at least
-        two independent, interoperable implementations are not demonstrated.
-    </p>
-
     <p>
         To complete the <a data-cite="VC-DATA-MODEL-2.0#dfn-verify">verification</a> process,
         a <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">verifier</a> needs to obtain the cryptographic keys used to
@@ -963,7 +965,7 @@
                 If <code>kid</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>
                 or the <a data-cite="RFC9052#section-3">COSE Header</a>,
                 a <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">verifier</a> can use this parameter
-                as a hint indicating which key was used to secure the verifiable credential, when performing a
+                as a hint indicating which key was used to secure the [=verifiable credential=], when performing a
                 <a data-cite="VC-DATA-MODEL-2.0#dfn-verify">verification</a> process as defined in <a
                     data-cite="RFC7515#section-4.1.4">RFC7515</a>.
             </p>
@@ -1010,94 +1012,103 @@
                 <a data-cite="VC-DATA-MODEL-2.0#dfn-verify">verification</a> process.
             </p>
             <p>
-                Use of a proof-of-possession key provided by the Holder to the Issuer
-                to establish a cryptographic binding to the Holder in the Verifiable Credential
-                that is verifiable by the Verifier in the Verifiable Presentation is RECOMMENDED.
+                Use of a proof-of-possession key provided by the [=Holder=] to the [=Issuer=]
+                to establish a cryptographic binding to the [=Holder=] in the [=Verifiable Credential=]
+                that is verifiable by the [=Verifier=] in the [=Verifiable Presentation=] is RECOMMENDED.
             </p>
         </section>
     </section>
 
     <section>
         <h2 id="well-known-uris">Well-Known URIs</h2>
+        <p>
+            When the [=issuer=] value is a URL using the HTTPS scheme,
+            [=issuer=] metadata including the [=issuer=]'s [=public keys=] can be retrieved using the mechanism
+            defined in [[SD-JWT-VC]].
+        </p>
 
-        <section>
-            <h2 id="jwt-issuer">JWT Issuer</h2>
-            <p>
-                When the issuer value is a URL using the HTTPS scheme,
-                issuer metadata including the issuer's public keys can be retrieved using the mechanism
-                defined in [[SD-JWT-VC]].
-            </p>
+        <p class="issue" title="(AT RISK) Feature depends on demonstration of independent implementations">
+            This normative statement depends on the IETF OAuth working group draft [[SD-JWT-VC]].
+            This feature is at risk and will be removed from the specification if at least
+            two independent, interoperable implementations are not demonstrated.
+        </p>
 
-            <p class="issue" title="(AT RISK) Feature depends on demonstration of independent implementations">
-                This normative statement depends on the IETF OAuth working group draft [[SD-JWT-VC]].
-                This feature is at risk and will be removed from the specification if at least
-                two independent, interoperable implementations are not demonstrated.
-            </p>
-        </section>
+        <pre class="example" title="A kid as a URL with a JWK Thumbprint URI">
+        {
+          "alg": "EdDSA",
+          "kid": "https://vendor.example/issuers/42/keys/urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs"
+        }
+        </pre>
     </section>
 
     <section>
-        <h3 id="using-controller-documents">Using Controller Documents</h3>
+    <h3 id="using-controller-documents">Using Controller Documents</h3>
 	<p>
 	  When using [=controller documents=] with this specification,
 	  the following requirements apply.
 	</p>
 	<p>
 	  The value of the `type` property of the verification method MUST be <code>JsonWebKey</code>.
-        </p>
-                <p>
-                    Verification material MUST be expressed in the <code>publicKeyJwk</code> property
-                    of a <code>JsonWebKey</code>. This key material is retrieved based on hints in the
-                    JOSE or COSE message envelopes, such as <code>kid</code> or <code>iss</code>. At
-                    the time of writing, there is no standard way to retrieve a public key in JWK format
-                    from a DID URL or controller document.
-                </p>
-    </section>
-</section>
+    </p>
+    <p>
+        Verification material MUST be expressed in the <code>publicKeyJwk</code> property
+        of a <code>JsonWebKey</code>. This key material is retrieved based on hints in the
+        JOSE or COSE message envelopes, such as <code>kid</code> or <code>iss</code>. At
+        the time of writing, there is no standard way to retrieve a public key in JWK format
+        from a DID URL or [=controller document=].
+    </p>
+       <!-- REGULAR URLS via "issuer" and "holder" -->
+    <p>
+        When <a href="#iss">iss</a> is absent, and the <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">issuer</a> is
+        identified as a [[URL]],
+        the <a href="#kid">kid</a> MUST be an absolute [[URL]] to a
+        verification method listed in a [=controller document=] or
+        a <a data-cite="DID-CORE#dfn-did-documents">DID Document</a>.
+    </p>
 
-<section id="conformance">
-    <section class="normative">
-        <h2 id="conformance-classes">Conformance Classes</h2>
-        <p>
-            A <dfn>conforming JWS document</dfn> is one that conforms to all of the
-            "MUST" statements in Section <a href="#secure-with-jose"></a>.
-        </p>
-        <p>
-            A <dfn>conforming JWS issuer implementation</dfn> produces
-            [=conforming JWS documents=] and MUST secure them as described in Section
-            <a href="#secure-with-jose"></a>.
-        <p>
-            A <dfn>conforming JWS verifier implementation</dfn> verifies
-            [=conforming JWS documents=] as described in Section
-            <a href="#secure-with-jose"></a>.
-        </p>
-        <p>
-            A <dfn>conforming SD-JWT document</dfn> is one that conforms to all of the
-            "MUST" statements in Section <a href="#secure-with-sd-jwt"></a>.
-        </p>
-        <p>
-            A <dfn>conforming SD-JWT issuer implementation</dfn> produces
-            [=conforming SD-JWT documents=] and MUST secure them as described in Section
-            <a href="#secure-with-sd-jwt"></a>.
-        <p>
-            A <dfn>conforming SD-JWT verifier implementation</dfn> verifies
-            [=conforming SD-JWT documents=] as described in Section
-            <a href="#secure-with-sd-jwt"></a>.
-        </p>
-        <p>
-            A <dfn>conforming COSE document</dfn> is one that conforms to all of the
-            "MUST" statements in Section <a href="#secure-with-cose"></a>.
-        </p>
-        <p>
-            A <dfn>conforming COSE issuer implementation</dfn> produces
-            [=conforming COSE documents=] and MUST secure them as described in Section
-            <a href="#secure-with-cose"></a>.
-        </p>
-        <p>
-            A <dfn>conforming COSE verifier implementation</dfn> verifies
-            [=conforming COSE documents=] as described in Section
-            <a href="#secure-with-cose"></a>.
-        </p>
+    <p>
+        When using [[URL]] identifiers, the <code>kid</code> is RECOMMENDED to be
+        an absolute [[URL]] that includes a JWK Thumbprint URI
+        as defined in [[RFC7638]]. For example:
+        <code>https://vendor.example/issuers/42/keys/urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs</code>
+    </p>
+
+    <pre class="example" title="An issuer identified by a controller document identifier">
+{
+  "issuer": {
+    "id": "https://university.example/issuers/565049"
+  }
+  // ...
+}
+</pre>
+    <pre class="example" title="A kid as a controller document verification method identifier">
+{
+  "alg": "ES384",
+  "kid": "https://university.example/issuers/565049#key-123
+}
+</pre>
+
+    <p>
+        When the <a data-cite="VC-DATA-MODEL-2.0#dfn-holders">holder</a> is
+        identified as a [[URL]],
+        and <a href="#iss">iss</a> is absent,
+        the <a href="#kid">kid</a> MUST be an absolute [[URL]] to a
+        verification method listed in a [=controller document=].
+    </p>
+    <pre class="example" title="A holder identified by a controller document identifier">
+{
+  "holder": {
+    "id": "https://university.example/issuers/565049"
+  }
+  // ...
+}
+</pre>
+    <pre class="example" title="A kid as a controller document verification method identifier">
+{
+  "alg": "ES384",
+  "kid": "https://university.example/issuers/565049#key-123
+}
+</pre>
     </section>
     <section class="normative">
         <h2 id="securing-verifiable-credentials">Securing Verifiable Credentials</h2>
@@ -1107,17 +1118,17 @@
             claims by <i>applying an <code>enveloping proof</code></i>.
         </p>
         <p>
-            This specification defines how to secure different data structures 
+            This specification defines how to secure different data structures
             using various <code>enveloping proof</code> mechanisms:</p>
         <dl>
         <dt>JSON Web Tokens (JWTs):</dt>
-        <dd>JWTs secure JSON Web Token Claim Sets. These are JSON objects 
+        <dd>JWTs secure JSON Web Token Claim Sets. These are JSON objects
         containing claims about an entity (typically the subject of the JWT).</dd>
         <dt>Selective Disclosure JWTs (SD-JWTs): </dt>
         <dd>SD-JWTs secure JSON Claim Sets, similar to JWTs, but with added
-         selective disclosure capabilities. This allows for parts of the 
+         selective disclosure capabilities. This allows for parts of the
          claim set to be selectively revealed or withheld.</dd>
-         
+
         <dt>CBOR Object Signing and Encryption (COSE):</dt>
         <dd>COSE secures CBOR (Concise Binary Object Representation) data
         structures. CBOR is a binary data format that is more compact than
@@ -1128,9 +1139,9 @@
         <ul>
             <li>When using JWTs, the Verifiable Credential or Presentation is
              encoded as a JSON Web Token Claim Set.</li>
-            <li>When using SD-JWTs, the Verifiable Credential or Presentation 
+            <li>When using SD-JWTs, the Verifiable Credential or Presentation
             is encoded as a JSON Claim Set with selective disclosure features.</li>
-            <li>When using COSE, the Verifiable Credential or Presentation is 
+            <li>When using COSE, the Verifiable Credential or Presentation is
             encoded as a CBOR data structure.</li>
         </ul>
         <p>
@@ -1187,7 +1198,7 @@
         <section>
         <h2>SD-JWT Format and Requirements</h2>
         <p>
-            This specification uses Selective Disclosure for JWTs (SD-JWT) as 
+            This specification uses Selective Disclosure for JWTs (SD-JWT) as
             defined in the IETF draft [[SD-JWT]].
             Implementers should refer to this draft for the full details of the
             SD-JWT format and processing requirements.
@@ -1206,12 +1217,11 @@
             containing the digest of the disclosed claim, the claim name, and
             the claim value.</li>
 
-            <li>Each disclosable claim is combined with a salt value 
+            <li>Each disclosable claim is combined with a salt value
             before hashing to prevent dictionary attacks.</li>
         </ul>
         </section>
     </section>
-
 </section>
 
 <section class="normative">
@@ -1942,12 +1952,12 @@ data:application/vp-ld+sd-jwt,eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT0
                 <code>vp-ld+jwt</code>
             </li>
             <li>
-                <code>inputDocument</code>: the verifiable credential secured as a JWT [[RFC7519]]
+                <code>inputDocument</code>: the [=verifiable credential=] secured as a JWT [[RFC7519]]
             </li>
         </ul>
         <p>
-            Upon receipt of the verifiable credential or presentation secured as a JWT
-            [[RFC7519]], the holder or verifier follows this algorithm:
+            Upon receipt of the [=verifiable credential=] or [=verifiable presentation=] secured as a JWT
+            [[RFC7519]], the [=holder=] or [=verifier=] follows this algorithm:
         </p>
         <ol>
             <li>
@@ -2003,7 +2013,7 @@ data:application/vp-ld+sd-jwt,eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT0
             </li>
         </ul>
         <p>
-            Upon receipt of the verifiable credential or presentation secured with
+            Upon receipt of the [=verifiable credential=] or [=verifiable presentation=] secured with
             [[SD-JWT]], the holder or verifier follows this algorithm:
         </p>
         <ol>
@@ -2061,13 +2071,13 @@ data:application/vp-ld+sd-jwt,eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT0
                 <code>vp-ld+cose</code>
             </li>
             <li>
-                <code>inputDocument</code>: the verifiable credential or verifiable presentation
+                <code>inputDocument</code>: the [=verifiable credential=] or [=verifiable presentation=]
                 secured with [[[RFC9052]]]
             </li>
         </ul>
         <p>
-            Upon receipt of the verifiable credential or presentation secured with
-            [[RFC9052]], the holder or verifier follows this algorithm:
+            Upon receipt of the [=verifiable credential=] or [=verifiable presentation=] secured with
+            [[RFC9052]], the [=holder=] or [=verifier=] follows this algorithm:
         </p>
         <ol>
             <li>
@@ -2119,7 +2129,7 @@ data:application/vp-ld+sd-jwt,eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT0
 
     <p>
         All claims expected for the <code>typ</code> MUST be present.
-        All claims that are understood MUST be evaluated according the verifier's validation policies.
+        All claims that are understood MUST be evaluated according the [=verifier=]'s validation policies.
         All claims that are not understood MUST be ignored.
     </p>
 
@@ -2142,14 +2152,24 @@ data:application/vp-ld+sd-jwt,eyJhbGciOiJFUzM4NCIsImtpZCI6IlNJM1JITm91aDhvODFOT0
     </p>
 
     <p>
-        Based on the validation policy of the verifier, the type of credentials, and
+        Based on the validation policy of the verifier, the type of [=credentials=], and
         the type of securing mechanism, additional validation checks MAY be applied.
-        For example, dependencies between multiple credentials, ordering or timing
-        information associated with multiple credentials, and/or multiple presentations
-        could cause an otherwise valid credential or presentation to be considered
+        For example, dependencies between multiple [=credentials=], ordering or timing
+        information associated with multiple credentials, and/or multiple [=presentations=]
+        could cause an otherwise valid [=credential=] or [=presentation=] to be considered
         invalid.
     </p>
 </section>
+
+  <section class="appendix informative">
+    <h2>Acknowledgements</h2>
+
+    <p>
+The Working Group thanks Orie Steele for his substantive intellectual and content
+contributions to this specification.  It wouldn't be the same without them.
+    </p>
+  </section>
+
 </body>
 
 </html>
