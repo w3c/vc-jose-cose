@@ -269,18 +269,18 @@
             with JSON Web Tokens.
             When content types from [[VC-DATA-MODEL-2.0]] are secured using
             JSON Web Tokens, the header parameter setting <code>"alg": "none"</code>,
-            MUST be used to communicate that a JWT Claims Set (a
-            Verifiable Credential or a Verifiable Presentation) has no
+            MUST be used to communicate that a JWT Claims Set that comprises a
+            Verifiable Credential or a Verifiable Presentation has no
             integrity protection.
-            When a JWT Claims Set (a Verifiable Credential or a
-            Verifiable Presentation) contains
+            When a JWT Claims Set that comprises a Verifiable Credential or a
+            Verifiable Presentation contains
             <code>proof</code>, and the JSON Web Token header contains
             <code>"alg": "none"</code>, the JWT Claims Set MUST be considered to
             have no integrity protection.
         </p>
         <p class="advisement">
             Verifiable Credentials and Verifiable Presentations are not
-            required to be secured or integrity protected or to contain a
+            required to be secured nor integrity protected, nor to contain a
             <code>proof</code> member.
         </p>
         <p>
