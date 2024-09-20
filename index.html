@@ -284,12 +284,14 @@
             <code>proof</code> member.
         </p>
         <p>
-            Issuers, Holders, and Verifiers MUST ignore all JWT Claims Sets that
-            have no integrity protection.
+            Issuers, Holders, and Verifiers of Verifiable Credentials and/or
+            Verifiable Presentations MUST ignore all, and MUST NOT produce any,
+            JWT Claims Sets that have no integrity protection.
         </p>
         <p>
             The JWT Claim Names <code>vc</code> and <code>vp</code>
-            MUST NOT be present in any JWT Claims Set.
+            MUST NOT be present in any JWT Claims Set that comprises a
+            Verifiable Credential or a Verifiable Presentation.
         </p>
     </section>
 
