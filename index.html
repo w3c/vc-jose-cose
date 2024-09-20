@@ -193,6 +193,105 @@
         asymmetric encryption algorithms.
     </p>
 
+  <section id="conformance" class="normative">
+    <section class="normative">
+        <h2 id="conformance-classes">Conformance Classes</h2>
+        <p>
+            A <dfn>conforming JWS document</dfn> is one that conforms to all of the
+            "MUST" statements in Section <a href="#secure-with-jose"></a>.
+        </p>
+        <p>
+            A <dfn>conforming JWS issuer implementation</dfn> produces
+            [=conforming JWS documents=] and MUST secure them as described in Section
+            <a href="#secure-with-jose"></a>.
+        <p>
+            A <dfn>conforming JWS verifier implementation</dfn> verifies
+            [=conforming JWS documents=] as described in Section
+            <a href="#secure-with-jose"></a>.
+        </p>
+        <p>
+            A <dfn>conforming SD-JWT document</dfn> is one that conforms to all of the
+            "MUST" statements in Section <a href="#secure-with-sd-jwt"></a>.
+        </p>
+        <p>
+            A <dfn>conforming SD-JWT issuer implementation</dfn> produces
+            [=conforming SD-JWT documents=] and MUST secure them as described in Section
+            <a href="#secure-with-sd-jwt"></a>.
+        <p>
+            A <dfn>conforming SD-JWT verifier implementation</dfn> verifies
+            [=conforming SD-JWT documents=] as described in Section
+            <a href="#secure-with-sd-jwt"></a>.
+        </p>
+        <p>
+            A <dfn>conforming COSE document</dfn> is one that conforms to all of the
+            "MUST" statements in Section <a href="#secure-with-cose"></a>.
+        </p>
+        <p>
+            A <dfn>conforming COSE issuer implementation</dfn> produces
+            [=conforming COSE documents=] and MUST secure them as described in Section
+            <a href="#secure-with-cose"></a>.
+        </p>
+        <p>
+            A <dfn>conforming COSE verifier implementation</dfn> verifies
+            [=conforming COSE documents=] as described in Section
+            <a href="#secure-with-cose"></a>.
+        </p>
+    </section>
+    <section class="normative">
+        <h2 id="securing-verifiable-credentials">Securing Verifiable Credentials</h2>
+        <p>The <a data-cite="VC-DATA-MODEL-2.0#securing-mechanism-specifications"></a> describes
+            the approach taken by JSON Web Tokens to secure JWT Claims Sets as <i>applying an
+                <code>external proof</code></i>.
+        </p>
+        <p>The normative statements in <a data-cite="VC-DATA-MODEL-2.0#securing-mechanisms">Securing
+            Mechanisms</a> apply to securing
+            <code>application/vc-ld+jwt</code> and
+            <code>application/vp-ld+jwt</code>,
+            <code>application/vc-ld+sd-jwt</code> and
+            <code>application/vp-ld+sd-jwt</code>,
+            as well as
+            <code>application/vc-ld+cose</code> and
+            <code>application/vp-ld+cose</code>.
+        </p>
+        <p>
+            JSON Web Token implementers are advised to review <a data-cite="RFC7519#section-8">Implementation
+            Requirements</a>.
+        </p>
+        <p>
+            Issuers, Holders, and Verifiers MUST understand the
+            JSON Web Token header parameter setting
+            <code>"alg": "none"</code> when securing [[VC-DATA-MODEL-2.0]]
+            with JSON Web Tokens.
+            When content types from [[VC-DATA-MODEL-2.0]] are secured using
+            JSON Web Tokens, the header parameter setting <code>"alg": "none"</code>,
+            MUST be used to communicate that a JWT Claims Set that comprises a
+            Verifiable Credential or a Verifiable Presentation has no
+            integrity protection.
+            When a JWT Claims Set that comprises a Verifiable Credential or a
+            Verifiable Presentation contains
+            <code>proof</code>, and the JSON Web Token header contains
+            <code>"alg": "none"</code>, the JWT Claims Set MUST be considered to
+            have no integrity protection.
+        </p>
+        <p class="advisement">
+            Verifiable Credentials and Verifiable Presentations are not
+            required to be secured nor integrity protected, nor to contain a
+            <code>proof</code> member.
+        </p>
+        <p>
+            Issuers, Holders, and Verifiers of Verifiable Credentials and/or
+            Verifiable Presentations MUST ignore all, and MUST NOT produce any,
+            JWT Claims Sets that have no integrity protection.
+        </p>
+        <p>
+            The JWT Claim Names <code>vc</code> and <code>vp</code>
+            MUST NOT be present in any JWT Claims Set that comprises a
+            Verifiable Credential or a Verifiable Presentation.
+        </p>
+    </section>
+
+  </section>
+
 </section>
 
 <section>
@@ -1048,103 +1147,6 @@
                     from a DID URL or controller document.
                 </p>
     </section>
-</section>
-
-<section id="conformance">
-    <section class="normative">
-        <h2 id="conformance-classes">Conformance Classes</h2>
-        <p>
-            A <dfn>conforming JWS document</dfn> is one that conforms to all of the
-            "MUST" statements in Section <a href="#secure-with-jose"></a>.
-        </p>
-        <p>
-            A <dfn>conforming JWS issuer implementation</dfn> produces
-            [=conforming JWS documents=] and MUST secure them as described in Section
-            <a href="#secure-with-jose"></a>.
-        <p>
-            A <dfn>conforming JWS verifier implementation</dfn> verifies
-            [=conforming JWS documents=] as described in Section
-            <a href="#secure-with-jose"></a>.
-        </p>
-        <p>
-            A <dfn>conforming SD-JWT document</dfn> is one that conforms to all of the
-            "MUST" statements in Section <a href="#secure-with-sd-jwt"></a>.
-        </p>
-        <p>
-            A <dfn>conforming SD-JWT issuer implementation</dfn> produces
-            [=conforming SD-JWT documents=] and MUST secure them as described in Section
-            <a href="#secure-with-sd-jwt"></a>.
-        <p>
-            A <dfn>conforming SD-JWT verifier implementation</dfn> verifies
-            [=conforming SD-JWT documents=] as described in Section
-            <a href="#secure-with-sd-jwt"></a>.
-        </p>
-        <p>
-            A <dfn>conforming COSE document</dfn> is one that conforms to all of the
-            "MUST" statements in Section <a href="#secure-with-cose"></a>.
-        </p>
-        <p>
-            A <dfn>conforming COSE issuer implementation</dfn> produces
-            [=conforming COSE documents=] and MUST secure them as described in Section
-            <a href="#secure-with-cose"></a>.
-        </p>
-        <p>
-            A <dfn>conforming COSE verifier implementation</dfn> verifies
-            [=conforming COSE documents=] as described in Section
-            <a href="#secure-with-cose"></a>.
-        </p>
-    </section>
-    <section class="normative">
-        <h2 id="securing-verifiable-credentials">Securing Verifiable Credentials</h2>
-        <p>The <a data-cite="VC-DATA-MODEL-2.0#securing-mechanism-specifications"></a> describes
-            the approach taken by JSON Web Tokens to secure JWT Claims Sets as <i>applying an
-                <code>external proof</code></i>.
-        </p>
-        <p>The normative statements in <a data-cite="VC-DATA-MODEL-2.0#securing-mechanisms">Securing
-            Mechanisms</a> apply to securing
-            <code>application/vc-ld+jwt</code> and
-            <code>application/vp-ld+jwt</code>,
-            <code>application/vc-ld+sd-jwt</code> and
-            <code>application/vp-ld+sd-jwt</code>,
-            as well as
-            <code>application/vc-ld+cose</code> and
-            <code>application/vp-ld+cose</code>.
-        </p>
-        <p>
-            JSON Web Token implementers are advised to review <a data-cite="RFC7519#section-8">Implementation
-            Requirements</a>.
-        </p>
-        <p>
-            Accordingly, Issuers, Holders, and Verifiers MUST understand the
-            JSON Web Token header parameter
-            <code>"alg": "none"</code> when securing [[VC-DATA-MODEL-2.0]]
-            with JSON Web Tokens.
-            When content types from [[VC-DATA-MODEL-2.0]] are secured using
-            JSON Web Tokens, the header parameter <code>"alg": "none"</code>,
-            MUST be used to communicate that a JWT Claims Set (a
-            Verifiable Credential or a Verifiable Presentation) has no
-            integrity protection.
-            When a JWT Claims Set (a Verifiable Credential or a
-            Verifiable Presentation) contains
-            <code>proof</code>, and the JSON Web Token header contains
-            <code>"alg": "none"</code>, the JWT Claims Set MUST be considered to
-            have no integrity protection.
-        </p>
-        <p class="advisement">
-            Verifiable Credentials and Verifiable Presentations are not
-            required to be secured or integrity protected or to contain a
-            <code>proof</code> member.
-        </p>
-        <p>
-            Issuers, Holders, and Verifiers MUST ignore all JWT Claims Sets that
-            have no integrity protection.
-        </p>
-        <p>
-            The JWT Claim Names <code>vc</code> and <code>vp</code>
-            MUST NOT be present in any JWT Claims Set.
-        </p>
-    </section>
-
 </section>
 
 <section class="normative">
