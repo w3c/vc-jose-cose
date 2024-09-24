@@ -240,7 +240,7 @@
       <section class="normative">
           <h2 id="securing-verifiable-credentials">Securing Verifiable Credentials</h2>
           <p>
-              The <a data-cite="VC-DATA-MODEL-2.0#securing-mechanism-specifications"></a> describes
+              The <a data-cite="VC-DATA-MODEL-2.0#securing-mechanism-specifications"></a> describe
               the approach taken by this specification to secure JSON and CBOR
               claims by <i>applying an <code>enveloping proof</code></i>.
           </p>
@@ -248,13 +248,19 @@
               This specification defines how to secure different data structures
               using various <code>enveloping proof</code> mechanisms:</p>
           <dl>
-              <dt>JSON Web Tokens (JWTs):</dt>
-              <dd>JWTs secure JSON Web Token Claim Sets. These are JSON objects
-                  containing claims about an entity (typically the subject of the JWT).</dd>
-              <dt>Selective Disclosure JWTs (SD-JWTs): </dt>
-              <dd>SD-JWTs secure JSON Claim Sets, similar to JWTs, but with added
-                  selective disclosure capabilities. This allows for parts of the
-                  claim set to be selectively revealed or withheld.</dd>
+              <dt>JSON Web Token (JWT):</dt>
+              <dd>A JWT secures a JWT Claim Set, in its entirety. A JWT Claim Set
+                  is a JSON object containing one or more claims about an entity
+                  (typically the subject of the JWT). If any part of the JWT Claim
+                  Set is to be revealed, all claims in that set must be revealed;
+                  there is no option to reveal (or conceal) <i>some</i> of the
+                  claims while concealing (or revealing) the others.</dd>
+              <dt>Selective Disclosure JSON Web Token (SD-JWT): </dt>
+              <dd>An SD-JWT secures a JSON Claim Set, similar to a JWT securing
+                  a JWT Claim Set, but with the added capabilities of selectively
+                  revealing or withholding parts of the JSON Claim Set. A JSON
+                  Claim Set is one or more claims about an entity (typically the
+                  subject of the SD-JWT).</dd>
 
               <dt>CBOR Object Signing and Encryption (COSE):</dt>
               <dd>COSE secures CBOR (Concise Binary Object Representation) data
@@ -267,7 +273,7 @@
               <li>When using JWTs, the Verifiable Credential or Presentation is
                   encoded as a JSON Web Token Claim Set.</li>
               <li>When using SD-JWTs, the Verifiable Credential or Presentation
-                  is encoded as a JSON Claim Set with selective disclosure features.</li>
+                  is encoded as a JSON Claim Set with Selective Disclosure features.</li>
               <li>When using COSE, the Verifiable Credential or Presentation is
                   encoded as a CBOR data structure.</li>
           </ul>
@@ -292,20 +298,21 @@
                   Requirements</a>.
               </p>
               <p>
-                  Accordingly, Issuers, Holders, and Verifiers MUST understand the
-                  JSON Web Token header parameter
-                  <code>"alg": "none"</code> when securing [[VC-DATA-MODEL-2.0]]
-                  with JSON Web Tokens.
-                  When content types from [[VC-DATA-MODEL-2.0]] are secured using
-                  JSON Web Tokens, the header parameter <code>"alg": "none"</code>,
-                  MUST be used to communicate that a JWT Claims Set (a
-                  Verifiable Credential or a Verifiable Presentation) has no
-                  integrity protection.
-                  When a JWT Claims Set (a Verifiable Credential or a
-                  Verifiable Presentation) contains
-                  <code>proof</code>, and the JSON Web Token header contains
-                  <code>"alg": "none"</code>, the JWT Claims Set MUST be considered to
-                  have no integrity protection.
+                  Issuers, Holders, and Verifiers of JWTs MUST understand the
+                  effect of the JSON Web Token header parameter setting of
+                  <code>"alg": "none"</code> when using JSON Web Tokens to
+                  secure [[[VC-DATA-MODEL-2.0]]] [[VC-DATA-MODEL-2.0]]. When
+                  content types from the [[[VC-DATA-MODEL-2.0]]]
+                  [[VC-DATA-MODEL-2.0]] are secured using JSON Web Tokens, the
+                  header parameter setting of <code>"alg": "none"</code> MUST
+                  be used to communicate that a Verifiable Credential or
+                  Verifiable Presentation encoded as a JWT Claims Set has no
+                  integrity protection. When a Verifiable Credential or
+                  Verifiable Presentation encoded as a JWT Claims Set contains
+                  a <code>proof</code> claim, and the JSON Web Token header
+                  contains <code>"alg": "none"</code>, the JWT Claims Set &mdash;
+                  the Verifiable Credential or Verifiable Presentation &mdash;
+                  MUST be considered to have no integrity protection.
               </p>
               <p class="advisement">
                   Verifiable Credentials and Verifiable Presentations are not
@@ -313,12 +320,12 @@
                   <code>proof</code> member.
               </p>
               <p>
-                  Issuers, Holders, and Verifiers MUST ignore all JWT Claims Sets that
+                  Issuers, Holders, and Verifiers MUST ignore all JWT Claim Sets that
                   have no integrity protection.
               </p>
               <p>
                   The JWT Claim Names <code>vc</code> and <code>vp</code>
-                  MUST NOT be present in any JWT Claims Set.
+                  MUST NOT be present in any JWT Claim Set.
               </p>
           </section>
           <section>
