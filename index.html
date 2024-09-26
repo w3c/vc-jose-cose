@@ -147,7 +147,7 @@
     </p>
 </section>
 
-<section class="normative" id="introduction">
+<section id="introduction">
     <h2 id="section-introduction">Introduction</h2>
     <p>
         This specification defines how to secure media types
@@ -299,7 +299,7 @@
     <div data-include="./terms.html"></div>
 </section>
 
-<section class="normative">
+<section>
     <h2 id="securing-the-vc-data-model">Securing the VC Data Model</h2>
     <p>
         This section outlines how to secure documents conforming
@@ -334,9 +334,9 @@
         If implementations do not know which media type to use, media types defined in this specification MUST be used.
     </p>
 
-    <section class="normative" id="secure-with-jose">
+    <section id="secure-with-jose">
         <h2 id="with-jose">With JOSE</h2>
-        <section class="normative">
+        <section>
             <h2 id="securing-with-jose">Securing JSON-LD Verifiable Credentials with JOSE</h2>
             <p>
                 This section details how to use JOSE to secure verifiable credentials conforming
@@ -398,7 +398,7 @@
             </p>
         </section>
 
-        <section class="normative">
+        <section>
             <h2 id="securing-vps-with-jose">Securing JSON-LD Verifiable Presentations with JOSE</h2>
             <p>
                 This section details how to use JOSE to secure verifiable presentations conforming
@@ -557,9 +557,9 @@
         </section>
     </section>
 
-    <section class="normative" id="secure-with-sd-jwt">
+    <section id="secure-with-sd-jwt">
         <h2 id="with-sd-jwt">With SD-JWT</h2>
-        <section class="normative">
+        <section>
             <h2 id="securing-with-sd-jwt">Securing JSON-LD Verifiable Credentials with SD-JWT</h2>
             <p>
                 This section details how to use JOSE to secure verifiable credentials conforming
@@ -633,7 +633,7 @@
             </p>
         </section>
 
-        <section class="normative">
+        <section>
             <h2 id="securing-vps-sd-jwt">Securing JSON-LD Verifiable Presentations with SD-JWT</h2>
             <p>
                 This section details how to use SD-JWT to secure verifiable presentations conforming
@@ -731,7 +731,7 @@
         </section>
     </section>
 
-    <section class="normative" id="secure-with-cose">
+    <section id="secure-with-cose">
         <h2 id="securing-with-cose">With COSE</h2>
         <p>
             COSE [[RFC9052]] is a common approach to encoding and securing
@@ -740,7 +740,7 @@
             use of content types as outlined in this section.
         </p>
 
-        <section class="normative">
+        <section>
             <h2 id="securing-vcs-with-cose">Securing JSON-LD Verifiable Credentials with COSE</h2>
             <p>
                 This section details how to use COSE to secure verifiable credentials conforming
@@ -803,7 +803,7 @@
                 for more details regarding this example.
             </p>
         </section>
-        <section class="normative">
+        <section>
             <h2 id="securing-vps-with-cose">Securing JSON-LD Verifiable Presentations with COSE</h2>
             <p>
                 This section details how to use COSE to secure verifiable presentations conforming
@@ -953,13 +953,13 @@
     </p>
 
 
-    <section class="normative">
+    <section>
         <h2 id="using-header-params-claims-key-discovery">Using Header Parameters and Claims for Key Discovery</h2>
         <p>
             These JOSE header parameters and JWT claims can be used by
             <a data-cite="VC-DATA-MODEL-2.0#dfn-verifier">verifiers</a> to discover verification keys.
         </p>
-        <section class="normative">
+        <section>
             <h2 id="kid">kid</h2>
             <p>
                 If <code>kid</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>
@@ -975,7 +975,7 @@
                 or <a data-cite="VC-DATA-MODEL-2.0#dfn-subjects">subject</a> is expressed as a DID URL.
             </p>
         </section>
-        <section class="normative">
+        <section>
             <h2 id="iss">iss</h2>
             <p>
                 If <code>iss</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>,
@@ -1000,7 +1000,7 @@
             </p>
         </section>
 
-        <section class="normative">
+        <section>
             <h2 id="cnf">cnf</h2>
             <p>
                 If <code>cnf</code> is present in the <a data-cite="RFC7515#section-4.1">JOSE Header</a>,
@@ -1019,10 +1019,10 @@
         </section>
     </section>
 
-    <section class="normative">
+    <section>
         <h2 id="well-known-uris">Well-Known URIs</h2>
 
-        <section class="normative">
+        <section>
             <h3 id="jwt-issuer">JWT Issuer</h3>
         <p>
             When the [=issuer=] value is a URL using the HTTPS scheme,
@@ -1155,7 +1155,7 @@
     </section>
 </section>
 
-<section class="normative">
+<section>
     <h2 id="algorithms">Algorithms</h2>
     <p>
         This specification might be used with many different key discovery protocols.
@@ -1186,7 +1186,7 @@
             <code>mediaType</code>: <code>vc</code> or <code>vp</code>
         </li>
     </ul>
-    <section class="normative">
+    <section>
         <h3 id="alg-jose">Verifying a Credential or Presentation Secured with JOSE</h3>
         <p>
             The inputs for this algorithm are:
@@ -1244,7 +1244,7 @@
             </li>
         </ol>
     </section>
-    <section class="normative">
+    <section>
         <h3 id="alg-sd-jwt">Verifying a Credential or Presentation Secured with SD-JWT</h3>
         <p>
             The inputs for this algorithm are:
@@ -1305,7 +1305,7 @@
             </li>
         </ol>
     </section>
-    <section class="normative">
+    <section>
         <h3 id="alg-cose">Verifying a Credential or Presentation Secured with COSE</h3>
         <p>
             The inputs for this algorithm are:
