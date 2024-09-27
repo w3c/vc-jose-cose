@@ -640,11 +640,14 @@
                 documents=] that use this media type.
             </p>
             <p>
-                When securing verifiable credentials with [[SD-JWT]] implementers MUST ensure that
+                When securing [=verifiable credentials=] with [[SD-JWT]] implementers MUST ensure that
                 properties necessary for the validation and verification of a credential are NOT selectively
                 disclosable (i.e., such properties MUST be disclosed). These properties include but are not
-                limited to <a data-cite="VC-DATA-MODEL-2.0#status"><code>credentialStatus</code></a>
-                and <a data-cite="VC-DATA-MODEL-2.0#data-schemas"><code>credentialSchema</code></a>.
+                limited to <a data-cite="VC-DATA-MODEL-2.0#contexts"><code>@context</code></a>,
+                <a data-cite="VC-DATA-MODEL-2.0#types"><code>type</code></a>,
+                <a data-cite="VC-DATA-MODEL-2.0#status"><code>credentialStatus</code></a>
+                and <a data-cite="VC-DATA-MODEL-2.0#data-schemas"><code>credentialSchema</code></a>,
+                and <a data-cite="VC-DATA-MODEL-2.0#integrity-of-related-resources"><code>relatedResource</code></a>.
             </p>
 	    <p>
 	      To encrypt a secured [=verifiable credential=]
@@ -727,11 +730,14 @@
                 These credentials are secured using SD-JWT in this case.
             <p>
             <p>
-                When securing verifiable presentations with [[SD-JWT]] implementers MUST ensure that
+                When securing [=verifiable credentials=] with [[SD-JWT]] implementers MUST ensure that
                 properties necessary for the validation and verification of a credential are NOT selectively
                 disclosable (i.e., such properties MUST be disclosed). These properties include but are not
-                limited to <a data-cite="VC-DATA-MODEL-2.0#status"> <code>credentialStatus</code></a>
-                and <a data-cite="VC-DATA-MODEL-2.0#data-schemas"> <code>credentialSchema</code></a>.
+                limited to <a data-cite="VC-DATA-MODEL-2.0#contexts"><code>@context</code></a>,
+                <a data-cite="VC-DATA-MODEL-2.0#types"><code>type</code></a>,
+                <a data-cite="VC-DATA-MODEL-2.0#status"><code>credentialStatus</code></a>
+                and <a data-cite="VC-DATA-MODEL-2.0#data-schemas"><code>credentialSchema</code></a>,
+                and <a data-cite="VC-DATA-MODEL-2.0#integrity-of-related-resources"><code>relatedResource</code></a>.
             </p>
 	    <p>
 	      To encrypt a secured [=verifiable presentation=]
