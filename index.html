@@ -249,17 +249,17 @@
               using various <code>enveloping proof</code> mechanisms:</p>
           <dl>
               <dt>JSON Web Token (JWT):</dt>
-              <dd>A JWT secures a JWT Claim Set, in its entirety. A JWT Claim Set
+              <dd>A JWT secures a JWT Claims Set, in its entirety. A JWT Claims Set
                   is a JSON object containing one or more claims about an entity
-                  (typically the subject of the JWT). If any part of the JWT Claim
-                  Set is to be revealed, all claims in that set must be revealed;
+                  (typically the subject of the JWT). If any part of the
+                  JWT Claims Set is to be revealed, all claims in that set must be revealed;
                   there is no option to reveal (or conceal) <i>some</i> of the
                   claims while concealing (or revealing) the others.</dd>
               <dt>Selective Disclosure JSON Web Token (SD-JWT): </dt>
-              <dd>An SD-JWT secures a JSON Claim Set, similar to a JWT securing
-                  a JWT Claim Set, but with the added capabilities of selectively
-                  revealing or withholding parts of the JSON Claim Set. A JSON
-                  Claim Set is one or more claims about an entity (typically the
+              <dd>An SD-JWT secures a JWT Claims Set, similar to a JWT securing
+                  a JWT Claims Set, but with the added capabilities of selectively
+                  revealing or withholding parts of the JWT Claims Set. A
+                  JWT Claims Set is one or more claims about an entity (typically the
                   subject of the SD-JWT).</dd>
 
               <dt>CBOR Object Signing and Encryption (COSE):</dt>
@@ -271,9 +271,9 @@
           <p>In the context of Verifiable Credentials:</p>
           <ul>
               <li>When using JWTs, the Verifiable Credential or Presentation is
-                  encoded as a JSON Web Token Claim Set.</li>
+                  encoded as a JWT Claims Set.</li>
               <li>When using SD-JWTs, the Verifiable Credential or Presentation
-                  is encoded as a JSON Claim Set with Selective Disclosure features.</li>
+                  is encoded as a JWT Claims Set with Selective Disclosure features.</li>
               <li>When using COSE, the Verifiable Credential or Presentation is
                   encoded as a CBOR data structure.</li>
           </ul>
@@ -310,12 +310,12 @@
                   integrity protection.
               </p>
               <p>
-                  Issuers, Holders, and Verifiers MUST ignore all JWT Claim Sets that
+                  Issuers, Holders, and Verifiers MUST ignore all JWT Claims Sets that
                   have no integrity protection.
               </p>
               <p>
                   The JWT Claim Names <code>vc</code> and <code>vp</code>
-                  MUST NOT be present in any JWT Claim Set that comprises a
+                  MUST NOT be present in any JWT Claims Set that comprises a
 		  [=verifiable credential=] or a [=verifiable presentation=].
               </p>
           </section>
@@ -655,8 +655,8 @@ A document that contains public cryptographic material as defined in the
             </p>
             <p>
                 A [=conforming SD-JWT issuer implementation=] MUST use [[[SD-JWT]]] [[SD-JWT]] to secure
-                this media type. The unsecured [=verifiable credential=] is the input JSON
-                claim set. The Issuer then converts the input JSON claim set (i.e., the
+                this media type. The unsecured [=verifiable credential=] is the input
+                JWT Claims Set. The Issuer then converts the input JWT Claims Set (i.e., the
                 unsecured [=verifiable credential=]) into an [[SD-JWT]] payload according to
                 <a data-cite="SD-JWT#section-6.1">SD-JWT issuance instructions</a>.
             </p>
@@ -1336,9 +1336,9 @@ A document that contains public cryptographic material as defined in the
                         Set <code>mediaType</code> to <code>vc</code>
                     </li>
                     <li>
-                        Convert the SD-JWT payload back into the JSON claim set by reversing the process
-                        in [[[SD-JWT]]] [[SD-JWT]]. Set <code>document</code> to the JSON claim set.
-                        (For examples of the transition from JSON claim set to SD-JWT payload, please
+                        Convert the SD-JWT payload back into the JWT Claims Set by reversing the process
+                        in [[[SD-JWT]]] [[SD-JWT]]. Set <code>document</code> to the JWT Claims Set.
+                        (For examples of the transition from JWT Claims Set to SD-JWT payload, please
                         see <a data-cite="SD-JWT#appendix-A">SD-JWT examples</a>).
                     </li>
                     <li>
