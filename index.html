@@ -434,10 +434,11 @@
           <p>
             The <code>typ</code> header parameter SHOULD be <code>vc+jwt</code>.
             When present, the <code>cty</code> header parameter SHOULD be
-            <code>vc</code>. See
-            <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
-            for additional details regarding usage of <code>typ</code> and
-            <code>cty</code>.
+            <code>vc</code>. 
+            The <code>cty</code> header parameter value can be used to differentiate
+            between secured content of different types when using <code>vc+jwt</code>.
+            See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
+            for additional details regarding usage of <code>typ</code> and <code>cty</code>.
           </p>
           <p>
             A [=conforming JWS verifier implementation=] MUST use [[RFC7515]] to
@@ -497,10 +498,11 @@
           <p>
             The <code>typ</code> header parameter SHOULD be <code>vp+jwt</code>.
             When present, the <code>cty</code> header parameter SHOULD be
-            <code>vp</code>. See
-            <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
-            for additional details regarding usage of <code>typ</code> and
-            <code>cty</code>.
+            <code>vp</code>.
+            The <code>cty</code> header parameter value can be used to differentiate
+            between secured content of different types when using <code>vp+jwt</code>.
+            See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
+            for additional details regarding usage of <code>typ</code> and <code>cty</code>.
           </p>
           <p>
             A [=conforming JWS verifier implementation=] MUST use [[RFC7515]] to
@@ -664,9 +666,10 @@
           <p>
             The <code>typ</code> header parameter SHOULD be <code>vc+sd-jwt</code>.
             When present, the <code>cty</code> header parameter SHOULD be <code>vc</code>.
+            The <code>cty</code> header parameter value can be used to differentiate 
+            between secured content of different types when using <code>vc+sd-jwt</code>.
             See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
-            for additional details regarding usage of <code>typ</code> and
-            <code>cty</code>.
+            for additional details regarding usage of <code>typ</code> and <code>cty</code>.
           </p>
           <p>
             A [=conforming SD-JWT verifier implementation=] MUST use [[SD-JWT]]
@@ -735,8 +738,9 @@
           <p>
             The <code>typ</code> header parameter SHOULD be <code>vp+sd-jwt</code>.
             When present, the <code>cty</code> header parameter SHOULD be <code>vp</code>.
-            See
-            <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
+            The <code>cty</code> header parameter value can be used to differentiate
+            between secured content of different types when using <code>vp+sd-jwt</code>.
+            See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
             for additional details regarding usage of <code>typ</code> and <code>cty</code>.
           </p>
           <p>
@@ -845,10 +849,12 @@
             The <code>typ</code> header parameter, as described in
             <a data-cite="RFC9596#section-2">COSE "typ" (type) Header Parameter</a>,
             SHOULD be <code>application/vc+cose</code>.
+            The <code>content type (3)</code> header parameter value can be used
+            to differentiate between secured content of different types when using
+            <code>application/vc+cose</code>.
             When present, the <code>content type (3)</code> header parameter
             SHOULD be <code>application/vc</code>.
-            See
-            <a data-cite="RFC9052#section-3.1">Common COSE Header Parameters</a>
+            See <a data-cite="RFC9052#section-3.1">Common COSE Header Parameters</a>
             for additional details.
           </p>
           <p>
@@ -912,12 +918,11 @@
             The unsecured [=verifiable presentation=] is the unencoded COSE_Sign1 payload.
           </p>
           <p>
-            The <code>typ</code> header parameter SHOULD be
-            <code>application/vp+cose</code>.
-            When present, the <code>content type (3)</code> header parameter
-            SHOULD be <code>application/vp</code>.
-            See
-            <a data-cite="RFC9052#section-3.1">Common COSE Header Parameters</a>
+            The <code>typ</code> header parameter SHOULD be <code>application/vp+cose</code>.
+            The <code>content type (3)</code> header parameter value can be used to differentiate
+            between secured content of different types when using <code>application/vp+cose</code>.
+            When present, the <code>content type (3)</code> header parameter SHOULD be <code>application/vp</code>.
+            See <a data-cite="RFC9052#section-3.1">Common COSE Header Parameters</a>
             for additional details.
           </p>
           <p>
@@ -1307,8 +1312,7 @@
         </ol>
       </section>
       <section>
-        <h3 id="alg-sd-jwt">Verifying a Credential or Presentation Secured
-         with [[SD-JWT]]</h3>
+        <h3 id="alg-sd-jwt">Verifying a Credential or Presentation Secured with SD-JWT</h3>
         <p>
           The inputs for this algorithm are:
         </p>
