@@ -437,6 +437,7 @@
             <code>vc</code>. 
             The <code>cty</code> header parameter value can be used to differentiate
             between secured content of different types when using <code>vc+jwt</code>.
+            Other more specific media types MAY be used, if they are available.
             See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
             for additional details regarding usage of <code>typ</code> and <code>cty</code>.
           </p>
@@ -501,6 +502,7 @@
             <code>vp</code>.
             The <code>cty</code> header parameter value can be used to differentiate
             between secured content of different types when using <code>vp+jwt</code>.
+            Other more specific media types MAY be used, if they are available.
             See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
             for additional details regarding usage of <code>typ</code> and <code>cty</code>.
           </p>
@@ -668,6 +670,7 @@
             When present, the <code>cty</code> header parameter SHOULD be <code>vc</code>.
             The <code>cty</code> header parameter value can be used to differentiate 
             between secured content of different types when using <code>vc+sd-jwt</code>.
+            Other more specific media types MAY be used, if they are available.
             See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
             for additional details regarding usage of <code>typ</code> and <code>cty</code>.
           </p>
@@ -740,6 +743,7 @@
             When present, the <code>cty</code> header parameter SHOULD be <code>vp</code>.
             The <code>cty</code> header parameter value can be used to differentiate
             between secured content of different types when using <code>vp+sd-jwt</code>.
+            Other more specific media types MAY be used, if they are available.
             See <a data-cite="RFC7515#section-4.1">Registered Header Parameter Names</a>
             for additional details regarding usage of <code>typ</code> and <code>cty</code>.
           </p>
@@ -849,11 +853,11 @@
             The <code>typ</code> header parameter, as described in
             <a data-cite="RFC9596#section-2">COSE "typ" (type) Header Parameter</a>,
             SHOULD be <code>application/vc+cose</code>.
-            When present, the <code>content type (3)</code> header parameter
-            SHOULD be <code>application/vc</code>.
+            The <code>type (16)</code> header parameter SHOULD be <code>application/vc</code>.
             The <code>content type (3)</code> header parameter value can be used
             to differentiate between secured content of different types when using
             <code>application/vc+cose</code>.
+            Other more specific media types MAY be used, if they are available.
             See <a data-cite="RFC9052#section-3.1">Common COSE Header Parameters</a>
             for additional details.
           </p>
@@ -919,9 +923,10 @@
           </p>
           <p>
             The <code>typ</code> header parameter SHOULD be <code>application/vp+cose</code>.
-            When present, the <code>content type (3)</code> header parameter SHOULD be <code>application/vp</code>.
+            The <code>type (16)</code> header parameter SHOULD be <code>application/vp</code>.
             The <code>content type (3)</code> header parameter value can be used to differentiate
             between secured content of different types when using <code>application/vp+cose</code>.
+            Other more specific media types MAY be used, if they are available.
             See <a data-cite="RFC9052#section-3.1">Common COSE Header Parameters</a>
             for additional details.
           </p>
