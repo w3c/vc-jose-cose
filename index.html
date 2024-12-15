@@ -81,7 +81,7 @@
                   value: "Verifiable Credentials Data Model v2.0",
                   href: "https://www.w3.org/TR/vc-data-model-2.0/"
               }, {
-                  value: "Controller Documents 1.0",
+                  value: "Controlled Identifier Document 1.0",
                   href: "https://www.w3.org/TR/controller-document/"
               }]
           }],
@@ -371,7 +371,7 @@
           cryptographically-verifiable digital credentials, as defined by the W3C
           Verifiable Credentials specification [[VC-DATA-MODEL-2.0]].
         </dd>
-        <dt><dfn>controller document</dfn></dt>
+        <dt><dfn>controlled identifier document</dfn></dt>
         <dd>
           A document that contains public cryptographic material as defined in
           the [[[CONTROLLER-DOCUMENT]]] specification.
@@ -458,29 +458,33 @@
     "https://www.w3.org/ns/credentials/v2",
     "https://www.w3.org/ns/credentials/examples/v2"
   ],
-  "id": "http://university.example/credentials/1872",
-  "type": [
-    "VerifiableCredential",
-    "ExampleAlumniCredential"
-  ],
-  "issuer": "https://university.example/issuers/565049",
+  "id": "http://university.example/credentials/3732",
+  "type": ["VerifiableCredential", "ExampleDegreeCredential", "ExamplePersonCredential"],
+  "issuer": "https://university.example/issuers/14",
   "validFrom": "2010-01-01T19:23:24Z",
-  "credentialSchema": {
+  "credentialSubject": {
+    "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+    "degree": {
+      "type": "ExampleBachelorDegree",
+      "name": "Bachelor of Science and Arts"
+    },
+    "alumniOf": {
+      "name": "Example University"
+    }
+  },
+  "credentialSchema": [{
     "id": "https://example.org/examples/degree.json",
     "type": "JsonSchema"
   },
-  "credentialSubject": {
-    "id": "did:example:123",
-    "degree": {
-      "type": "BachelorDegree",
-      "name": "Bachelor of Science and Arts"
-    }
-  }
+  {
+    "id": "https://example.org/examples/alumni.json",
+    "type": "JsonSchema"
+  }]
 }
         </pre>
           <p>
             See <a
-              data-cite="VC-DATA-MODEL-2.0#example-a-simple-example-of-the-contents-of-a-verifiable-credential"></a>
+              data-cite="VC-DATA-MODEL-2.0#example-using-the-credentialschema-property-to-perform-json-schema-validation"></a>
             for more details regarding this example.
           </p>
         </section>
@@ -712,28 +716,32 @@
     "https://www.w3.org/ns/credentials/v2",
     "https://www.w3.org/ns/credentials/examples/v2"
   ],
-  "id": "http://university.example/credentials/1872",
-  "type": [
-    "VerifiableCredential",
-    "ExampleAlumniCredential"
-  ],
-  "issuer": "https://university.example/issuers/565049",
+  "id": "http://university.example/credentials/3732",
+  "type": ["VerifiableCredential", "ExampleDegreeCredential", "ExamplePersonCredential"],
+  "issuer": "https://university.example/issuers/14",
   "validFrom": "2010-01-01T19:23:24Z",
-  "credentialSchema": {
+  "credentialSubject": {
+    "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+    "degree": {
+      "type": "ExampleBachelorDegree",
+      "name": "Bachelor of Science and Arts"
+    },
+    "alumniOf": {
+      "name": "Example University"
+    }
+  },
+  "credentialSchema": [{
     "id": "https://example.org/examples/degree.json",
     "type": "JsonSchema"
   },
-  "credentialSubject": {
-    "id": "did:example:123",
-    "degree": {
-      "type": "BachelorDegree",
-      "name": "Bachelor of Science and Arts"
-    }
-  }
+  {
+    "id": "https://example.org/examples/alumni.json",
+    "type": "JsonSchema"
+  }]
 }
         </pre>
           <p>
-            See <a data-cite="VC-DATA-MODEL-2.0#example-a-simple-example-of-the-contents-of-a-verifiable-credential"></a>
+            See <a data-cite="VC-DATA-MODEL-2.0#example-using-the-credentialschema-property-to-perform-json-schema-validation"></a>
             for more details regarding this example.
           </p>
         </section>
@@ -893,28 +901,32 @@
     "https://www.w3.org/ns/credentials/v2",
     "https://www.w3.org/ns/credentials/examples/v2"
   ],
-  "id": "http://university.example/credentials/1872",
-  "type": [
-    "VerifiableCredential",
-    "ExampleAlumniCredential"
-  ],
-  "issuer": "https://university.example/issuers/565049",
+  "id": "http://university.example/credentials/3732",
+  "type": ["VerifiableCredential", "ExampleDegreeCredential", "ExamplePersonCredential"],
+  "issuer": "https://university.example/issuers/14",
   "validFrom": "2010-01-01T19:23:24Z",
-  "credentialSchema": {
+  "credentialSubject": {
+    "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+    "degree": {
+      "type": "ExampleBachelorDegree",
+      "name": "Bachelor of Science and Arts"
+    },
+    "alumniOf": {
+      "name": "Example University"
+    }
+  },
+  "credentialSchema": [{
     "id": "https://example.org/examples/degree.json",
     "type": "JsonSchema"
   },
-  "credentialSubject": {
-    "id": "did:example:123",
-    "degree": {
-      "type": "BachelorDegree",
-      "name": "Bachelor of Science and Arts"
-    }
-  }
+  {
+    "id": "https://example.org/examples/alumni.json",
+    "type": "JsonSchema"
+  }]
 }
         </pre>
           <p>
-            See <a data-cite="VC-DATA-MODEL-2.0#example-a-simple-example-of-the-contents-of-a-verifiable-credential"></a>
+            See <a data-cite="VC-DATA-MODEL-2.0#example-using-the-credentialschema-property-to-perform-json-schema-validation"></a>
             for more details regarding this example.
           </p>
         </section>
@@ -1166,9 +1178,9 @@
         </section>
       </section>
       <section>
-        <h3 id="using-controller-documents">Using Controller Documents</h3>
+        <h3 id="using-controlled-identifier-documents">Using Controlled Identifier Documents</h3>
         <p>
-          When using [=controller documents=] with this specification,
+          When using [=controlled identifier documents=] with this specification,
           the following requirements apply.
         </p>
         <p>
@@ -1181,14 +1193,14 @@
           This key material is retrieved based on hints in the JOSE or COSE message
           envelopes, such as <code>kid</code> or <code>iss</code>.
           At the time of writing, there is no standard way to retrieve a
-          public key in JWK format from a DID URL or [=controller document=].
+          public key in JWK format from a DID URL or [=controlled identifier documents=].
         </p>
         <!-- REGULAR URLS via "issuer" and "holder" -->
         <p>
           When <a href="#iss">iss</a> is absent, and the
           <a data-cite="VC-DATA-MODEL-2.0#dfn-issuers">issuer</a> is identified
           as a [[URL]], the <a href="#kid">kid</a> MUST be an absolute [[URL]]
-          to a verification method listed in a [=controller document=] or
+          to a verification method listed in a [=controlled identifier documents=] or
           a <a data-cite="DID-CORE#dfn-did-documents">DID Document</a>.
         </p>
         <p>
@@ -1198,7 +1210,7 @@
           For example:
           <code>https://vendor.example/issuers/42/keys/urn:ietf:params:oauth:jwk-thumbprint:sha-256:NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs</code>
         </p>
-        <pre class="example" title="An issuer identified by a controller document identifier">
+        <pre class="example" title="An issuer identified by a controlled identifier document identifier">
 {
   "issuer": {
     "id": "https://university.example/issuers/565049"
@@ -1206,7 +1218,7 @@
   // ...
 }
 </pre>
-<pre class="example" title="A kid as a controller document verification method identifier">
+<pre class="example" title="A kid as a controlled identifier document verification method identifier">
 {
   "alg": "ES384",
   "kid": "https://university.example/issuers/565049#key-123
@@ -1216,9 +1228,9 @@
           When the <a data-cite="VC-DATA-MODEL-2.0#dfn-holders">holder</a> is
           identified as a [[URL]], and <a href="#iss">iss</a> is absent, the
           <a href="#kid">kid</a> MUST be an absolute [[URL]] to a
-          verification method listed in a [=controller document=].
+          verification method listed in a [=controlled identifier document=].
         </p>
-<pre class="example" title="A holder identified by a controller document identifier">
+<pre class="example" title="A holder identified by a controlled identifier document identifier">
 {
   "holder": {
     "id": "https://university.example/issuers/565049"
@@ -1226,7 +1238,7 @@
   // ...
 }
 </pre>
-<pre class="example" title="A kid as a controller document verification method identifier">
+<pre class="example" title="A kid as a controlled identifier document verification method identifier">
 {
   "alg": "ES384",
   "kid": "https://university.example/issuers/565049#key-123
@@ -1536,7 +1548,7 @@
             </tr>
             <tr>
               <td>Published specification:</td>
-              <td><a href="https://w3.org/TR/vc-jose-cose">https://w3.org/TR/vc-jose-cose</a></td>
+              <td><a href="https://www.w3.org/TR/vc-jose-cose">https://www.w3.org/TR/vc-jose-cose</a></td>
             </tr>
             <tr>
               <td>Applications that will use this media:</td>
@@ -1633,7 +1645,7 @@
             </tr>
             <tr>
               <td>Published specification:</td>
-              <td><a href="https://w3.org/TR/vc-jose-cose">https://w3.org/TR/vc-jose-cose</a></td>
+              <td><a href="https://www.w3.org/TR/vc-jose-cose">https://www.w3.org/TR/vc-jose-cose</a></td>
             </tr>
             <tr>
               <td>Applications that will use this media:</td>
@@ -1730,7 +1742,7 @@
             </tr>
             <tr>
               <td>Published specification:</td>
-              <td><a href="https://w3.org/TR/vc-jose-cose">https://w3.org/TR/vc-jose-cose</a></td>
+              <td><a href="https://www.w3.org/TR/vc-jose-cose">https://www.w3.org/TR/vc-jose-cose</a></td>
             </tr>
             <tr>
               <td>Applications that will use this media:</td>
@@ -1829,7 +1841,7 @@
             </tr>
             <tr>
               <td>Published specification:</td>
-              <td><a href="https://w3.org/TR/vc-jose-cose">https://w3.org/TR/vc-jose-cose</a></td>
+              <td><a href="https://www.w3.org/TR/vc-jose-cose">https://www.w3.org/TR/vc-jose-cose</a></td>
             </tr>
             <tr>
               <td>Applications that will use this media:</td>
@@ -1924,7 +1936,7 @@
             </tr>
             <tr>
               <td>Published specification:</td>
-              <td><a href="https://w3.org/TR/vc-jose-cose">https://w3.org/TR/vc-jose-cose</a></td>
+              <td><a href="https://www.w3.org/TR/vc-jose-cose">https://www.w3.org/TR/vc-jose-cose</a></td>
             </tr>
             <tr>
               <td>Applications that will use this media:</td>
@@ -2019,7 +2031,7 @@
             </tr>
             <tr>
               <td>Published specification:</td>
-              <td><a href="https://w3.org/TR/vc-jose-cose">https://w3.org/TR/vc-jose-cose</a></td>
+              <td><a href="https://www.w3.org/TR/vc-jose-cose">https://www.w3.org/TR/vc-jose-cose</a></td>
             </tr>
             <tr>
               <td>Applications that will use this media:</td>
@@ -2199,12 +2211,12 @@
       <h3 id="examples">Examples</h3>
       <section>
         <h2 id="controllers">Controllers</h2>
-        <pre class="example" title="A minimal controller document">
+        <pre class="example" title="A minimal controlled identifier document">
         {
           "id": "https://vendor.example",
         }
         </pre>
-        <pre class="example" title="A controller document with verification method">
+        <pre class="example" title="A controlled identifier document with verification method">
         {
           "id": "https://university.example/issuers/565049",
           "verificationMethod": [{
@@ -2221,7 +2233,7 @@
           }]
         }
         </pre>
-        <pre class="example" title="A controller document with verification relationships">
+        <pre class="example" title="A controlled identifier document with verification relationships">
         {
           "id": "https://university.example/issuers/565049",
           "verificationMethod": [{
@@ -2240,14 +2252,14 @@
           "assertionMethod": ["https://university.example/issuers/565049#key-123"]
         }
         </pre>
-        <pre class="example" title="A verifiable credential controller document">
+        <pre class="example" title="A verifiable credential controlled identifier document">
 {
   "@context": [
-        "https://www.w3.org/ns/did/v1",
-        "https://w3id.org/security/jwk/v1",
-        {
-            "@vocab": "https://vendor.example#"
-        }
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/jwk/v1",
+    {
+        "@vocab": "https://vendor.example#"
+    }
   ],
   "id": "did:web:vendor.example",
   "alsoKnownAs": ["https://vendor.example",
