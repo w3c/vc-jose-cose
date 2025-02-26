@@ -2463,6 +2463,46 @@ data:application/vp+cose;base64,0oREoQE4IqBZDSJ7IkBjb250ZXh0IjpbImh0dHBzOi8vd3d3
       </section>
     </section>
     <section class="appendix informative">
+      <h2>Revision History</h2>
+      <p>
+This section describes substantive changes that have been made to this specification.
+      </p>
+      <p>
+Changes since the
+<a href="https://www.w3.org/TR/2024/CRD-vc-jose-cose-20240425/">First Candidate Recommendation</a>:
+      </p>
+
+      <ul>
+        <li>
+Updated to use the [[[CID-1.0]]] specification.
+        </li>
+	<li>
+Changed media types from application/{vc,vp}+ld+json+{jwt,sd-jwt,cose}
+to application/{vc,vp}+{jwt,sd-jwt,cose}.
+	</li>
+	<li>
+Use <a data-cite="RFC9596#section-2">COSE "typ" (type) Header Parameter</a>.
+	</li>
+	<li>
+Described differentiating between secured content of different types
+using the <code>cty</code> header parameter.
+	</li>
+	<li>
+Added considerations about what which parameters may be selectively disclosed.
+	</li>
+	<li>
+Described encrypting secured credentials and presentations.
+	</li>
+	<li>
+Said that use of the <code>nbf</code> (Not Before) claim is NOT RECOMMENDED.
+	</li>
+	<li>
+Updated many examples.
+	</li>
+      </ul>
+
+    </section>
+    <section class="appendix informative">
       <h2>Acknowledgements</h2>
       <p>
         The Working Group thanks Orie Steele for his substantive intellectual
