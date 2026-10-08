@@ -14,7 +14,7 @@ jobs:
         with:
           TOOLCHAIN: respec
           W3C_ECHIDNA_TOKEN: ${{ secrets.W3C_TR_TOKEN }}
-          W3C_WG_DECISION_URL: https://www.w3.org/2017/vc/WG/Meetings/Minutes/2023-04-12-vcwg#resolution1
+          W3C_WG_DECISION_URL: https://w3c.github.io/vc-wg/minutes/2026-10-07.html#a858
           W3C_BUILD_OVERRIDE: |
              shortName: vc-jose-cose
-             specStatus: CRD
+             specStatus: REC
