@@ -12,7 +12,7 @@
 
           // specification status (e.g., WD, NOTE, etc.). If in doubt use
           // ED.
-          specStatus: "CR",
+          specStatus: "REC",
           crEnd: "2025-01-19",
 
           prEnd: "2025-04-17",
@@ -30,8 +30,8 @@
 
           // if there is a previously published draft, uncomment this and
           // set its YYYY-MM-DD date and its maturity status
-          previousPublishDate: "2024-11-05",
-          previousMaturity: "PR",
+          previousPublishDate: "2025-05-15",
+          previousMaturity: "REC",
 
           // extend the bibliography entries localBiblio: vcwg.localBiblio,
           doJsonLd: true,
@@ -56,14 +56,15 @@
               },
               {
                   name: "Michael Prorock",
-                  company: "Mesur.io", companyURL: "https://mesur.io/",
-                  w3cid: 130636
+                  url: "https://mesur.io/",
+                  w3cid: 130636,
+                  extras: [{ name: "(Mesur.io)", class: "former" }]
               },
               {
                   name: "Gabe Cohen",
                   url: "https://github.com/decentralgabe",
-                  company: "Invited Expert",
-                  w3cid: 116851
+                  w3cid: 116851,
+                  extras: [{ name: "(Invited Expert)", class: "former" }]
               }
           ],
           // authors, add as many as you like. This is optional, uncomment
@@ -426,7 +427,7 @@
           <p>
             The <code>typ</code> header parameter SHOULD be <code>vc+jwt</code>.
             When present, the <code>cty</code> header parameter SHOULD be
-            <code>vc</code>. 
+            <code>vc</code>.
             The <code>cty</code> header parameter value can be used to differentiate
             between secured content of different types when using <code>vc+jwt</code>.
             The <code>content type</code> header parameter is optional, and can be used
@@ -673,7 +674,7 @@
           <p>
             The <code>typ</code> header parameter SHOULD be <code>vc+sd-jwt</code>.
             When present, the <code>cty</code> header parameter SHOULD be <code>vc</code>.
-            The <code>cty</code> header parameter value can be used to differentiate 
+            The <code>cty</code> header parameter value can be used to differentiate
             between secured content of different types when using <code>vc+sd-jwt</code>.
             The <code>content type</code> header parameter is optional, and can be used
             to express a more specific media type than <code>application/vc</code> when one is available.
